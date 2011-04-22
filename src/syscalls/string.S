@@ -1,0 +1,7 @@
+#include <asm.h>
+
+SYSCALL_BARE(memcmp, 0x1DD1)
+SYSCALL_BARE(memcpy, 0x1DD0)
+SYSCALL_BARE(memset, 0x1511)
+
+SYSCALL_ADDRESS
