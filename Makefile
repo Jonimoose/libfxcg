@@ -1,16 +1,16 @@
 CC=sh3eb-elf-gcc.exe
-LD=sh3eb-elf-ld.exe
-CFLAGS=-c -fPIC -m3 -mb -O9 -nostdlib -Wall -Lr -Iinclude
-LDFLAGS=-r
+AR=sh3eb-elf-ar.exe
+CFLAGS=-c -ffunction-sections -fdata-sections -fPIC -m3 -mb -O9 -nostdlib -Wall -Lr -Iinclude
+ARFLAGS=rs
 VPATH=src/syscalls
 SOURCES=$(wildcard src/syscalls/*.S)
 OBJECTS=$(SOURCES:.S=.o)
-LIBRARY=libfxcg.o
+LIBRARY=libfxcg.a
 
 all: $(SOURCES) $(LIBRARY)
 	
 $(LIBRARY): $(OBJECTS)
-	$(LD) $(LDFLAGS) $(OBJECTS) -o $@
+	$(AR) $(ARFLAGS) $@ $(OBJECTS) 
 
 .S.o:
 	$(CC) $(CFLAGS) $< -o $@

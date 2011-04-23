@@ -1,8 +1,0 @@
-#include <asm.h>
-
-SYSCALL_BARE(HexToByte, 0x1344)
-SYSCALL_BARE(HexToWord, 0x1345)
-SYSCALL_BARE(WordToHex, 0x1348)
-SYSCALL_BARE(itoa, 0x1170)
-
-SYSCALL_ADDRESS

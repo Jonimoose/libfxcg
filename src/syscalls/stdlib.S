@@ -1,7 +1,0 @@
-#include <asm.h>
-
-SYSCALL_BARE(free, 0x1F42)
-SYSCALL_BARE(malloc, 0x1F44)
-SYSCALL_BARE(realloc, 0x1F46)
-
-SYSCALL_ADDRESS
