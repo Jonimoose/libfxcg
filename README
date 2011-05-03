@@ -1,0 +1,4 @@
+libfxcg
+Syscall and helper library for the Casio FX-CG (Prizm) color graphing calculator
+
+Not much to see here except the syscalls, hopefully that will change in the future.

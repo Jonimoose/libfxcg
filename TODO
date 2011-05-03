@@ -1,0 +1,4 @@
+Add other functions besides syscalls.
+Work on reoginizing the include files to be more ANSI C like
+Figure out the best way to organize the C syscalls and functions no in the 
+standard C headers
