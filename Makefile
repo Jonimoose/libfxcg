@@ -1,6 +1,7 @@
-CC=sh3eb-elf-gcc.exe
-AR=sh3eb-elf-ar.exe
-CFLAGS=-c -ffunction-sections -fdata-sections -fPIC -m3 -mb -O9 -nostdlib -Wall -Lr -Iinclude
+PREFIX=..\PrizmSDK\bin
+CC=$(PREFIX)\sh3eb-elf-gcc.exe
+AR=$(PREFIX)\sh3eb-elf-ar.exe
+CFLAGS=-c -ffunction-sections -fdata-sections -fPIC -m4a-nofpu -mb -Os -nostdlib -Wall -Lr -Iinclude
 ARFLAGS=rs
 VPATH=src/syscalls
 SOURCES=$(wildcard src/syscalls/*.S)
