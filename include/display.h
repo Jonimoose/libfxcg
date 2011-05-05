@@ -1,4 +1,10 @@
+/* Casio fx-CG10/20 display defines and syscalls. */
+
+#define LCD_WIDTH_PX 384
+#define LCD_HEIGHT_PX 216 
+
 void Bdisp_AreaClr_DD_x3( void*p1 );
+void Bdisp_EnableColor( int n );
 void Print_OS( unsigned char*msg, int invers, int zero2 );
 void Bdisp_PutDisp_DD( void );
 void Bdisp_PutDisp_DD_stripe( int y1, int y2 );
