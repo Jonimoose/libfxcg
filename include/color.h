@@ -1,3 +1,6 @@
+// Original Author, Shaun McFall (Merthsoft)
+// Used with permission
+
 static const int TEXT_COLOR_BLACK	= 0;
 static const int TEXT_COLOR_BLUE	= 1;
 static const int TEXT_COLOR_GREEN	= 2;
