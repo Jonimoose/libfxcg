@@ -29,7 +29,7 @@ do
     echo "#include <asm.h>
 
 SYSCALL(_${SYSCALL}, 0x${EQUATE})
-">$SOURCEDIR/${SYSCALL}.s
+">$SOURCEDIR/${SYSCALL}.S
 
 done   
 IFS=$old_IFS

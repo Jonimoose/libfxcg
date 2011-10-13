@@ -63,9 +63,9 @@ X8056:
 		cmp/str	r5, r6
 		bt	X8082
 		mov.l	@r1+, r4
-		mov.l	r5, @(h'C,r0)
+		mov.l	r5, @(0x0C,r0)
 		bra	X8056
-		add	#h'10, r0
+		add	#0x10, r0
 X807A:
 		bra	X8084
 		add	#4, r0
@@ -73,7 +73,7 @@ X807E:
 		bra	X8084
 		add	#8, r0
 X8082:
-		add	#h'C, r0
+		add	#0xC, r0
 X8084:
 		add	#-4, r1
 		mov	r0, r6
