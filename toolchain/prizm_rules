@@ -1,0 +1,77 @@
+ifeq ($(strip $(FXCGSDK)),)
+$(error "Please set FXCGSDK in your environment. export FXCGSDK=<path to sdk location>)
+endif
+
+export	LIBFXCG_INC	:=	$(FXCGSDK)/include
+export	LIBFXCG_LIB	:=	$(FXCGSDK)/lib
+
+MACHDEP = -mb -m4a-nofpu -mhitachi -nostdlib
+
+#---------------------------------------------------------------------------------
+# path to tools 
+#---------------------------------------------------------------------------------
+export PATH	:=	$(FXCGSDK)/bin:$(PATH)
+
+#---------------------------------------------------------------------------------
+# the prefix on the compiler executables
+#---------------------------------------------------------------------------------
+PREFIX	:=	sh3eb-elf-
+
+export AS	:=	$(PREFIX)as
+export CC	:=	$(PREFIX)gcc
+export CXX	:=	$(PREFIX)g++
+export AR	:=	$(PREFIX)ar
+export OBJCOPY	:=	$(PREFIX)objcopy
+export MKG3A := mkg3a
+
+#---------------------------------------------------------------------------------
+# This is from devkitpro's MSVC stuff for makings errors cleaner, requires sed
+#---------------------------------------------------------------------------------
+#ISVC=$(or $(VCBUILDHELPER_COMMAND),$(MSBUILDEXTENSIONSPATH32),$(MSBUILDEXTENSIONSPATH))
+#
+#ifneq (,$(ISVC))
+#	ERROR_FILTER	:=	2>&1 | sed -e 's/\(.[a-zA-Z]\+\):\([0-9]\+\):/\1(\2):/g'
+#endif
+
+#---------------------------------------------------------------------------------
+%.a:
+#---------------------------------------------------------------------------------
+	rm -f $@
+	$(AR) -rc $@ $^
+
+#---------------------------------------------------------------------------------
+%.o: %.cpp
+	$(CXX) -MMD -MP -MF $(DEPSDIR)/$*.d $(CXXFLAGS) -c $< -o $@ $(ERROR_FILTER)
+	
+#---------------------------------------------------------------------------------
+%.o: %.c
+	$(CC) -MMD -MP -MF $(DEPSDIR)/$*.d $(CFLAGS) -c $< -o $@ $(ERROR_FILTER)
+
+#---------------------------------------------------------------------------------
+%.o: %.m
+	$(CC) -MMD -MP -MF $(DEPSDIR)/$*.d $(OBJCFLAGS) -c $< -o $@ $(ERROR_FILTER)
+
+#---------------------------------------------------------------------------------
+%.o: %.s
+	$(CC) -MMD -MP -MF $(DEPSDIR)/$*.d -x assembler-with-cpp $(ASFLAGS) -c $< -o $@ $(ERROR_FILTER)
+
+#---------------------------------------------------------------------------------
+%.o: %.S
+	$(CC) -MMD -MP -MF $(DEPSDIR)/$*.d -x assembler-with-cpp $(ASFLAGS) -c $< -o $@ $(ERROR_FILTER)
+    
+#---------------------------------------------------------------------------------
+%.g3a: %.bin
+	$(MKG3A) $(MKG3AFLAGS) $< $@
+    
+%.bin:
+	$(LD)  $^ $(LDFLAGS) $(LIBPATHS) $(LIBS) -o $@
+
+#---------------------------------------------------------------------------------
+# canned command sequence for binary data
+#---------------------------------------------------------------------------------
+define bin2o
+	bin2s -a 32 $< | $(AS) -o $(@)
+	echo "extern const u8" `(echo $(<F) | sed -e 's/^\([0-9]\)/_\1/' | tr . _)`"_end[];" > `(echo $(<F) | tr . _)`.h
+	echo "extern const u8" `(echo $(<F) | sed -e 's/^\([0-9]\)/_\1/' | tr . _)`"[];" >> `(echo $(<F) | tr . _)`.h
+	echo "extern const u32" `(echo $(<F) | sed -e 's/^\([0-9]\)/_\1/' | tr . _)`_size";" >> `(echo $(<F) | tr . _)`.h
+endef

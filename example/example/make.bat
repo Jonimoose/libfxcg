@@ -1,0 +1,2 @@
+..\..\bin\make.exe %*
+pause

@@ -1,0 +1,29 @@
+PREFIX=../../
+CC=$(PREFIX)bin/sh3eb-elf-gcc.exe
+MKG3A=$(PREFIX)bin/mkg3a.exe
+OUTDIR=.
+RM=del
+CFLAGS=-m4-nofpu -mb -Os -mhitachi -Wall -nostdlib -I$(PREFIX)include -lfxcg -lgcc -L$(PREFIX)lib
+LDFLAGS=$(CFLAGS) -T../common/prizm.ld -Wl,-static -Wl,-gc-sections
+CSOURCES=example.c
+OBJECTS=$(SHSOURCES:.s=.o) $(CSOURCES:.c=.o) 
+SHSOURCES=
+BIN=$(OUTDIR)Example.bin
+ADDIN=$(BIN:.bin=.g3a)
+ 
+all: $(ADDIN)
+ 
+$(BIN): $(OBJECTS)
+	$(CC) $(addprefix $(OUTDIR)/,$<)  $(LDFLAGS) -o $@
+ 
+$(ADDIN): $(BIN)
+	$(MKG3A) -n :Example $< $@
+ 
+.s.o:
+	$(CC) -c $(CFLAGS) $< -o $(OUTDIR)/$@
+ 
+.c.o:
+	$(CC) -c $(CFLAGS) $< -o $(OUTDIR)/$@
+ 
+clean:
+	$(RM) $(addprefix $(OUTDIR)\,$(OBJECTS)) $(BIN) $(ADDIN)
