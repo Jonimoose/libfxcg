@@ -15,3 +15,4 @@ void OS_InnerWait_ms( int );
 void SetSetupSetting( unsigned int SystemParameterNo, unsigned char SystemParameterValue );
 void SMEM_maint( int );
 void TestMode( int );
+void PowerOff(int displayLogo);
