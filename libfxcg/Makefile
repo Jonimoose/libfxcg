@@ -1,7 +1,6 @@
-PREFIX=~/sh3eb-elf/bin
-CC=$(PREFIX)/sh3eb-elf-gcc
-AS=$(PREFIX)/sh3eb-elf-as
-AR=$(PREFIX)/sh3eb-elf-ar
+CC=sh3eb-elf-gcc
+AS=sh3eb-elf-as
+AR=sh3eb-elf-ar
 CFLAGS=-c -ffunction-sections -fdata-sections -m4a-nofpu -mb -Os -nostdlib -Wall -Lr -Iinclude
 ARFLAGS=rs
 VPATH=src/syscalls
