@@ -1,4 +1,4 @@
 #include <asm.h>
 
-SYSCALL(_sys_malloc, 0x1F44)
+SYSCALL(_malloc, 0x1F44)
 

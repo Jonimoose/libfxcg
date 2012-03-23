@@ -1,4 +1,4 @@
 #include <asm.h>
 
-SYSCALL(_sys_memcpy, 0x1DD0)
+SYSCALL(_memcpy, 0x1DD0)
 

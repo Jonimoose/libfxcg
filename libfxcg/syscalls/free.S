@@ -1,4 +1,4 @@
 #include <asm.h>
 
-SYSCALL(_sys_free, 0x1F42)
+SYSCALL(_free, 0x1F42)
 

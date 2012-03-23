@@ -1,4 +1,4 @@
 #include <asm.h>
 
-SYSCALL(_sys_strlen, 0x1349)
+SYSCALL(_strlen, 0x1349)
 
