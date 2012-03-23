@@ -3,10 +3,10 @@ AS=sh3eb-elf-as
 AR=sh3eb-elf-ar
 CFLAGS=-c -ffunction-sections -fdata-sections -m4a-nofpu -mb -Os -nostdlib -Wall -Lr -Iinclude
 ARFLAGS=rs
-VPATH=src/syscalls
-SHSOURCES=$(wildcard src/syscalls/*.S) $(wildcard src/misc/*.S)
-CSOURCES=$(wildcard src/misc/*.c)
-CXXSOURCES=$(wildcard src/misc/*.cpp)
+VPATH=syscalls
+SHSOURCES=$(wildcard syscalls/*.S) $(wildcard misc/*.S)
+CSOURCES=$(wildcard misc/*.c)
+CXXSOURCES=$(wildcard misc/*.cpp)
 OBJECTS=$(SHSOURCES:.S=.o) $(CSOURCES:.c=.o) $(CXXSOURCES:.cpp=.o)
 LIBRARY=libfxcg.a
 
