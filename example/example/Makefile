@@ -7,7 +7,7 @@
 # to use a system environment var in the future.
 #---------------------------------------------------------------------------------
 ifeq ($(strip $(FXCGSDK)),)
-export FXCGSDK := $(abspath ../../)
+export FXCGSDK := ../../
 endif
 
 include $(FXCGSDK)/common/prizm_rules
