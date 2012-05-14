@@ -8,6 +8,8 @@ extern int errno;
 #define EDOM (-3)
 #define ENXIO (-4)
 #define EAGAIN (-5)
+#define EIO (-6)
+#define ENOMEM (-7)
 
 #define ENOTIMPL 0xBEEF
 

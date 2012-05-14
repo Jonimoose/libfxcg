@@ -34,7 +34,7 @@ FILE *fdopen(int fd, const char *mode);
 FILE *freopen(const char *path, const char *mode, FILE *stream);
 int fclose(FILE *fp);
 
-int fwrite(const void *buffer, size_t size, size_t count, FILE *stream);
+size_t fwrite(const void *buffer, size_t size, size_t count, FILE *stream);
 int fflush(FILE *stream);
 int ferror(FILE *stream);
 
