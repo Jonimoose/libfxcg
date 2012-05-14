@@ -9,4 +9,6 @@ extern int errno;
 #define ENXIO (-4)
 #define EAGAIN (-5)
 
+#define ENOTIMPL 0xBEEF
+
 #endif

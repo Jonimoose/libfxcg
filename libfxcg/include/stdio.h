@@ -3,14 +3,22 @@
 
 #include <stddef.h>
 
-typedef unsigned char FILE;
 #define EOF (-1)
-extern FILE _impl_stderr;
-#define stderr (&_impl_stderr)
-extern FILE _impl_stdin;
+
+typedef struct {
+    /* Usual values for stdin and friends, everything else is the handle
+     * from the system +3 */
+    unsigned fileno;
+    unsigned error : 1;
+    /* Just for rewinding the stream. */
+    unsigned has_unput : 1;
+    unsigned char unput;
+} FILE;
+
+extern FILE _impl_stdin, _impl_stdout, _impl_stderr;
 #define stdin (&_impl_stdin)
-extern FILE _impl_stdout;
 #define stdout (&_impl_stdout)
+#define stderr (&_impl_stderr)
 
 #define BUFSIZ 1
 

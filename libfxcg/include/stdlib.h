@@ -1,6 +1,8 @@
 #ifndef _FXCG_STDLIB_H
 #define _FXCG_STDLIB_H
 
+#include <stddef.h>
+
 long abs(long n);
 
 void free(void *p);
