@@ -1,0 +1,5 @@
+# I'm tired of digging through lists of object files.
+*.o
+*.a
+# And scraps from vim
+.*.swp

@@ -6,6 +6,10 @@ void *malloc(size_t sz) {
     return sys_malloc(sz);
 }
 
+void *realloc(void *ptr, size_t sz) {
+    return sys_realloc(ptr, sz);
+}
+
 void free(void *ptr) {
     sys_free(ptr);
 }
@@ -49,11 +53,13 @@ long strtol(const char *str, char **str_end, int base) {
 
         v = (v * base) + v_in;
     }
-    *str_end = str;
+    *str_end = (char *)str;
     return v;
 }
 
+/*
 void qsort(void *base, size_t nel, size_t width,
            int (*compar)(const void *, const void *)) {
 #warning qsort unimplemented
 }
+*/
