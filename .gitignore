@@ -3,3 +3,6 @@
 *.a
 # And scraps from vim
 .*.swp
+
+example/*.bin
+example/*.g3a
