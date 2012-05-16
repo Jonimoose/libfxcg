@@ -1,6 +1,7 @@
 #include <fxcg/heap.h>
 #include <stdio.h>
 #include <limits.h>
+#include <ctype.h>
 
 void *malloc(size_t sz) {
     return sys_malloc(sz);
