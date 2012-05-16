@@ -15,4 +15,3 @@ $(LIBRARY): $(OBJECTS)
 
 clean:
 	rm -f $(OBJECTS) $(LIBRARY)
-

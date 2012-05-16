@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // Shaun McFall, 2012
 // Everything is just assuming ASCII right now...
 
