@@ -4,8 +4,6 @@
 // it.  Implementations here are mostly wrappers for standard library functions
 #include <sys/types.h>
 
-// Things with file descriptors are actually the canonical versions here, stdio
-// wraps these.
 int isatty(int fd);
 int dup(int fd);
 int dup2(int fd, int fd2);
@@ -17,5 +15,11 @@ int dup2(int fd, int fd2);
 
 size_t write(int fd, const void *buf, size_t n);
 off_t lseek(int fd, off_t offset, int whence);
+
+#ifdef _FXCG_LIBFXCG_INTERNAL
+// Guts for descriptor tables.  Nasty UNIX emulation. :(
+int _dtable_register(int d);
+void _dtable_unregister(int d);
+#endif
 
 #endif

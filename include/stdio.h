@@ -10,6 +10,7 @@ typedef struct {
      * from the system +3 */
     unsigned fileno;
     unsigned error : 1;
+    unsigned eof : 1;
     /* Just for rewinding the stream. */
     unsigned has_unput : 1;
     unsigned char unput;
@@ -34,6 +35,7 @@ FILE *fdopen(int fd, const char *mode);
 FILE *freopen(const char *path, const char *mode, FILE *stream);
 int fclose(FILE *fp);
 
+size_t fread(void *buffer, size_t size, size_t count, FILE *stream);
 size_t fwrite(const void *buffer, size_t size, size_t count, FILE *stream);
 int fflush(FILE *stream);
 int ferror(FILE *stream);
@@ -48,6 +50,11 @@ int getc(FILE *stream);
 int getchar(void);
 char *gets(char *s);
 int ungetc(int c, FILE *stream);
+
+int fputc(int c, FILE *stream);
+#define putc fputc
+int putchar(int c);
+int puts(const char *s);
 
 int printf(const char *fmt, ...);
 int sprintf(char *dest, const char *fmt, ...);
