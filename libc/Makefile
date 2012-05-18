@@ -4,13 +4,14 @@ AR=sh3eb-elf-ar
 CFLAGS=-c -ffunction-sections -fdata-sections -m4a-nofpu -mb -Os -nostdlib \
 	   -Wall -L../lib -I../include -Wsystem-headers
 LDFLAGS=-Wl,-static -lfxcg
-ARFLAGS=rs
+ARFLAGS=rsv
 OBJECTS=stdio.o stdlib.o ctype.o
 LIBRARY=../lib/libc.a
 
 all: $(LIBRARY)
 	
-$(LIBRARY): $(OBJECTS)
+$(LIBRARY): $(OBJECTS) ../lib/libfxcg.a
+	cp ../lib/libfxcg.a ../lib/libc.a
 	$(AR) $(ARFLAGS) $@ $(OBJECTS) 
 
 clean:
