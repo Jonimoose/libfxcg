@@ -12,7 +12,7 @@ void *memset(void *dest, int c, unsigned int n);
 
 char *strcat(char *s1, const char *s2);
 char *strchr(const char *s, int c);
-int strcmp( const char*, const char* );
+int strcmp(const char*, const char*);
 int strcoll(const char *s1, const char *s2);
 char *strcpy(char *s1, const char *s2);
 size_t strcspn(const char *s1, const char *s2);
