@@ -57,7 +57,8 @@ long strtol(const char *str, char **str_end, int base) {
 
         v = (v * base) + v_in;
     }
-    *str_end = (char *)str;
+    if (str_end != NULL)
+        *str_end = (char *)str;
     return v;
 }
 
