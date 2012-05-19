@@ -11,7 +11,7 @@ void *memmove(void *s1, const void *s2, int n);
 void *memset(void *dest, int c, unsigned int n);
 
 char *strcat(char *s1, const char *s2);
-void *strchr(const char *s, int c);
+char *strchr(const char *s, int c);
 int strcmp( const char*, const char* );
 int strcoll(const char *s1, const char *s2);
 char *strcpy(char *s1, const char *s2);

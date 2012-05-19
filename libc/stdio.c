@@ -10,8 +10,18 @@ FILE _impl_stdin = {0, 0, 0};
 FILE _impl_stdout = {1, 0, 0};
 FILE _impl_stderr = {2, 0, 0};
 
-static int isstdstream(FILE *f) {
+#define IOERR(stream, err) errno = err; stream->error = 1
+
+static inline int isstdstream(FILE *f) {
     return f->fileno < 3;
+}
+
+static inline int handle_tonative(int fileno) {
+    return fileno - 3;
+}
+
+int feof(FILE *stream) {
+    return stream->eof;
 }
 
 FILE *fopen(const char *path, const char *mode) {
@@ -60,15 +70,28 @@ FILE *fopen(const char *path, const char *mode) {
         return NULL;
     }
     f->fileno = syshandle + 3;
+    // TODO reenable when dup() works
+    /*if (_dtable_register(f->fileno)) {
+        errno = ENFILE;
+        return NULL;
+    }*/
     f->error = 0;
     f->has_unput = 0;
     return f;
 }
 
+// TODO implement me.
+// Same use-case in Python as dup(), so not necessary.  Just fail.
+FILE *fdopen(int fd, const char *mode) {
+    return NULL;
+}
+
 int fclose(FILE *fp) {
     if (!isstdstream(fp)) {
         // TODO Not sure what this can return.  Assuming never fails.
-        Bfile_CloseFile_OS(fp->fileno - 3);
+        Bfile_CloseFile_OS(handle_tonative(fp->fileno));
+        // TODO reenable when dup() does something
+        //_dtable_unregister(fp->fileno);
         sys_free(fp);
     } else {
         // std streams are just serial I/O.  Do nothing.
@@ -76,22 +99,23 @@ int fclose(FILE *fp) {
     return 0;
 }
 
-// TODO restrict ptr, stream
-static size_t fwrite_serial(const void *ptr, size_t size, size_t nitems,
-                            FILE *stream) {
-    if (size > 256) {   // tx buffer is 256 bytes, don't get stuck waiting
-        errno = EIO;
-        return 0;
-    }
-
-    // Init comms if necessary
+static int serial_ensureopen() {
     if (Serial_IsOpen() != 1) { // syscall 0x1bc6
         unsigned char mode[6] = {0, 5, 0, 0, 0, 0};    // 9600 bps 8n1
         if (Serial_Open(mode) != 0) {   // syscall 0x1bb7
-            stream->error = 1;
-            errno = EIO;
-            return 0;
+            return 1;
         }
+    }
+    return 0;
+}
+
+// TODO restrict ptr, stream
+static size_t fwrite_serial(const void *ptr, size_t size, size_t nitems,
+                            FILE *stream) {
+    // tx buffer is 256 bytes, don't get stuck waiting
+    if (size > 256 || serial_ensureopen()) {
+        IOERR(stream, EIO);
+        return 0;
     }
 
     // Transmit
@@ -115,8 +139,86 @@ size_t fwrite(const void *ptr, size_t size, size_t nitems,
         return fwrite_serial(ptr, size, nitems, stream);
     }
     // TODO this must be able to fail, but how?
-    Bfile_WriteFile_OS(stream->fileno - 3, ptr, size * nitems);
+    Bfile_WriteFile_OS(handle_tonative(stream->fileno), ptr, size * nitems);
     return nitems;
 }
 
+size_t fread_serial(void *buffer, size_t size, size_t count, FILE *stream) {
+    short bytes;
+    size_t read = 0;
+    // Don't get stuck waiting for a block to come in (buffer is 256 bytes)
+    if (size > 256 || serial_ensureopen()) {
+        IOERR(stream, EIO);
+        return 0;
+    }
 
+    while (count-- > 0) {
+        while (Serial_PollRX() < size);
+        Serial_Read(buffer, size, &bytes);
+        buffer += size;
+        read++;
+    }
+    return read;
+}
+
+size_t fread(void *buffer, size_t size, size_t count, FILE *stream) {
+    size_t n = size * count;
+    if (isstdstream(stream)) {
+        return fread_serial(buffer, size, n, stream);
+    }
+
+    // TODO failure modes unknown
+    Bfile_ReadFile_OS(handle_tonative(stream->fileno), buffer, n, 0);
+    return n;
+}
+
+int fputc(int c, FILE *stream) {
+    unsigned char uc = (unsigned char)c;
+    if (fwrite(&uc, 1, 1, stream) != 1)
+        return EOF;
+    return uc;
+}
+
+int putchar(int c) {
+    return fputc(c, stdout);
+}
+
+int fputs(const char *s, FILE *stream) {
+    size_t len = strlen(s);
+    if (fwrite(s, 1, len, stdout) != len)
+        return EOF;
+    return 0;
+}
+
+int puts(const char *s) {
+    int ret = fputs(s, stdout);
+    putchar('\n');
+    return ret;
+}
+
+char *fgets(char *s, int n, FILE *stream) {
+    unsigned char c;
+    char *s_in = s;
+    int count = 0;
+    if (n < 1)
+        return NULL;
+
+    do {
+        if (fread(&c, 1, 1, stream) != 1)
+            return NULL;
+        *s++ = c;
+        count++;
+    } while (c != '\n' && count < n && c != EOF);
+
+    if (count < n) // Back up unless didn't consume a terminator
+        s--;
+    *s = 0;
+    return s_in;
+}
+
+void perror(const char *s) {
+    if (s != NULL && strlen(s) > 0) {
+        fprintf(stderr, "(%s): ", s);
+    }
+    fprintf(stderr, "code %i (xref errno.h)\n", -errno);
+}

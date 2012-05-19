@@ -1,7 +1,10 @@
 #include <fxcg/heap.h>
-#include <stdio.h>
-#include <limits.h>
 #include <ctype.h>
+#include <limits.h>
+#include <stdio.h>
+
+// External linkage
+int errno;
 
 void *malloc(size_t sz) {
     return sys_malloc(sz);
