@@ -16,4 +16,3 @@ $(LIBRARY): $(OBJECTS) ../lib/libfxcg.a
 
 clean:
 	rm -f $(OBJECTS) $(LIBRARY)
-
