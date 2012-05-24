@@ -4,9 +4,10 @@
 void *memccpy(void *dest, const void *src, int c, size_t num) {
 	char* d = (char*)dest;
 	char* s = (char*)src;
-	while ((*d = *s) != (char)c && --num > 0) {
+	while ((*d = *s) != (char)c && num > 0) {
 		d++;
 		s++;
+		num--;
 	}
 
 	return num == 0 ? NULL : (void*)(++d);

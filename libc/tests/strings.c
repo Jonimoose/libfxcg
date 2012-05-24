@@ -108,10 +108,10 @@ void strtokTest() {
 }
 
 void memccpyTest() {
-	char *src = "This is the source string\0";
+	char *src = "This is the sourc";
 	char dest[50];
 	char *ptr;
-	ptr = (char *)memccpy(dest, src, 'c', strlen(src));
+	ptr = (char *)memccpy(dest, src, 'c', strlen(src)-1);
 	if (ptr) {
 	   *ptr = '\0';
 	   printf("The character was found: %s\n", dest);
