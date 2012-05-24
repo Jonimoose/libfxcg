@@ -14,9 +14,8 @@ void strcspnTest() {
 	char str[] = "shaun73";
 	char keys[] = "1234567890";
 	int i;
-	printf("The first number in '%s'", str);
 	i = strcspn(str,keys);
-	printf(" is at position %d.\n",i);
+	printf("The first number in '%s' is at position %d.\n", str, i);
 }
 
 void strncpyTest() {
@@ -108,6 +107,19 @@ void strtokTest() {
 	printf("\n%s\n", str);
 }
 
+void memccpyTest() {
+	char *src = "This is the source string\0";
+	char dest[50];
+	char *ptr;
+	ptr = (char *)memccpy(dest, src, 'c', strlen(src));
+	if (ptr) {
+	   *ptr = '\0';
+	   printf("The character was found: %s\n", dest);
+	} else {
+		printf("The character wasn't found\n");
+	}
+}
+
 int main () {
 	printf("strcat:\n");
 	strcatTest();
@@ -141,6 +153,9 @@ int main () {
 	
 	printf("\nstrtok:\n");
 	strtokTest();
+
+	printf("\nmemccpy:\n");
+	memccpyTest();
 
 	return 0;
 }

@@ -1,6 +1,17 @@
 #include <stdlib.h>
 #include <string.h>
 
+void *memccpy(void *dest, const void *src, int c, size_t num) {
+	char* d = (char*)dest;
+	char* s = (char*)src;
+	while ((*d = *s) != (char)c && --num > 0) {
+		d++;
+		s++;
+	}
+
+	return num == 0 ? NULL : (void*)(++d);
+}
+
 char *strcat(char *dest, const char *src) {
 	dest += strlen(dest);
 	return strcpy(dest, src);
