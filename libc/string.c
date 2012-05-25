@@ -13,6 +13,56 @@ void *memccpy(void *dest, const void *src, int c, size_t num) {
 	return num == 0 ? NULL : (void*)(++d);
 }
 
+void *memchr(const void *ptr, int c, size_t n) {
+	char* s = (char*)ptr;
+	while (*s != (char)c && n > 0) {
+		s++;
+		n--;
+	}
+
+	return n == 0 ? NULL : (void*)s;
+}
+
+int memcmp(const void *p1, const void *p2, unsigned int n) {
+	char* s1 = (char*)p1;
+	char* s2 = (char*)p2;
+
+	while (n-- != 0 && *s1 == *s2) {
+        s1++;
+        s2++;
+    }
+
+    return *s1 - *s2;
+}
+
+void* memcpy(void* destination, const void* source, size_t num) {
+	char* d = (char*)destination;
+	char* s = (char*)source;
+	while (num-- > 0) {
+		*d = *s;
+		d++;
+		s++;
+	}
+
+	return destination;
+}
+
+void* memmove(void* destination, const void* source, size_t num) {
+	void* d = malloc(num);
+	memcpy(d, source, num);
+	memcpy(destination, d, num);
+	free(d);
+	return destination;
+}
+
+void *memset(void *dest, int c, unsigned int n) {
+	char* d = (char*)dest;
+	while (n-- > 0) { *d++ = (char)c; }
+	
+	return dest;
+}
+
+
 char *strcat(char *dest, const char *src) {
 	dest += strlen(dest);
 	return strcpy(dest, src);
