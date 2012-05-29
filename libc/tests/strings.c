@@ -14,9 +14,8 @@ void strcspnTest() {
 	char str[] = "shaun73";
 	char keys[] = "1234567890";
 	int i;
-	printf("The first number in '%s'", str);
 	i = strcspn(str,keys);
-	printf(" is at position %d.\n",i);
+	printf("The first number in '%s' is at position %d.\n", str, i);
 }
 
 void strncpyTest() {
@@ -108,6 +107,69 @@ void strtokTest() {
 	printf("\n%s\n", str);
 }
 
+void memccpyTest() {
+	const char *src = "This is the sourc";
+	char dest[50];
+	char *ptr;
+	ptr = (char *)(memccpy((void*)dest, (const void*)src, (int)'c', (size_t)(strlen(src)-1)));
+	if (ptr) {
+	   *ptr = '\0';
+	   printf("The character was found: %s\n", dest);
+	} else {
+		printf("The character wasn't found\n");
+	}
+}
+
+void memchrTest() {
+	char * pch;
+	char str[] = "Examle string";
+	pch = (char*) memchr (str, 'p', strlen(str));
+	if (pch!=NULL) {
+		printf ("'p' found at position %d.\n", pch-str+1);
+	} else {
+		printf ("'p' not found.\n");
+	}
+}
+
+size_t max(size_t s1, size_t s2) {
+	return s1 > s2 ? s1 : s2 ;
+}
+
+void memcmpTest() {
+	char str1[256] = "shaun1";
+	char str2[256] = "shaun2";
+	int n;
+	//printf ("Enter a sentence: "); gets(str1);
+	//printf ("Enter another sentence: "); gets(str2);
+	n=memcmp ( str1, str2,  max(strlen(str1), strlen(str2)));
+	if (n>0) printf ("'%s' is greater than '%s'.\n",str1,str2);
+	else if (n<0) printf ("'%s' is less than '%s'.\n",str1,str2);
+	else printf ("'%s' is the same as '%s'.\n",str1,str2);
+}
+
+void memcpyTest() {
+	char str1[]="Sample string";
+	char str2[40];
+	char str3[40];
+	char* str4;
+	memcpy(str2,str1,strlen(str1)+1);
+	str4 = (char*)memcpy(str3,"copy successful",4);
+	
+	printf("str1: %s\nstr2: %s\nstr3: %s\nstr4: %s\n",str1,str2,str3,str4);
+}
+
+void memmoveTest() {
+	char str[] = "memmove can be very useful......";
+	memmove(str+20,str+15,11);
+	puts(str);
+}
+
+void memsetTest() {
+	char str[] = "almost every programmer should know memset!";
+	
+	puts((char*)memset(str,'-',6));
+}
+
 int main () {
 	printf("strcat:\n");
 	strcatTest();
@@ -141,6 +203,24 @@ int main () {
 	
 	printf("\nstrtok:\n");
 	strtokTest();
+
+	printf("\nmemccpy:\n");
+	memccpyTest();
+
+	printf("\nmemchr:\n");
+	memchrTest();
+
+	printf("\nmemcmp:\n");
+	memcmpTest();
+
+	printf("\nmemcpy:\n");
+	memcpyTest();
+
+	printf("\nmemmove:\n");
+	memmoveTest();
+
+	printf("\nmemset:\n");
+	memsetTest();
 
 	return 0;
 }
