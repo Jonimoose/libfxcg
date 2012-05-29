@@ -1,22 +1,65 @@
 #include <stdarg.h>
 #include <stdio.h>
 
+typedef struct {
+    int width;
+    int precision;
+    unsigned alternate:1;
+    unsigned zeropad:1;
+    unsigned leftjustify:1;
+    unsigned spacepad:1;
+    unsigned sign:1;
+} format_t;
+
+typedef void (*writer_t)(const void *, char);
+typedef int (*formatter_t)(va_list, writer_t, const void *, format_t);
+
 /* These are the workers for formatting.  The main printf wrapper gets a writer
  * and destination, and this does the formatting while feeding characters to
- * the writer, passing wdest to the writer. */
-int _printf_decimal(va_list ap, void (*writer)(const void *, char), const void *wdest, int width, int precision) {
-#error decimal worker incomplete
+ * the writer, passing dest to the writer. */
+static int _printf_decimal(va_list ap, writer_t writer, const void *dest, format_t fmt) {
+    int x = va_arg(ap, int);
+
+    int count = 1;
+    if (x < 0) {
+        writer(dest, '-');
+    } else if (fmt.sign) {
+        writer(dest, '+');
+    } else if (fmt.spacepad) {
+        writer(dest, ' ');
+    } else {
+        count = 0;
+    }
+
+    int log10 = 0, xt = x;     // Number of digits neeeded
+    while ((xt /= 10) > 0) log10++;
+    count += log10;
+
+    do {    // Defer comparison to ensure 0 gets a digit
+        char digit = (x / (10 * log10)) % 10;
+        digit += '0';
+        writer(dest, digit);
+    } while (--log10 > 0);
+    return count;
 }
-int _printf_string(va_list ap, void (*writer)(const void *, char), const void *wdest, int width, int precision) {
+
+static int _printf_char(va_list ap, writer_t writer, const void *dest, format_t fmt) {
+    char c = va_arg(ap, char);
+    writer(dest, c);
+    return 1;
+}
+
+static int _printf_string(va_list ap, writer_t writer, const void *dest, format_t fmt) {
     const char *s = va_arg(ap, const char *);
     int count = 0;
     char c;
     while ((c = *s++) != 0) {
-        writer(wdest, c);
+        writer(dest, c);
         count++;
     }
 }
-int _printf_weird(va_list ap, void (*writer)(const void *, char), const void *wdest, int width, int precision) {
+
+int _printf_weird(long long v, void (*writer)(const void *, char), const void *wdest, int width, int precision) {
     // Format out a warning, not actually something
 }
 
@@ -36,63 +79,89 @@ void _writer_buffer(void *wdest, char c) {
 
 // Used for catching end-of-string while grabbing chars
 // Used within switch blocks, so can't break.
-#define _NEXT(fmt) if ((c = *fmt++) == 0) goto _term
+#define _NEXT(fmt) if ((c = *fmt++) == 0) return count;
 
 // TODO mostly incomplete.  Python parser only depends on %d and %s, so this
 // is mostly placeholder code.
-int vfprintf(FILE *stream, const char *fmt, va_list ap) {
-#error Must push vfprintf guts out into new worker per generic functions above.
+static int _v_printf(const char *fmt, va_list ap, writer_t writer, const void *warg) {
     // Bytes transmitted
     int count = 0;
-    // -1 indicates default, whatever that ends up being for a handler
-    int width = -1;
-    int precision = -1;
+    format_t f = {
+        .width = 0;
+        .precision = 0;
+        .alternate = 0;
+        .zeropad = 0;
+        .leftjustify = 0;
+        .spacepad = 0;
+        .sign = 0;
+    };
 
-    while (1) {     // Tad ugly.  Meh.
+    // _NEXT returns on end of string.
+    while (1) {
         _NEXT(fmt);
-        if (c != '%') {
-            fputc(c, stream);
+        if (c != '%') {     // Literal character
+            writer(warg, c);
             count++;
             continue;
         }
-        // Literal %
         _NEXT(fmt);
-        if (c == '%') {
-            fputc(c, stream);
+        if (c == '%') {     // Literal %
+            writer(warg, c);
+            count++;
             continue;
         }
+
         // Flags
-        switch (c) {
-            case '#':   // Alternate form
-            case '0':   // Zero-pad
-            case '-':   // Left-justify
-            case ' ':   // Pad positive sign with space
-            case '+':   // Force sign
-                _NEXT(fmt);
-                break;
-            default:
-                break;  // Leave c untouched
-        }
+        char getflags = 0;
+        do {
+            switch (c) {
+                case '#':   // Alternate form
+                    f.alternate = 1;
+                    _NEXT(fmt);
+                    break;
+                case '0':   // Zero-pad
+                    f.zeropad = 1;
+                    _NEXT(fmt);
+                    break;
+                case '-':   // Left-justify
+                    f.leftjustify = 1;
+                    _NEXT(fmt);
+                    break;
+                case ' ':   // Pad positive sign with space
+                    f.spacepad = 1;
+                    _NEXT(fmt);
+                    break;
+                case '+':   // Force sign
+                    f.sign = 1;
+                    _NEXT(fmt);
+                    break;
+                default:
+                    getflags = 0;
+            }
+        } while (getflags);
+
         // Field width
         if (isdigit(c) && c != '0') {   // From string
-            width = (int)strtol(fmt - 1, &fmt, 10);
+            f.width = (int)strtol(fmt - 1, &fmt, 10);   // Updates fmt
             _NEXT(fmt);
         } else if (c == '*') {          // From arg
-            width = va_arg(ap, int);
+            f.width = va_arg(ap, int);
             _NEXT(fmt);
         }
+
         // Precision
         if (c == '.') {
             _NEXT(fmt);
             if (c == '*') { // From arg
-                precision = va_arg(ap, int);
+                f.precision = va_arg(ap, int);
                 _NEXT(fmt);
             } else {        // From string
-                precision = (int)strtol(fmt, &fmt, 10);
+                f.precision = (int)strtol(fmt, &fmt, 10); // Updates fmt
             }
             // Negative precision should be ignored
-            precision = max(0, precision);
+            f.precision = max(0, precision);
         }
+
         // Argument width
         switch (c) {
             case 'h':
@@ -100,7 +169,6 @@ int vfprintf(FILE *stream, const char *fmt, va_list ap) {
                 if (c == 'h') { // "hh" char
                     _NEXT(fmt);
                 } else {        // short
-                    ;
                 }
                 break;
             case 'l':
@@ -108,33 +176,69 @@ int vfprintf(FILE *stream, const char *fmt, va_list ap) {
                 if (c == 'l') { // "ll" long long
                     _NEXT(fmt);
                 } else {        // long
-                    ;
                 }
                 break;
             case 'j':   // intmax_t
-            case 'z':   // size_t
-            case 't':   // ptrdiff_t
-            case 'L':   // long double
                 _NEXT(fmt);
+                break;
+            case 'z':   // size_t
+                _NEXT(fmt);
+                break;
+            case 't':   // ptrdiff_t
+                _NEXT(fmt);
+                break;
+            case 'L':   // long double (unsupported)
             default:    // Not a length modifier
                 break;
         }
+
         // Conversion
         switch (c) {
             case 'd':
             case 'i':   // decimal
-                count += _printf_decimal(ap, wdest, width, precision);
+                formatter = _printf_decimal;
+                break;
+            case 'u':
+                formatter = _printf_udecimal;
+                break;
+            case 'c':
+                formatter = _printf_char;
                 break;
             case 's':
-                count += _printf_string(ap, wdest, width, precision);
+                formatter = _printf_string;
                 break;
+            case 'o':
+                formatter = _printf_octal;
+                break;
+            case 'x':
+            case 'X':
+                formatter = _printf_hex;
+                break;
+            case 'p':
+                formatter = _printf_ptr;
+                break;
+            case 'f':   // All (currently) unsupported
+            case 'F':
+            case 'e':
+            case 'E':
+            case 'g':
+            case 'G':
+            case 'a':
+            case 'A':
+            case 'C':
+            case 'S':
+            case 'n':   // Probably needs to be a special case
             default:
-                count += _printf_weird(ap, wdest, width, precision);
+                formatter = _printf_weird;
                 break;
         }
+        formatter(ap, writer, warg, f);
     }
-_term:  // cf _NEXT macro
     return count;
+}
+
+int vfprintf(FILE *stream, const char *fmt, va_list ap) {
+    _v_printf(fmt, ap, _writer_stream, stream);
 }
 
 int fprintf(FILE *stream, const char *fmt, ...) {
