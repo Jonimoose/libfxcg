@@ -35,6 +35,8 @@ int memcmp(const void *p1, const void *p2, unsigned int n) {
     return *s1 - *s2;
 }
 
+// GCC builtin
+/*
 void* memcpy(void* destination, const void* source, size_t num) {
 	char* d = (char*)destination;
 	char* s = (char*)source;
@@ -46,6 +48,7 @@ void* memcpy(void* destination, const void* source, size_t num) {
 
 	return destination;
 }
+*/
 
 void* memmove(void* destination, const void* source, size_t num) {
 	void* d = malloc(num);

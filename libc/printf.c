@@ -290,3 +290,14 @@ int fprintf(FILE *stream, const char *fmt, ...) {
     return ret;
 }
 
+int printf(const char *fmt, ...) {
+    va_list ap;
+    va_start(ap, fmt);
+    int ret = vfprintf(stdout, fmt, ap);
+    va_end(ap);
+    return ret;
+}
+
+int vsprintf(char *str, const char *fmt, va_list ap) {
+    return _v_printf(fmt, ap, _writer_buffer, &str);
+}
