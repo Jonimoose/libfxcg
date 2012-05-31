@@ -7,7 +7,7 @@ void *memccpy(void *s1, const void *s2, int c, size_t n);
 void *memchr(const void *s, int c, size_t n);
 int memcmp(const void *s1, const void *s2, unsigned int n);
 void *memcpy(void *dest, const void *source, unsigned int n);
-void *memmove(void *s1, const void *s2, int n);
+void *memmove(void *s1, const void *s2, size_t n);
 void *memset(void *dest, int c, unsigned int n);
 
 char *strcat(char *s1, const char *s2);

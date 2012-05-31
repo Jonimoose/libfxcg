@@ -1,5 +1,7 @@
+#include <ctype.h>
 #include <stdarg.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 typedef struct {
     int width;
@@ -16,7 +18,32 @@ typedef int (*formatter_t)(va_list, writer_t, const void *, format_t);
 
 /* These are the workers for formatting.  The main printf wrapper gets a writer
  * and destination, and this does the formatting while feeding characters to
- * the writer, passing dest to the writer. */
+ * the writer, passing dest through to the writer. */
+static int _printf_do_udecimal(int x, writer_t writer, const void *dest, format_t fmt) {
+    int log10 = 0;     // Number of digits neeeded
+    int xt = x;
+    while (xt > 0) {
+        log10++;
+        xt /= 10;
+    }
+    int count = log10;
+
+    do {    // Defer comparison to ensure 0 gets a digit
+        int xpow = 1, i;
+        for (i = log10; i > 1; i--) {   // 10^log10
+            xpow *= 10;
+        }
+        char digit = (x / xpow) % 10;
+        digit += '0';
+        writer(dest, digit);
+    } while (--log10 > 0);
+    return count;
+}
+
+static int _printf_udecimal(va_list ap, writer_t writer, const void *dest, format_t fmt) {
+    return _printf_do_udecimal(va_arg(ap, unsigned), writer, dest, fmt);
+}
+
 static int _printf_decimal(va_list ap, writer_t writer, const void *dest, format_t fmt) {
     int x = va_arg(ap, int);
 
@@ -31,20 +58,12 @@ static int _printf_decimal(va_list ap, writer_t writer, const void *dest, format
         count = 0;
     }
 
-    int log10 = 0, xt = x;     // Number of digits neeeded
-    while ((xt /= 10) > 0) log10++;
-    count += log10;
-
-    do {    // Defer comparison to ensure 0 gets a digit
-        char digit = (x / (10 * log10)) % 10;
-        digit += '0';
-        writer(dest, digit);
-    } while (--log10 > 0);
-    return count;
+    x = abs(x);
+    return count + _printf_do_udecimal(x, writer, dest, fmt);
 }
 
 static int _printf_char(va_list ap, writer_t writer, const void *dest, format_t fmt) {
-    char c = va_arg(ap, char);
+    char c = va_arg(ap, int);
     writer(dest, c);
     return 1;
 }
@@ -57,22 +76,41 @@ static int _printf_string(va_list ap, writer_t writer, const void *dest, format_
         writer(dest, c);
         count++;
     }
+    return count;
 }
 
-int _printf_weird(long long v, void (*writer)(const void *, char), const void *wdest, int width, int precision) {
+int _printf_ptr(va_list ap, writer_t writer, const void *dest, format_t fmt) {
+    writer(dest, '0');
+    writer(dest, 'x');
+    unsigned x = (unsigned)va_arg(ap, void *);
+
+    // This will be wrong on non-32-bit platforms
+    int i;
+    char chars[] = "0123456789ABCDEF";
+    for (i = 7; i >= 0; i--) {
+        writer(dest, chars[(x >> (4 * i)) & 0xF]);
+    }
+    return 10;
+}
+
+int _printf_weird(va_list ap, writer_t writer, const void *dest, format_t fmt) {
     // Format out a warning, not actually something
+    int i;
+    for (i = 0; i < 3; i++)
+        writer(dest, '!');
+    return 3;
 }
 
 /* Character writers.  Pass a destination (void * interpreted as needed), eg
  * a buffer or stream. */
-void _writer_stream(void *wdest, char c) {
+void _writer_stream(const void *wdest, char c) {
     fputc(c, (FILE *)wdest);
 }
-void _writer_buffer(void *wdest, char c) {
+void _writer_buffer(const void *wdest, char c) {
     // Needs to track buffer location, so double pointer
     char **dest = (char **)wdest;
     **dest = c;
-    *dest++;
+    (*dest)++;
 }
 
 /* Main worker and such. */
@@ -87,15 +125,16 @@ static int _v_printf(const char *fmt, va_list ap, writer_t writer, const void *w
     // Bytes transmitted
     int count = 0;
     format_t f = {
-        .width = 0;
-        .precision = 0;
-        .alternate = 0;
-        .zeropad = 0;
-        .leftjustify = 0;
-        .spacepad = 0;
-        .sign = 0;
+        .width = 0,
+        .precision = 0,
+        .alternate = 0,
+        .zeropad = 0,
+        .leftjustify = 0,
+        .spacepad = 0,
+        .sign = 0,
     };
 
+    char c;
     // _NEXT returns on end of string.
     while (1) {
         _NEXT(fmt);
@@ -142,7 +181,7 @@ static int _v_printf(const char *fmt, va_list ap, writer_t writer, const void *w
 
         // Field width
         if (isdigit(c) && c != '0') {   // From string
-            f.width = (int)strtol(fmt - 1, &fmt, 10);   // Updates fmt
+            f.width = (int)strtol(fmt - 1, (char **)(&fmt), 10);   // Updates fmt
             _NEXT(fmt);
         } else if (c == '*') {          // From arg
             f.width = va_arg(ap, int);
@@ -156,10 +195,11 @@ static int _v_printf(const char *fmt, va_list ap, writer_t writer, const void *w
                 f.precision = va_arg(ap, int);
                 _NEXT(fmt);
             } else {        // From string
-                f.precision = (int)strtol(fmt, &fmt, 10); // Updates fmt
+                f.precision = (int)strtol(fmt, (char **)(&fmt), 10); // Updates fmt
             }
             // Negative precision should be ignored
-            f.precision = max(0, precision);
+            if (f.precision < 0)
+                f.precision = 0;
         }
 
         // Argument width
@@ -193,6 +233,7 @@ static int _v_printf(const char *fmt, va_list ap, writer_t writer, const void *w
         }
 
         // Conversion
+        formatter_t formatter;
         switch (c) {
             case 'd':
             case 'i':   // decimal
@@ -208,11 +249,11 @@ static int _v_printf(const char *fmt, va_list ap, writer_t writer, const void *w
                 formatter = _printf_string;
                 break;
             case 'o':
-                formatter = _printf_octal;
+                formatter = _printf_weird;
                 break;
             case 'x':
             case 'X':
-                formatter = _printf_hex;
+                formatter = _printf_weird;
                 break;
             case 'p':
                 formatter = _printf_ptr;
@@ -238,7 +279,7 @@ static int _v_printf(const char *fmt, va_list ap, writer_t writer, const void *w
 }
 
 int vfprintf(FILE *stream, const char *fmt, va_list ap) {
-    _v_printf(fmt, ap, _writer_stream, stream);
+    return _v_printf(fmt, ap, _writer_stream, stream);
 }
 
 int fprintf(FILE *stream, const char *fmt, ...) {
