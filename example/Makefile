@@ -1,8 +1,8 @@
 CC=sh3eb-elf-gcc
 MKG3A=mkg3a
 RM=rm
-CFLAGS=-m4a-nofpu -mb -Os -mhitachi -Wall -nostdlib -I../include -lfxcg -lgcc -L../lib
-LDFLAGS=$(CFLAGS) -T../toolchain/prizm.x -Wl,-static -Wl,-gc-sections
+CFLAGS=-m4a-nofpu -mb -Os -mhitachi -Wall -I../include -lgcc -L../lib
+LDFLAGS=$(CFLAGS) -nostartfiles -T../toolchain/prizm.x -Wl,-static -Wl,-gc-sections
 CSOURCES=src/example.c
 OBJECTS=src/example.o
 BIN=Example.bin
