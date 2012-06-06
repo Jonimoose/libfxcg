@@ -1,5 +1,5 @@
-#ifndef FXCG_CTYPE_H
-#define FXCG_CTYPE_H
+#ifndef __FXCG_CTYPE_H
+#define __FXCG_CTYPE_H
 
 int isalnum(int c);
 int isalpha(int c);

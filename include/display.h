@@ -1,4 +1,6 @@
-/* Casio fx-CG10/20 display defines and syscalls. */
+#ifndef _FXCG_MINICOMPAT
+# error Included without minicompat. Use <fxcg/display.h>
+#else
 
 #define LCD_WIDTH_PX 384
 #define LCD_HEIGHT_PX 216 
@@ -29,3 +31,5 @@ void PrintXY( int x, int y, char*string, int mode, int color );
 void SaveVRAM_1( void );
 void LoadVRAM_1( void );
 void SetBackGround( int );
+
+#endif /* _FXCG_MINICOMPAT */

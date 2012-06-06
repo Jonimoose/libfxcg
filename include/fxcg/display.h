@@ -1,11 +1,38 @@
-#ifndef _FXCG_MINICOMPAT
-# error Included color.h without minicompat. Use <fxcg/display.h>.
-#else
+#ifndef __FXCG_DISPLAY_H
+#define __FXCG_DISPLAY_H
+
+#define LCD_WIDTH_PX 384
+#define LCD_HEIGHT_PX 216 
+
+void Bdisp_AreaClr_DD_x3( void*p1 );
+void Bdisp_EnableColor( int n );
+void Print_OS( unsigned char*msg, int invers, int zero2 );
+void Bdisp_PutDisp_DD( void );
+void Bdisp_PutDisp_DD_stripe( int y1, int y2 );
+void Bdisp_SetPoint_VRAM( int x, int y, int color );
+unsigned short Bdisp_GetPoint_VRAM( int x, int y );
+void Bdisp_SetPoint_DD( int x, int y, int color );
+unsigned short Bdisp_GetPoint_DD_Workbench( int x, int y );
+unsigned short Bdisp_GetPoint_DD( int x, int y );
+void Bdisp_AllCr_VRAM( void );
+void Bdisp_AreaClr( void*p1, unsigned char P2, unsigned short color );
+void Cursor_SetFlashOn( unsigned char cursor_type );
+void Cursor_SetFlashOff( void );
+void Box( int, int, int, int, int );
+void AUX_DisplayErrorMessage( int msgno );
+void MsgBoxPush( int lines );
+void MsgBoxPop( void );
+void Box2( int, int );
+void locate_OS( int X, int y );
+void PrintLine( unsigned char*msg, int imax );
+void PrintXY_2( int mode, int x, int y, int msgno, int color );
+void PrintXY( int x, int y, char*string, int mode, int color );
+void SaveVRAM_1( void );
+void LoadVRAM_1( void );
+void SetBackGround( int );
 
 // Original Author, Shaun McFall (Merthsoft)
 // Used with permission
-#ifndef __FXCG_COLOR_H
-#define __FXCG_COLOR_H 
 
 #define TEXT_COLOR_BLACK 0
 #define TEXT_COLOR_BLUE 1
@@ -15,12 +42,12 @@
 #define TEXT_COLOR_PURPLE 5
 #define TEXT_COLOR_YELLOW 6
 #define TEXT_COLOR_WHITE 7
- 
+
 #define TEXT_MODE_NORMAL 0
 #define TEXT_MODE_INVERT 1
- 
+
 typedef unsigned short color_t;
- 
+
 #define COLOR_ALICEBLUE (color_t)0xF7DF
 #define COLOR_ANTIQUEWHITE (color_t)0xFF5A
 #define COLOR_AQUA (color_t)0x07FF
@@ -161,6 +188,5 @@ typedef unsigned short color_t;
 #define COLOR_WHITESMOKE (color_t)0xF7BE
 #define COLOR_YELLOW (color_t)0xFFE0
 #define COLOR_YELLOWGREEN (color_t)0x9E66
- 
-#endif /* __FXCG_COLOR_H */
-#endif /* _FXCG_MINICOMPAT */
+
+#endif /* __FXCG_DISPLAY_H */

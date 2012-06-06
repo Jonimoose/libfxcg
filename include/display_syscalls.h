@@ -1,3 +1,7 @@
+#ifndef _FXCG_MINICOMPAT
+# error Included without minicompat. Use <fxcg/display.h>.
+#else
+
 int CharacterSelectDialog( void );
 int DefineStatusAreaFlags( int, int, void*, void* );
 int EditMBStringChar( unsigned char*, int xposmax, int xpos, int );
@@ -87,3 +91,5 @@ void Syscall02A9( int );
 void Test01A8(int,int,int);
 void Test1B0E(void);
 void WriteBackground( void*target, int width, int height, void*source, int, int, int );
+
+#endif /* _FXCG_MINICOMPAT */

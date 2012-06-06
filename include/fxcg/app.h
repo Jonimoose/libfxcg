@@ -1,8 +1,5 @@
-#ifndef _FXCG_MINICOMPAT
-# error Included app.h without minicompat. Use <fxcg/app.h>.
-#else
-
-// No guards, whatever. It's "legacy".
+#ifndef __FXCG_APP_H
+#define __FXCG_APP_H
 
 void APP_FINANCE( int, int );
 void APP_SYSTEM_BATTERY( int opt );

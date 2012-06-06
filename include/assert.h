@@ -1,5 +1,5 @@
-#ifndef _FXCG_ASSERT_H
-#define _FXCG_ASSERT_H
+#ifndef __FXCG_ASSERT_H
+#define __FXCG_ASSERT_H
 
 #ifdef NDEBUG
 #define assert(ignore) ((void)0)
