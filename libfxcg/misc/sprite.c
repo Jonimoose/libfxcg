@@ -1,4 +1,4 @@
-#include <sprite.h>
+#include <fxcg/display.h>
 
 void VRAM_XORSprite(const color_t* data, int x, int y, int width, int height) {
    color_t* VRAM = (color_t*)0xA8000000;

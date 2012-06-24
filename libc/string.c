@@ -23,6 +23,8 @@ void *memchr(const void *ptr, int c, size_t n) {
 	return n == 0 ? NULL : (void*)s;
 }
 
+// Syscall
+/*
 int memcmp(const void *p1, const void *p2, unsigned int n) {
 	char* s1 = (char*)p1;
 	char* s2 = (char*)p2;
@@ -34,6 +36,7 @@ int memcmp(const void *p1, const void *p2, unsigned int n) {
 
     return *s1 - *s2;
 }
+*/
 
 // GCC builtin
 /*
