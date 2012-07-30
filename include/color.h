@@ -18,6 +18,7 @@
  
 #define TEXT_MODE_NORMAL 0
 #define TEXT_MODE_INVERT 1
+#define TEXT_MODE_TRANSPARENT_BACKGROUND 0x20
  
 typedef unsigned short color_t;
  
