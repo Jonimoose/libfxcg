@@ -43,8 +43,9 @@ void SetBackGround( int );
 #define TEXT_COLOR_YELLOW 6
 #define TEXT_COLOR_WHITE 7
 
-#define TEXT_MODE_NORMAL 0
-#define TEXT_MODE_INVERT 1
+#define TEXT_MODE_NORMAL 0x00
+#define TEXT_MODE_INVERT 0x01
+#define TEXT_MODE_TRANSPARENT_BACKGROUND 0x20
 
 typedef unsigned short color_t;
 
