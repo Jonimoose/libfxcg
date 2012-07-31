@@ -7,12 +7,11 @@
 #define NULL 0
 #else
 #define NULL ((void*)0)
+// We don't do unicode of any sort.
+typedef unsigned char wchar_t;
 #endif
 
 #define offsetof(type, member) __builtin_offsetof(type, member)
-
-// We don't do unicode of any sort.
-typedef unsigned char wchar_t;
 
 #ifndef size_t
 typedef unsigned size_t;

@@ -1,3 +1,7 @@
+#ifdef __cplusplus
+extern "C" {
+#endif 
+
 #ifndef _FXCG_H_
 #define _FXCG_H_
 
@@ -52,4 +56,8 @@ char *sys_strncpy(char *dest, const char *src, size_t n);
 
 #endif
 
+#endif
+
+#ifdef __cplusplus
+}
 #endif

@@ -57,6 +57,7 @@ int Bfile_GetFileSize_OS( int handle, int pos );
 int Bfile_OpenFile_OS( const unsigned short*filename, int mode );
 int Bfile_ReadFile_OS( int HANDLE, void *buf, int size, int readpos );
 int Bfile_SeekFile_OS( int handle, int pos );
+int Bfile_TellFile_OS( int handle ); 
 int Bfile_WriteFile_OS( int HANDLE, const void *buf, int size );
 void Bfile_NameToStr_ncpy( unsigned char*source, const unsigned short*dest, int n );
 void Bfile_StrToName_ncpy( unsigned short*dest, const unsigned char*source, int n );
