@@ -10,7 +10,7 @@ extern "C" {
 
 void Bdisp_AreaClr_DD_x3( void*p1 );
 void Bdisp_EnableColor( int n );
-void Print_OS( unsigned char*msg, int invers, int zero2 );
+void Print_OS( unsigned char*msg, text_mode_t mode, int zero2 );
 void Bdisp_PutDisp_DD( void );
 void Bdisp_PutDisp_DD_stripe( int y1, int y2 );
 void Bdisp_SetPoint_VRAM( int x, int y, int color );
@@ -29,8 +29,8 @@ void MsgBoxPop( void );
 void Box2( int, int );
 void locate_OS( int X, int y );
 void PrintLine( unsigned char*msg, int imax );
-void PrintXY_2( int mode, int x, int y, int msgno, int color );
-void PrintXY( int x, int y, char*string, int mode, int color );
+void PrintXY_2( text_mode_t mode, int x, int y, int msgno, text_color_t color );
+void PrintXY( int x, int y, char*string, text_mode_t mode, text_color_t color );
 void SaveVRAM_1( void );
 void LoadVRAM_1( void );
 void SetBackGround( int );
@@ -38,18 +38,25 @@ void SetBackGround( int );
 // Original Author, Shaun McFall (Merthsoft)
 // Used with permission
 
-#define TEXT_COLOR_BLACK 0
-#define TEXT_COLOR_BLUE 1
-#define TEXT_COLOR_GREEN 2
-#define TEXT_COLOR_CYAN 3
-#define TEXT_COLOR_RED 4
-#define TEXT_COLOR_PURPLE 5
-#define TEXT_COLOR_YELLOW 6
-#define TEXT_COLOR_WHITE 7
+typedef enum
+{
+  TEXT_COLOR_BLACK = 0,
+  TEXT_COLOR_BLUE,
+  TEXT_COLOR_GREEN,
+  TEXT_COLOR_CYAN,
+  TEXT_COLOR_RED,
+  TEXT_COLOR_PURPLE,
+  TEXT_COLOR_YELLOW, 
+  TEXT_COLOR_WHITE
+} text_color_t;
 
-#define TEXT_MODE_NORMAL 0x00
-#define TEXT_MODE_INVERT 0x01
-#define TEXT_MODE_TRANSPARENT_BACKGROUND 0x20
+typedef enum
+{
+  TEXT_MODE_NORMAL = 0x00,
+  TEXT_MODE_INVERT = 0x01,
+  TEXT_MODE_TRANSPARENT_BACKGROUND = 0x20,
+  TEXT_MODE_AND = 0x21
+} text_mode_t;
 
 typedef unsigned short color_t;
 
