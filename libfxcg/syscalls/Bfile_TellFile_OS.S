@@ -1,4 +1,4 @@
 #include <asm.h>
 
-SYSCALL(_Bfile_SeekFile_OS, 0x1DAB)
+SYSCALL(_Bfile_TellFile_OS, 0x1DAB)
 
