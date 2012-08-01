@@ -8,6 +8,26 @@ extern "C" {
 #define LCD_WIDTH_PX 384
 #define LCD_HEIGHT_PX 216 
 
+typedef enum
+{
+  TEXT_COLOR_BLACK = 0,
+  TEXT_COLOR_BLUE,
+  TEXT_COLOR_GREEN,
+  TEXT_COLOR_CYAN,
+  TEXT_COLOR_RED,
+  TEXT_COLOR_PURPLE,
+  TEXT_COLOR_YELLOW, 
+  TEXT_COLOR_WHITE
+} text_color_t;
+
+typedef enum
+{
+  TEXT_MODE_NORMAL = 0x00,
+  TEXT_MODE_INVERT = 0x01,
+  TEXT_MODE_TRANSPARENT_BACKGROUND = 0x20,
+  TEXT_MODE_AND = 0x21
+} text_mode_t;
+
 void Bdisp_AreaClr_DD_x3( void*p1 );
 void Bdisp_EnableColor( int n );
 void Print_OS( unsigned char*msg, text_mode_t mode, int zero2 );
@@ -38,25 +58,6 @@ void SetBackGround( int );
 // Original Author, Shaun McFall (Merthsoft)
 // Used with permission
 
-typedef enum
-{
-  TEXT_COLOR_BLACK = 0,
-  TEXT_COLOR_BLUE,
-  TEXT_COLOR_GREEN,
-  TEXT_COLOR_CYAN,
-  TEXT_COLOR_RED,
-  TEXT_COLOR_PURPLE,
-  TEXT_COLOR_YELLOW, 
-  TEXT_COLOR_WHITE
-} text_color_t;
-
-typedef enum
-{
-  TEXT_MODE_NORMAL = 0x00,
-  TEXT_MODE_INVERT = 0x01,
-  TEXT_MODE_TRANSPARENT_BACKGROUND = 0x20,
-  TEXT_MODE_AND = 0x21
-} text_mode_t;
 
 typedef unsigned short color_t;
 

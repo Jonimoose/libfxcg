@@ -5,6 +5,21 @@
 extern "C" {
 #endif
 
+typedef enum
+{
+  CREATEMODE_FILE = 1,
+  CREATEMODE_FOLDER = 5
+} createmode_t;
+
+typedef enum
+{
+  READ = 0,
+  READ_SHARE,
+  WRITE,
+  READWRITE,
+  READWRITE_SHARE
+} open_mode_t;
+
 int Bfile_CloseFile_OS( int HANDLE );
 int Bfile_CreateEntry_OS( const unsigned short*filename, createmode_t mode, int*size );
 int Bfile_DeleteEntry( const unsigned short *filename );
@@ -21,21 +36,6 @@ int Bfile_TellFile_OS( int handle );
 int Bfile_WriteFile_OS( int HANDLE, const void *buf, int size );
 void Bfile_NameToStr_ncpy( unsigned char*source, const unsigned short*dest, int n );
 void Bfile_StrToName_ncpy(unsigned short *dest, const unsigned char *source, int n);
-
-typedef enum
-{
-  CREATEMODE_FILE = 1,
-  CREATEMODE_FOLDER = 5
-} createmode_t;
-
-typedef enum
-{
-  READ = 0,
-  READ_SHARE,
-  WRITE,
-  READWRITE,
-  READWRITE_SHARE
-} open_mode_t;
 
 #ifdef __cplusplus
 }
