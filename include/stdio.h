@@ -1,6 +1,10 @@
 #ifndef _FXCG_STDIO_H
 #define _FXCG_STDIO_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include <stddef.h>
 
 #define EOF (-1)
@@ -59,5 +63,9 @@ int puts(const char *s);
 int printf(const char *fmt, ...);
 int sprintf(char *dest, const char *fmt, ...);
 int fprintf(FILE *stream, const char *fmt, ...);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

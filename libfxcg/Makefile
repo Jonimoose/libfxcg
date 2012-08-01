@@ -5,7 +5,7 @@ CFLAGS=-c -ffunction-sections -fdata-sections -m4a-nofpu -mb -Os -nostdlib -Wall
 ARFLAGS=rs
 VPATH=syscalls
 SHSOURCES=$(wildcard syscalls/*.S) $(wildcard misc/*.S)
-#CSOURCES=$(wildcard misc/*.c)
+CSOURCES=$(wildcard misc/*.c)
 #CXXSOURCES=$(wildcard misc/*.cpp)
 OBJECTS=$(SHSOURCES:.S=.o) $(CSOURCES:.c=.o) $(CXXSOURCES:.cpp=.o)
 LIBRARY=../lib/libfxcg.a

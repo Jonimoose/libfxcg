@@ -1,6 +1,10 @@
 #ifndef _FXCG_SERIAL_H
 #define _FXCG_SERIAL_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 int Serial_Open(unsigned char *mode);
 int Serial_IsOpen(void);
 int Serial_Close(int mode);
@@ -31,6 +35,10 @@ int Serial_ClearTX(void);
 #define Serial_GetFreeTransmitSpace Serial_PollTX
 #define Serial_ClearTransmitBuffer Serial_ClearTX
 
+#endif
+
+#ifdef __cplusplus
+}
 #endif
 
 #endif
