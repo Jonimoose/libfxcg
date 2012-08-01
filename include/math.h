@@ -1,6 +1,10 @@
 #ifndef _FXCG_MATH_H
 #define _FXCG_MATH_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #define INFINITY __builtin_inff()
 #define NAN __builtin_nan("0")
 #define HUGE_VAL __builtin_huge_val()
@@ -20,5 +24,9 @@ double log(double x);
 double modf(double x, double *iptr);
 double pow(double x, double y);
 double sin(double x);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

@@ -1,6 +1,10 @@
 #ifndef _FXCG_STRING_H
 #define _FXCG_STRING_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include <stddef.h>
 
 void *memccpy(void *s1, const void *s2, int c, size_t n);
@@ -29,5 +33,9 @@ char *strstr(const char *needle, const char *haystack);
 char *strtok(char *s, const char *sep);
 //char *strtok_r(char *s, const char *sep, char **lasts);
 size_t strxfrm(char *s1, const char *s2, size_t n);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif
