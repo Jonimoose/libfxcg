@@ -6,7 +6,21 @@ extern "C" {
 #endif
 
 #define LCD_WIDTH_PX 384
-#define LCD_HEIGHT_PX 216 
+#define LCD_HEIGHT_PX 216
+
+// define status area
+#define DSA_CLEAR                               0
+#define DSA_SETDEFAULT                          1
+// status area flags
+#define SAF_BATTERY                             0x0001
+#define SAF_ALPHA_SHIFT                         0x0002
+#define SAF_SETUP_INPUT_OUTPUT                  0x0004
+#define SAF_SETUP_FRAC_RESULT                   0x0008
+#define SAF_SETUP_ANGLE                         0x0010
+#define SAF_SETUP_COMPLEX_MODE                  0x0020
+#define SAF_SETUP_DISPLAY                       0x0040
+#define SAF_TEXT                                0x0100
+#define SAF_GLYPH                               0x0200
 
 enum
 {
@@ -38,7 +52,7 @@ unsigned short Bdisp_GetPoint_VRAM( int x, int y );
 void Bdisp_SetPoint_DD( int x, int y, int color );
 unsigned short Bdisp_GetPoint_DD_Workbench( int x, int y );
 unsigned short Bdisp_GetPoint_DD( int x, int y );
-void Bdisp_AllCr_VRAM( void );
+void Bdisp_AllClr_VRAM( void );
 void Bdisp_AreaClr( void*p1, unsigned char P2, unsigned short color );
 void Cursor_SetFlashOn( unsigned char cursor_type );
 void Cursor_SetFlashOff( void );
@@ -54,6 +68,13 @@ void PrintXY( int x, int y, char*string, int mode, int color );
 void SaveVRAM_1( void );
 void LoadVRAM_1( void );
 void SetBackGround( int );
+// These are needed for current addins and should be in this file
+int DefineStatusAreaFlags( int, int, void*, void* );
+void DefineStatusMessage( char*msg, short P2, char P3, char P4 );
+void DisplayStatusArea( void );
+void DrawFrame( int color );
+void DrawHeaderLine( void );
+void EnableStatusArea( int );
 
 // Original Author, Shaun McFall (Merthsoft)
 // Used with permission

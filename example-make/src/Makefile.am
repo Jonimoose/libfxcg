@@ -26,7 +26,7 @@ AM_LDFLAGS = -mb -m4a-nofpu -mhitachi -nostdlib -T@srcdir@/../../toolchain/prizm
 LDADD = -lc
 
 all-local: $(bin_PROGRAMS:.bin=.g3a)
-%.g3a: 
+%.g3a: $(bin_PROGRAMS)
 	@echo mkg3a -n basic:\"$($(@:.g3a=)_NAME)\" -i uns:$($(@:.g3a=)_UNS) -i sel:$($(@:.g3a=)_SEL) $(@:.g3a=.bin) $@
 	mkg3a -n "basic:$($(@:.g3a=)_NAME)" -i uns:$($(@:.g3a=)_UNS) -i sel:$($(@:.g3a=)_SEL) $(@:.g3a=.bin) $@
 	cp $@ ../bin
