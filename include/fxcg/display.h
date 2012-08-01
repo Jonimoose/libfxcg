@@ -1,6 +1,10 @@
 #ifndef __FXCG_DISPLAY_H
 #define __FXCG_DISPLAY_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #define LCD_WIDTH_PX 384
 #define LCD_HEIGHT_PX 216 
 
@@ -189,5 +193,9 @@ typedef unsigned short color_t;
 #define COLOR_WHITESMOKE (color_t)0xF7BE
 #define COLOR_YELLOW (color_t)0xFFE0
 #define COLOR_YELLOWGREEN (color_t)0x9E66
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* __FXCG_DISPLAY_H */
