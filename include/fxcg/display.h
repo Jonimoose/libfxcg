@@ -30,6 +30,10 @@ void PrintXY( int x, int y, char*string, int mode, int color );
 void SaveVRAM_1( void );
 void LoadVRAM_1( void );
 void SetBackGround( int );
+/*
+ * Return a pointer to the system's video memory.
+ */
+void *GetVRAMAddress(void);
 
 // Original Author, Shaun McFall (Merthsoft)
 // Used with permission
