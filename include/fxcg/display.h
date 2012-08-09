@@ -1,12 +1,50 @@
 #ifndef __FXCG_DISPLAY_H
 #define __FXCG_DISPLAY_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #define LCD_WIDTH_PX 384
-#define LCD_HEIGHT_PX 216 
+#define LCD_HEIGHT_PX 216
+
+// define status area
+#define DSA_CLEAR                               0
+#define DSA_SETDEFAULT                          1
+// status area flags
+#define SAF_BATTERY                             0x0001
+#define SAF_ALPHA_SHIFT                         0x0002
+#define SAF_SETUP_INPUT_OUTPUT                  0x0004
+#define SAF_SETUP_FRAC_RESULT                   0x0008
+#define SAF_SETUP_ANGLE                         0x0010
+#define SAF_SETUP_COMPLEX_MODE                  0x0020
+#define SAF_SETUP_DISPLAY                       0x0040
+#define SAF_TEXT                                0x0100
+#define SAF_GLYPH                               0x0200
+
+enum
+{
+  TEXT_COLOR_BLACK = 0,
+  TEXT_COLOR_BLUE = 1,
+  TEXT_COLOR_GREEN = 2,
+  TEXT_COLOR_CYAN = 3,
+  TEXT_COLOR_RED = 4,
+  TEXT_COLOR_PURPLE = 5,
+  TEXT_COLOR_YELLOW = 6,
+  TEXT_COLOR_WHITE = 7
+};
+
+enum
+{
+  TEXT_MODE_NORMAL = 0x00,
+  TEXT_MODE_INVERT = 0x01,
+  TEXT_MODE_TRANSPARENT_BACKGROUND = 0x20,
+  TEXT_MODE_AND = 0x21
+};
 
 void Bdisp_AreaClr_DD_x3( void*p1 );
 void Bdisp_EnableColor( int n );
-void Print_OS( unsigned char*msg, int invers, int zero2 );
+void Print_OS( unsigned char*msg, int mode, int zero2 );
 void Bdisp_PutDisp_DD( void );
 void Bdisp_PutDisp_DD_stripe( int y1, int y2 );
 void Bdisp_SetPoint_VRAM( int x, int y, int color );
@@ -14,7 +52,7 @@ unsigned short Bdisp_GetPoint_VRAM( int x, int y );
 void Bdisp_SetPoint_DD( int x, int y, int color );
 unsigned short Bdisp_GetPoint_DD_Workbench( int x, int y );
 unsigned short Bdisp_GetPoint_DD( int x, int y );
-void Bdisp_AllCr_VRAM( void );
+void Bdisp_AllClr_VRAM( void );
 void Bdisp_AreaClr( void*p1, unsigned char P2, unsigned short color );
 void Cursor_SetFlashOn( unsigned char cursor_type );
 void Cursor_SetFlashOff( void );
@@ -30,26 +68,23 @@ void PrintXY( int x, int y, char*string, int mode, int color );
 void SaveVRAM_1( void );
 void LoadVRAM_1( void );
 void SetBackGround( int );
+
 /*
  * Return a pointer to the system's video memory.
  */
 void *GetVRAMAddress(void);
 
+// These are needed for current addins and should be in this file
+int DefineStatusAreaFlags( int, int, void*, void* );
+void DefineStatusMessage( char*msg, short P2, char P3, char P4 );
+void DisplayStatusArea( void );
+void DrawFrame( int color );
+void DrawHeaderLine( void );
+void EnableStatusArea( int );
+
 // Original Author, Shaun McFall (Merthsoft)
 // Used with permission
 
-#define TEXT_COLOR_BLACK 0
-#define TEXT_COLOR_BLUE 1
-#define TEXT_COLOR_GREEN 2
-#define TEXT_COLOR_CYAN 3
-#define TEXT_COLOR_RED 4
-#define TEXT_COLOR_PURPLE 5
-#define TEXT_COLOR_YELLOW 6
-#define TEXT_COLOR_WHITE 7
-
-#define TEXT_MODE_NORMAL 0x00
-#define TEXT_MODE_INVERT 0x01
-#define TEXT_MODE_TRANSPARENT_BACKGROUND 0x20
 
 typedef unsigned short color_t;
 
@@ -193,5 +228,9 @@ typedef unsigned short color_t;
 #define COLOR_WHITESMOKE (color_t)0xF7BE
 #define COLOR_YELLOW (color_t)0xFFE0
 #define COLOR_YELLOWGREEN (color_t)0x9E66
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* __FXCG_DISPLAY_H */

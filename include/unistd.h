@@ -1,5 +1,10 @@
 #ifndef _FXCG_UNISTD_H
 #define _FXCG_UNISTD_H
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 // This stuff doesn't belong since we're not a UNIX system, but python wants
 // it.  Implementations here are mostly wrappers for standard library functions
 #include <sys/types.h>
@@ -20,6 +25,10 @@ off_t lseek(int fd, off_t offset, int whence);
 // Guts for descriptor tables.  Nasty UNIX emulation. :(
 int _dtable_register(int d);
 void _dtable_unregister(int d);
+#endif
+
+#ifdef __cplusplus
+}
 #endif
 
 #endif

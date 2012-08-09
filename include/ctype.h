@@ -1,6 +1,10 @@
 #ifndef __FXCG_CTYPE_H
 #define __FXCG_CTYPE_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 int isalnum(int c);
 int isalpha(int c);
 int isascii(int c);
@@ -17,5 +21,9 @@ int isxdigit(int c);
 
 int toupper(int c);
 int tolower(int c);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

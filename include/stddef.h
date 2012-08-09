@@ -1,6 +1,10 @@
 #ifndef _FXCG_STDDEF_H
 #define _FXCG_STDDEF_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 // Python requires that NULL be a macro, so humor it.
 #undef NULL
 #if defined(__cplusplus)
@@ -15,6 +19,10 @@ typedef unsigned char wchar_t;
 
 #ifndef size_t
 typedef unsigned size_t;
+#endif
+
+#ifdef __cplusplus
+}
 #endif
 
 #endif
