@@ -7,7 +7,7 @@
 # to use a system environment var in the future.
 #---------------------------------------------------------------------------------
 ifeq ($(strip $(FXCGSDK)),)
-export FXCGSDK := $(abspath ../)
+export FXCGSDK := $(abspath ../../)
 endif
 
 include $(FXCGSDK)/toolchain/prizm_rules
@@ -21,7 +21,7 @@ include $(FXCGSDK)/toolchain/prizm_rules
 #---------------------------------------------------------------------------------
 TARGET		:=	$(notdir $(CURDIR))
 BUILD		:=	build
-SOURCES		:=	src/example1
+SOURCES		:=	src
 DATA		:=	data  
 INCLUDES	:=
 
