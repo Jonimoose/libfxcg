@@ -62,6 +62,56 @@ long strtol(const char *str, char **str_end, int base) {
     return v;
 }
 
+double strtod(const char *s, char **str_end) {
+    // TODO handle exponential format, hex format, inf, nan
+    double r = 0.0;
+    int negative = 0;
+    if (!isdigit(*s) || *s != '-' || *s != '+' || *s != '.') {
+        if (str_end != NULL)
+            *str_end = s;
+        return 0;
+    }
+
+    switch (*s)
+    {
+        case '-':
+            negative = 1;
+            // Deliberate fallthrough
+        case '+':
+            s++;
+            break;
+    }
+
+    while (isdigit(*s))
+    {
+        ret *= 10.0;
+        ret += *s++ - '0';
+    }
+    if (*s == '.')
+    {
+        float f = 10.0f;
+        s++;
+        while (isdigit(*s))
+        {
+            ret += (*s - '0')/f;
+            f *= 10.0f;
+            s++;
+        }
+    }
+
+    if (str_end != NULL)
+        *str_end = s;
+
+    // Portable? Nope. Fast? Yup.
+    union {
+        double r;
+        unsigned long long l;
+    } raw;
+    raw.r = r;
+    raw.l |= negative << 63;
+    return raw.r;
+}
+
 /*
 void qsort(void *base, size_t nel, size_t width,
            int (*compar)(const void *, const void *)) {
