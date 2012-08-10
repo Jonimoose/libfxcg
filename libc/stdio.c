@@ -216,6 +216,49 @@ char *fgets(char *s, int n, FILE *stream) {
     return s_in;
 }
 
+int fgetc(FILE *f) {
+    unsigned char c;
+    fread(&c, 1, 1, f);
+    return c;
+}
+
+int ungetc(int c, FILE *f) {
+    if (c == EOF || f->has_unput)
+        return EOF;
+    f->unput = (char)c;
+    f->has_unput = 1;
+    return f->unput;
+}
+
+inf fseek(FILE *f, long offset, int whence) {
+    int fileno = handle_tonative(f->fileno);
+    switch (whence) {
+        case SEEK_CUR:
+            offset = ftell(f) + offset;
+            break;
+        case SEEK_END:
+            // TODO this probably doesn't work. Wild guessing.
+            // Speculation says we have Bfile_GetFileSize_OS
+            offset = INT_MAX;
+            break;
+        case SEEK_SET:
+            break;
+        default:
+            return -1;
+    }
+    // TODO can this fail? Probably.
+    Bfile_SeekFile_OS(handle_tonative(f->fileno), (int)offset);
+    return 0;
+}
+
+long ftell(FILE *f) {
+    return Bfile_TellFile_OS(handle_tonative(f->fileno));
+}
+
+int ferror(FILE *f) {
+    return f->error;
+}
+
 void perror(const char *s) {
     if (s != NULL && strlen(s) > 0) {
         fprintf(stderr, "(%s): ", s);
