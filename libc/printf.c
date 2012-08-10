@@ -301,3 +301,11 @@ int printf(const char *fmt, ...) {
 int vsprintf(char *str, const char *fmt, va_list ap) {
     return _v_printf(fmt, ap, _writer_buffer, &str);
 }
+
+int sprintf(char *str, const char *fmt, ...) {
+    va_list ap;
+    va_start(ap, fmt);
+    int ret = vsprintf(str, fmt, ap);
+    va_end(ap);
+    return ret;
+}
