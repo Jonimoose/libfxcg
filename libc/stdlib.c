@@ -68,7 +68,7 @@ double strtod(const char *s, char **str_end) {
     int negative = 0;
     if (!isdigit(*s) || *s != '-' || *s != '+' || *s != '.') {
         if (str_end != NULL)
-            *str_end = s;
+            *str_end = (char *)s;
         return 0;
     }
 
@@ -84,8 +84,8 @@ double strtod(const char *s, char **str_end) {
 
     while (isdigit(*s))
     {
-        ret *= 10.0;
-        ret += *s++ - '0';
+        r *= 10.0;
+        r += *s++ - '0';
     }
     if (*s == '.')
     {
@@ -93,14 +93,14 @@ double strtod(const char *s, char **str_end) {
         s++;
         while (isdigit(*s))
         {
-            ret += (*s - '0')/f;
+            r += (*s - '0')/f;
             f *= 10.0f;
             s++;
         }
     }
 
     if (str_end != NULL)
-        *str_end = s;
+        *str_end = (char *)s;
 
     // Portable? Nope. Fast? Yup.
     union {
@@ -108,7 +108,7 @@ double strtod(const char *s, char **str_end) {
         unsigned long long l;
     } raw;
     raw.r = r;
-    raw.l |= negative << 63;
+    raw.l |= (unsigned long long)negative << 63;
     return raw.r;
 }
 

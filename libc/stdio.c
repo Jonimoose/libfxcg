@@ -3,6 +3,7 @@
 #include <fxcg/serial.h>
 
 #include <errno.h>
+#include <limits.h>
 #include <stdio.h>
 #include <string.h>
 
@@ -230,7 +231,7 @@ int ungetc(int c, FILE *f) {
     return f->unput;
 }
 
-inf fseek(FILE *f, long offset, int whence) {
+int fseek(FILE *f, long offset, int whence) {
     int fileno = handle_tonative(f->fileno);
     switch (whence) {
         case SEEK_CUR:
