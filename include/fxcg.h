@@ -1,9 +1,13 @@
+#ifndef _FXCG_MINICOMPAT
+# error Included fxcg.h without minicompat. Use fxcg/ *.h instead.
+#else
+
 #ifdef __cplusplus
 extern "C" {
 #endif 
 
-#ifndef _FXCG_H_
-#define _FXCG_H_
+#ifndef _FXCG_H
+#define _FXCG_H
 
 #include "fxcg_display.h"
 #include "fxcg_keyboard.h"
@@ -54,10 +58,12 @@ char *sys_strncpy(char *dest, const char *src, size_t n);
 #define strcmp sys_strcmp
 #define strcat sys_strcat
 
-#endif
+#endif /* USE_FXCG_STDLIB */
 
-#endif
+#endif /* _FXCG_H */
 
 #ifdef __cplusplus
 }
 #endif
+
+#endif /* _FXCG_MINICOMPAT */
