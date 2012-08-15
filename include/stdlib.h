@@ -20,7 +20,7 @@ long strtol(const char *str, char **str_end, int base);
 #define atoi(s) ((int)strtol(s, NULL, 10))
 #define atol(s) strtol(s, NULL, 10)
 
-double strtod(const char *s);
+double strtod(const char *s, char **str_end);
 #define atof(s) ((float)strtod(s, NULL))
 
 void qsort(void *base, size_t nel, size_t width, int (*compar)(const void *, const void *));
