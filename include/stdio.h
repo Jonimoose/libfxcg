@@ -60,6 +60,9 @@ int fputc(int c, FILE *stream);
 int putchar(int c);
 int puts(const char *s);
 
+int fseek(FILE *f, long offset, int whence);
+long ftell(FILE *f);
+
 int printf(const char *fmt, ...);
 int sprintf(char *dest, const char *fmt, ...);
 int fprintf(FILE *stream, const char *fmt, ...);
