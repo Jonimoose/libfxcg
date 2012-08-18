@@ -66,7 +66,7 @@ double strtod(const char *s, char **str_end) {
     // TODO handle exponential format, hex format, inf, nan
     double r = 0.0;
     int negative = 0;
-    if (!isdigit(*s) || *s != '-' || *s != '+' || *s != '.') {
+    if (!isdigit(*s) && *s != '-' && *s != '+' && *s != '.') {
         if (str_end != NULL)
             *str_end = (char *)s;
         return 0;
