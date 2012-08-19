@@ -98,7 +98,9 @@ int strcoll(const char *s1, const char *s2) {
 }
 
 char *strcpy(char *s1, const char *s2) {
-    while ((*s1++ = *s2++) != 0);
+    char* destination;
+    destination = s1;
+    while ((*destination++ = *s2++) != 0);
     return s1;
 }
 
