@@ -30,11 +30,11 @@ int memcmp(const void *p1, const void *p2, unsigned int n) {
 	char* s2 = (char*)p2;
 
 	while (n-- != 0 && *s1 == *s2) {
-        s1++;
-        s2++;
-    }
+		s1++;
+		s2++;
+	}
 
-    return *s1 - *s2;
+	return *s1 - *s2;
 }
 */
 
@@ -70,27 +70,29 @@ void *memset(void *dest, int c, unsigned int n) {
 
 
 char *strcat(char *dest, const char *src) {
+	char* ret = dest;
 	dest += strlen(dest);
-	return strcpy(dest, src);
+	strcpy(dest, src);
+	return ret;
 }
 
 char *strchr(const char *s, int c) {
-    while (*s != (char)c) {
-        if (*s == 0)
-            return NULL;
-        s++;
-    }
-    return (char *)s;
+	while (*s != (char)c) {
+		if (*s == 0)
+			return NULL;
+		s++;
+	}
+	return (char *)s;
 }
 
 int strcmp(const char *s1, const char *s2) {
-    while (*s1 != 0 && *s2 != 0) {
-        if (*s1 != *s2)
-            break;
-        s1++;
-        s2++;
-    }
-    return *s1 - *s2;
+	while (*s1 != 0 && *s2 != 0) {
+		if (*s1 != *s2)
+			break;
+		s1++;
+		s2++;
+	}
+	return *s1 - *s2;
 }
 
 int strcoll(const char *s1, const char *s2) {
@@ -98,8 +100,9 @@ int strcoll(const char *s1, const char *s2) {
 }
 
 char *strcpy(char *s1, const char *s2) {
-    while ((*s1++ = *s2++) != 0);
-    return s1;
+	char* ret = s1;
+	while ((*s1++ = *s2++) != 0);
+	return ret;
 }
 
 size_t strcspn(const char *s1, const char *s2) {
@@ -108,9 +111,9 @@ size_t strcspn(const char *s1, const char *s2) {
 }
 
 char *strdup(const char *s) {
-    char *o = malloc(strlen(s) + 1);
-    strcpy(o, s);
-    return o;
+	char *o = malloc(strlen(s) + 1);
+	strcpy(o, s);
+	return o;
 }
 
 char *strncat(char *dest, const char *src, size_t num) {
@@ -123,13 +126,13 @@ char *strncat(char *dest, const char *src, size_t num) {
 int strncmp(const char *s1, const char *s2, size_t n) {
 	while (*s1 != 0 && *s2 != 0) {
 		n--;
-        if (*s1 != *s2 || n == 0)
-            break;
-        s1++;
-        s2++;
-    }
+		if (*s1 != *s2 || n == 0)
+			break;
+		s1++;
+		s2++;
+	}
 
-    return *s1 - *s2;
+	return *s1 - *s2;
 }
 
 char *strncpy(char *dest, const char *src, size_t num) {
