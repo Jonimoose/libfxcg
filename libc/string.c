@@ -74,7 +74,7 @@ char *strcat(char *dest, const char *src) {
 	destination = dest;
 	dest += strlen(dest);
 	temp = strcpy(dest, src);
-	return destination
+	return destination;
 }
 
 char *strchr(const char *s, int c) {
