@@ -70,8 +70,11 @@ void *memset(void *dest, int c, unsigned int n) {
 
 
 char *strcat(char *dest, const char *src) {
+	char* destination,temp;
+	destination = dest;
 	dest += strlen(dest);
-	return strcpy(dest, src);
+	temp = strcpy(dest, src);
+	return destination
 }
 
 char *strchr(const char *s, int c) {
