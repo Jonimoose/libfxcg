@@ -1,4 +1,4 @@
 #include <asm.h>
 
-SYSCALL(_memcmp, 0x1DD1)
+SYSCALL(_sys_memcmp, 0x1DD1)
 

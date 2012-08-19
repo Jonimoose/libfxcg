@@ -23,20 +23,18 @@ void *memchr(const void *ptr, int c, size_t n) {
 	return n == 0 ? NULL : (void*)s;
 }
 
-// Syscall
-/*
+// Syscall is broken. It's sys_memcmp if you prefer.
 int memcmp(const void *p1, const void *p2, unsigned int n) {
-	char* s1 = (char*)p1;
-	char* s2 = (char*)p2;
+    char* s1 = (char*)p1;
+    char* s2 = (char*)p2;
 
-	while (n-- != 0 && *s1 == *s2) {
+    while (n-- != 0 && *s1 == *s2) {
         s1++;
         s2++;
     }
 
     return *s1 - *s2;
 }
-*/
 
 // GCC builtin
 /*
