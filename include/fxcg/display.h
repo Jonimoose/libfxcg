@@ -54,6 +54,7 @@ typedef struct
   unsigned short barwidth; // width of bar
 } TScrollbar;
 void Bdisp_AreaClr_DD_x3( void*p1 );
+void Bdisp_DDRegisterSelect( int registerno );
 void Bdisp_EnableColor( int n );
 void Print_OS( unsigned char*msg, int mode, int zero2 );
 void Bdisp_PutDisp_DD( void );
