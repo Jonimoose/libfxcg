@@ -21,6 +21,10 @@ void TestMode( int );
 void SetSetupSetting( unsigned int SystemParameterNo, unsigned char SystemParameterValue );
 unsigned char GetSetupSetting( unsigned int SystemParameterNo );
 
+int Timer_Install( int InternalTimerID, void (*hander)(void), int elapse );
+int Timer_Deinstall( int InternalTimerID );
+int Timer_Start( int InternalTimerID );
+int Timer_Stop( int InternalTimerID );
 #ifdef __cplusplus
 }
 #endif
