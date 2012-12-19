@@ -25,6 +25,10 @@ int Timer_Install( int InternalTimerID, void (*hander)(void), int elapse );
 int Timer_Deinstall( int InternalTimerID );
 int Timer_Start( int InternalTimerID );
 int Timer_Stop( int InternalTimerID );
+
+void TakeScreenshot(void);
+void TakeScreenshot2(void); //seems to be the same as the one above
+
 #ifdef __cplusplus
 }
 #endif
