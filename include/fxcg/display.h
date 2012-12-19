@@ -81,7 +81,14 @@ void DisplayStatusArea( void );
 void DrawFrame( int color );
 void DrawHeaderLine( void );
 void EnableStatusArea( int );
-
+void Scrollbar(TScrollbar *scrollbar);
+void ProgressBar0(int P1, int P2, int P3, int current, int max);
+void ProgressBar2(unsigned char *heading, int current, int max);
+void FKey_Display( int, void* );
+void GetFKeyPtr( int, void* );
+short CharacterSelectDialog( void );
+unsigned char ColorIndexDialog1( unsigned char initial_index, unsigned short disable_mask );
+void Bdisp_HeaderFill( unsigned char color_idx1, unsigned char color_idx2 );
 // Original Author, Shaun McFall (Merthsoft)
 // Used with permission
 
