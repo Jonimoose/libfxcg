@@ -41,7 +41,18 @@ enum
   TEXT_MODE_TRANSPARENT_BACKGROUND = 0x20,
   TEXT_MODE_AND = 0x21
 };
-
+typedef struct
+{
+  unsigned int I1; // unknown changes indicator height, set to 0
+  unsigned int indicatormaximum; // max logical indicator range
+  unsigned int indicatorheight; // height of the indicator in units
+  unsigned int indicatorpos; // indicator position in units of max
+  unsigned int I5; // unknown, set to 0
+  unsigned short barleft; // x position of bar
+  unsigned short bartop; // y position of bar
+  unsigned short barheight; // height of bar
+  unsigned short barwidth; // width of bar
+} TScrollbar;
 void Bdisp_AreaClr_DD_x3( void*p1 );
 void Bdisp_EnableColor( int n );
 void Print_OS( unsigned char*msg, int mode, int zero2 );
