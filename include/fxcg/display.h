@@ -65,6 +65,8 @@ void locate_OS( int X, int y );
 void PrintLine( unsigned char*msg, int imax );
 void PrintXY_2( int mode, int x, int y, int msgno, int color );
 void PrintXY( int x, int y, char*string, int mode, int color );
+void PrintMini( int *x, int *y, unsigned char *MB_string, int mode_flags, unsigned int xlimit, int P6, int P7, int color, int back_color, int writeflag, int P11 );
+void PrintMiniMini( int *x, int *y, unsigned char *MB_string, int mode1, char color, int mode2 );
 void SaveVRAM_1( void );
 void LoadVRAM_1( void );
 void SetBackGround( int );
