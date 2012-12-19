@@ -79,13 +79,6 @@ void PrintXY( int x, int y, char*string, int mode, int color );
 void SaveVRAM_1( void );
 void LoadVRAM_1( void );
 void SetBackGround( int );
-
-/*
- * Return a pointer to the system's video memory.
- */
-void *GetVRAMAddress(void);
-
-// These are needed for current addins and should be in this file
 int DefineStatusAreaFlags( int, int, void*, void* );
 void DefineStatusMessage( char*msg, short P2, char P3, char P4 );
 void DisplayStatusArea( void );
@@ -100,6 +93,12 @@ void GetFKeyPtr( int, void* );
 short CharacterSelectDialog( void );
 unsigned char ColorIndexDialog1( unsigned char initial_index, unsigned short disable_mask );
 void Bdisp_HeaderFill( unsigned char color_idx1, unsigned char color_idx2 );
+
+/*
+ * Return a pointer to the system's video memory.
+ */
+void *GetVRAMAddress(void);
+
 // Original Author, Shaun McFall (Merthsoft)
 // Used with permission
 
