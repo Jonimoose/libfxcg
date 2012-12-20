@@ -39,6 +39,7 @@ void Bfile_NameToStr_ncpy( unsigned char*source, const unsigned short*dest, int 
 void Bfile_StrToName_ncpy(unsigned short *dest, const unsigned char *source, int n);
 int Bfile_Name_MatchMask( const short*mask, const short*filename  );
 int Bfile_GetMediaFree_OS( unsigned short*media_id, int*freespace );
+int SMEM_FindFirst( const unsigned short*pattern, unsigned short*foundfile );
 
 int MCS_CreateDirectory( unsigned char*dir );
 int MCS_DeleteDirectory( unsigned char*dir );
@@ -56,7 +57,7 @@ int MCS_GetState( int*maxspace, int*currentload, int*remainingspace );
 /* not sure if these should belong in here, in display.h or in app.h
    (these are syscalls that display, have their own keyboard "life" and are related to files)
    Also, since SaveFileD... and OpenFileD... only work with g3p files, (at least until we find more about their parameters),
-   their names are subject to change.
+   their names are subject to change. (gbl08ma)
 */
 int SaveFileDialog( unsigned short *filenamebuffer, int mode );
 int OverwriteConfirmation( char*name, int mode );
