@@ -9,6 +9,8 @@ void *sys_malloc(int sz);
 void *sys_realloc(void *p, int sz);
 void sys_free(void *p);
 
+#define alloca(size) __builtin_alloca(size)
+
 #ifdef __cplusplus
 }
 #endif

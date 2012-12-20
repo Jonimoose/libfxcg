@@ -29,6 +29,18 @@ int sys_strcmp(const char *s1, const char *s2);
 char *sys_strcpy(char *dest, const char *src);
 char *sys_strncpy(char *dest, const char *src, size_t n);
 
+// Don't know of anybody using these
+// gbl08ma: but I do know, at least itoa is widely used. And since they're syscalls, their headers should be defined somewhere. Keeping this here.
+int ItoA_10digit( int, void* );
+void ByteToHex( unsigned char value, unsigned char*result );
+void HexToByte( unsigned char*value, unsigned char*result );
+void HexToNibble( unsigned char value, unsigned char*result );
+void HexToWord( unsigned char*value, unsigned short*result );
+void itoa( int value, unsigned char*result );
+void LongToAscHex( int, unsigned char*, int );
+void NibbleToHex( unsigned char value, unsigned char*result );
+void WordToHex( unsigned short value, unsigned char*result );
+
 #ifdef USE_FXCG_STDLIB
 
 #define atoi sys_atoi
