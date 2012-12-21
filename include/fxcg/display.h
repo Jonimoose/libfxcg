@@ -41,14 +41,14 @@ unsigned short Bdisp_GetPoint_DD( int x, int y );
 void DirectDrawRectangle( int x1, int y1, int x2, int y2, unsigned short color );
 void HourGlass( void );
 //Shape drawing:
-struct TShapeProps{
+/*struct TShapeProps{
 	int dx;
 	int dy;
 	int wx;
 	int wy;
 	int color;
 	TBdispFillArea saved;
-};
+};*/
 void Bdisp_ShapeBase3XVRAM( void*shape );
 void Bdisp_ShapeBase( unsigned char*work, void*shape, int color, int line_width, int zero1, int zero2 );
 void Bdisp_ShapeToVRAM16C( void*, int color );
