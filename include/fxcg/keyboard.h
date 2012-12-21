@@ -82,7 +82,36 @@
 #define KEY_CHAR_X          0x58
 #define KEY_CHAR_Y          0x59
 #define KEY_CHAR_Z          0x5a
-
+/* non-capital char keys, possible in the emulator when writing with the computer keyboard
+   and eventually in some text-entry modes. Note that one only needs to add 0x20 to the
+   uppercase char key codes to get the codes for the lowercase keys.
+*/
+#define KEY_CHAR_LOWER_A    0x61
+#define KEY_CHAR_LOWER_B    0x62
+#define KEY_CHAR_LOWER_C    0x63
+#define KEY_CHAR_LOWER_D    0x64
+#define KEY_CHAR_LOWER_E    0x65
+#define KEY_CHAR_LOWER_F    0x66
+#define KEY_CHAR_LOWER_G    0x67
+#define KEY_CHAR_LOWER_H    0x68
+#define KEY_CHAR_LOWER_I    0x69
+#define KEY_CHAR_LOWER_J    0x6A
+#define KEY_CHAR_LOWER_K    0x6B
+#define KEY_CHAR_LOWER_L    0x6C
+#define KEY_CHAR_LOWER_M    0x6D
+#define KEY_CHAR_LOWER_N    0x6E
+#define KEY_CHAR_LOWER_O    0x6F
+#define KEY_CHAR_LOWER_P    0x70
+#define KEY_CHAR_LOWER_Q    0x71
+#define KEY_CHAR_LOWER_R    0x72
+#define KEY_CHAR_LOWER_S    0x73
+#define KEY_CHAR_LOWER_T    0x74
+#define KEY_CHAR_LOWER_U    0x75
+#define KEY_CHAR_LOWER_V    0x76
+#define KEY_CHAR_LOWER_W    0x77
+#define KEY_CHAR_LOWER_X    0x78
+#define KEY_CHAR_LOWER_Y    0x79
+#define KEY_CHAR_LOWER_Z    0x7A
 
 // Control codes
 #define KEY_CTRL_NOP        0
@@ -140,6 +169,7 @@
 #define KEY_PRGM_RETURN 31
 #define KEY_PRGM_RIGHT 27
 #define KEY_PRGM_UP 28
+#define KEY_PRGM_0 71
 #define KEY_PRGM_1 72
 #define KEY_PRGM_2 62
 #define KEY_PRGM_3 52
@@ -153,6 +183,7 @@
 #define KEY_PRGM_F 26
 #define KEY_PRGM_ALPHA 77 
 #define KEY_PRGM_SHIFT 78
+#define KEY_PRGM_OPTN 68
 #define KEY_PRGM_MENU 48
 
 // in Bkey_GetKeyWait function
@@ -174,6 +205,15 @@ void PRGM_GetKey_OS( unsigned char*p );
 int GetKey(int*key);
 int GetKeyWait_OS(int*column, int*row, int type_of_waiting, int timeout_period, int menu, unsigned short*keycode );
 int PRGM_GetKey();
+void DisplayMBString(unsigned char *MB_string, int start, int xpos, int x, int y);
+void DisplayMBString2( int P1, unsigned char*MB_string, int start, int xpos, int x, int y, int pos_to_clear, int P8, int P9 );
+void EditMBStringCtrl(unsigned char *MB_string, int posmax, int *start, int *xpos, int *key, int x, int y);
+void EditMBStringCtrl2( unsigned char*MB_string, int xposmax, int*P3, int*xpos, int*key, int x, int y, int enable_pos_to_clear, int pos_to_clear );
+void EditMBStringCtrl3( unsigned char*, int xposmax, void*, void*, void*, int, int, int, int, int );
+void EditMBStringCtrl4( unsigned char*, int xposmax, void*, void*, void*, int, int, int, int, int, int );
+int EditMBStringChar(unsigned char *MB_string, int posmax, int xpos, int char_to_insert);
+void Bkey_ClrAllFlags( void );
+void Bkey_SetFlag(short flagpattern);
 
 #ifdef __cplusplus
 }

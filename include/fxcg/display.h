@@ -8,20 +8,74 @@ extern "C" {
 #define LCD_WIDTH_PX 384
 #define LCD_HEIGHT_PX 216
 
-// define status area
-#define DSA_CLEAR                               0
-#define DSA_SETDEFAULT                          1
-// status area flags
-#define SAF_BATTERY                             0x0001
-#define SAF_ALPHA_SHIFT                         0x0002
-#define SAF_SETUP_INPUT_OUTPUT                  0x0004
-#define SAF_SETUP_FRAC_RESULT                   0x0008
-#define SAF_SETUP_ANGLE                         0x0010
-#define SAF_SETUP_COMPLEX_MODE                  0x0020
-#define SAF_SETUP_DISPLAY                       0x0040
-#define SAF_TEXT                                0x0100
-#define SAF_GLYPH                               0x0200
+//General display manipulating syscalls:
+struct TBdispFillArea {
+    int x1;
+    int y1;
+    int x2;
+    int y2;
+    unsigned char mode;
+};
+void Bdisp_AreaClr( void*p1, unsigned char P2, unsigned short color );
+void Bdisp_EnableColor( int n );
+//Frame control:
+void DrawFrame( int color );
+void DrawFrameWorkbench( int, int, int, int, int );
+//VRAM general display manipulating syscalls:
+void *GetVRAMAddress(void); // Return a pointer to the system's video memory.
+void Bdisp_AllClr_VRAM( void );
+void Bdisp_SetPoint_VRAM( int x, int y, int color );
+void Bdisp_SetPointWB_VRAM( int x, int y, int color );
+unsigned short Bdisp_GetPoint_VRAM( int x, int y );
+void SaveVRAM_1( void );
+void LoadVRAM_1( void );
+void Bdisp_Fill_VRAM( int color, int mode );
+//DD display manipulating syscalls:
+void Bdisp_AreaClr_DD_x3( void*p1 );
+void Bdisp_DDRegisterSelect( int registerno );
+void Bdisp_PutDisp_DD( void );
+void Bdisp_PutDisp_DD_stripe( int y1, int y2 );
+void Bdisp_SetPoint_DD( int x, int y, int color );
+unsigned short Bdisp_GetPoint_DD_Workbench( int x, int y );
+unsigned short Bdisp_GetPoint_DD( int x, int y );
+void DirectDrawRectangle( int x1, int y1, int x2, int y2, unsigned short color );
+void HourGlass( void );
+//Shape drawing:
+/*struct TShapeProps{
+	int dx;
+	int dy;
+	int wx;
+	int wy;
+	int color;
+	TBdispFillArea saved;
+};*/
+void Bdisp_ShapeBase3XVRAM( void*shape );
+void Bdisp_ShapeBase( unsigned char*work, void*shape, int color, int line_width, int zero1, int zero2 );
+void Bdisp_ShapeToVRAM16C( void*, int color );
+//Background-related syscalls
+void SetBackGround( int );
+void WriteBackground( void*target, int width, int height, void*source, int, int, int );
 
+//Message boxes, error messages, dialogs and the like:
+void Box( int, int, int, int, int );
+void BoxInnerClear( int );
+void Box2( int, int );
+void BoxYLimits( int lines, int*top, int*bottom );
+void AUX_DisplayErrorMessage( int msgno );
+void MsgBoxPush( int lines );
+void MsgBoxPop( void );
+void DisplayMessageBox( unsigned char*message );
+short CharacterSelectDialog( void );
+unsigned char ColorIndexDialog1( unsigned char initial_index, unsigned short disable_mask );
+
+//Cursor manipulating syscalls:
+void locate_OS( int X, int y );
+void Cursor_SetFlashOn( unsigned char cursor_type );
+void Cursor_SetFlashOff( void );
+int SetCursorFlashToggle( int );
+void Keyboard_CursorFlash( void );
+
+//Character printing syscalls:
 enum
 {
   TEXT_COLOR_BLACK = 0,
@@ -41,46 +95,77 @@ enum
   TEXT_MODE_TRANSPARENT_BACKGROUND = 0x20,
   TEXT_MODE_AND = 0x21
 };
-
-void Bdisp_AreaClr_DD_x3( void*p1 );
-void Bdisp_EnableColor( int n );
-void Print_OS( unsigned char*msg, int mode, int zero2 );
-void Bdisp_PutDisp_DD( void );
-void Bdisp_PutDisp_DD_stripe( int y1, int y2 );
-void Bdisp_SetPoint_VRAM( int x, int y, int color );
-unsigned short Bdisp_GetPoint_VRAM( int x, int y );
-void Bdisp_SetPoint_DD( int x, int y, int color );
-unsigned short Bdisp_GetPoint_DD_Workbench( int x, int y );
-unsigned short Bdisp_GetPoint_DD( int x, int y );
-void Bdisp_AllClr_VRAM( void );
-void Bdisp_AreaClr( void*p1, unsigned char P2, unsigned short color );
-void Cursor_SetFlashOn( unsigned char cursor_type );
-void Cursor_SetFlashOff( void );
-void Box( int, int, int, int, int );
-void AUX_DisplayErrorMessage( int msgno );
-void MsgBoxPush( int lines );
-void MsgBoxPop( void );
-void Box2( int, int );
-void locate_OS( int X, int y );
 void PrintLine( unsigned char*msg, int imax );
+void PrintLine2( int, int, unsigned char*, int, int, int, int, int );
 void PrintXY_2( int mode, int x, int y, int msgno, int color );
 void PrintXY( int x, int y, char*string, int mode, int color );
-void SaveVRAM_1( void );
-void LoadVRAM_1( void );
-void SetBackGround( int );
+void PrintCXY( int, int, unsigned char*, int, int, int, int, int, int );
+void PrintGlyph( int, int, unsigned char*glyph, int, int color, int back_color, int );
+void*GetMiniGlyphPtr( unsigned short mb_glyph_no, unsigned short*glyph_info );
+void PrintMiniGlyph(int x, int y, void*glyph, int mode_flags, int glyph_width, int, int, int, int, int color, int back_color, int );
+void PrintMini( int *x, int *y, unsigned char *MB_string, int mode_flags, unsigned int xlimit, int P6, int P7, int color, int back_color, int writeflag, int P11 );
+void PrintMiniMini( int *x, int *y, unsigned char *MB_string, int mode1, char color, int mode2 );
+void Print_OS( unsigned char*msg, int mode, int zero2 );
 
-/*
- * Return a pointer to the system's video memory.
- */
-void *GetVRAMAddress(void);
+//Progressbars and scrollbars:
+typedef struct
+{
+  unsigned int I1; // unknown changes indicator height, set to 0
+  unsigned int indicatormaximum; // max logical indicator range
+  unsigned int indicatorheight; // height of the indicator in units
+  unsigned int indicatorpos; // indicator position in units of max
+  unsigned int I5; // unknown, set to 0
+  unsigned short barleft; // x position of bar
+  unsigned short bartop; // y position of bar
+  unsigned short barheight; // height of bar
+  unsigned short barwidth; // width of bar
+} TScrollbar;
+void Scrollbar(TScrollbar *scrollbar);
+void StandardScrollbar( void* );
+void ProgressBar(int, int );
+void ProgressBar0(int P1, int P2, int P3, int current, int max);
+void ProgressBar2(unsigned char *heading, int current, int max);
 
-// These are needed for current addins and should be in this file
+//Status area/header related syscalls:
+// define status area
+#define DSA_CLEAR                               0
+#define DSA_SETDEFAULT                          1
+// status area flags
+#define SAF_BATTERY                             0x0001
+#define SAF_ALPHA_SHIFT                         0x0002
+#define SAF_SETUP_INPUT_OUTPUT                  0x0004
+#define SAF_SETUP_FRAC_RESULT                   0x0008
+#define SAF_SETUP_ANGLE                         0x0010
+#define SAF_SETUP_COMPLEX_MODE                  0x0020
+#define SAF_SETUP_DISPLAY                       0x0040
+#define SAF_TEXT                                0x0100
+#define SAF_GLYPH                               0x0200
 int DefineStatusAreaFlags( int, int, void*, void* );
+void DefineStatusGlyph( int, void* );
 void DefineStatusMessage( char*msg, short P2, char P3, char P4 );
 void DisplayStatusArea( void );
-void DrawFrame( int color );
 void DrawHeaderLine( void );
 void EnableStatusArea( int );
+void Bdisp_HeaderFill( unsigned char color_idx1, unsigned char color_idx2 );
+void Bdisp_HeaderFill2( unsigned int, unsigned int, unsigned char, unsigned char );
+void Bdisp_HeaderText( void );
+void Bdisp_HeaderText2( void );
+void EnableDisplayHeader( int, int );
+//Status area icon syscalls: (it may be more appropriate to use the status area flags)
+void APP_EACT_StatusIcon( int ); //not sure what this is exactly for, if it displays something on screen it's here, otherwise in app.h. will test some day (gbl08ma)
+void SetupMode_StatusIcon( void ); //not sure what this does, doesn't seem to be documented anywhere. will test some day (gbl08ma)
+void d_c_Icon( unsigned int );
+void BatteryIcon( unsigned int );
+void KeyboardIcon( unsigned int );
+void LineIcon( unsigned int );
+void NormIcon( unsigned int );
+void RadIcon( unsigned int );
+void RealIcon( unsigned int );
+
+//Other:
+void FKey_Display( int, void* );
+void GetFKeyPtr( int, void* );
+void DispInt( int, int ); //not sure what this does, doesn't seem to be documented anywhere. will test some day (gbl08ma)
 
 // Original Author, Shaun McFall (Merthsoft)
 // Used with permission
