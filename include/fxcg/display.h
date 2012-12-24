@@ -9,7 +9,7 @@ extern "C" {
 #define LCD_HEIGHT_PX 216
 
 //General display manipulating syscalls:
-struct TBdispFillArea {
+struct fill_area {
     int x1;
     int y1;
     int x2;
@@ -166,6 +166,10 @@ void RealIcon( unsigned int );
 void FKey_Display( int, void* );
 void GetFKeyPtr( int, void* );
 void DispInt( int, int ); //not sure what this does, doesn't seem to be documented anywhere. will test some day (gbl08ma)
+
+//Not syscalls (defined within libfxcg):
+void VRAM_CopySprite(const color_t* data, int x, int y, int width, int height);
+void VRAM_XORSprite(const color_t* data, int x, int y, int width, int height);
 
 // Original Author, Shaun McFall (Merthsoft)
 // Used with permission

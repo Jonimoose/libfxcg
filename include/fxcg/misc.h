@@ -7,28 +7,6 @@ extern "C" {
 
 #include <stddef.h>
 
-typedef unsigned short color_t;
-
-void VRAM_CopySprite(const color_t* data, int x, int y, int width, int height);
-void VRAM_XORSprite(const color_t* data, int x, int y, int width, int height);
-
-int sys_rand(void);
-void sys_srand(unsigned seed);
-
-void *sys_memmove(void *dest, const void *src, size_t n);
-
-void *memsetZero(void *s, size_t n);
-
-int sys_atoi(const char * s);
-
-void *sys_calloc(int elements, int elementSize);
-
-char *sys_strcat(char *dest, const char *src);
-char *sys_strchr(const char *s, int c);
-int sys_strcmp(const char *s1, const char *s2);
-char *sys_strcpy(char *dest, const char *src);
-char *sys_strncpy(char *dest, const char *src, size_t n);
-
 // Don't know of anybody using these
 // gbl08ma: but I do know, at least itoa is widely used. And since they're syscalls, their headers should be defined somewhere. Keeping this here.
 int ItoA_10digit( int, void* );
@@ -42,7 +20,7 @@ void NibbleToHex( unsigned char value, unsigned char*result );
 void WordToHex( unsigned short value, unsigned char*result );
 
 #ifdef USE_FXCG_STDLIB
-
+//Not sure if these should go into their proper headers or be deleted. We already have our own implementations of some of these functions, it seems.
 #define atoi sys_atoi
 #define rand sys_rand
 #define srand sys_rand
