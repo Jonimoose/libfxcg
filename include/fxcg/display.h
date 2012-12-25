@@ -9,14 +9,14 @@ extern "C" {
 #define LCD_HEIGHT_PX 216
 
 //General display manipulating syscalls:
-struct fill_area {
+struct display_fill {
     int x1;
     int y1;
     int x2;
     int y2;
     unsigned char mode;
 };
-void Bdisp_AreaClr( void*p1, unsigned char P2, unsigned short color );
+void Bdisp_AreaClr( struct display_fill *area, unsigned char P2, unsigned short color );
 void Bdisp_EnableColor( int n );
 //Frame control:
 void DrawFrame( int color );
@@ -41,16 +41,16 @@ unsigned short Bdisp_GetPoint_DD( int x, int y );
 void DirectDrawRectangle( int x1, int y1, int x2, int y2, unsigned short color );
 void HourGlass( void );
 //Shape drawing:
-/*struct TShapeProps{
+struct display_shape {
 	int dx;
 	int dy;
 	int wx;
 	int wy;
 	int color;
 	TBdispFillArea saved;
-};*/
+};
 void Bdisp_ShapeBase3XVRAM( void*shape );
-void Bdisp_ShapeBase( unsigned char*work, void*shape, int color, int line_width, int zero1, int zero2 );
+void Bdisp_ShapeBase( unsigned char*work, struct display_shape *shape, int color, int line_width, int zero1, int zero2 );
 void Bdisp_ShapeToVRAM16C( void*, int color );
 //Background-related syscalls
 void SetBackGround( int );
@@ -108,7 +108,7 @@ void PrintMiniMini( int *x, int *y, unsigned char *MB_string, int mode1, char co
 void Print_OS( unsigned char*msg, int mode, int zero2 );
 
 //Progressbars and scrollbars:
-typedef struct
+struct scrollbar
 {
   unsigned int I1; // unknown changes indicator height, set to 0
   unsigned int indicatormaximum; // max logical indicator range
@@ -119,8 +119,8 @@ typedef struct
   unsigned short bartop; // y position of bar
   unsigned short barheight; // height of bar
   unsigned short barwidth; // width of bar
-} TScrollbar;
-void Scrollbar(TScrollbar *scrollbar);
+} ;
+void Scrollbar(struct scrollbar *scrollbar);
 void StandardScrollbar( void* );
 void ProgressBar(int, int );
 void ProgressBar0(int P1, int P2, int P3, int current, int max);
