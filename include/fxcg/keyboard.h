@@ -209,6 +209,8 @@ void DisplayMBString(unsigned char *MB_string, int start, int xpos, int x, int y
 void DisplayMBString2( int P1, unsigned char*MB_string, int start, int xpos, int x, int y, int pos_to_clear, int P8, int P9 );
 void EditMBStringCtrl(unsigned char *MB_string, int posmax, int *start, int *xpos, int *key, int x, int y);
 void EditMBStringCtrl2( unsigned char*MB_string, int xposmax, int*P3, int*xpos, int*key, int x, int y, int enable_pos_to_clear, int pos_to_clear );
+void EditMBStringCtrl3( unsigned char*, int xposmax, void*, void*, void*, int, int, int, int, int );
+void EditMBStringCtrl4( unsigned char*, int xposmax, void*, void*, void*, int, int, int, int, int, int );
 int EditMBStringChar(unsigned char *MB_string, int posmax, int xpos, int char_to_insert);
 void Bkey_ClrAllFlags( void );
 void Bkey_SetFlag(short flagpattern);
