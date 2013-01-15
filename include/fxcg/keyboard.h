@@ -137,6 +137,7 @@
 #define KEY_CTRL_F5         30013
 #define KEY_CTRL_F6         30014
 #define KEY_CTRL_CATALOG    30100
+#define KEY_CTRL_FORMAT     30101
 #define KEY_CTRL_CAPTURE    30055
 #define KEY_CTRL_CLIP       30050
 #define KEY_CTRL_PASTE      30036
