@@ -14,6 +14,8 @@ extern int errno;
 #define EAGAIN (-5)
 #define EIO (-6)
 #define ENOMEM (-7)
+#define EEXIST (-8)
+#define ENOENT (-9)
 
 #define ENOTIMPL 0xBEEF
 

@@ -1,6 +1,8 @@
 #ifndef _FXCG_FILE_H
 #define _FXCG_FILE_H
 
+#include <stddef.h>
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -21,7 +23,7 @@ enum
 };
 
 int Bfile_CloseFile_OS( int HANDLE );
-int Bfile_CreateEntry_OS( const unsigned short*filename, int mode, int*size );
+int Bfile_CreateEntry_OS( const unsigned short*filename, int mode, size_t *size);
 int Bfile_DeleteEntry( const unsigned short *filename );
 int Bfile_RenameEntry( const unsigned short *oldpath, const unsigned short *newpath );
 int Bfile_FindClose( int FindHandle );
@@ -35,8 +37,8 @@ int Bfile_ReadFile_OS( int HANDLE, void *buf, int size, int readpos );
 int Bfile_SeekFile_OS( int handle, int pos );
 int Bfile_TellFile_OS( int handle );
 int Bfile_WriteFile_OS( int HANDLE, const void *buf, int size );
-void Bfile_NameToStr_ncpy( unsigned char*source, const unsigned short*dest, int n );
-void Bfile_StrToName_ncpy(unsigned short *dest, const unsigned char *source, int n);
+void Bfile_NameToStr_ncpy(char*source, const unsigned short*dest, size_t n);
+void Bfile_StrToName_ncpy(unsigned short *dest, const char *source, size_t n);
 int Bfile_Name_MatchMask( const short*mask, const short*filename  );
 int Bfile_GetMediaFree_OS( unsigned short*media_id, int*freespace );
 int SMEM_FindFirst( const unsigned short*pattern, unsigned short*foundfile );

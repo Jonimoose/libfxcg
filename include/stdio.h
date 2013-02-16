@@ -18,6 +18,8 @@ typedef struct {
     /* Just for rewinding the stream. */
     unsigned has_unput : 1;
     unsigned char unput;
+    /* Used only for terminal output (on stdout) */
+    unsigned short termx, termy;
 } FILE;
 
 extern FILE _impl_stdin, _impl_stdout, _impl_stderr;
