@@ -25,5 +25,5 @@ $(LIBRARY): $(OBJECTS)
 	$(CC) $(CFLAGS) $< -o $@
 
 clean:
-	rm $(OBJECTS) $(LIBRARY)
+	rm -f $(OBJECTS) $(LIBRARY)
 
