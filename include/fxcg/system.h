@@ -15,6 +15,7 @@ int GetBatteryType(void);
 
 int GetMainBatteryVoltage(int one); //parameter should be 1
 void PowerOff(int displayLogo);
+void Restart();
 void SpecialMatrixcodeProcessing(int*col, int*row);
 void TestMode(int);
 void*GetStackPtr(void);
