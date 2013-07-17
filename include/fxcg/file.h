@@ -31,8 +31,8 @@ int Bfile_FindFirst( const char *pathname, int *FindHandle, char *foundfile, voi
 int Bfile_FindFirst_NON_SMEM( const char *pathname, int *FindHandle, char *foundfile, void *fileinfo );
 int Bfile_FindNext( int FindHandle, char *foundfile, char *fileinfo );
 int Bfile_FindNext_NON_SMEM( int FindHandle, char *foundfile, char *fileinfo );
-int Bfile_GetFileSize_OS( int handle, int pos );
-int Bfile_OpenFile_OS( const unsigned short*filename, int mode );
+int Bfile_GetFileSize_OS(int handle);
+int Bfile_OpenFile_OS(const unsigned short *filename, int mode, int null);
 int Bfile_ReadFile_OS( int HANDLE, void *buf, int size, int readpos );
 int Bfile_SeekFile_OS( int handle, int pos );
 int Bfile_TellFile_OS( int handle );
