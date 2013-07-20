@@ -72,6 +72,7 @@ void DisplayMessageBox( unsigned char*message );
 short CharacterSelectDialog( void );
 unsigned char ColorIndexDialog1( unsigned char initial_index, unsigned short disable_mask );
 void MsgBoxMoveWB( void*buffer, int x0, int y0, int x1, int y1, int direction ); //it's more general purpose, works not only for MsgBoxes but for any VRAM contents.
+void Bdisp_WriteSystemMessage( int x, int y, int msgno, int mode, char color3 );
 
 //Cursor manipulating syscalls:
 void locate_OS( int X, int y );
