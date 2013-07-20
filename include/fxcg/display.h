@@ -72,7 +72,6 @@ void DisplayMessageBox( unsigned char*message );
 short CharacterSelectDialog( void );
 unsigned char ColorIndexDialog1( unsigned char initial_index, unsigned short disable_mask );
 void MsgBoxMoveWB( void*buffer, int x0, int y0, int x1, int y1, int direction ); //it's more general purpose, works not only for MsgBoxes but for any VRAM contents.
-void Bdisp_WriteSystemMessage( int x, int y, int msgno, int mode, char color3 );
 
 //Cursor manipulating syscalls:
 void locate_OS( int X, int y );
@@ -112,6 +111,7 @@ void PrintMiniGlyph(int x, int y, void*glyph, int mode_flags, int glyph_width, i
 void PrintMini( int *x, int *y, const char *MB_string, int mode_flags, unsigned int xlimit, int P6, int P7, int color, int back_color, int writeflag, int P11 );
 void PrintMiniMini( int *x, int *y, const char *MB_string, int mode1, char color, int mode2 );
 void Print_OS( const char*msg, int mode, int zero2 );
+void Bdisp_WriteSystemMessage( int x, int y, int msgno, int mode, char color3 );
 
 //Progressbars and scrollbars:
 struct scrollbar
