@@ -1,4 +1,4 @@
-#include "fxcg_syscalls.h"
+#include <fxcg/keyboard.h>
 
 int PRGM_GetKey() {
     unsigned char buffer[12];

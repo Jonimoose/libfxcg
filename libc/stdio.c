@@ -61,7 +61,7 @@ FILE *fopen(const char *path, const char *mode) {
 
     // Get a handle from the system
     Bfile_StrToName_ncpy(chars16, path, plen);
-    int syshandle = Bfile_OpenFile_OS(chars16, sysmode);
+    int syshandle = Bfile_OpenFile_OS(chars16, sysmode, 0);
 
     if (syshandle < 0) {
         if (sysmode == SYSFILE_MODE_WRITE ||
@@ -72,7 +72,7 @@ FILE *fopen(const char *path, const char *mode) {
             switch (Bfile_CreateEntry_OS(chars16, CREATEMODE_FILE, &size)) {
             case 0:
                 // Success. Open file.
-                syshandle = Bfile_OpenFile_OS(chars16, sysmode);
+                syshandle = Bfile_OpenFile_OS(chars16, sysmode, 0);
                 break;
             case -13:
                 errno = EEXIST;
