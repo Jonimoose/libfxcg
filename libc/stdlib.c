@@ -112,9 +112,9 @@ double strtod(const char *s, char **str_end) {
     return raw.r;
 }
 
-/*
-void qsort(void *base, size_t nel, size_t width,
-           int (*compar)(const void *, const void *)) {
-#warning qsort unimplemented
+int abs(int i) {
+    if (i < 0)
+        return -i;
+    else
+        return i;
 }
-*/
