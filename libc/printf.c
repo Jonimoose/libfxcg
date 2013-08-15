@@ -121,9 +121,17 @@ void _writer_buffer(const void *wdest, char c) {
 // Used within switch blocks, so can't break.
 #define _NEXT(fmt) if ((c = *fmt++) == 0) return count;
 
-// TODO mostly incomplete.  Python parser only depends on %d and %s, so this
-// is mostly placeholder code.
-static int _v_printf(const char *fmt, va_list ap, writer_t writer, const void *warg) {
+// TODO mostly incomplete.  Python parser only depends on %d and %s, so this is
+// mostly placeholder code.
+static int _v_printf(const char *fmt, va_list ap_in, writer_t writer, const void
+        *warg) {
+    // The va_copy here is dumb, but necessary for things to work on x86_64.
+    // See GCC bug #14557, but the issue boils down to va_list being
+    // transparently passed by reference so &ap is wrong if ap is a function
+    // parameter.
+    va_list ap;
+    va_copy(ap, ap_in);
+
     // Bytes transmitted
     int count = 0;
     format_t f = {
