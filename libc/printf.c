@@ -119,7 +119,7 @@ void _writer_buffer(const void *wdest, char c) {
 
 // Used for catching end-of-string while grabbing chars
 // Used within switch blocks, so can't break.
-#define _NEXT(fmt) if ((c = *fmt++) == 0) return count;
+#define _NEXT(fmt) if ((c = *fmt++) == 0) goto out;
 
 // TODO mostly incomplete.  Python parser only depends on %d and %s, so this is
 // mostly placeholder code.
@@ -285,6 +285,8 @@ static int _v_printf(const char *fmt, va_list ap_in, writer_t writer, const void
         }
         formatter(&ap, writer, warg, f);
     }
+out:
+    va_end(ap);
     return count;
 }
 
