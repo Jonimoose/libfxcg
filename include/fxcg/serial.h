@@ -31,7 +31,7 @@ struct TTransmitBuffer {
     char dummy[0x28];
     char fname2[0x00E];
 // 0x252
-    FONTCHARACTER filename[0x10A];
+    unsigned short filename[0x10A];
 // 0x466
     char dummy2[0x1A];
 // 0x480
