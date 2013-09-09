@@ -67,8 +67,8 @@ int Comm_Terminate( unsigned char subtype );
 int App_LINK_SetRemoteBaud( void ); //Switch the remote calculator to 115200 baud, no parity and 1 stop bit (command '02'; (fxReverse.PDF, p. 17)). Close the serial interface. Open the serial interface with 115200 baud, no parity and 1 stop bit.
 int App_LINK_Send_ST9_Packet( void );
 int App_LINK_GetDeviceInfo( unsigned int* calcType, unsigned short* osVer);
-int App_LINK_TransmitInit( TTransmitBuffer*ttb );
-int App_LINK_Transmit( TTransmitBuffer*ttb );
+int App_LINK_TransmitInit( struct TTransmitBuffer*ttb );
+int App_LINK_Transmit( struct TTransmitBuffer*ttb );
 
 
 #ifdef _FXCG_MINICOMPAT
