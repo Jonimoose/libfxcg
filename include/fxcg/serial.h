@@ -59,7 +59,8 @@ struct TTransmitBuffer {
     int zero;
 };
 
-void App_LINK_GetReceiveTimeout_ms( void );
+int App_LINK_GetReceiveTimeout_ms( void );
+void App_LINK_SetReceiveTimeout_ms( int timeout );
 int Comm_Open( unsigned short parameters );
 int Comm_Close( int mode );
 int Comm_TryCheckPacket( unsigned char subtype );
