@@ -1,0 +1,4940 @@
+clear
+trace=1
+abs(2)
+check(last = 2)
+-- abs.cpp
+abs(2.0)
+check(last = 2)
+-- abs.cpp
+abs(-2)
+check(last = 2)
+-- abs.cpp
+abs(-2.0)
+check(last = 2)
+-- abs.cpp
+abs(a)
+check(last = abs(a))
+-- abs.cpp
+abs(-a)
+check(last = abs(a))
+-- abs.cpp
+abs(2*a)
+check(last = 2*abs(a))
+-- abs.cpp
+abs(-2*a)
+check(last = 2*abs(a))
+-- abs.cpp
+abs(2.0*a)
+check(last = 2*abs(a))
+-- abs.cpp
+abs(-2.0*a)
+check(last = 2*abs(a))
+-- abs.cpp
+abs(a-b)+abs(b-a)
+check(last = 2*abs(a-b))
+-- abs.cpp
+abs(3 + 4 i)
+check(last = 5)
+-- abs.cpp
+abs((2,3,4))
+check(last = 29^(1/2))
+-- abs.cpp
+abs(a*b)
+check(last = abs(a)*abs(b))
+-- abs.cpp
+abs(a/b)
+check(last = abs(a)/abs(b))
+-- abs.cpp
+abs(1/a^b)
+check(last = 1/(abs(a^b)))
+-- abs.cpp
+P=(u*cos(v),u*sin(v),v)
+abs(cross(d(P,u),d(P,v)))
+check(last = (1+u^2)^(1/2))
+-- abs.cpp
+clear
+trace=1
+clear
+trace=1
+adj(((a,b),(c,d)))
+check(last = ((d,-b),(-c,a)))
+-- adj.cpp
+adj(((1,2),(3,4)))
+check(last = ((4,-2),(-3,1)))
+-- adj.cpp
+adj(((2,3,-2,5),(6,-2,1,4),(5,10,3,-2),(-1,2,2,3)))
+check(last = ((-4,-177,-73,194),(-117,117,-99,-27),(310,-129,-44,-374),(-130,-51,71,-211)))
+-- adj.cpp
+clear
+trace=1
+clear
+trace=1
+clear
+trace=1
+arccos(1)
+check(last = 0)
+-- arccos.cpp
+arccos(1/2)
+check(last = 1/3*pi)
+-- arccos.cpp
+arccos(0)
+check(last = 1/2*pi)
+-- arccos.cpp
+arccos(-1/2)
+check(last = 2/3*pi)
+-- arccos.cpp
+arccos(-1)
+check(last = pi)
+-- arccos.cpp
+arccos(cos(0))
+check(last = 0)
+-- arccos.cpp
+arccos(cos(1/3*pi))
+check(last = 1/3*pi)
+-- arccos.cpp
+arccos(cos(1/2*pi))
+check(last = 1/2*pi)
+-- arccos.cpp
+arccos(cos(2/3*pi))
+check(last = 2/3*pi)
+-- arccos.cpp
+arccos(cos(pi))
+check(last = pi)
+-- arccos.cpp
+arccos(cos(x))
+check(last = x)
+-- arccos.cpp
+arccos(1/sqrt(2))
+check(last = 1/4*pi)
+-- arccos.cpp
+arccos(-1/sqrt(2))
+check(last = 3/4*pi)
+-- arccos.cpp
+arccos(cos(1/4*pi))
+check(last = 1/4*pi)
+-- arccos.cpp
+arccos(cos(3/4*pi))
+check(last = 3/4*pi)
+-- arccos.cpp
+clear
+trace=1
+arccosh(1.0)
+check(last = 0)
+-- arccosh.cpp
+arccosh(1)
+check(last = 0)
+-- arccosh.cpp
+arccosh(cosh(x))
+check(last = x)
+-- arccosh.cpp
+clear
+trace=1
+arcsin(-1)
+check(last = -1/2*pi)
+-- arcsin.cpp
+arcsin(-1/2)
+check(last = -1/6*pi)
+-- arcsin.cpp
+arcsin(0)
+check(last = 0)
+-- arcsin.cpp
+arcsin(1/2)
+check(last = 1/6*pi)
+-- arcsin.cpp
+arcsin(1)
+check(last = 1/2*pi)
+-- arcsin.cpp
+arcsin(sin(-1/2*pi))
+check(last = -1/2*pi)
+-- arcsin.cpp
+arcsin(sin(-1/6*pi))
+check(last = -1/6*pi)
+-- arcsin.cpp
+arcsin(sin(0))
+check(last = 0)
+-- arcsin.cpp
+arcsin(sin(1/6*pi))
+check(last = 1/6*pi)
+-- arcsin.cpp
+arcsin(sin(1/2*pi))
+check(last = 1/2*pi)
+-- arcsin.cpp
+arcsin(sin(x))
+check(last = x)
+-- arcsin.cpp
+arcsin(1/sqrt(2))
+check(last = 1/4*pi)
+-- arcsin.cpp
+arcsin(-1/sqrt(2))
+check(last = -1/4*pi)
+-- arcsin.cpp
+arcsin(sin(1/4*pi))
+check(last = 1/4*pi)
+-- arcsin.cpp
+arcsin(sin(-1/4*pi))
+check(last = -1/4*pi)
+-- arcsin.cpp
+clear
+trace=1
+arcsinh(0.0)
+check(last = 0)
+-- arcsinh.cpp
+arcsinh(0)
+check(last = 0)
+-- arcsinh.cpp
+arcsinh(sinh(x))
+check(last = x)
+-- arcsinh.cpp
+clear
+trace=1
+arctan(x)
+check(last = arctan(x))
+-- arctan.cpp
+arctan(-x)
+check(last = -arctan(x))
+-- arctan.cpp
+arctan(0)
+check(last = 0)
+-- arctan.cpp
+arctan(tan(x))
+check(last = x)
+-- arctan.cpp
+arctan(1/sqrt(3))-pi/6
+check(last = 0)
+-- arctan.cpp
+arctan(1)-pi/4
+check(last = 0)
+-- arctan.cpp
+arctan(sqrt(3))-pi/3
+check(last = 0)
+-- arctan.cpp
+arctan(a-b)
+check(last = arctan(a-b))
+-- arctan.cpp
+arctan(b-a)
+check(last = -arctan(a-b))
+-- arctan.cpp
+arctan(tan(x))
+check(last = x)
+-- arctan.cpp
+clear
+trace=1
+arctanh(0.0)
+check(last = 0)
+-- arctanh.cpp
+arctanh(0)
+check(last = 0)
+-- arctanh.cpp
+arctanh(tanh(x))
+check(last = x)
+-- arctanh.cpp
+clear
+trace=1
+arg(1+i)
+check(last = 1/4*pi)
+-- arg.cpp
+arg(1-i)
+check(last = -1/4*pi)
+-- arg.cpp
+arg(-1+i)
+check(last = 3/4*pi)
+-- arg.cpp
+arg(-1-i)
+check(last = -3/4*pi)
+-- arg.cpp
+arg((-1)^(1/3))
+check(last = 1/3*pi)
+-- arg.cpp
+arg(1+exp(i*pi/3))
+check(last = 1/6*pi)
+-- arg.cpp
+arg((-1)^(1/6)*exp(i*pi/6))
+check(last = 1/3*pi)
+-- arg.cpp
+arg(a)
+check(last = 0)
+-- arg.cpp
+arg(a*exp(b+i*pi/5))
+check(last = 1/5*pi)
+-- arg.cpp
+arg(-1)
+check(last = -pi)
+-- arg.cpp
+arg(a)
+check(last = 0)
+-- arg.cpp
+arg(-a)
+check(last = -pi)
+-- arg.cpp
+arg(-(-1)^(1/3))
+check(last = -2/3*pi)
+-- arg.cpp
+arg(-exp(i*pi/3))
+check(last = -2/3*pi)
+-- arg.cpp
+arg(-i)
+check(last = -1/2*pi)
+-- arg.cpp
+arg((a+b*i)/(c+d*i))
+check(last = arctan(b/a)-arctan(d/c))
+-- arg.cpp
+clear
+trace=1
+clear
+trace=1
+(x+3)^3
+check(last = x^3+9*x^2+27*x+27)
+-- bake.cpp
+factor
+check(last = (x+3)^3)
+-- bake.cpp
+clear
+trace=1
+besselj(x,n)
+check(last = besselj(x,n))
+-- besselj.cpp
+besselj(0,0)
+check(last = 1)
+-- besselj.cpp
+besselj(0,1)
+check(last = 0)
+-- besselj.cpp
+besselj(0,-1)
+check(last = 0)
+-- besselj.cpp
+besselj(x,1/2)-sqrt(2/pi/x)*sin(x)
+check(last = 0)
+-- besselj.cpp
+besselj(x,-1/2)-sqrt(2/pi/x)*cos(x)
+check(last = 0)
+-- besselj.cpp
+besselj(x,3/2)-sqrt(2/pi/x)*(sin(x)/x-cos(x))
+check(last = 0)
+-- besselj.cpp
+besselj(x,-3/2)-sqrt(2/pi/x)*(-cos(x)/x-sin(x))
+check(last = 0)
+-- besselj.cpp
+besselj(x,5/2)-sqrt(2/pi/x)*((3/x^2-1)*sin(x)-3/x*cos(x))
+check(last = 0)
+-- besselj.cpp
+besselj(x,-5/2)-sqrt(2/pi/x)*((3/x^2-1)*cos(x)+3/x*sin(x))
+check(last = 0)
+-- besselj.cpp
+besselj(x,3/2)-(1/x)*besselj(x,1/2)+besselj(x,-1/2)
+check(last = 0)
+-- besselj.cpp
+besselj(x,-3/2)+(1/x)*besselj(x,-1/2)+besselj(x,1/2)
+check(last = 0)
+-- besselj.cpp
+y=besselj(x,5/2)
+x^2*d(y,x,x)+x*d(y,x)+(x^2-(5/2)^2)*y
+check(last = 0)
+-- besselj.cpp
+y=quote(y)
+clear
+trace=1
+bessely(x,n)
+check(last = bessely(x,n))
+-- bessely.cpp
+clear
+trace=1
+clear
+trace=1
+clear
+trace=1
+ceiling(a)
+check(last = ceiling(a))
+-- ceiling.cpp
+ceiling(a+b)
+check(last = ceiling(a+b))
+-- ceiling.cpp
+ceiling(5/2)
+check(last = 3)
+-- ceiling.cpp
+ceiling(4/2)
+check(last = 2)
+-- ceiling.cpp
+ceiling(3/2)
+check(last = 2)
+-- ceiling.cpp
+ceiling(2/2)
+check(last = 1)
+-- ceiling.cpp
+ceiling(1/2)
+check(last = 1)
+-- ceiling.cpp
+ceiling(0/2)
+check(last = 0)
+-- ceiling.cpp
+ceiling(-1/2)
+check(last = 0)
+-- ceiling.cpp
+ceiling(-2/2)
+check(last = -1)
+-- ceiling.cpp
+ceiling(-3/2)
+check(last = -1)
+-- ceiling.cpp
+ceiling(-4/2)
+check(last = -2)
+-- ceiling.cpp
+ceiling(-5/2)
+check(last = -2)
+-- ceiling.cpp
+ceiling(5/2.0)
+check(last = 3)
+-- ceiling.cpp
+ceiling(4/2.0)
+check(last = 2)
+-- ceiling.cpp
+ceiling(3/2.0)
+check(last = 2)
+-- ceiling.cpp
+ceiling(2/2.0)
+check(last = 1)
+-- ceiling.cpp
+ceiling(1/2.0)
+check(last = 1)
+-- ceiling.cpp
+ceiling(0.0)
+check(last = 0)
+-- ceiling.cpp
+ceiling(-1/2.0)
+check(last = 0)
+-- ceiling.cpp
+ceiling(-2/2.0)
+check(last = -1)
+-- ceiling.cpp
+ceiling(-3/2.0)
+check(last = -1)
+-- ceiling.cpp
+ceiling(-4/2.0)
+check(last = -2)
+-- ceiling.cpp
+ceiling(-5/2.0)
+check(last = -2)
+-- ceiling.cpp
+clear
+trace=1
+choose(52,5)
+check(last = 2598960)
+-- choose.cpp
+choose(n,k)
+check(last = n!/(k!*(-k+n)!))
+-- choose.cpp
+choose(0,k)
+check(last = 1/(k!*(-k)!))
+-- choose.cpp
+choose(n,0)
+check(last = 1)
+-- choose.cpp
+choose(-1,k)
+check(last = 0)
+-- choose.cpp
+choose(n,-1)
+check(last = 0)
+-- choose.cpp
+clear
+trace=1
+circexp(cos(x))
+check(last = 1/2*exp(-i*x)+1/2*exp(i*x))
+-- circexp.cpp
+circexp(sin(x))
+check(last = 1/2*i*exp(-i*x)-1/2*i*exp(i*x))
+-- circexp.cpp
+circexp(tan(x))
+check(last = i*exp(-i*x)/(exp(-i*x)+exp(i*x))-i*exp(i*x)/(exp(-i*x)+exp(i*x)))
+-- circexp.cpp
+circexp(cosh(x))
+check(last = 1/2*exp(x)+1/2*exp(-x))
+-- circexp.cpp
+circexp(sinh(x))
+check(last = 1/2*exp(x)-1/2*exp(-x))
+-- circexp.cpp
+circexp(tanh(x))
+check(last = -1/(1+exp(2*x))+exp(2*x)/(1+exp(2*x)))
+-- circexp.cpp
+circexp((cos(x),sin(x)))
+check(last = (1/2*exp(-i*x)+1/2*exp(i*x),1/2*i*exp(-i*x)-1/2*i*exp(i*x)))
+-- circexp.cpp
+circexp(cos(x)*sin(x))-expcos(x)*expsin(x)
+check(last = 0)
+-- circexp.cpp
+clear
+trace=1
+clear
+trace=1
+clock(exp(i pi/3))
+check(last = (-1)^(1/3))
+-- clock.cpp
+clock(exp(-i pi/3))
+check(last = -(-1)^(2/3))
+-- clock.cpp
+rect(clock(3+4*i))
+check(last = 3+4*i)
+-- clock.cpp
+clear
+trace=1
+coeff(40*x^3+30*x^2+20*x+10,3)
+check(last = 40)
+-- coeff.cpp
+coeff(40*x^3+30*x^2+20*x+10,2)
+check(last = 30)
+-- coeff.cpp
+coeff(40*x^3+30*x^2+20*x+10,1)
+check(last = 20)
+-- coeff.cpp
+coeff(40*x^3+30*x^2+20*x+10,0)
+check(last = 10)
+-- coeff.cpp
+coeff(a*t^3+b*t^2+c*t+d,t,3)
+check(last = a)
+-- coeff.cpp
+coeff(a*t^3+b*t^2+c*t+d,t,2)
+check(last = b)
+-- coeff.cpp
+coeff(a*t^3+b*t^2+c*t+d,t,1)
+check(last = c)
+-- coeff.cpp
+coeff(a*t^3+b*t^2+c*t+d,t,0)
+check(last = d)
+-- coeff.cpp
+clear
+trace=1
+cofactor(((1,2),(3,4)),1,1)
+check(last = 4)
+-- cofactor.cpp
+cofactor(((1,2),(3,4)),1,2)
+check(last = -3)
+-- cofactor.cpp
+cofactor(((1,2),(3,4)),2,1)
+check(last = -2)
+-- cofactor.cpp
+cofactor(((1,2),(3,4)),2,2)
+check(last = 1)
+-- cofactor.cpp
+cofactor(((1,2,3),(4,5,6),(7,8,9)),1,2)
+check(last = 6)
+-- cofactor.cpp
+clear
+trace=1
+condense(a/(a+b)+b/(a+b))
+check(last = 1)
+-- condense.cpp
+psi(n) = exp(-r/n) laguerre(2r/n,n-1,1)
+psi(3)
+check(last = 3*exp(-1/3*r)-2*r*exp(-1/3*r)+2/9*r^2*exp(-1/3*r))
+-- condense.cpp
+condense(last)
+check(last = exp(-1/3*r)*(3-2*r+2/9*r^2))
+-- condense.cpp
+psi()=psi
+condense(-3 exp(-1/3 r + i phi) cos(theta) - 6 exp(-1/3 r + i phi) cos(theta) sin(theta)^2 + 12 exp(-1/3 r + i phi) cos(theta)^3)
+check(last = 3*exp(-1/3*r+i*phi)*(-1+4*cos(theta)^2-2*sin(theta)^2)*cos(theta))
+-- condense.cpp
+clear
+trace=1
+clear
+trace=1
+clear
+trace=1
+contract(0)
+check(last = 0)
+-- contract.cpp
+contract(0.0)
+check(last = 0)
+-- contract.cpp
+contract(((a,b),(c,d)))
+check(last = a+d)
+-- contract.cpp
+contract(((1,2),(3,4)),1,2)
+check(last = 5)
+-- contract.cpp
+A=((a11,a12),(a21,a22))
+B=((b11,b12),(b21,b22))
+contract(outer(A,B),2,3)
+check(last = ((a11*b11+a12*b21,a11*b12+a12*b22),(a21*b11+a22*b21,a21*b12+a22*b22)))
+-- contract.cpp
+A=quote(A)
+B=quote(B)
+clear
+trace=1
+cos(x)
+check(last = cos(x))
+-- cos.cpp
+cos(-x)
+check(last = cos(x))
+-- cos.cpp
+cos(b-a)
+check(last = cos(a-b))
+-- cos.cpp
+f(a,x)=1+cos(a/360*2*pi)-x
+f(0,1)
+check(last = 1)
+-- cos.cpp
+f(90,0)
+check(last = 1)
+-- cos.cpp
+f(180,-1)
+check(last = 1)
+-- cos.cpp
+f(270,0)
+check(last = 1)
+-- cos.cpp
+f(360,1)
+check(last = 1)
+-- cos.cpp
+f(-90,0)
+check(last = 1)
+-- cos.cpp
+f(-180,-1)
+check(last = 1)
+-- cos.cpp
+f(-270,0)
+check(last = 1)
+-- cos.cpp
+f(-360,1)
+check(last = 1)
+-- cos.cpp
+f(45,sqrt(2)/2)
+check(last = 1)
+-- cos.cpp
+f(135,-sqrt(2)/2)
+check(last = 1)
+-- cos.cpp
+f(225,-sqrt(2)/2)
+check(last = 1)
+-- cos.cpp
+f(315,sqrt(2)/2)
+check(last = 1)
+-- cos.cpp
+f(-45,sqrt(2)/2)
+check(last = 1)
+-- cos.cpp
+f(-135,-sqrt(2)/2)
+check(last = 1)
+-- cos.cpp
+f(-225,-sqrt(2)/2)
+check(last = 1)
+-- cos.cpp
+f(-315,sqrt(2)/2)
+check(last = 1)
+-- cos.cpp
+f(30,sqrt(3)/2)
+check(last = 1)
+-- cos.cpp
+f(150,-sqrt(3)/2)
+check(last = 1)
+-- cos.cpp
+f(210,-sqrt(3)/2)
+check(last = 1)
+-- cos.cpp
+f(330,sqrt(3)/2)
+check(last = 1)
+-- cos.cpp
+f(-30,sqrt(3)/2)
+check(last = 1)
+-- cos.cpp
+f(-150,-sqrt(3)/2)
+check(last = 1)
+-- cos.cpp
+f(-210,-sqrt(3)/2)
+check(last = 1)
+-- cos.cpp
+f(-330,sqrt(3)/2)
+check(last = 1)
+-- cos.cpp
+f(60,1/2)
+check(last = 1)
+-- cos.cpp
+f(120,-1/2)
+check(last = 1)
+-- cos.cpp
+f(240,-1/2)
+check(last = 1)
+-- cos.cpp
+f(300,1/2)
+check(last = 1)
+-- cos.cpp
+f(-60,1/2)
+check(last = 1)
+-- cos.cpp
+f(-120,-1/2)
+check(last = 1)
+-- cos.cpp
+f(-240,-1/2)
+check(last = 1)
+-- cos.cpp
+f(-300,1/2)
+check(last = 1)
+-- cos.cpp
+f=quote(f)
+cos(arccos(x))
+check(last = x)
+-- cos.cpp
+cos(1/12*pi)
+check(last = cos(1/12*pi))
+-- cos.cpp
+cos(arctan(4/3))
+check(last = 3/5)
+-- cos.cpp
+cos(-arctan(4/3))
+check(last = 3/5)
+-- cos.cpp
+cos(x-8/2*pi)
+check(last = cos(x))
+-- cos.cpp
+cos(x-7/2*pi)
+check(last = -sin(x))
+-- cos.cpp
+cos(x-6/2*pi)
+check(last = -cos(x))
+-- cos.cpp
+cos(x-5/2*pi)
+check(last = sin(x))
+-- cos.cpp
+cos(x-4/2*pi)
+check(last = cos(x))
+-- cos.cpp
+cos(x-3/2*pi)
+check(last = -sin(x))
+-- cos.cpp
+cos(x-2/2*pi)
+check(last = -cos(x))
+-- cos.cpp
+cos(x-1/2*pi)
+check(last = sin(x))
+-- cos.cpp
+cos(x+0/2*pi)
+check(last = cos(x))
+-- cos.cpp
+cos(x+1/2*pi)
+check(last = -sin(x))
+-- cos.cpp
+cos(x+2/2*pi)
+check(last = -cos(x))
+-- cos.cpp
+cos(x+3/2*pi)
+check(last = sin(x))
+-- cos.cpp
+cos(x+4/2*pi)
+check(last = cos(x))
+-- cos.cpp
+cos(x+5/2*pi)
+check(last = -sin(x))
+-- cos.cpp
+cos(x+6/2*pi)
+check(last = -cos(x))
+-- cos.cpp
+cos(x+7/2*pi)
+check(last = sin(x))
+-- cos.cpp
+cos(x+8/2*pi)
+check(last = cos(x))
+-- cos.cpp
+clear
+trace=1
+cosh(x)
+check(last = cosh(x))
+-- cosh.cpp
+cosh(0)
+check(last = 1)
+-- cosh.cpp
+cosh(arccosh(x))
+check(last = x)
+-- cosh.cpp
+clear
+trace=1
+clear
+trace=1
+clear
+trace=1
+clear
+trace=1
+defint(x^2,y,0,sqrt(1-x^2),x,-1,1)
+check(last = 1/8*pi)
+-- defint.cpp
+z=2
+P=(x,y,z)
+a=abs(cross(d(P,x),d(P,y)))
+defint(a,y,-sqrt(1-x^2),sqrt(1-x^2),x,-1,1)
+check(last = pi)
+-- defint.cpp
+z=x^2+2y
+P=(x,y,z)
+a=abs(cross(d(P,x),d(P,y)))
+defint(a,x,0,1,y,0,1)
+check(last = 3/2+5/8*log(5))
+-- defint.cpp
+x=u*cos(v)
+y=u*sin(v)
+z=v
+S=(x,y,z)
+a=abs(cross(d(S,u),d(S,v)))
+defint(a,u,0,1,v,0,3pi)
+check(last = 3/2*pi*log(1+2^(1/2))+3*pi/(2^(1/2)))
+-- defint.cpp
+clear
+trace=1
+clear
+trace=1
+denominator(2/3)
+check(last = 3)
+-- denominator.cpp
+denominator(x)
+check(last = 1)
+-- denominator.cpp
+denominator(1/x)
+check(last = x)
+-- denominator.cpp
+denominator(a+b)
+check(last = 1)
+-- denominator.cpp
+denominator(1/a+1/b)
+check(last = a*b)
+-- denominator.cpp
+denominator(1/(x-1)/(x-2))
+check(last = x^2-3*x+2)
+-- denominator.cpp
+clear
+trace=1
+x=quote(x)
+f=quote(f)
+g=quote(g)
+d(a,x)
+check(last = 0)
+-- derivative.cpp
+d(x,x)
+check(last = 1)
+-- derivative.cpp
+d(x^2,x)
+check(last = 2*x)
+-- derivative.cpp
+d(log(x),x)
+check(last = 1/x)
+-- derivative.cpp
+d(exp(x),x)
+check(last = exp(x))
+-- derivative.cpp
+d(a^x,x)
+check(last = a^x*log(a))
+-- derivative.cpp
+d(x^x,x)-(x^x+x^x*log(x))
+check(last = 0)
+-- derivative.cpp
+d(log(x^2+5),x)-(2*x/(5+x^2))
+check(last = 0)
+-- derivative.cpp
+d(d(f(x),x),y)
+check(last = 0)
+-- derivative.cpp
+d(d(f(x),y),x)
+check(last = 0)
+-- derivative.cpp
+d(d(f(y),x),y)
+check(last = 0)
+-- derivative.cpp
+d(d(f(y),y),x)
+check(last = 0)
+-- derivative.cpp
+d((x*y*z,y,x+z),(x,y,z))
+check(last = ((y*z,x*z,x*y),(0,1,0),(1,0,1)))
+-- derivative.cpp
+d(x+z,(x,y,z))
+check(last = (1,0,1))
+-- derivative.cpp
+d(cos(theta)^2,cos(theta))
+check(last = 2*cos(theta))
+-- derivative.cpp
+d(f())
+check(last = d(f(),x))
+-- derivative.cpp
+d(x^2)
+check(last = 2*x)
+-- derivative.cpp
+d(t^2)
+check(last = 2*t)
+-- derivative.cpp
+d(t^2 x^2)
+check(last = 2*t^2*x)
+-- derivative.cpp
+d(sin(x),x)-cos(x)
+check(last = 0)
+-- derivative.cpp
+d(cos(x),x)+sin(x)
+check(last = 0)
+-- derivative.cpp
+d(tan(x),x)-cos(x)^(-2)
+check(last = 0)
+-- derivative.cpp
+d(arcsin(x),x)-1/sqrt(1-x^2)
+check(last = 0)
+-- derivative.cpp
+d(arccos(x),x)+1/sqrt(1-x^2)
+check(last = 0)
+-- derivative.cpp
+d(arctan(x),x)-1/(1+x^2)
+check(last = 0)
+-- derivative.cpp
+d(arctan(y/x),x)
+check(last = -y/(x^2+y^2))
+-- derivative.cpp
+d(arctan(y/x),y)
+check(last = x/(x^2+y^2))
+-- derivative.cpp
+d(sinh(x),x)-cosh(x)
+check(last = 0)
+-- derivative.cpp
+d(cosh(x),x)-sinh(x)
+check(last = 0)
+-- derivative.cpp
+d(tanh(x),x)-cosh(x)^(-2)
+check(last = 0)
+-- derivative.cpp
+d(arcsinh(x),x)-1/sqrt(x^2+1)
+check(last = 0)
+-- derivative.cpp
+d(arccosh(x),x)-1/sqrt(x^2-1)
+check(last = 0)
+-- derivative.cpp
+d(arctanh(x),x)-1/(1-x^2)
+check(last = 0)
+-- derivative.cpp
+d(sin(cos(x)),x)+cos(cos(x))*sin(x)
+check(last = 0)
+-- derivative.cpp
+d(sin(x)^2,x)-2*sin(x)*cos(x)
+check(last = 0)
+-- derivative.cpp
+d(sin(cos(x)),cos(x))-cos(cos(x))
+check(last = 0)
+-- derivative.cpp
+d(abs(x),x)
+check(last = sgn(x))
+-- derivative.cpp
+d(sgn(x),x)
+check(last = 2*dirac(x))
+-- derivative.cpp
+d(f(),x)
+check(last = d(f(),x))
+-- derivative.cpp
+d(f(x),x)
+check(last = d(f(x),x))
+-- derivative.cpp
+d(f(y),x)
+check(last = 0)
+-- derivative.cpp
+d(g(f(x)),f(x))
+check(last = d(g(f(x)),f(x)))
+-- derivative.cpp
+d(g(f(x)),x)
+check(last = d(g(f(x)),x))
+-- derivative.cpp
+d(erf(x))-2*exp(-x^2)/sqrt(pi)
+check(last = 0)
+-- derivative.cpp
+f=x^5*y^7
+d(f)
+check(last = 5*x^4*y^7)
+-- derivative.cpp
+d(f,x)
+check(last = 5*x^4*y^7)
+-- derivative.cpp
+d(f,x,0)
+check(last = x^5*y^7)
+-- derivative.cpp
+d(f,x,1)
+check(last = 5*x^4*y^7)
+-- derivative.cpp
+d(f,x,2)
+check(last = 20*x^3*y^7)
+-- derivative.cpp
+d(f,2)
+check(last = 20*x^3*y^7)
+-- derivative.cpp
+d(f,2,y)
+check(last = 140*x^3*y^6)
+-- derivative.cpp
+d(f,x,x,y,y)
+check(last = 840*x^3*y^5)
+-- derivative.cpp
+f=quote(f)
+clear
+trace=1
+clear
+trace=1
+dirac(-x)
+check(last = dirac(x))
+-- dirac.cpp
+clear
+trace=1
+clear
+trace=1
+divisors(12)
+check(last = (1,2,3,4,6,12))
+-- divisors.cpp
+divisors(-12)
+check(last = (1,2,3,4,6,12))
+-- divisors.cpp
+divisors(a)
+check(last = (1,a))
+-- divisors.cpp
+divisors(-a)
+check(last = (1,a))
+-- divisors.cpp
+divisors(+3*x+3)
+check(last = (1,3,1+x,3+3*x))
+-- divisors.cpp
+divisors(+3*x-3)
+check(last = (1,3,-3+3*x,-1+x))
+-- divisors.cpp
+divisors(-3*x+3)
+check(last = (1,3,1-x,3-3*x))
+-- divisors.cpp
+divisors(-3*x-3)
+check(last = (1,3,1+x,3+3*x))
+-- divisors.cpp
+clear
+trace=1
+clear
+trace=1
+clear
+trace=1
+clear
+trace=1
+erf(a)
+check(last = erf(a))
+-- erf.cpp
+erf(0.0)
+check(abs(last) < 0.000001)
+-- erf.cpp
+float(erf(0))
+check(abs(last) < 0.000001)
+-- erf.cpp
+float(erf(1))
+check(abs(last - 0.842701) < 0.000001)
+-- erf.cpp
+clear
+trace=1
+erfc(a)
+check(last = erfc(a))
+-- erfc.cpp
+erfc(0.0)-1.0
+check(abs(last) < 0.000001)
+-- erfc.cpp
+float(erfc(0))-1.0
+check(abs(last) < 0.000001)
+-- erfc.cpp
+float(erfc(1))
+check(abs(last - 0.157299) < 0.000001)
+-- erfc.cpp
+clear
+trace=1
+clear
+trace=1
+expand(1/(x+1)/(x+2))
+check(last = 1/(x+1)-1/(x+2))
+-- expand.cpp
+expand((2x^3-x+2)/(x^2-2x+1))
+check(last = 4+2*x+5/(x-1)+3/(x^2-2*x+1))
+-- expand.cpp
+expand(1/x^2/(x-1))
+check(last = -1/(x^2)-1/x+1/(x-1))
+-- expand.cpp
+p=5s+2
+q=(s+1)(s+2)^2
+expand(p/q)
+check(last = -3/(s+1)+3/(s+2)+8/(s^2+4*s+4))
+-- expand.cpp
+q=(x-1)(x-2)^3
+expand(1/q)
+check(last = 1/(x^3-6*x^2+12*x-8)+1/(x-2)-1/(x-1)-1/(x^2-4*x+4))
+-- expand.cpp
+expand(1/(x+1/2)/(x+1/3))
+check(last = -12/(2*x+1)+18/(3*x+1))
+-- expand.cpp
+f=1/(x+1)/(x+2)
+g=1/(x+1)-1/(x+2)
+expand(((f,f),(f,f)))-((g,g),(g,g))
+check(last = ((0,0),(0,0)))
+-- expand.cpp
+expand(1/(1+1/x))
+check(last = 1-1/(x+1))
+-- expand.cpp
+expand(1/x/(x+1))
+check(last = 1/x-1/(x+1))
+-- expand.cpp
+expand(1/x^2/(x+1))
+check(last = x^(-2)-1/x+1/(x+1))
+-- expand.cpp
+expand(1/x)
+check(last = 1/x)
+-- expand.cpp
+expand(1/x^2)
+check(last = x^(-2))
+-- expand.cpp
+expand(1/(x^2-4x+4))
+check(last = 1/(x^2-4*x+4))
+-- expand.cpp
+clear
+trace=1
+expcos(x)
+check(last = 1/2*exp(-i*x)+1/2*exp(i*x))
+-- expcos.cpp
+clear
+trace=1
+expsin(x)
+check(last = 1/2*i*exp(-i*x)-1/2*i*exp(i*x))
+-- expsin.cpp
+clear
+trace=1
+factor(0)
+check(last = 0)
+-- factor.cpp
+factor(1)
+check(last = 1)
+-- factor.cpp
+factor(2)
+check(last = 2)
+-- factor.cpp
+factor(3)
+check(last = 3)
+-- factor.cpp
+factor(4)
+check(last = 2^2)
+-- factor.cpp
+factor(5)
+check(last = 5)
+-- factor.cpp
+factor(6)
+check(last = 2*3)
+-- factor.cpp
+factor(7)
+check(last = 7)
+-- factor.cpp
+factor(8)
+check(last = 2^3)
+-- factor.cpp
+factor(9)
+check(last = 3^2)
+-- factor.cpp
+factor(10)
+check(last = 2*5)
+-- factor.cpp
+factor(100!)
+check(last = 2^97*3^48*5^24*7^16*11^9*13^7*17^5*19^5*23^4*29^3*31^3*37^2*41^2*43^2*47^2*53*59*61*67*71*73*79*83*89*97)
+-- factor.cpp
+factor(2*(2^30-35))
+check(last = 2*1073741789)
+-- factor.cpp
+a=104729
+factor(2*(a^2+6))
+check(last = 2*10968163447)
+-- factor.cpp
+factor((a^2+6)^2)
+check(last = 10968163447*10968163447)
+-- factor.cpp
+factor((a^2+6)*(a^2+60))
+check(last = 10968163501*10968163447)
+-- factor.cpp
+f=(x+1)(x+2)(y+3)(y+4)
+factor(f,x,y)
+check(last = (x+1)*(x+2)*(y+3)*(y+4))
+-- factor.cpp
+factor(f,y,x)
+check(last = (x+1)*(x+2)*(y+3)*(y+4))
+-- factor.cpp
+f=(x+1)(x+1)(y+2)(y+2)
+factor(f,x,y)
+check(last = (x+1)^2*(y+2)^2)
+-- factor.cpp
+factor(f,y,x)
+check(last = (x+1)^2*(y+2)^2)
+-- factor.cpp
+clear
+trace=1
+clear
+trace=1
+bake=0
+factor((x+1)*(x+2)*(x+3),x)
+check(last = (1+x)*(2+x)*(3+x))
+-- factorpoly.cpp
+factor((x+a)*(x^2+x+1),x)
+check(last = (1+x+x^2)*(a+x))
+-- factorpoly.cpp
+factor(x*(x+1)*(x+2),x)
+check(last = x*(1+x)*(2+x))
+-- factorpoly.cpp
+factor((-2*x+3)*(x+4),x)
+check(last = -(-3+2*x)*(4+x))
+-- factorpoly.cpp
+(-2*x+3)*(x+4)+(-3+2*x)*(4+x)
+check(last = 0)
+-- factorpoly.cpp
+factor((x+1)*(-x^2+x+1),x)
+check(last = -(-1-x+x^2)*(1+x))
+-- factorpoly.cpp
+factor((x+1/2)*(+x+1/3)*(+x+1/4),x)
+check(last = 1/24*(1+2*x)*(1+3*x)*(1+4*x))
+-- factorpoly.cpp
+(x+1/2)*(+x+1/3)*(+x+1/4)-1/24*(1+2*x)*(1+3*x)*(1+4*x)
+check(last = 0)
+-- factorpoly.cpp
+factor((x+1/2)*(+x+1/3)*(+x-1/4),x)
+check(last = 1/24*(-1+4*x)*(1+2*x)*(1+3*x))
+-- factorpoly.cpp
+(x+1/2)*(+x+1/3)*(+x-1/4)-1/24*(-1+4*x)*(1+2*x)*(1+3*x)
+check(last = 0)
+-- factorpoly.cpp
+factor((x+1/2)*(+x+1/3)*(-x+1/4),x)
+check(last = -1/24*(-1+4*x)*(1+2*x)*(1+3*x))
+-- factorpoly.cpp
+(x+1/2)*(+x+1/3)*(-x+1/4)+1/24*(-1+4*x)*(1+2*x)*(1+3*x)
+check(last = 0)
+-- factorpoly.cpp
+factor((x+1/2)*(+x+1/3)*(-x-1/4),x)
+check(last = -1/24*(1+2*x)*(1+3*x)*(1+4*x))
+-- factorpoly.cpp
+(x+1/2)*(+x+1/3)*(-x-1/4)+1/24*(1+2*x)*(1+3*x)*(1+4*x)
+check(last = 0)
+-- factorpoly.cpp
+factor((x+1/2)*(+x-1/3)*(+x+1/4),x)
+check(last = 1/24*(-1+3*x)*(1+2*x)*(1+4*x))
+-- factorpoly.cpp
+(x+1/2)*(+x-1/3)*(+x+1/4)-1/24*(-1+3*x)*(1+2*x)*(1+4*x)
+check(last = 0)
+-- factorpoly.cpp
+factor((x+1/2)*(+x-1/3)*(+x-1/4),x)
+check(last = 1/24*(-1+3*x)*(-1+4*x)*(1+2*x))
+-- factorpoly.cpp
+(x+1/2)*(+x-1/3)*(+x-1/4)-1/24*(-1+3*x)*(-1+4*x)*(1+2*x)
+check(last = 0)
+-- factorpoly.cpp
+factor((x+1/2)*(+x-1/3)*(-x+1/4),x)
+check(last = -1/24*(-1+3*x)*(-1+4*x)*(1+2*x))
+-- factorpoly.cpp
+(x+1/2)*(+x-1/3)*(-x+1/4)+1/24*(-1+3*x)*(-1+4*x)*(1+2*x)
+check(last = 0)
+-- factorpoly.cpp
+factor((x+1/2)*(+x-1/3)*(-x-1/4),x)
+check(last = -1/24*(-1+3*x)*(1+2*x)*(1+4*x))
+-- factorpoly.cpp
+(x+1/2)*(+x-1/3)*(-x-1/4)+1/24*(-1+3*x)*(1+2*x)*(1+4*x)
+check(last = 0)
+-- factorpoly.cpp
+factor((x+1/2)*(-x+1/3)*(+x+1/4),x)
+check(last = -1/24*(-1+3*x)*(1+2*x)*(1+4*x))
+-- factorpoly.cpp
+(x+1/2)*(-x+1/3)*(+x+1/4)+1/24*(-1+3*x)*(1+2*x)*(1+4*x)
+check(last = 0)
+-- factorpoly.cpp
+factor((x+1/2)*(-x+1/3)*(+x-1/4),x)
+check(last = -1/24*(-1+3*x)*(-1+4*x)*(1+2*x))
+-- factorpoly.cpp
+(x+1/2)*(-x+1/3)*(+x-1/4)+1/24*(-1+3*x)*(-1+4*x)*(1+2*x)
+check(last = 0)
+-- factorpoly.cpp
+factor((x+1/2)*(-x+1/3)*(-x+1/4),x)
+check(last = 1/24*(-1+3*x)*(-1+4*x)*(1+2*x))
+-- factorpoly.cpp
+(x+1/2)*(-x+1/3)*(-x+1/4)-1/24*(-1+3*x)*(-1+4*x)*(1+2*x)
+check(last = 0)
+-- factorpoly.cpp
+factor((x+1/2)*(-x+1/3)*(-x-1/4),x)
+check(last = 1/24*(-1+3*x)*(1+2*x)*(1+4*x))
+-- factorpoly.cpp
+(x+1/2)*(-x+1/3)*(-x-1/4)-1/24*(-1+3*x)*(1+2*x)*(1+4*x)
+check(last = 0)
+-- factorpoly.cpp
+factor((x+1/2)*(-x-1/3)*(+x+1/4),x)
+check(last = -1/24*(1+2*x)*(1+3*x)*(1+4*x))
+-- factorpoly.cpp
+(x+1/2)*(-x-1/3)*(+x+1/4)+1/24*(1+2*x)*(1+3*x)*(1+4*x)
+check(last = 0)
+-- factorpoly.cpp
+factor((x+1/2)*(-x-1/3)*(+x-1/4),x)
+check(last = -1/24*(-1+4*x)*(1+2*x)*(1+3*x))
+-- factorpoly.cpp
+(x+1/2)*(-x-1/3)*(+x-1/4)+1/24*(-1+4*x)*(1+2*x)*(1+3*x)
+check(last = 0)
+-- factorpoly.cpp
+factor((x+1/2)*(-x-1/3)*(-x+1/4),x)
+check(last = 1/24*(-1+4*x)*(1+2*x)*(1+3*x))
+-- factorpoly.cpp
+(x+1/2)*(-x-1/3)*(-x+1/4)-1/24*(-1+4*x)*(1+2*x)*(1+3*x)
+check(last = 0)
+-- factorpoly.cpp
+factor((x+1/2)*(-x-1/3)*(-x-1/4),x)
+check(last = 1/24*(1+2*x)*(1+3*x)*(1+4*x))
+-- factorpoly.cpp
+(x+1/2)*(-x-1/3)*(-x-1/4)-1/24*(1+2*x)*(1+3*x)*(1+4*x)
+check(last = 0)
+-- factorpoly.cpp
+factor((+x+a)*(+x+b)*(+x+c),x)
+check(last = (a+x)*(b+x)*(c+x))
+-- factorpoly.cpp
+(a+x)*(b+x)*(c+x)-(a+x)*(b+x)*(c+x)
+check(last = 0)
+-- factorpoly.cpp
+factor((+x+a)*(+x+b)*(+x-c),x)
+check(last = (a+x)*(b+x)*(-c+x))
+-- factorpoly.cpp
+(+x+a)*(+x+b)*(+x-c)-(a+x)*(b+x)*(-c+x)
+check(last = 0)
+-- factorpoly.cpp
+factor((+x+a)*(+x+b)*(-x+c),x)
+check(last = -(a+x)*(b+x)*(-c+x))
+-- factorpoly.cpp
+(+x+a)*(+x+b)*(-x+c)+(a+x)*(b+x)*(-c+x)
+check(last = 0)
+-- factorpoly.cpp
+factor((+x+a)*(+x+b)*(-x-c),x)
+check(last = -(a+x)*(b+x)*(c+x))
+-- factorpoly.cpp
+(+x+a)*(+x+b)*(-x-c)+(a+x)*(b+x)*(c+x)
+check(last = 0)
+-- factorpoly.cpp
+factor((+a*x+b)*(+c*x+d),x)
+check(last = (b+a*x)*(d+c*x))
+-- factorpoly.cpp
+(+a*x+b)*(+c*x+d)-(b+a*x)*(d+c*x)
+check(last = 0)
+-- factorpoly.cpp
+factor((+a*x+b)*(+c*x-d),x)
+check(last = (b+a*x)*(-d+c*x))
+-- factorpoly.cpp
+(+a*x+b)*(+c*x-d)-(b+a*x)*(-d+c*x)
+check(last = 0)
+-- factorpoly.cpp
+factor((+a*x+b)*(-c*x+d),x)
+check(last = -(b+a*x)*(-d+c*x))
+-- factorpoly.cpp
+(+a*x+b)*(-c*x+d)+(b+a*x)*(-d+c*x)
+check(last = 0)
+-- factorpoly.cpp
+factor((+a*x+b)*(-c*x-d),x)
+check(last = -(b+a*x)*(d+c*x))
+-- factorpoly.cpp
+(+a*x+b)*(-c*x-d)+(b+a*x)*(d+c*x)
+check(last = 0)
+-- factorpoly.cpp
+factor((+a*x-b)*(+c*x+d),x)
+check(last = (d+c*x)*(-b+a*x))
+-- factorpoly.cpp
+(+a*x-b)*(+c*x+d)-(d+c*x)*(-b+a*x)
+check(last = 0)
+-- factorpoly.cpp
+factor((+a*x-b)*(+c*x-d),x)
+check(last = (-b+a*x)*(-d+c*x))
+-- factorpoly.cpp
+(+a*x-b)*(+c*x-d)-(-b+a*x)*(-d+c*x)
+check(last = 0)
+-- factorpoly.cpp
+factor((+a*x-b)*(-c*x+d),x)
+check(last = -(-b+a*x)*(-d+c*x))
+-- factorpoly.cpp
+(+a*x-b)*(-c*x+d)+(-b+a*x)*(-d+c*x)
+check(last = 0)
+-- factorpoly.cpp
+factor((+a*x-b)*(-c*x-d),x)
+check(last = -(d+c*x)*(-b+a*x))
+-- factorpoly.cpp
+(+a*x-b)*(-c*x-d)+(d+c*x)*(-b+a*x)
+check(last = 0)
+-- factorpoly.cpp
+factor((-a*x+b)*(+c*x+d),x)
+check(last = -(d+c*x)*(-b+a*x))
+-- factorpoly.cpp
+(-a*x+b)*(+c*x+d)+(d+c*x)*(-b+a*x)
+check(last = 0)
+-- factorpoly.cpp
+factor((-a*x+b)*(+c*x-d),x)
+check(last = -(-b+a*x)*(-d+c*x))
+-- factorpoly.cpp
+(-a*x+b)*(+c*x-d)+(-b+a*x)*(-d+c*x)
+check(last = 0)
+-- factorpoly.cpp
+factor((-a*x+b)*(-c*x+d),x)
+check(last = (-b+a*x)*(-d+c*x))
+-- factorpoly.cpp
+(-a*x+b)*(-c*x+d)-(-b+a*x)*(-d+c*x)
+check(last = 0)
+-- factorpoly.cpp
+factor((-a*x+b)*(-c*x-d),x)
+check(last = (d+c*x)*(-b+a*x))
+-- factorpoly.cpp
+(-a*x+b)*(-c*x-d)-(d+c*x)*(-b+a*x)
+check(last = 0)
+-- factorpoly.cpp
+factor((-a*x-b)*(+c*x+d),x)
+check(last = -(b+a*x)*(d+c*x))
+-- factorpoly.cpp
+(-a*x-b)*(+c*x+d)+(b+a*x)*(d+c*x)
+check(last = 0)
+-- factorpoly.cpp
+factor((-a*x-b)*(+c*x-d),x)
+check(last = -(b+a*x)*(-d+c*x))
+-- factorpoly.cpp
+(-a*x-b)*(+c*x-d)+(b+a*x)*(-d+c*x)
+check(last = 0)
+-- factorpoly.cpp
+factor((-a*x-b)*(-c*x+d),x)
+check(last = (b+a*x)*(-d+c*x))
+-- factorpoly.cpp
+(-a*x-b)*(-c*x+d)-(b+a*x)*(-d+c*x)
+check(last = 0)
+-- factorpoly.cpp
+factor((-a*x-b)*(-c*x-d),x)
+check(last = (b+a*x)*(d+c*x))
+-- factorpoly.cpp
+(-a*x-b)*(-c*x-d)-(b+a*x)*(d+c*x)
+check(last = 0)
+-- factorpoly.cpp
+factor(x,x)
+check(last = x)
+-- factorpoly.cpp
+factor(x^2,x)
+check(last = x^2)
+-- factorpoly.cpp
+factor(x^3,x)
+check(last = x^3)
+-- factorpoly.cpp
+bake=1
+y=(x+1)(x+2)
+factor(y,z)
+check(last = x^2+3*x+2)
+-- factorpoly.cpp
+factor(y,y)
+check(last = x^2+3*x+2)
+-- factorpoly.cpp
+y=x^2+exp(x)
+factor(y)
+check(last = x^2+exp(x))
+-- factorpoly.cpp
+clear
+trace=1
+clear
+trace=1
+clear
+trace=1
+clear
+trace=1
+float(x)
+check(last = x)
+-- float.cpp
+float(1/2)
+check(last = 0.5)
+-- float.cpp
+float(pi)
+check(abs(last - 3.14159) < 0.00001)
+-- float.cpp
+float(exp(1))
+check(abs(last - 2.71828) < 0.00001)
+-- float.cpp
+x=(1/2,1/4)
+float(x)
+check(last = (0.5,0.25))
+-- float.cpp
+x
+check(last = (1/2,1/4))
+-- float.cpp
+x=quote(x)
+clear
+trace=1
+floor(a)
+check(last = floor(a))
+-- floor.cpp
+floor(a+b)
+check(last = floor(a+b))
+-- floor.cpp
+floor(5/2)
+check(last = 2)
+-- floor.cpp
+floor(4/2)
+check(last = 2)
+-- floor.cpp
+floor(3/2)
+check(last = 1)
+-- floor.cpp
+floor(2/2)
+check(last = 1)
+-- floor.cpp
+floor(1/2)
+check(last = 0)
+-- floor.cpp
+floor(0/2)
+check(last = 0)
+-- floor.cpp
+floor(-1/2)
+check(last = -1)
+-- floor.cpp
+floor(-2/2)
+check(last = -1)
+-- floor.cpp
+floor(-3/2)
+check(last = -2)
+-- floor.cpp
+floor(-4/2)
+check(last = -2)
+-- floor.cpp
+floor(-5/2)
+check(last = -3)
+-- floor.cpp
+floor(5/2.0)
+check(last = 2)
+-- floor.cpp
+floor(4/2.0)
+check(last = 2)
+-- floor.cpp
+floor(3/2.0)
+check(last = 1)
+-- floor.cpp
+floor(2/2.0)
+check(last = 1)
+-- floor.cpp
+floor(1/2.0)
+check(last = 0)
+-- floor.cpp
+floor(0.0)
+check(last = 0)
+-- floor.cpp
+floor(-1/2.0)
+check(last = -1)
+-- floor.cpp
+floor(-2/2.0)
+check(last = -1)
+-- floor.cpp
+floor(-3/2.0)
+check(last = -2)
+-- floor.cpp
+floor(-4/2.0)
+check(last = -2)
+-- floor.cpp
+floor(-5/2.0)
+check(last = -3)
+-- floor.cpp
+
+-- for.cpp
+
+clear
+trace=1
+x=0
+y=2
+for(k,1,9,x=sqrt(2+x),y=2y/x)
+float(y)
+check(abs(last - 3.14159) < 0.00001)
+for(i,1,3,j=i)
+check(i = sqrt(-1))
+check(j = 3)
+t=0
+A=2k
+for(k,1,3,t=t+A)
+check(t=12)
+
+
+clear
+trace=1
+Gamma(a)
+check(last = Gamma(a))
+-- gamma.cpp
+Gamma(x+1)
+check(last = x*Gamma(x))
+-- gamma.cpp
+Gamma(1/2)
+check(last = pi^(1/2))
+-- gamma.cpp
+Gamma(x-1)-Gamma(x)/(-1+x)
+check(last = 0)
+-- gamma.cpp
+Gamma(-x)
+check(last = -pi/(x*Gamma(x)*sin(pi*x)))
+-- gamma.cpp
+clear
+trace=1
+gcd(30,42)
+check(last = 6)
+-- gcd.cpp
+gcd(42,30)
+check(last = 6)
+-- gcd.cpp
+gcd(-30,42)
+check(last = 6)
+-- gcd.cpp
+gcd(42,-30)
+check(last = 6)
+-- gcd.cpp
+gcd(30,-42)
+check(last = 6)
+-- gcd.cpp
+gcd(-42,30)
+check(last = 6)
+-- gcd.cpp
+gcd(-30,-42)
+check(last = 6)
+-- gcd.cpp
+gcd(-42,-30)
+check(last = 6)
+-- gcd.cpp
+gcd(x,x)
+check(last = x)
+-- gcd.cpp
+gcd(-x,x)
+check(last = x)
+-- gcd.cpp
+gcd(x,-x)
+check(last = x)
+-- gcd.cpp
+gcd(-x,-x)
+check(last = -x)
+-- gcd.cpp
+gcd(x^2,x^3)
+check(last = x^2)
+-- gcd.cpp
+gcd(x,y)
+check(last = 1)
+-- gcd.cpp
+gcd(y,x)
+check(last = 1)
+-- gcd.cpp
+gcd(x*y,y)
+check(last = y)
+-- gcd.cpp
+gcd(x*y,y^2)
+check(last = y)
+-- gcd.cpp
+gcd(x^2*y^2,x^3*y^3)
+check(last = x^2*y^2)
+-- gcd.cpp
+gcd(x^2,x^3)
+check(last = x^2)
+-- gcd.cpp
+gcd(x+y,x+z)
+check(last = 1)
+-- gcd.cpp
+gcd(x+y,x+y)
+check(last = x+y)
+-- gcd.cpp
+gcd(x+y,2*x+2*y)
+check(last = x+y)
+-- gcd.cpp
+gcd(-x-y,x+y)
+check(last = x+y)
+-- gcd.cpp
+gcd(4*x+4*y,6*x+6*y)
+check(last = 2*x+2*y)
+-- gcd.cpp
+gcd(4*x+4*y+4,6*x+6*y+6)
+check(last = 2+2*x+2*y)
+-- gcd.cpp
+gcd(4*x+4*y+4,6*x+6*y+12)
+check(last = 1)
+-- gcd.cpp
+gcd(27*t^3+y^3+9*t*y^2+27*t^2*y,t+y)
+check(last = 1)
+-- gcd.cpp
+gcd(2*a^2*x^2+a*x+a*b,a)
+check(last = a)
+-- gcd.cpp
+gcd(2*a^2*x^2+a*x+a*b,a^2)
+check(last = a)
+-- gcd.cpp
+gcd(2*a^2*x^2+2*a*x+2*a*b,a)
+check(last = a)
+-- gcd.cpp
+gcd(2*a^2*x^2+2*a*x+2*a*b,2*a)
+check(last = 2*a)
+-- gcd.cpp
+gcd(2*a^2*x^2+2*a*x+2*a*b,3*a)
+check(last = a)
+-- gcd.cpp
+gcd(2*a^2*x^2+2*a*x+2*a*b,4*a)
+check(last = 2*a)
+-- gcd.cpp
+gcd(x,x^2)
+check(last = x)
+-- gcd.cpp
+gcd(x,x^a)
+check(last = 1)
+-- gcd.cpp
+gcd(12,18,9)
+check(last = 3)
+-- gcd.cpp
+clear
+trace=1
+clear
+trace=1
+clear
+trace=1
+hermite(x,n)
+check(last = hermite(x,n))
+-- hermite.cpp
+hermite(x,0)-1
+check(last = 0)
+-- hermite.cpp
+hermite(x,1)-2*x
+check(last = 0)
+-- hermite.cpp
+hermite(x,2)-(4*x^2-2)
+check(last = 0)
+-- hermite.cpp
+hermite(x,3)-(8*x^3-12*x)
+check(last = 0)
+-- hermite.cpp
+hermite(x,4)-(16*x^4-48*x^2+12)
+check(last = 0)
+-- hermite.cpp
+hermite(x,5)-(32*x^5-160*x^3+120*x)
+check(last = 0)
+-- hermite.cpp
+hermite(x,6)-(64*x^6-480*x^4+720*x^2-120)
+check(last = 0)
+-- hermite.cpp
+hermite(x,7)-(128*x^7-1344*x^5+3360*x^3-1680*x)
+check(last = 0)
+-- hermite.cpp
+hermite(x,8)-(256*x^8-3584*x^6+13440*x^4-13440*x^2+1680)
+check(last = 0)
+-- hermite.cpp
+hermite(x,9)-(512*x^9-9216*x^7+48384*x^5-80640*x^3+30240*x)
+check(last = 0)
+-- hermite.cpp
+hermite(x,10)-(1024*x^10-23040*x^8+161280*x^6-403200*x^4+302400*x^2-30240)
+check(last = 0)
+-- hermite.cpp
+hermite(a-b,10)-eval(subst(a-b,x,hermite(x,10)))
+check(last = 0)
+-- hermite.cpp
+clear
+trace=1
+clear
+trace=1
+clear
+trace=1
+imag(a+i*b)
+check(last = b)
+-- imag.cpp
+imag(1+exp(i*pi/3))
+check(last = 1/2*3^(1/2))
+-- imag.cpp
+imag(i)
+check(last = 1)
+-- imag.cpp
+imag((-1)^(1/3))
+check(last = 1/2*3^(1/2))
+-- imag.cpp
+imag(-i)
+check(last = -1)
+-- imag.cpp
+clear
+trace=1
+A=((A11,A12),(A21,A22))
+A[1,1]
+check(last = A11)
+-- index.cpp
+A[1,2]
+check(last = A12)
+-- index.cpp
+A[2,1]
+check(last = A21)
+-- index.cpp
+A[2,2]
+check(last = A22)
+-- index.cpp
+A[1]
+check(last = (A11,A12))
+-- index.cpp
+A[2]
+check(last = (A21,A22))
+-- index.cpp
+A[1]=(B11,B12)
+A
+check(last = ((B11,B12),(A21,A22)))
+-- index.cpp
+A[2]=(B21,B22)
+A
+check(last = ((B11,B12),(B21,B22)))
+-- index.cpp
+A=((0,0),(0,0))
+A[1,1]
+check(last = 0)
+-- index.cpp
+1[2]
+check(last = 1)
+-- index.cpp
+clear
+trace=1
+clear
+trace=1
+inner(a,b)
+check(last = a*b)
+-- inner.cpp
+inner(a,(b1,b2))
+check(last = (a*b1,a*b2))
+-- inner.cpp
+inner((a1,a2),b)
+check(last = (a1*b,a2*b))
+-- inner.cpp
+inner(((a11,a12),(a21,a22)),(x1,x2))
+check(last = (a11*x1+a12*x2,a21*x1+a22*x2))
+-- inner.cpp
+inner((1,2),(3,4))
+check(last = 11)
+-- inner.cpp
+inner(inner((1,2),((3,4),(5,6))),(7,8))
+check(last = 219)
+-- inner.cpp
+inner((1,2),inner(((3,4),(5,6)),(7,8)))
+check(last = 219)
+-- inner.cpp
+inner((1,2),((3,4),(5,6)),(7,8))
+check(last = 219)
+-- inner.cpp
+clear
+trace=1
+clear
+trace=1
+clear
+trace=1
+clear
+trace=1
+isprime(0)
+check(last = 0)
+-- isprime.cpp
+isprime(1)
+check(last = 0)
+-- isprime.cpp
+isprime(13)
+check(last = 1)
+-- isprime.cpp
+isprime(14)
+check(last = 0)
+-- isprime.cpp
+isprime(9007199254740991)
+check(last = 0)
+-- isprime.cpp
+isprime(2^53 - 111)
+check(last = 1)
+-- isprime.cpp
+isprime(2^50-71)
+check(last = 1)
+-- isprime.cpp
+isprime(2^40-87)
+check(last = 1)
+-- isprime.cpp
+clear
+trace=1
+clear
+trace=1
+clear
+trace=1
+tty=1
+integral(x^2+x)-(1/2*x^2+1/3*x^3)
+check(last = 0)
+-- itest.cpp
+#1
+integral(A,X)
+check(last = A*X)
+-- itest.cpp
+#4
+integral(A+B,X)-(A*X+B*X)
+check(last = 0)
+-- itest.cpp
+#9
+integral(1/X,X)
+check(last = log(X))
+-- itest.cpp
+#11
+integral(exp(X),X)
+check(last = exp(X))
+-- itest.cpp
+#12
+integral(exp(A*X),X)-exp(A*X)/A
+check(last = 0)
+-- itest.cpp
+#14
+integral(log(X),X)-X*log(X)+X
+check(last = 0)
+-- itest.cpp
+#15
+integral(3^X*log(3),X)
+check(last = 3^X)
+-- itest.cpp
+#16
+integral(1/(3+x^2),x)-3^(-1/2)*arctan(3^(-1/2)*x)
+check(last = 0)
+-- itest.cpp
+#17
+integral(1/(a-x^2),x)-a^(-1/2)*arctanh(a^(-1/2)*x)
+check(last = 0)
+-- itest.cpp
+#19
+integral(1/sqrt(a-x^2),x)-arcsin(a^(-1/2)*x)
+check(last = 0)
+-- itest.cpp
+#20
+integral(1/sqrt(a+x^2),x)-(log(x+(a+x^2)^(1/2)))
+check(last = 0)
+-- itest.cpp
+#27
+integral(1/(a+b*x),x)-(log(a+b*x)/b)
+check(last = 0)
+-- itest.cpp
+#28
+integral(1/(A+B*X)^2,X)+1/B*1/(A+B*X)
+check(last = 0)
+-- itest.cpp
+#29
+integral(1/(a+b*x)^3,x)+1/2*1/b*(a+b*x)^(-2)
+check(last = 0)
+-- itest.cpp
+#30
+integral(X/(A+B*X),X)+A*B^(-2)*log(A+B*X)-X/B
+check(last = 0)
+-- itest.cpp
+#31
+integral(X/(A+B*X)^2,X)-1/B^2*(log(A+B*X)+A/(A+B*X))
+check(last = 0)
+-- itest.cpp
+#33
+integral(X^2/(A+B*X),X)-1/B^2*(1/2*(A+B*X)^2-2*A*(A+B*X)+A^2*log(A+B*X))
+check(last = 0)
+-- itest.cpp
+#34
+integral(X^2/(A+B*X)^2,X)-1/B^3*(A+B*X-2*A*log(A+B*X)-A^2/(A+B*X))
+check(last = 0)
+-- itest.cpp
+#35
+integral(X^2/(A+B*X)^3,X)-1/B^3*(log(A+B*X)+2*A/(A+B*X)-1/2*A^2/(A+B*X)^2)
+check(last = 0)
+-- itest.cpp
+#37
+integral(1/X*1/(A+B*X),X)+1/A*log((A+B*X)/X)
+check(last = 0)
+-- itest.cpp
+#38
+integral(1/X*1/(A+B*X)^2,X)-1/A*1/(A+B*X)+1/A^2*log((A+B*X)/X)
+check(last = 0)
+-- itest.cpp
+#39
+integral(1/X*1/(A+B*X)^3,X)-1/A^3*(1/2*((2*A+B*X)/(A+B*X))^2+log(X/(A+B*X)))
+check(last = 0)
+-- itest.cpp
+#40
+integral(1/X^2*1/(A+B*X),X)+1/(A*X)-B/A^2*log((A+B*X)/X)
+check(last = 0)
+-- itest.cpp
+#41
+integral(1/X^3*1/(A+B*X),X)-(2*B*X-A)/(2*A^2*X^2)-B^2/A^3*log(X/(A+B*X))
+check(last = 0)
+-- itest.cpp
+#42
+integral(1/X^2*1/(A+B*X)^2,X)+(A+2*B*X)/(A^2*X*(A+B*X))-2*B/A^3*log((A+B*X)/X)
+check(last = 0)
+-- itest.cpp
+#60
+integral(1/(2+3*X^2),X)-1/sqrt(6)*arctan(1/2*X*sqrt(6))
+check(last = 0)
+-- itest.cpp
+integral(1/(-2-3*X^2),X)-1/sqrt(6)*arctan(-1/2*X*sqrt(6))
+check(last = 0)
+-- itest.cpp
+#61
+integral(1/(2-3*X^2),X)-1/2*1/sqrt(6)*log((2+X*sqrt(6))/(2-X*sqrt(6)))
+check(last = 0)
+-- itest.cpp
+integral(1/(-2+3*X^2),X)-1/2*1/sqrt(6)*log((-2+X*sqrt(6))/(-2-X*sqrt(6)))
+check(last = 0)
+-- itest.cpp
+#63
+integral(X/(A+B*X^2),X)-1/2*1/B*log(A+B*X^2)
+check(last = 0)
+-- itest.cpp
+#64
+integral(X^2/(A+B*X^2),X)-X/B+A/B*integral(1/(A+B*X^2),X)
+check(last = 0)
+-- itest.cpp
+#65
+integral(1/(A+B*X^2)^2,X)-X/(2*A*(A+B*X^2))-1/2*1/A*integral(1/(A+B*X^2),X)
+check(last = 0)
+-- itest.cpp
+#70
+integral(1/X*1/(A+B*X^2),X)-1/2*1/A*log(X^2/(A+B*X^2))
+check(last = 0)
+-- itest.cpp
+#71
+integral(1/X^2*1/(A+B*X^2),X)+1/(A*X)+B/A*integral(1/(A+B*X^2),X)
+check(last = 0)
+-- itest.cpp
+#74
+integral(1/(A+B*X^3),X)-1/3*1/A*(A/B)^(1/3)*(1/2*log(((A/B)^(1/3)+X)^3/(A+B*X^3))+sqrt(3)*arctan((2*X-(A/B)^(1/3))*(A/B)^(-1/3)/sqrt(3)))
+check(last = 0)
+-- itest.cpp
+#76
+integral(X^2/(A+B*X^3),X)-1/3*1/B*log(A+B*X^3)
+check(last = 0)
+-- itest.cpp
+#77
+integral(1/(2+3*X^4),X)-1/2*1/2*(2/3/4)^(1/4)*(1/2*log((X^2+2*(2/3/4)^(1/4)*X+2*(2/3/4)^(1/2))/(X^2-2*(2/3/4)^(1/4)*X+2*(2/3/4)^(1/2)))+arctan(2*(2/3/4)^(1/4)*X/(2*(2/3/4)^(1/2)-X^2)))
+check(last = 0)
+-- itest.cpp
+#78
+integral(1/(2-3*X^4),X)-1/2*(2/3)^(1/4)/2*(1/2*log((X+(2/3)^(1/4))/(X-(2/3)^(1/4)))+arctan(X*(2/3)^(-1/4)))
+check(last = 0)
+-- itest.cpp
+#79
+integral(X/(2+3*X^4),X)-1/2*1/3*1/sqrt(2/3)*arctan(X^2/sqrt(2/3))
+check(last = 0)
+-- itest.cpp
+#80
+integral(X/(2-3*X^4),X)+1/4*1/3*sqrt(3/2)*log((X^2-sqrt(2/3))/(X^2+sqrt(2/3)))
+check(last = 0)
+-- itest.cpp
+#81
+integral(X^2/(2+3*X^4),X)-1/4*1/3*(2/3/4)^(-1/4)*(1/2*log((X^2-2*(2/3/4)^(1/4)*X+2*sqrt(2/3/4))/(X^2+2*(2/3/4)^(1/4)*X+2*sqrt(2/3/4)))+arctan(2*(2/3/4)^(1/4)*X/(2*sqrt(2/3/4)-X^2)))
+check(last = 0)
+-- itest.cpp
+#82
+integral(X^2/(2-3*X^4),X)+1/4*1/3*(2/3)^(-1/4)*(log((X-(2/3)^(1/4))/(X+(2/3)^(1/4)))+2*arctan(X*(2/3)^(-1/4)))
+check(last = 0)
+-- itest.cpp
+#83
+integral(X^3/(A+B*X^4),X)-1/4*1/B*log(A+B*X^4)
+check(last = 0)
+-- itest.cpp
+#124
+integral(sqrt(A+B*X),X)-2/3/B*sqrt((A+B*X)^3)
+check(last = 0)
+-- itest.cpp
+#125
+integral(X*sqrt(A+B*X),X)+2*(2*A-3*B*X)*sqrt((A+B*X)^3)/15*B^(-2)
+check(last = 0)
+-- itest.cpp
+#126
+integral(X^2*sqrt(A+B*X),X)-2*(8*A^2-12*A*B*X+15*B^2*X^2)*sqrt((A+B*X)^3)/105*B^(-3)
+check(last = 0)
+-- itest.cpp
+#128
+integral(sqrt(A+B*X)/X,X)-2*sqrt(A+B*X)-A*integral(1/X*1/sqrt(A+B*X),X)
+check(last = 0)
+-- itest.cpp
+#129
+integral(sqrt(A+B*X)/X^2,X)+sqrt(A+B*X)/X-B/2*integral(1/X*1/sqrt(A+B*X),X)
+check(last = 0)
+-- itest.cpp
+#131
+integral(1/sqrt(A+B*X),X)-2*sqrt(A+B*X)/B
+check(last = 0)
+-- itest.cpp
+#132
+integral(X/sqrt(A+B*X),X)+2/3*(2*A-B*X)*sqrt(A+B*X)/B^2
+check(last = 0)
+-- itest.cpp
+#133
+integral(X^2/sqrt(A+B*X),X)-2/15*(8*A^2-4*A*B*X+3*B^2*X^2)*sqrt(A+B*X)/B^3
+check(last = 0)
+-- itest.cpp
+#134
+integral(1/X*1/sqrt(2+B*X),X)-1/sqrt(2)*log((sqrt(2+B*X)-sqrt(2))/(sqrt(2+B*X)+sqrt(2)))
+check(last = 0)
+-- itest.cpp
+#136
+integral(1/X*1/sqrt(-2+B*X),X)-2/sqrt(2)*arctan(sqrt((-2+B*X)/2))
+check(last = 0)
+-- itest.cpp
+#137
+integral(1/X^2*1/sqrt(A+B*X),X)+sqrt(A+B*X)/A/X+1/2*B/A*integral(1/X*1/sqrt(A+B*X),X)
+check(last = 0)
+-- itest.cpp
+#156
+integral(sqrt(X^2+A),X)-1/2*(X*sqrt(X^2+A)+A*log(X+sqrt(X^2+A)))
+check(last = 0)
+-- itest.cpp
+#157
+integral(1/sqrt(X^2+A),X)-log(X+sqrt(X^2+A))
+check(last = 0)
+-- itest.cpp
+#158
+integral(1/X*1/sqrt(X^2-2),X)-arcsec(X/sqrt(2))/sqrt(2)
+check(last = 0)
+-- itest.cpp
+#159
+integral(1/X*1/sqrt(X^2+2),X)+1/sqrt(2)*log((sqrt(2)+sqrt(X^2+2))/X)
+check(last = 0)
+-- itest.cpp
+#160
+integral(sqrt(X^2+2)/X,X)-sqrt(X^2+2)+sqrt(2)*log((sqrt(2)+sqrt(X^2+2))/X)
+check(last = 0)
+-- itest.cpp
+#161
+integral(sqrt(X^2-2)/X,X)-sqrt(X^2-2)+sqrt(2)*arcsec(X/sqrt(2))
+check(last = 0)
+-- itest.cpp
+#162
+integral(X/sqrt(X^2+A),X)-sqrt(X^2+A)
+check(last = 0)
+-- itest.cpp
+#163
+integral(X*sqrt(X^2+A),X)-1/3*sqrt((X^2+A)^3)
+check(last = 0)
+-- itest.cpp
+#164
+integral(sqrt((X^2+A)^3),X)-1/4*(X*sqrt((X^2+A)^3)+3/2*A*X*sqrt(X^2+A)+3/2*A^2*log(X+sqrt(X^2+A)))
+check(last = 0)
+-- itest.cpp
+#165
+integral(1/sqrt((X^2+A)^3),X)-X/A/sqrt(X^2+A)
+check(last = 0)
+-- itest.cpp
+#166
+integral(X/sqrt((X^2+A)^3),X)+1/sqrt(X^2+A)
+check(last = 0)
+-- itest.cpp
+#167
+integral(X*sqrt((X^2+A)^3),X)-1/5*sqrt((X^2+A)^5)
+check(last = 0)
+-- itest.cpp
+#168
+integral(X^2*sqrt(X^2+A),X)-1/4*X*sqrt((X^2+A)^3)+1/8*A*X*sqrt(X^2+A)+1/8*A^2*log(X+sqrt(X^2+A))
+check(last = 0)
+-- itest.cpp
+#169
+integral(X^3*sqrt(X^2+7),X)-(1/5*X^2-2/15*7)*sqrt((X^2+7)^3)
+check(last = 0)
+-- itest.cpp
+#170
+integral(X^3*sqrt(X^2-7),X)-(sqrt((X^2-7)^5)/5+7*sqrt((X^2-7)^3)/3)
+check(last = 0)
+-- itest.cpp
+#171
+integral(X^2/sqrt(X^2+A),X)-1/2*X*sqrt(X^2+A)+1/2*A*log(X+sqrt(X^2+A))
+check(last = 0)
+-- itest.cpp
+#172
+integral(X^3/sqrt(X^2+A),X)-1/3*sqrt((X^2+A)^3)+A*sqrt(X^2+A)
+check(last = 0)
+-- itest.cpp
+#173
+integral(1/X^2*1/sqrt(X^2+A),X)+sqrt(X^2+A)/A/X
+check(last = 0)
+-- itest.cpp
+#174
+integral(1/X^3*1/sqrt(X^2+2),X)+1/2*sqrt(X^2+2)/2/X^2-1/2*log((sqrt(2)+sqrt(X^2+2))/X)/(sqrt(2)^3)
+check(last = 0)
+-- itest.cpp
+#175
+integral(1/X^3*1/sqrt(X^2-2),X)-1/2*sqrt(X^2-2)/2/X^2-1/2*1/(2^(3/2))*arcsec(X/(2^(1/2)))
+check(last = 0)
+-- itest.cpp
+#176+
+integral(X^2*sqrt((X^2+2^2)^3),X)-1/6*X*sqrt((X^2+2^2)^5)+1/24*(2^2)*X*sqrt((X^2+2^2)^3)+1/16*(2^4)X*sqrt(X^2+2^2)+1/16*(2^6)*log(X+sqrt(X^2+2^2))
+check(last = 0)
+-- itest.cpp
+#176-
+integral(X^2*sqrt((X^2-2^2)^3),X)-1/6*X*sqrt((X^2-2^2)^5)-1/24*(2^2)*X*sqrt((X^2-2^2)^3)+1/16*(2^4)X*sqrt(X^2-2^2)-1/16*(2^6)*log(X+sqrt(X^2-2^2))
+check(last = 0)
+-- itest.cpp
+#177+
+integral(X^3*sqrt((X^2+7^2)^3),X)-1/7*sqrt((X^2+7^2)^7)+1/5*(7^2)*sqrt((X^2+7^2)^5)
+check(last = 0)
+-- itest.cpp
+#177-
+integral(X^3*sqrt((X^2-7^2)^3),X)-1/7*sqrt((X^2-7^2)^7)-1/5*(7^2)*sqrt((X^2-7^2)^5)
+check(last = 0)
+-- itest.cpp
+#196
+simplify(integral(1/(X-A)/sqrt(X^2-A^2),X)+sqrt(X^2-A^2)/A/(X-A))
+check(last = 0)
+-- itest.cpp
+simplify(1/(X-A)/sqrt(X^2-A^2)-d(integral(1/(X-A)/sqrt(X^2-A^2),X),X))
+check(last = 0)
+-- itest.cpp
+#197
+integral(1/(X+A)/sqrt(X^2-A^2),X)-sqrt(X^2-A^2)/A/(X+A)
+check(last = 0)
+-- itest.cpp
+simplify(1/(X+A)/sqrt(X^2-A^2)-d(integral(1/(X+A)/sqrt(X^2-A^2),X),X))
+check(last = 0)
+-- itest.cpp
+#200
+integral(sqrt(7-X^2),X)-1/2*(X*sqrt(7-X^2)+7*arcsin(X/sqrt(7)))
+check(last = 0)
+-- itest.cpp
+#201
+integral(1/sqrt(7-X^2),X)-arcsin(X/sqrt(7))
+check(last = 0)
+-- itest.cpp
+#202
+integral(1/X*1/sqrt(7-X^2),X)+1/sqrt(7)*log((sqrt(7)+sqrt(7-X^2))/X)
+check(last = 0)
+-- itest.cpp
+#203
+integral(sqrt(7-X^2)/X,X)-sqrt(7-X^2)+sqrt(7)*log((sqrt(7)+sqrt(7-X^2))/X)
+check(last = 0)
+-- itest.cpp
+#204
+integral(X/sqrt(A-X^2),X)+sqrt(A-X^2)
+check(last = 0)
+-- itest.cpp
+#205
+integral(X*sqrt(A-X^2),X)+1/3*sqrt((A-X^2)^3)
+check(last = 0)
+-- itest.cpp
+#210
+integral(X^2*sqrt(7-X^2),X)+1/4*X*sqrt((7-X^2)^3)-7/8*(X*sqrt(7-X^2)+7*arcsin(X/sqrt(7)))
+check(last = 0)
+-- itest.cpp
+#211
+integral(X^3*sqrt(7-X^2),X)-(-1/5*X^2-2/15*7)*sqrt((7-X^2)^3)
+check(last = 0)
+-- itest.cpp
+#214
+integral(X^2/sqrt(7-X^2),X)+X/2*sqrt(7-X^2)-7/2*arcsin(X/sqrt(7))
+check(last = 0)
+-- itest.cpp
+#215
+integral(1/X^2*1/sqrt(7-X^2),X)+sqrt(7-X^2)/7/X
+check(last = 0)
+-- itest.cpp
+#216
+integral(sqrt(7-X^2)/X^2,X)+sqrt(7-X^2)/X+arcsin(X/sqrt(7))
+check(last = 0)
+-- itest.cpp
+#217
+integral(sqrt(7-X^2)/X^3,X)+1/2*sqrt(7-X^2)/X^2-1/2*log((sqrt(7)+sqrt(7-X^2))/X)/sqrt(7)
+check(last = 0)
+-- itest.cpp
+#218
+integral(sqrt(7-X^2)/X^4,X)+1/3*sqrt((7-X^2)^3)/7/X^3
+check(last = 0)
+-- itest.cpp
+#273
+integral(sqrt(7*X^2+C),X)-X*sqrt(7*X^2+C)/2-C*log(X*sqrt(7)+sqrt(7*X^2+C))/2/sqrt(7)
+check(last = 0)
+-- itest.cpp
+#274
+integral(sqrt(-7*X^2+C),X)-X*sqrt(-7*X^2+C)/2-C*arcsin(X*sqrt(7/C))/2/sqrt(7)
+check(last = 0)
+-- itest.cpp
+#290
+integral(sin(A*X),X)+cos(A*X)/A
+check(last = 0)
+-- itest.cpp
+#291
+integral(cos(A*X),X)-sin(A*X)/A
+check(last = 0)
+-- itest.cpp
+#292
+integral(tan(A*X),X)+log(cos(A*X))/A
+check(last = 0)
+-- itest.cpp
+#293
+integral(1/tan(A*X),X)-log(sin(A*X))/A
+check(last = 0)
+-- itest.cpp
+#294
+integral(1/cos(A*X),X)-log(tan(pi/4+A*X/2))/A
+check(last = 0)
+-- itest.cpp
+#295
+integral(1/sin(A*X),X)-log(tan(A*X/2))/A
+check(last = 0)
+-- itest.cpp
+#296
+integral(sin(A*X)^2,X)-X/2+sin(2*A*X)/(4*A)
+check(last = 0)
+-- itest.cpp
+#297
+integral(sin(A*X)^3,X)+cos(A*X)*(sin(A*X)^2+2)/(3*A)
+check(last = 0)
+-- itest.cpp
+#298
+integral(sin(A*X)^4,X)-3/8*X+sin(2*A*X)/(4*A)-sin(4*A*X)/(32*A)
+check(last = 0)
+-- itest.cpp
+#302
+integral(cos(A*X)^2,X)-X/2-sin(2*A*X)/(4*A)
+check(last = 0)
+-- itest.cpp
+#303
+integral(cos(A*X)^3,X)-sin(A*X)*(cos(A*X)^2+2)/(3*A)
+check(last = 0)
+-- itest.cpp
+#304
+integral(cos(A*X)^4,X)-3/8*X-sin(2*A*X)/(4*A)-sin(4*A*X)/(32*A)
+check(last = 0)
+-- itest.cpp
+#308
+integral((1/sin(A*X))^2,X)+1/A*1/tan(A*X)
+check(last = 0)
+-- itest.cpp
+#312
+integral((1/cos(A*X))^2,X)-tan(A*X)/A
+check(last = 0)
+-- itest.cpp
+#318
+integral(sin(A*X)*cos(A*X),X)-sin(A*X)^2/(2*A)
+check(last = 0)
+-- itest.cpp
+#320
+integral(sin(A*X)^2*cos(A*X)^2,X)+sin(4*A*X)/(32*A)-X/8
+check(last = 0)
+-- itest.cpp
+#326
+integral(sin(A*X)/cos(A*X)/cos(A*X),X)-1/(A*cos(A*X))
+check(last = 0)
+-- itest.cpp
+#327
+integral(sin(A*X)^2/cos(A*X),X)+sin(A*X)/A-log(tan(pi/4+A*X/2))/A
+check(last = 0)
+-- itest.cpp
+#328
+integral(cos(A*X)/sin(A*X)^2,X)+1/(A*sin(A*X))
+check(last = 0)
+-- itest.cpp
+#329
+integral(1/sin(A*X)/cos(A*X),X)-log(tan(A*X))/A
+check(last = 0)
+-- itest.cpp
+#330
+integral(1/sin(A*X)/cos(A*X)^2,X)-(1/cos(A*X)+log(tan(A*X/2)))/A
+check(last = 0)
+-- itest.cpp
+#332
+integral(1/sin(A*X)^2/cos(A*X),X)-(log(tan(pi/4+A*X/2))-1/sin(A*X))/A
+check(last = 0)
+-- itest.cpp
+#333
+integral(1/sin(A*X)^2/cos(A*X)^2,X)+2/(A*tan(2*A*X))
+check(last = 0)
+-- itest.cpp
+#335
+integral(sin(A+B*X),X)+cos(A+B*X)/B
+check(last = 0)
+-- itest.cpp
+#336
+integral(cos(A+B*X),X)-sin(A+B*X)/B
+check(last = 0)
+-- itest.cpp
+#337+
+integral(1/(1+sin(A*X)),X)+tan(pi/4-A*X/2)/A
+check(last = 0)
+-- itest.cpp
+#337b+
+integral(1/(B+B*sin(A*X)),X)+tan(pi/4-A*X/2)/A/B
+check(last = 0)
+-- itest.cpp
+#337-
+integral(1/(1-sin(A*X)),X)-tan(pi/4+A*X/2)/A
+check(last = 0)
+-- itest.cpp
+#337b-
+integral(1/(B-B*sin(A*X)),X)-tan(pi/4+A*X/2)/A/B
+check(last = 0)
+-- itest.cpp
+#338
+integral(1/(1+cos(A*X)),X)-tan(A*X/2)/A
+check(last = 0)
+-- itest.cpp
+#339
+integral(1/(1-cos(A*X)),X)+1/(A*tan(A*X/2))
+check(last = 0)
+-- itest.cpp
+#340
+integral(1/(A+B*sin(X)),X)-1/sqrt(B^2-A^2)*log((A*tan(X/2)+B-sqrt(B^2-A^2))/(A*tan(X/2)+B+sqrt(B^2-A^2)))
+check(last = 0)
+-- itest.cpp
+#341
+integral(1/(A+B*cos(X)),X)-1/sqrt(B^2-A^2)*log((sqrt(B^2-A^2)*tan(X/2)+A+B)/(sqrt(B^2-A^2)*tan(X/2)-A-B))
+check(last = 0)
+-- itest.cpp
+#389
+x*sin(A*x)-d(integral(x*sin(A*x)))
+check(last = 0)
+-- itest.cpp
+#390
+x^2*sin(A*x)-d(integral(x^2*sin(A*x)))
+check(last = 0)
+-- itest.cpp
+#393
+x*cos(A*x)-d(integral(x*cos(A*x)))
+check(last = 0)
+-- itest.cpp
+#394
+x^2*cos(A*x)-d(integral(x^2*cos(A*x)))
+check(last = 0)
+-- itest.cpp
+#441
+integral(arcsin(A*X),X)-X*arcsin(A*X)-sqrt(1-A^2*X^2)/A
+check(last = 0)
+-- itest.cpp
+#442
+integral(arccos(A*X),X)-X*arccos(A*X)-sqrt(1-A^2*X^2)/A
+check(last = 0)
+-- itest.cpp
+#443
+integral(arctan(A*X),X)-X*arctan(A*X)+log(1+A^2*X^2)/(2*A)
+check(last = 0)
+-- itest.cpp
+#485
+integral(log(X),X)-X*log(X)+X
+check(last = 0)
+-- itest.cpp
+#485a
+integral(log(A*X),X)-X*log(A*X)+X
+check(last = 0)
+-- itest.cpp
+#486
+integral(X*log(X),X)-1/2*X^2*log(X)+1/4*X^2
+check(last = 0)
+-- itest.cpp
+#486a
+integral(X*log(A*X),X)-1/2*X^2*log(A*X)+1/4*X^2
+check(last = 0)
+-- itest.cpp
+#487
+integral(X^2*log(A*X),X)-1/3*X^3*log(A*X)+X^3/9
+check(last = 0)
+-- itest.cpp
+#489
+integral(log(X)^2,X)-X*log(X)^2+2*X*log(X)-2*X
+check(last = 0)
+-- itest.cpp
+#493
+integral(1/X*1/log(A*X),X)-log(log(A*X))
+check(last = 0)
+-- itest.cpp
+#499
+integral(log(A*X+B),X)-(A*X+B)*log(A*X+B)/A+X
+check(last = 0)
+-- itest.cpp
+#500
+integral(log(A*X+B)/X^2,X)-A*log(X)/B+(A*X+B)*log(A*X+B)/B/X
+check(last = 0)
+-- itest.cpp
+#554
+integral(sinh(X),X)-cosh(X)
+check(last = 0)
+-- itest.cpp
+#555
+integral(cosh(X),X)-sinh(X)
+check(last = 0)
+-- itest.cpp
+#556
+integral(tanh(X),X)-log(cosh(X))
+check(last = 0)
+-- itest.cpp
+#560
+integral(X*sinh(X),X)-X*cosh(X)+sinh(X)
+check(last = 0)
+-- itest.cpp
+#562
+integral(X*cosh(X),X)-X*sinh(X)+cosh(X)
+check(last = 0)
+-- itest.cpp
+#566
+integral(sinh(X)^2,X)-sinh(2*X)/4+X/2
+check(last = 0)
+-- itest.cpp
+#569
+integral(tanh(X)^2,X)-X+tanh(X)
+check(last = 0)
+-- itest.cpp
+#572
+integral(cosh(X)^2,X)-sinh(2*X)/4-X/2
+check(last = 0)
+-- itest.cpp
+integral(exp(a*x^2))+i*sqrt(pi)*erf(i*sqrt(a)*x)/sqrt(a)/2
+check(last = 0)
+-- itest.cpp
+integral(exp(-x^2))-sqrt(pi)*erf(x)/2
+check(last = 0)
+-- itest.cpp
+integral(exp(-3*x^2))-sqrt(pi/3)*erf(sqrt(3)*x)/2
+check(last = 0)
+-- itest.cpp
+integral(1/x*1/(a+log(x)),x)-log(a+log(x))
+check(last = 0)
+-- itest.cpp
+integral(exp(a*x+b*x))
+check(last = exp((a+b)*x)/(a+b))
+-- itest.cpp
+integral(x*exp(a*x))
+check(last = -exp(a*x)/(a^2)+x*exp(a*x)/a)
+-- itest.cpp
+derivative
+check(last = x*exp(a*x))
+-- itest.cpp
+integral(x*exp(a*x+b))
+check(last = -exp(a*x+b)/(a^2)+x*exp(a*x+b)/a)
+-- itest.cpp
+derivative
+check(last = x*exp(a*x+b))
+-- itest.cpp
+integral(x*exp(-a*x+b))
+check(last = -exp(-a*x+b)/(a^2)-x*exp(-a*x+b)/a)
+-- itest.cpp
+derivative
+check(last = x*exp(-a*x+b))
+-- itest.cpp
+integral(x^2*exp(a*x))
+check(last = 2*exp(a*x)/(a^3)-2*x*exp(a*x)/(a^2)+x^2*exp(a*x)/a)
+-- itest.cpp
+derivative
+check(last = x^2*exp(a*x))
+-- itest.cpp
+integral(x^2*exp(a*x+b))
+check(last = 2*exp(a*x+b)/(a^3)-2*x*exp(a*x+b)/(a^2)+x^2*exp(a*x+b)/a)
+-- itest.cpp
+derivative
+check(last = x^2*exp(a*x+b))
+-- itest.cpp
+integral(x^3*exp(a*x))
+check(last = -6*exp(a*x)/(a^4)+6*x*exp(a*x)/(a^3)-3*x^2*exp(a*x)/(a^2)+x^3*exp(a*x)/a)
+-- itest.cpp
+derivative
+check(last = x^3*exp(a*x))
+-- itest.cpp
+integral(x^3*exp(a*x+b))
+check(last = -6*exp(a*x+b)/(a^4)+6*x*exp(a*x+b)/(a^3)-3*x^2*exp(a*x+b)/(a^2)+x^3*exp(a*x+b)/a)
+-- itest.cpp
+derivative
+check(last = x^3*exp(a*x+b))
+-- itest.cpp
+-- itest.cpp
+integral(x^2*(1-x^2)^(3/2))-(x*sqrt(1-x^2)*(-8*x^4+14*x^2-3)+3*arcsin(x))/48
+check(last = 0)
+-- itest.cpp
+integral(x^4*(1-x^2)^(3/2))-(-x*sqrt(1-x^2)*(16*x^6-24*x^4+2*x^2+3)+3*arcsin(x))/128
+check(last = 0)
+-- itest.cpp
+integral(x^2*(1-x^2)^(5/2))-(x*sqrt(1-x^2)*(48*x^6-136*x^4+118*x^2-15)+15*arcsin(x))/384
+check(last = 0)
+-- itest.cpp
+clear
+trace=1
+laguerre(x,n)
+check(last = laguerre(x,n,0))
+-- laguerre.cpp
+laguerre(x,n,k)
+check(last = laguerre(x,n,k))
+-- laguerre.cpp
+laguerre(x,0)-1
+check(last = 0)
+-- laguerre.cpp
+laguerre(x,1)-(-x+1)
+check(last = 0)
+-- laguerre.cpp
+laguerre(x,2)-1/2*(x^2-4*x+2)
+check(last = 0)
+-- laguerre.cpp
+laguerre(x,3)-1/6*(-x^3+9*x^2-18*x+6)
+check(last = 0)
+-- laguerre.cpp
+laguerre(x,0,k)-1
+check(last = 0)
+-- laguerre.cpp
+laguerre(x,1,k)-(-x+k+1)
+check(last = 0)
+-- laguerre.cpp
+laguerre(x,2,k)-1/2*(x^2-2*(k+2)*x+(k+1)*(k+2))
+check(last = 0)
+-- laguerre.cpp
+laguerre(x,3,k)-1/6*(-x^3+3*(k+3)*x^2-3*(k+2)*(k+3)*x+(k+1)*(k+2)*(k+3))
+check(last = 0)
+-- laguerre.cpp
+laguerre(a-b,10)-eval(subst(a-b,x,laguerre(x,10)))
+check(last = 0)
+-- laguerre.cpp
+clear
+trace=1
+lcm(4,6)
+check(last = 12)
+-- lcm.cpp
+lcm(4*x,6*x*y)
+check(last = 12*x*y)
+-- lcm.cpp
+lcm(2,3,4)
+check(last = 12)
+-- lcm.cpp
+clear
+trace=1
+clear
+trace=1
+legendre(x,n)
+check(last = legendre(x,n,0))
+-- legendre.cpp
+legendre(x,n,m)
+check(last = legendre(x,n,m))
+-- legendre.cpp
+legendre(x,0)-1
+check(last = 0)
+-- legendre.cpp
+legendre(x,1)-x
+check(last = 0)
+-- legendre.cpp
+legendre(x,2)-1/2*(3*x^2-1)
+check(last = 0)
+-- legendre.cpp
+legendre(x,3)-1/2*(5*x^3-3*x)
+check(last = 0)
+-- legendre.cpp
+legendre(x,4)-1/8*(35*x^4-30*x^2+3)
+check(last = 0)
+-- legendre.cpp
+legendre(x,5)-1/8*(63*x^5-70*x^3+15*x)
+check(last = 0)
+-- legendre.cpp
+legendre(x,6)-1/16*(231*x^6-315*x^4+105*x^2-5)
+check(last = 0)
+-- legendre.cpp
+legendre(x,0,0)-1
+check(last = 0)
+-- legendre.cpp
+legendre(x,1,0)-x
+check(last = 0)
+-- legendre.cpp
+legendre(x,1,1)+(1-x^2)^(1/2)
+check(last = 0)
+-- legendre.cpp
+legendre(x,2,0)-1/2*(3*x^2-1)
+check(last = 0)
+-- legendre.cpp
+legendre(x,2,1)+3*x*(1-x^2)^(1/2)
+check(last = 0)
+-- legendre.cpp
+legendre(x,2,2)-3*(1-x^2)
+check(last = 0)
+-- legendre.cpp
+legendre(x,3,0)-1/2*x*(5*x^2-3)
+check(last = 0)
+-- legendre.cpp
+legendre(x,3,1)-3/2*(1-5*x^2)*(1-x^2)^(1/2)
+check(last = 0)
+-- legendre.cpp
+legendre(x,3,2)-15*x*(1-x^2)
+check(last = 0)
+-- legendre.cpp
+legendre(x,3,3)+15*(1-x^2)^(3/2)
+check(last = 0)
+-- legendre.cpp
+legendre(x,4,0)-1/8*(35*x^4-30*x^2+3)
+check(last = 0)
+-- legendre.cpp
+legendre(x,4,1)-5/2*x*(3-7*x^2)*(1-x^2)^(1/2)
+check(last = 0)
+-- legendre.cpp
+legendre(x,4,2)-15/2*(7*x^2-1)*(1-x^2)
+check(last = 0)
+-- legendre.cpp
+legendre(x,4,3)+105*x*(1-x^2)^(3/2)
+check(last = 0)
+-- legendre.cpp
+legendre(x,4,4)-105*(1-x^2)^2
+check(last = 0)
+-- legendre.cpp
+legendre(x,5,0)-1/8*x*(63*x^4-70*x^2+15)
+check(last = 0)
+-- legendre.cpp
+legendre(cos(theta),0,0)-1
+check(last = 0)
+-- legendre.cpp
+legendre(cos(theta),1,0)-cos(theta)
+check(last = 0)
+-- legendre.cpp
+legendre(cos(theta),1,1)+sin(theta)
+check(last = 0)
+-- legendre.cpp
+legendre(cos(theta),2,0)-1/2*(3*cos(theta)^2-1)
+check(last = 0)
+-- legendre.cpp
+legendre(cos(theta),2,1)+3*sin(theta)*cos(theta)
+check(last = 0)
+-- legendre.cpp
+legendre(cos(theta),2,2)-3*sin(theta)^2
+check(last = 0)
+-- legendre.cpp
+legendre(cos(theta),3,0)-1/2*cos(theta)*(5*cos(theta)^2-3)
+check(last = 0)
+-- legendre.cpp
+legendre(cos(theta),3,1)+3/2*(5*cos(theta)^2-1)*sin(theta)
+check(last = 0)
+-- legendre.cpp
+legendre(cos(theta),3,2)-15*cos(theta)*sin(theta)^2
+check(last = 0)
+-- legendre.cpp
+legendre(cos(theta),3,3)+15*sin(theta)^3
+check(last = 0)
+-- legendre.cpp
+legendre(a-b,10)-eval(subst(a-b,x,legendre(x,10)))
+check(last = 0)
+-- legendre.cpp
+clear
+trace=1
+clear
+trace=1
+log(1)
+check(last = 0)
+-- log.cpp
+log(exp(1))
+check(last = 1)
+-- log.cpp
+log(exp(x))
+check(last = x)
+-- log.cpp
+exp(log(x))
+check(last = x)
+-- log.cpp
+log(x^2)
+check(last = 2*log(x))
+-- log.cpp
+log(1/x)
+check(last = -log(x))
+-- log.cpp
+log(a^b)
+check(last = b*log(a))
+-- log.cpp
+log(2)
+check(last = log(2))
+-- log.cpp
+log(2.0)
+check(abs(last - 0.693147) < 0.00001)
+-- log.cpp
+float(log(2))
+check(abs(last - 0.693147) < 0.00001)
+-- log.cpp
+log(a*b)
+check(last = log(a)+log(b))
+-- log.cpp
+log(1/3)+log(3)
+check(last = 0)
+-- log.cpp
+log(-1)
+check(last = i*pi)
+-- log.cpp
+log(-1.0)
+check(last = i*pi)
+-- log.cpp
+clear
+trace=1
+clear
+trace=1
+mag(a+i*b)
+check(last = (a^2+b^2)^(1/2))
+-- mag.cpp
+mag(exp(a+i*b))
+check(last = exp(a))
+-- mag.cpp
+mag(1)
+check(last = 1)
+-- mag.cpp
+mag(-1)
+check(last = 1)
+-- mag.cpp
+mag(1+exp(i*pi/3))
+check(last = 3^(1/2))
+-- mag.cpp
+mag((a+i*b)/(c+i*d))
+check(last = (a^2+b^2)^(1/2)/((c^2+d^2)^(1/2)))
+-- mag.cpp
+mag(exp(i theta))
+check(last = 1)
+-- mag.cpp
+mag(exp(-i theta))
+check(last = 1)
+-- mag.cpp
+mag((-1)^theta)
+check(last = 1)
+-- mag.cpp
+mag((-1)^(-theta))
+check(last = 1)
+-- mag.cpp
+mag(3*(-1)^theta)
+check(last = 3)
+-- mag.cpp
+mag(3*(-1)^(-theta))
+check(last = 3)
+-- mag.cpp
+mag(-3*(-1)^theta)
+check(last = 3)
+-- mag.cpp
+mag(-3*(-1)^(-theta))
+check(last = 3)
+-- mag.cpp
+clear
+trace=1
+clear
+trace=1
+clear
+trace=1
+clear
+trace=1
+clear
+trace=1
+clear
+gdd=((-exp(2*Phi(r)),0,0,0),(0,exp(2*Lambda(r)),0,0),(0,0,r^2,0),(0,0,0,r^2*sin(theta)^2))
+X=(t,r,theta,phi)
+guu=inv(gdd)
+gddd=d(gdd,X)
+GAMDDD=1/2*(gddd+transpose(gddd,2,3)-transpose(transpose(gddd,2,3),1,2))
+GAMUDD=contract(outer(guu,GAMDDD),2,3)
+T1=d(GAMUDD,X)
+T2=contract(outer(GAMUDD,GAMUDD),2,4)
+RUDDD=transpose(T1,3,4)-T1+transpose(T2,2,3)-transpose(transpose(T2,2,3),3,4)
+RDD=contract(RUDDD,1,3)
+R=contract(contract(outer(guu,RDD),2,3),1,2)
+GDD=RDD-1/2*gdd*R
+Gtt=1/r^2*exp(2 Phi(r)) d(r (1 - exp(-2 Lambda(r))),r)
+Grr=-1/r^2*exp(2*Lambda(r))*(1-exp(-2*Lambda(r)))+2/r*d(Phi(r),r)
+Gthetatheta=r^2*exp(-2*Lambda(r))*(d(d(Phi(r),r),r)+d(Phi(r),r)^2+d(Phi(r),r)/r-d(Phi(r),r)*d(Lambda(r),r)-d(Lambda(r),r)/r)
+Gphiphi=sin(theta)^2*Gthetatheta
+T=((Gtt,0,0,0),(0,Grr,0,0),(0,0,Gthetatheta,0),(0,0,0,Gphiphi))
+GDD-T
+check(last = ((0,0,0,0),(0,0,0,0),(0,0,0,0),(0,0,0,0)))
+-- mini-test.cpp
+clear
+z=1-x^2-y^2
+F=(x*y^2*z,-2*x^3,y*z^2)
+S=(x,y,z)
+s=dot(F,cross(d(S,x),d(S,y)))
+defint(s,y,-sqrt(1-x^2),sqrt(1-x^2),x,-1,1)
+check(last = 1/48*pi)
+-- mini-test.cpp
+clear
+laplacian(f)=1/r^2*d(r^2*d(f,r),r)+1/(r^2*sin(theta))*d(sin(theta)*d(f,theta),theta)+1/(r*sin(theta))^2*d(f,phi,phi)
+n=7
+l=3
+m=1
+R=r^l*exp(-r/n)*laguerre(2*r/n,n-l-1,2*l+1)
+Y=legendre(cos(theta),l,abs(m))*exp(i*m*phi)
+psi=R*Y
+E=psi/n^2
+K=laplacian(psi)
+V=2*psi/r
+circexp(sin(theta)*(E-K-V))
+check(last = 0)
+-- mini-test.cpp
+clear
+P=2x^3-y^3
+Q=x^3+y^3
+f=d(Q,x)-d(P,y)
+x=r*cos(theta)
+y=r*sin(theta)
+defint(f*r,r,0,1,theta,0,2pi)
+check(last = 3/2*pi)
+-- mini-test.cpp
+clear
+x=cos(t)
+y=sin(t)
+P=2x^3-y^3
+Q=x^3+y^3
+f=P*d(x,t)+Q*d(y,t)
+f=circexp(f)
+defint(f,t,0,2pi)
+check(last = 3/2*pi)
+-- mini-test.cpp
+clear
+z=9-x^2-y^2
+F=(3y,4z,-6x)
+S=(x,y,z)
+f=dot(curl(F),cross(d(S,x),d(S,y)))
+x=r*cos(theta)
+y=r*sin(theta)
+defint(f*r,r,0,3,theta,0,2pi)
+check(last = -27*pi)
+-- mini-test.cpp
+clear
+x=3*cos(t)
+y=3*sin(t)
+z=9-x^2-y^2
+P=3y
+Q=4z
+R=-6x
+f=P*d(x,t)+Q*d(y,t)+R*d(z,t)
+f=circexp(f)
+defint(f,t,0,2pi)
+check(last = -27*pi)
+-- mini-test.cpp
+clear
+trace=1
+clear
+trace=1
+clear
+trace=1
+clear
+trace=1
+mod(2.0,3.0)
+check(last = 2)
+-- mod.cpp
+mod(-2.0,3.0)
+check(last = -2)
+-- mod.cpp
+mod(2.0,-3.0)
+check(last = 2)
+-- mod.cpp
+mod(-2.0,-3.0)
+check(last = -2)
+-- mod.cpp
+mod(2,3)
+check(last = 2)
+-- mod.cpp
+mod(-2,3)
+check(last = -2)
+-- mod.cpp
+mod(2,-3)
+check(last = 2)
+-- mod.cpp
+mod(-2,-3)
+check(last = -2)
+-- mod.cpp
+mod(a,b)
+check(last = mod(a,b))
+-- mod.cpp
+-- mod.cpp
+-- mod.cpp
+-- mod.cpp
+-- mod.cpp
+mod(15,8.0)
+check(last = 7)
+-- mod.cpp
+clear
+trace=1
+clear
+trace=1
+clear
+trace=1
+clear
+trace=1
+clear
+trace=1
+clear
+trace=1
+clear
+trace=1
+0*a
+check(last = 0)
+-- multiply.cpp
+a*0
+check(last = 0)
+-- multiply.cpp
+1*a
+check(last = a)
+-- multiply.cpp
+a*1
+check(last = a)
+-- multiply.cpp
+a*a
+check(last = a^2)
+-- multiply.cpp
+a^2*a
+check(last = a^3)
+-- multiply.cpp
+a*a^2
+check(last = a^3)
+-- multiply.cpp
+a^2*a^2
+check(last = a^4)
+-- multiply.cpp
+2^a*2^(3-a)
+check(last = 8)
+-- multiply.cpp
+sqrt(2)/2
+check(last = 2^(-1/2))
+-- multiply.cpp
+2/sqrt(2)
+check(last = 2^(1/2))
+-- multiply.cpp
+-sqrt(2)/2
+check(last = -1/(2^(1/2)))
+-- multiply.cpp
+2^(1/2-a)*2^a/10
+check(last = 1/(5*2^(1/2)))
+-- multiply.cpp
+i/4
+check(last = 1/4*i)
+-- multiply.cpp
+1/(4 i)
+check(last = -1/4*i)
+-- multiply.cpp
+1.0 pi 1/2
+check(last = 0.5*pi)
+-- multiply.cpp
+1.0 1/2 pi
+check(last = 0.5*pi)
+-- multiply.cpp
+clear
+trace=1
+nroots(x)
+check(last = 0)
+-- nroots.cpp
+--nroots((1+i)*x^2+1)
+--check(last = (-0.17178-0.727673*i,0.17178+0.727673*i))
+-- nroots.cpp
+--nroots(sqrt(2)*exp(i*pi/4)*x^2+1)
+--check(last = (-0.17178-0.727673*i,0.17178+0.727673*i))
+-- nroots.cpp
+clear
+trace=1
+numerator(2/3)
+check(last = 2)
+-- numerator.cpp
+numerator(x)
+check(last = x)
+-- numerator.cpp
+numerator(1/x)
+check(last = 1)
+-- numerator.cpp
+numerator(a+b)
+check(last = a+b)
+-- numerator.cpp
+numerator(1/a+1/b)
+check(last = a+b)
+-- numerator.cpp
+clear
+trace=1
+outer(a,b)
+check(last = a*b)
+-- outer.cpp
+outer(a,(b1,b2))
+check(last = (a*b1,a*b2))
+-- outer.cpp
+outer((a1,a2),b)
+check(last = (a1*b,a2*b))
+-- outer.cpp
+H33=hilbert(3)
+H44=hilbert(4)
+H55=hilbert(5)
+H3344=outer(H33,H44)
+H4455=outer(H44,H55)
+H33444455=outer(H33,H44,H44,H55)
+simplify(inner(H3344,H4455)-contract(H33444455,4,5))
+check(last = 0)
+-- outer.cpp
+clear
+trace=1
+clear
+trace=1
+polar(1+i)
+check(last = 2^(1/2)*exp(1/4*i*pi))
+-- polar.cpp
+polar(-1+i)
+check(last = 2^(1/2)*exp(3/4*i*pi))
+-- polar.cpp
+polar(-1-i)
+check(last = 2^(1/2)*exp(-3/4*i*pi))
+-- polar.cpp
+polar(1-i)
+check(last = 2^(1/2)*exp(-1/4*i*pi))
+-- polar.cpp
+rect(polar(3+4*i))
+check(last = 3+4*i)
+-- polar.cpp
+rect(polar(-3+4*i))
+check(last = -3+4*i)
+-- polar.cpp
+rect(polar(3-4*i))
+check(last = 3-4*i)
+-- polar.cpp
+rect(polar(-3-4*i))
+check(last = -3-4*i)
+-- polar.cpp
+clear
+trace=1
+clear
+trace=1
+2^(1/2)
+check(last = 2^(1/2))
+-- power.cpp
+2^(3/2)
+check(last = 2*2^(1/2))
+-- power.cpp
+(-2)^(1/2)
+check(last = i*2^(1/2))
+-- power.cpp
+3^(4/3)
+check(last = 3*3^(1/3))
+-- power.cpp
+3^(-4/3)
+check(last = 1/(3*3^(1/3)))
+-- power.cpp
+3^(5/3)
+check(last = 3*3^(2/3))
+-- power.cpp
+3^(2/3)-9^(1/3)
+check(last = 0)
+-- power.cpp
+3^(10/3)
+check(last = 27*3^(1/3))
+-- power.cpp
+3^(-10/3)
+check(last = 1/(27*3^(1/3)))
+-- power.cpp
+(1/3)^(10/3)
+check(last = 1/(27*3^(1/3)))
+-- power.cpp
+(1/3)^(-10/3)
+check(last = 27*3^(1/3))
+-- power.cpp
+27^(2/3)
+check(last = 9)
+-- power.cpp
+27^(-2/3)
+check(last = 1/9)
+-- power.cpp
+102^(1/2)
+check(last = 2^(1/2)*3^(1/2)*17^(1/2))
+-- power.cpp
+32^(1/3)
+check(last = 2*2^(2/3))
+-- power.cpp
+9999^(1/2)
+check(last = 3*11^(1/2)*101^(1/2))
+-- power.cpp
+10000^(1/3)
+check(last = 10*2^(1/3)*5^(1/3))
+-- power.cpp
+sqrt(1000000)
+check(last = 1000)
+-- power.cpp
+sqrt(-1000000)
+check(last = 1000*i)
+-- power.cpp
+sqrt(2^60)
+check(last = 1073741824)
+-- power.cpp
+6^(1/3) 3^(2/3)
+check(last = 3*2^(1/3))
+-- power.cpp
+1/(2+3*i)
+check(last = 2/13-3/13*i)
+-- power.cpp
+1/(2+3*i)^2
+check(last = -5/169-12/169*i)
+-- power.cpp
+(-1+3i)/(2-i)
+check(last = -1+i)
+-- power.cpp
+(0.0)^(0.0)
+check(last = 1)
+-- power.cpp
+(-4.0)^(1.5)
+check(last = -8*i)
+-- power.cpp
+(-4.0)^(0.5)
+check(last = 2*i)
+-- power.cpp
+(-4.0)^(-0.5)
+check(last = -0.5*i)
+-- power.cpp
+(-4.0)^(-1.5)
+check(last = 0.125*i)
+-- power.cpp
+(1+i)^2
+check(last = 2*i)
+-- power.cpp
+(1+i)^(-2)
+check(last = -1/2*i)
+-- power.cpp
+(1+i)^(1/2)
+check(last = (-1)^(1/8)*2^(1/4))
+-- power.cpp
+(1+i)^(-1/2)
+check(last = -(-1)^(7/8)/(2^(1/4)))
+-- power.cpp
+--(1+i)^(0.5)
+--check(last = 1.09868+0.45509*i)
+-- power.cpp
+--(1+i)^(-0.5)
+--check(last = 0.776887-0.321797*i)
+-- power.cpp
+exp(i*pi/2)
+check(last = i)
+-- power.cpp
+exp(i*pi)
+check(last = -1)
+-- power.cpp
+exp(i*3*pi/2)
+check(last = -i)
+-- power.cpp
+exp(i*2*pi)
+check(last = 1)
+-- power.cpp
+exp(i*5*pi/2)
+check(last = i)
+-- power.cpp
+exp(i*3*pi)
+check(last = -1)
+-- power.cpp
+exp(i*7*pi/2)
+check(last = -i)
+-- power.cpp
+exp(i*4*pi)
+check(last = 1)
+-- power.cpp
+exp(A+i*pi/2)
+check(last = i*exp(A))
+-- power.cpp
+exp(A+i*pi)
+check(last = -exp(A))
+-- power.cpp
+exp(A+i*3*pi/2)
+check(last = -i*exp(A))
+-- power.cpp
+exp(A+i*2*pi)
+check(last = exp(A))
+-- power.cpp
+exp(A+i*5*pi/2)
+check(last = i*exp(A))
+-- power.cpp
+exp(A+i*3*pi)
+check(last = -exp(A))
+-- power.cpp
+exp(A+i*7*pi/2)
+check(last = -i*exp(A))
+-- power.cpp
+exp(A+i*4*pi)
+check(last = exp(A))
+-- power.cpp
+exp(-i*pi/2)
+check(last = -i)
+-- power.cpp
+exp(-i*pi)
+check(last = -1)
+-- power.cpp
+exp(-i*3*pi/2)
+check(last = i)
+-- power.cpp
+exp(-i*2*pi)
+check(last = 1)
+-- power.cpp
+exp(-i*5*pi/2)
+check(last = -i)
+-- power.cpp
+exp(-i*3*pi)
+check(last = -1)
+-- power.cpp
+exp(-i*7*pi/2)
+check(last = i)
+-- power.cpp
+exp(-i*4*pi)
+check(last = 1)
+-- power.cpp
+exp(A-i*pi/2)
+check(last = -i*exp(A))
+-- power.cpp
+exp(A-i*pi)
+check(last = -exp(A))
+-- power.cpp
+exp(A-i*3*pi/2)
+check(last = i*exp(A))
+-- power.cpp
+exp(A-i*2*pi)
+check(last = exp(A))
+-- power.cpp
+exp(A-i*5*pi/2)
+check(last = -i*exp(A))
+-- power.cpp
+exp(A-i*3*pi)
+check(last = -exp(A))
+-- power.cpp
+exp(A-i*7*pi/2)
+check(last = i*exp(A))
+-- power.cpp
+exp(A-i*4*pi)
+check(last = exp(A))
+-- power.cpp
+
+
+
+-- product.cpp
+
+clear
+trace=1
+check(product(n,1,4,n)=24)
+check(n=quote(n))
+A=2n
+check(product(n,1,4,A)=384)
+check(product(i,1,3,i)=6)
+check(i=sqrt(-1))
+
+
+
+
+
+clear
+trace=1
+clear
+trace=1
+clear
+trace=1
+clear
+trace=1
+clear
+trace=1
+clear
+trace=1
+clear
+trace=1
+quotient(x^2+1,x+1)-x+1
+check(last = 0)
+-- quotient.cpp
+quotient(a*x^2+b*x+c,d*x+e)-(-a*e/(d^2)+a*x/d+b/d)
+check(last = 0)
+-- quotient.cpp
+clear
+trace=1
+rationalize(a/b+c/d)
+check(last = (a*d+b*c)/(b*d))
+-- rationalize.cpp
+rationalize(t*y/(t+y)+2*t^2*y*(2*t+y)^(-2))
+check(last = t*y*(6*t^2+y^2+6*t*y)/((t+y)*(2*t+y)^2))
+-- rationalize.cpp
+rationalize(x^(-2*a)+x^(-4*a))
+check(last = (1+x^(2*a))/(x^(4*a)))
+-- rationalize.cpp
+rationalize(x^(1/3)+x^(2/3))
+check(last = x^(1/3)*(1+x^(1/3)))
+-- rationalize.cpp
+clear
+trace=1
+real(a+i*b)
+check(last = a)
+-- real.cpp
+real(1+exp(i*pi/3))
+check(last = 3/2)
+-- real.cpp
+real(i)
+check(last = 0)
+-- real.cpp
+real((-1)^(1/3))
+check(last = 1/2)
+-- real.cpp
+clear
+trace=1
+rect(a+i*b)
+check(last = a+i*b)
+-- rect.cpp
+rect(exp(a+i*b))
+check(last = i*exp(a)*sin(b)+exp(a)*cos(b))
+-- rect.cpp
+rect(1+exp(i*pi/3))
+check(last = 3/2+1/2*i*3^(1/2))
+-- rect.cpp
+z=(a+b*i)/(c+d*i)
+rect(z)-real(z)-i*imag(z)
+check(last = 0)
+-- rect.cpp
+z=quote(z)
+clear
+trace=1
+roots(x)
+check(last = 0)
+-- roots.cpp
+roots(x^2)
+check(last = 0)
+-- roots.cpp
+roots(x^3)
+check(last = 0)
+-- roots.cpp
+roots(2 x)
+check(last = 0)
+-- roots.cpp
+roots(2 x^2)
+check(last = 0)
+-- roots.cpp
+roots(2 x^3)
+check(last = 0)
+-- roots.cpp
+roots(6+11*x+6*x^2+x^3)
+check(last = (-3,-2,-1))
+-- roots.cpp
+roots(a*x^2+b*x+c)
+check(last = (-b/(2*a)-(-4*a*c+b^2)^(1/2)/(2*a),-b/(2*a)+(-4*a*c+b^2)^(1/2)/(2*a)))
+-- roots.cpp
+roots(3+7*x+5*x^2+x^3)
+check(last = (-3,-1))
+-- roots.cpp
+roots(x^3+x^2+x+1)
+check(last = (-1,-i,i))
+-- roots.cpp
+-- roots.cpp
+roots(x^2==1)
+check(last = (-1,1))
+-- roots.cpp
+roots(3 x + 12 == 24)
+check(last = 4)
+-- roots.cpp
+y=roots(x^2+b*x+c/k)[1]
+y^2+b*y+c/k
+check(last = 0)
+-- roots.cpp
+y=roots(x^2+b*x+c/k)[2]
+y^2+b*y+c/k
+check(last = 0)
+-- roots.cpp
+y=roots(a*x^2+b*x+c/4)[1]
+a*y^2+b*y+c/4
+check(last = 0)
+-- roots.cpp
+y=roots(a*x^2+b*x+c/4)[2]
+a*y^2+b*y+c/4
+check(last = 0)
+-- roots.cpp
+y=quote(y)
+clear
+trace=1
+clear
+trace=1
+clear
+trace=1
+sgn(-3)
+check(last = -1)
+-- sgn.cpp
+sgn(0)
+check(last = 0)
+-- sgn.cpp
+sgn(3)
+check(last = 1)
+-- sgn.cpp
+clear
+trace=1
+clear
+trace=1
+simplify(A)
+check(last = A)
+-- simplify.cpp
+simplify(A+B)
+check(last = A+B)
+-- simplify.cpp
+simplify(A B)
+check(last = A*B)
+-- simplify.cpp
+simplify(A^B)
+check(last = A^B)
+-- simplify.cpp
+simplify(A/(A+B)+B/(A+B))
+check(last = 1)
+-- simplify.cpp
+simplify((A-B)/(B-A))
+check(last = -1)
+-- simplify.cpp
+A=((A11,A12),(A21,A22))
+simplify(det(A) inv(A) - adj(A))
+check(last = 0)
+-- simplify.cpp
+A=quote(A)
+simplify(-3 exp(-1/3 r + i phi) cos(theta) / sin(theta) + 3 exp(-1/3 r + i phi) cos(theta) sin(theta) + 3 exp(-1/3 r + i phi) cos(theta)^3 / sin(theta))
+check(last = 0)
+-- simplify.cpp
+simplify((A^2 C^2 + A^2 D^2 + B^2 C^2 + B^2 D^2)/(A^2+B^2)/(C^2+D^2))
+check(last = 1)
+-- simplify.cpp
+simplify(d(arctan(y/x),y))
+check(last = x/(x^2+y^2))
+-- simplify.cpp
+simplify(d(arctan(y/x),x))
+check(last = -y/(x^2+y^2))
+-- simplify.cpp
+simplify(1-sin(x)^2)
+check(last = cos(x)^2)
+-- simplify.cpp
+simplify(1-cos(x)^2)
+check(last = sin(x)^2)
+-- simplify.cpp
+simplify(sin(x)^2-1)
+check(last = -cos(x)^2)
+-- simplify.cpp
+simplify(cos(x)^2-1)
+check(last = -sin(x)^2)
+-- simplify.cpp
+F=quote(F)
+simplify(n!/n)-(n-1)!
+check(last = 0)
+-- simplify.cpp
+simplify(n/n!)-1/(n-1)!
+check(last = 0)
+-- simplify.cpp
+simplify(rationalize((n+k+1)/(n+k+1)!))-1/(n+k)!
+check(last = 0)
+-- simplify.cpp
+simplify(condense((n+1)*n!))-(n+1)!
+check(last = 0)
+-- simplify.cpp
+simplify(1/((n+1)*n!))-1/(n+1)!
+check(last = 0)
+-- simplify.cpp
+simplify((n+1)!/n!)-n-1
+check(last = 0)
+-- simplify.cpp
+simplify(n!/(n+1)!)-1/(n+1)
+check(last = 0)
+-- simplify.cpp
+simplify(binomial(n+1,k)/binomial(n,k))
+check(last = (1+n)/(1-k+n))
+-- simplify.cpp
+simplify(binomial(n,k)/binomial(n+1,k))
+check(last = (1-k+n)/(1+n))
+-- simplify.cpp
+F(nn,kk)=kk*binomial(nn,kk)
+simplify((F(n,k)+F(n,k-1))/F(n+1,k))-n/(n+1)
+check(last = 0)
+-- simplify.cpp
+F=quote(F)
+simplify((n+1)/(n+1)!)-1/n!
+check(last = 0)
+-- simplify.cpp
+simplify(a*b+a*c)
+check(last = a*(b+c))
+-- simplify.cpp
+x=simplify(a*b+a*c)
+x
+check(last = a*b+a*c)
+-- simplify.cpp
+clear
+trace=1
+sin(x)
+check(last = sin(x))
+-- sin.cpp
+sin(-x)
+check(last = -sin(x))
+-- sin.cpp
+sin(b-a)
+check(last = -sin(a-b))
+-- sin.cpp
+f(a,x)=1+sin(a/360*2*pi)-x
+f(0,0)
+check(last = 1)
+-- sin.cpp
+f(90,1)
+check(last = 1)
+-- sin.cpp
+f(180,0)
+check(last = 1)
+-- sin.cpp
+f(270,-1)
+check(last = 1)
+-- sin.cpp
+f(360,0)
+check(last = 1)
+-- sin.cpp
+f(-90,-1)
+check(last = 1)
+-- sin.cpp
+f(-180,0)
+check(last = 1)
+-- sin.cpp
+f(-270,1)
+check(last = 1)
+-- sin.cpp
+f(-360,0)
+check(last = 1)
+-- sin.cpp
+f(45,sqrt(2)/2)
+check(last = 1)
+-- sin.cpp
+f(135,sqrt(2)/2)
+check(last = 1)
+-- sin.cpp
+f(225,-sqrt(2)/2)
+check(last = 1)
+-- sin.cpp
+f(315,-sqrt(2)/2)
+check(last = 1)
+-- sin.cpp
+f(-45,-sqrt(2)/2)
+check(last = 1)
+-- sin.cpp
+f(-135,-sqrt(2)/2)
+check(last = 1)
+-- sin.cpp
+f(-225,sqrt(2)/2)
+check(last = 1)
+-- sin.cpp
+f(-315,sqrt(2)/2)
+check(last = 1)
+-- sin.cpp
+f(30,1/2)
+check(last = 1)
+-- sin.cpp
+f(150,1/2)
+check(last = 1)
+-- sin.cpp
+f(210,-1/2)
+check(last = 1)
+-- sin.cpp
+f(330,-1/2)
+check(last = 1)
+-- sin.cpp
+f(-30,-1/2)
+check(last = 1)
+-- sin.cpp
+f(-150,-1/2)
+check(last = 1)
+-- sin.cpp
+f(-210,1/2)
+check(last = 1)
+-- sin.cpp
+f(-330,1/2)
+check(last = 1)
+-- sin.cpp
+f(60,sqrt(3)/2)
+check(last = 1)
+-- sin.cpp
+f(120,sqrt(3)/2)
+check(last = 1)
+-- sin.cpp
+f(240,-sqrt(3)/2)
+check(last = 1)
+-- sin.cpp
+f(300,-sqrt(3)/2)
+check(last = 1)
+-- sin.cpp
+f(-60,-sqrt(3)/2)
+check(last = 1)
+-- sin.cpp
+f(-120,-sqrt(3)/2)
+check(last = 1)
+-- sin.cpp
+f(-240,sqrt(3)/2)
+check(last = 1)
+-- sin.cpp
+f(-300,sqrt(3)/2)
+check(last = 1)
+-- sin.cpp
+f=quote(f)
+sin(arcsin(x))
+check(last = x)
+-- sin.cpp
+sin(1/12*pi)
+check(last = sin(1/12*pi))
+-- sin.cpp
+sin(arctan(4/3))
+check(last = 4/5)
+-- sin.cpp
+sin(-arctan(4/3))
+check(last = -4/5)
+-- sin.cpp
+sin(x-8/2*pi)
+check(last = sin(x))
+-- sin.cpp
+sin(x-7/2*pi)
+check(last = cos(x))
+-- sin.cpp
+sin(x-6/2*pi)
+check(last = -sin(x))
+-- sin.cpp
+sin(x-5/2*pi)
+check(last = -cos(x))
+-- sin.cpp
+sin(x-4/2*pi)
+check(last = sin(x))
+-- sin.cpp
+sin(x-3/2*pi)
+check(last = cos(x))
+-- sin.cpp
+sin(x-2/2*pi)
+check(last = -sin(x))
+-- sin.cpp
+sin(x-1/2*pi)
+check(last = -cos(x))
+-- sin.cpp
+sin(x+0/2*pi)
+check(last = sin(x))
+-- sin.cpp
+sin(x+1/2*pi)
+check(last = cos(x))
+-- sin.cpp
+sin(x+2/2*pi)
+check(last = -sin(x))
+-- sin.cpp
+sin(x+3/2*pi)
+check(last = -cos(x))
+-- sin.cpp
+sin(x+4/2*pi)
+check(last = sin(x))
+-- sin.cpp
+sin(x+5/2*pi)
+check(last = cos(x))
+-- sin.cpp
+sin(x+6/2*pi)
+check(last = -sin(x))
+-- sin.cpp
+sin(x+7/2*pi)
+check(last = -cos(x))
+-- sin.cpp
+sin(x+8/2*pi)
+check(last = sin(x))
+-- sin.cpp
+clear
+trace=1
+sinh(x)
+check(last = sinh(x))
+-- sinh.cpp
+sinh(0)
+check(last = 0)
+-- sinh.cpp
+sinh(arcsinh(x))
+check(last = x)
+-- sinh.cpp
+clear
+trace=1
+clear
+trace=1
+clear
+trace=1
+sum(n,0,10,(-1/3)^n)
+check(last = 44287/59049)
+
+-- sum.cpp
+
+sum(i,1,3,i)
+check(sum(k,1,3,k) = 6)
+check(i = sqrt(-1))
+check(sum(k,1,3,2k) = 12)
+A=2k
+check(sum(k,1,3,A) = 12)
+
+clear
+trace=1
+clear
+trace=1
+tan(x)
+check(last = tan(x))
+-- tan.cpp
+tan(-x)
+check(last = -tan(x))
+-- tan.cpp
+tan(b-a)
+check(last = -tan(a-b))
+-- tan.cpp
+f(a,x)=1+tan(a/360*2*pi)-x
+f(0,0)
+check(last = 1)
+-- tan.cpp
+f(180,0)
+check(last = 1)
+-- tan.cpp
+f(360,0)
+check(last = 1)
+-- tan.cpp
+f(-180,0)
+check(last = 1)
+-- tan.cpp
+f(-360,0)
+check(last = 1)
+-- tan.cpp
+f(45,1)
+check(last = 1)
+-- tan.cpp
+f(135,-1)
+check(last = 1)
+-- tan.cpp
+f(225,1)
+check(last = 1)
+-- tan.cpp
+f(315,-1)
+check(last = 1)
+-- tan.cpp
+f(-45,-1)
+check(last = 1)
+-- tan.cpp
+f(-135,1)
+check(last = 1)
+-- tan.cpp
+f(-225,-1)
+check(last = 1)
+-- tan.cpp
+f(-315,1)
+check(last = 1)
+-- tan.cpp
+f(30,sqrt(3)/3)
+check(last = 1)
+-- tan.cpp
+f(150,-sqrt(3)/3)
+check(last = 1)
+-- tan.cpp
+f(210,sqrt(3)/3)
+check(last = 1)
+-- tan.cpp
+f(330,-sqrt(3)/3)
+check(last = 1)
+-- tan.cpp
+f(-30,-sqrt(3)/3)
+check(last = 1)
+-- tan.cpp
+f(-150,sqrt(3)/3)
+check(last = 1)
+-- tan.cpp
+f(-210,-sqrt(3)/3)
+check(last = 1)
+-- tan.cpp
+f(-330,sqrt(3)/3)
+check(last = 1)
+-- tan.cpp
+f(60,sqrt(3))
+check(last = 1)
+-- tan.cpp
+f(120,-sqrt(3))
+check(last = 1)
+-- tan.cpp
+f(240,sqrt(3))
+check(last = 1)
+-- tan.cpp
+f(300,-sqrt(3))
+check(last = 1)
+-- tan.cpp
+f(-60,-sqrt(3))
+check(last = 1)
+-- tan.cpp
+f(-120,sqrt(3))
+check(last = 1)
+-- tan.cpp
+f(-240,-sqrt(3))
+check(last = 1)
+-- tan.cpp
+f(-300,sqrt(3))
+check(last = 1)
+-- tan.cpp
+f=quote(f)
+tan(arctan(x))
+check(last = x)
+-- tan.cpp
+tan(1/12*pi)
+check(last = tan(1/12*pi))
+-- tan.cpp
+clear
+trace=1
+tanh(x)
+check(last = tanh(x))
+-- tanh.cpp
+tanh(0)
+check(last = 0)
+-- tanh.cpp
+tanh(arctanh(x))
+check(last = x)
+-- tanh.cpp
+clear
+trace=1
+taylor(1/(5+4*cos(x)),x,6,0)-(1/9+2/81*x^2+5/1458*x^4+49/131220*x^6)
+check(last = 0)
+-- taylor.cpp
+taylor(1/(5+4*cos(x)),x,6)-(1/9+2/81*x^2+5/1458*x^4+49/131220*x^6)
+check(last = 0)
+-- taylor.cpp
+clear
+trace=1
+#test_tensor
+a=(1,2,3)
+b=(4,5,6)
+c=(7,8,9)
+rank((a,b,c))
+check(last = 2)
+-- tensor.cpp
+(a,b,c)
+check(last = ((1,2,3),(4,5,6),(7,8,9)))
+-- tensor.cpp
+((1,0),(0,0))
+check(last = ((1,0),(0,0)))
+-- tensor.cpp
+a=quote(a)
+b=quote(b)
+c=quote(c)
+clear
+trace=1
+a<a+1
+check(last = 1)
+-- test.cpp
+a-1<a
+check(last = 1)
+-- test.cpp
+1==1
+check(last = 1)
+-- test.cpp
+1==2
+check(last = 0)
+-- test.cpp
+1>=1
+check(last = 1)
+-- test.cpp
+1>=2
+check(last = 0)
+-- test.cpp
+2>=1
+check(last = 1)
+-- test.cpp
+1>1
+check(last = 0)
+-- test.cpp
+1>2
+check(last = 0)
+-- test.cpp
+2>1
+check(last = 1)
+-- test.cpp
+1<=1
+check(last = 1)
+-- test.cpp
+1<=2
+check(last = 1)
+-- test.cpp
+2<=1
+check(last = 0)
+-- test.cpp
+1<1
+check(last = 0)
+-- test.cpp
+1<2
+check(last = 1)
+-- test.cpp
+2<1
+check(last = 0)
+-- test.cpp
+test(0,A,B)
+check(last = B)
+-- test.cpp
+test(1,A,B)
+check(last = A)
+-- test.cpp
+test(0,A,0,B)
+check(last = 0)
+-- test.cpp
+test(0,A,0,B,C)
+check(last = C)
+-- test.cpp
+not(1)
+check(last = 0)
+-- test.cpp
+not(0)
+check(last = 1)
+-- test.cpp
+not(a=a)
+check(last = 0)
+-- test.cpp
+and(1,1)
+check(last = 1)
+-- test.cpp
+and(1,0)
+check(last = 0)
+-- test.cpp
+or(1,0)
+check(last = 1)
+-- test.cpp
+or(0,0)
+check(last = 0)
+-- test.cpp
+(0,0)==0
+check(last = 1)
+-- test.cpp
+1<sqrt(3)
+check(last = 1)
+-- test.cpp
+clear
+trace=1
+clear
+trace=1
+transpose(0)
+check(last = 0)
+-- transpose.cpp
+transpose(0.0)
+check(last = 0)
+-- transpose.cpp
+transpose(((a,b),(c,d)))
+check(last = ((a,c),(b,d)))
+-- transpose.cpp
+transpose(((a,b),(c,d)),1,2)
+check(last = ((a,c),(b,d)))
+-- transpose.cpp
+transpose(((a,b,c),(d,e,f)),1,2)
+check(last = ((a,d),(b,e),(c,f)))
+-- transpose.cpp
+transpose(((a,d),(b,e),(c,f)),1,2)
+check(last = ((a,b,c),(d,e,f)))
+-- transpose.cpp
+transpose((a,b,c))
+check(last = (a,b,c))
+-- transpose.cpp
+clear
+trace=1
+f(1+2,3*4)
+check(last = f(3,12))
+-- userfunc.cpp
+f(x)=x^2
+f
+check(last = x^2)
+-- userfunc.cpp
+x=123
+y=345
+f(x,y)=x^2+y^3
+f(2,3)
+check(last = 31)
+-- userfunc.cpp
+x
+check(last = 123)
+-- userfunc.cpp
+y
+check(last = 345)
+-- userfunc.cpp
+x(a)=sin(a)
+y(b)=cos(b)
+f(x,y)=x^2+y^3
+f(2,3)
+check(last = 31)
+-- userfunc.cpp
+x
+check(last = sin(a))
+-- userfunc.cpp
+y
+check(last = cos(b))
+-- userfunc.cpp
+x=quote(x)
+p(x)=7+4x
+w(x)=eval(integral(p(x)))
+w-2*x^2-7*x
+check(last = 0)
+-- userfunc.cpp
+w(5)-w(2)
+check(last = 63)
+-- userfunc.cpp
+A=a^2
+f(a)=A
+f(x+1)
+check(last = x^2+2*x+1)
+-- userfunc.cpp
+f(x)=g(x)
+g(a)=x^a
+f(2)
+check(last = x^2)
+-- userfunc.cpp
+clear
+trace=1
+clear
+trace=1
+clear
+trace=1
+clear
+trace=1
+zero(2,2)
+check(last = ((0,0),(0,0)))
+-- zero.cpp
+zero(1,1)
+check(last = 0)
+-- zero.cpp
+
+-- Ensure that arg rewrite does not modify other symbols
+clear
+trace=1
+x=1
+a(n)=test(n=1,7,do(x=a(n-1),x+gcd(n,x)))
+check(a(100)=202)
+
+clear
+
+--Line integral
+P=1-y
+Q=x
+x=2*cos(t)
+y=2*sin(t)
+defint(P*d(x,t)+Q*d(y,t),t,0,2pi)
+check(last=8pi)
+
+--Surface integral
+x=quote(x) --remove parametrization of x
+y=quote(y) --remove parametrization of y
+h=sqrt(4-x^2)
+defint(d(Q,x)-d(P,y),y,-h,h,x,-2,2)
+check(last=8pi)
+
+--Bonus point: Compute the surface integral using polar coordinates.
+f=d(Q,x)-d(P,y) --do before change of coordinates
+x=r*cos(theta)
+y=r*sin(theta)
+defint(f*r,r,0,2,theta,0,2pi)
+check(last=8pi)
+defint(f*r,theta,0,2pi,r,0,2) --try integrating over theta first
+check(last=8pi)
+
+clear
+
+# Verify besselj for a few half-orders of n.
+
+# f is the differential equation
+# use quote because y is not defined yet
+f = quote(x^2 d(y,x,2) + x d(y,x) + (x^2 - n^2) y)
+
+n = -7/2
+y = besselj(x,n)
+z = simplify(eval(f))
+check(z = 0)
+
+n = -5/2
+y = besselj(x,n)
+z = simplify(eval(f))
+check(z = 0)
+
+n = -3/2
+y = besselj(x,n)
+z = simplify(eval(f))
+check(z = 0)
+
+n = -1/2
+y = besselj(x,n)
+z = simplify(eval(f))
+check(z = 0)
+
+n = 1/2
+y = besselj(x,n)
+z = simplify(eval(f))
+check(z = 0)
+
+n = 3/2
+y = besselj(x,n)
+z = simplify(eval(f))
+check(z = 0)
+
+n = 5/2
+y = besselj(x,n)
+z = simplify(eval(f))
+check(z = 0)
+
+n = 7/2
+y = besselj(x,n)
+z = simplify(eval(f))
+check(z = 0)
+
+clear
+
+"Bondi metric test"
+
+guu=V(u,r,theta)*1/r*exp(2*beta(u,r,theta))-U(u,r,theta)^2*r^2*exp(2*gamma(u,r,theta))
+gur=2*exp(2*beta(u,r,theta))
+gutheta=2*U(u,r,theta)*r^2*exp(2*gamma(u,r,theta))
+gthetatheta=-1*r^2*exp(2*gamma(u,r,theta))
+gphiphi=-1*r^2*exp(-2*gamma(u,r,theta))*sin(theta)^2
+gdd=((guu,gur,gutheta,0),(gur,0,0,0),(gutheta,0,gthetatheta,0),(0,0,0,gphiphi))
+g=det(gdd)
+guu=adj(gdd)/g
+tmp=d(gdd,(u,r,theta,phi))
+GAMUDD=contract(1/2*outer(guu,tmp+transpose(tmp,2,3)-transpose(transpose(tmp,2,3),1,2)),2,3)
+tmp1=d(GAMUDD,(u,r,theta,phi))
+tmp2=contract(outer(GAMUDD,GAMUDD),2,4)
+RUDDD=transpose(tmp1,3,4)-tmp1+transpose(tmp2,2,3)-transpose(transpose(tmp2,2,3),3,4)
+RDD=contract(RUDDD,1,3)
+R=contract(contract(outer(guu,RDD),2,3),1,2)
+GDD=RDD-1/2*gdd*R
+GUD=contract(outer(guu,GDD),2,3)
+GUU=contract(outer(GUD,guu),2,3)
+tmp=outer(GUU,GAMUDD)
+tmp=d(GUU,(u,r,theta,phi))+transpose(contract(tmp,1,4),1,2)+contract(tmp,2,4)
+check(contract(tmp,2,3)=0)
+
+clear
+
+--Simple example of clockwise (right hand) circular polarization.
+--Both E and B rotate clockwise while remaining at right angles to each other.
+--To see the rotation, suppose you are standing at location z=0 at time t=0.
+--You observe E=(0,1,0), that is, E pointing straight up (y direction).
+--Now increase t a little bit by just waiting.
+--What happens is the y component decreases and the x component increases.
+--So now, instead of pointing straight up, E points to the right a little.
+--Keep waiting and eventually observe E=(1,0,0), that is, E pointing east.
+--E has rotated a quarter turn.
+--Let t run freely and the rotation continues.
+E = (sin(t+z), cos(t+z), 0)
+B = (cos(t+z), -sin(t+z), 0)
+--Check Maxwell's equations.
+check(div(E) = 0)
+check(curl(E) + d(B,t) = 0)
+check(div(B) = 0)
+check(curl(B) - d(E,t) = 0)
+check(dot(E,B) = 0)
+--Already shown to be true by Maxwell above but do this anyway...
+check(dot(E,B) = 0)              --Check right angle
+check(dot(E,E) - dot(B,B) = 0)   --Check equal length
+
+clear
+
+--Can complex number multiplication be simulated using real vectors?
+--Yes, if a rank-3 tensor is used to do the multiply.
+A = (AX, AY)
+B = (BX, BY)
+P = (AX BX - AY BY, AX BY + AY BX) --Complex number product in vector form
+T11 = (1, 0)
+T12 = (0, 1)
+T21 = (0, -1)
+T22 = (1, 0)
+T = ((T11, T12), (T21, T22))
+check(dot(A,T,B) - P = 0)
+
+clear
+
+"elliptical polarization"
+
+--Simple example of clockwise (right hand) elliptical polarization.
+--As in "circular polarization" except E and B trace out ellipses.
+--Becomes linear polarization for EX=0 or EY=0.
+--Becomes circular polarization for EX=EY.
+--Note that at any given time E and B have the same length.
+E = (EX sin(t+z), EY cos(t+z), 0)
+B = (EY cos(t+z), -EX sin(t+z), 0)
+--Check Maxwell's equations.
+check(div(E) = 0)
+check(curl(E) + d(B,t) = 0)
+check(div(B) = 0)
+check(curl(B) - d(E,t) = 0)
+check(dot(E,B) = 0)
+--Already shown to be true by Maxwell above but do this anyway...
+check(dot(E,B) = 0)              --Check right angle
+check(dot(E,E) - dot(B,B) = 0)   --Check equal length
+--If we get here then everything checks out, print OK.
+
+clear
+
+# This script demonstrates the free particle Dirac equation and a few of its
+# solutions.
+#
+# "Free particle" means that there is no force pushing the particle around. In
+# other words, the potential energy field V is zero everywhere. What remains is
+# just the total energy T and kinetic energy K.
+#
+#     T = K
+#
+# The equivalent Dirac equation is
+#
+#     m Psi = i delslash Psi
+#
+# where m is the particle's rest mass, Psi is a 4-vector and delslash is a
+# differential operator involving gamma matrices.
+#
+# Verify a few solutions (Psi) to the above free-particle Dirac equation.
+
+# Define the spacetime metric.
+
+metric = ((-1,0,0,0),(0,-1,0,0),(0,0,-1,0),(0,0,0,1))
+
+# Define the gamma matrices.
+
+gammax = (( 0, 0, 0, 1),( 0, 0, 1, 0),( 0,-1, 0, 0),(-1, 0, 0, 0))
+gammay = (( 0, 0, 0,-i),( 0, 0, i, 0),( 0, i, 0, 0),(-i, 0, 0, 0))
+gammaz = (( 0, 0, 1, 0),( 0, 0, 0,-1),(-1, 0, 0, 0),( 0, 1, 0, 0))
+gammat = (( 1, 0, 0, 0),( 0, 1, 0, 0),( 0, 0,-1, 0),( 0, 0, 0,-1))
+
+# Define the delslash operator.
+
+delslash(f) =
+  dot(gammax,d(f,x))+
+  dot(gammay,d(f,y))+
+  dot(gammaz,d(f,z))+
+  dot(gammat,d(f,t))
+
+# Define energy E, momentum p and coordinate X.
+
+E = sqrt(px^2 + py^2 + pz^2 + m^2)
+p = (px,py,pz,E)
+X = (x,y,z,t)
+
+# Verify that p.p = m^2
+
+check(dot(p,metric,p) - m^2 = 0) # continue if true, else stop
+
+# Define the solutions.
+
+PsiA = (E+m,0,pz,px+i py) exp(-i dot(p,metric,X))
+PsiB = (0,E+m,px-i py,-pz) exp(-i dot(p,metric,X))
+PsiC = (pz,px+i py,E+m,0) exp(i dot(p,metric,X))
+PsiD = (px-i py,-pz,0,E+m) exp(i dot(p,metric,X))
+
+# Verify the solutions.
+
+check(m PsiA - i delslash(PsiA) = 0)
+check(m PsiB - i delslash(PsiB) = 0)
+check(m PsiC - i delslash(PsiC) = 0)
+check(m PsiD - i delslash(PsiD) = 0)
+
+# Try a linear combination of all solutions.
+
+Psi = A PsiA + B PsiB + C PsiC + D PsiD
+
+check(m Psi - i delslash(Psi) = 0)
+
+# For PsiA and PsiB it turns out that
+#
+#     i delslash Psi = pslash Psi
+#
+# So another form of the free particle Dirac equation is
+#
+#     m Psi = pslash Psi
+#
+# Verify solutions to the above equation.
+
+# Define the gamma tensor. See Gamma Matrix Algebra for details.
+
+gamma =
+  outer(gammax,(1,0,0,0)) +
+  outer(gammay,(0,1,0,0)) +
+  outer(gammaz,(0,0,1,0)) +
+  outer(gammat,(0,0,0,1))
+
+# Dot gamma with p to get pslash.
+
+pslash = dot(gamma,metric,p)
+
+# Verify the solutions again.
+
+check(m PsiA - dot(pslash,PsiA) = 0)
+check(m PsiB - dot(pslash,PsiB) = 0)
+check(m PsiC + dot(pslash,PsiC) = 0)
+check(m PsiD + dot(pslash,PsiD) = 0)
+
+clear
+
+# This script does a few of the exercises from Feynman's book "Quantum Electrodynamics."
+
+# Define the spacetime metric (for multiplying spacetime vectors).
+
+metric = ((-1, 0, 0, 0),
+          ( 0,-1, 0, 0),
+          ( 0, 0,-1, 0),
+          ( 0, 0, 0, 1))
+
+# Define I, the identity matrix.
+
+I = ((1,0,0,0),(0,1,0,0),(0,0,1,0),(0,0,0,1))
+
+# Define the gamma matrices.
+
+gammax = (( 0, 0, 0, 1),
+          ( 0, 0, 1, 0),
+          ( 0,-1, 0, 0),
+          (-1, 0, 0, 0))
+
+gammay = (( 0, 0, 0,-i),
+          ( 0, 0, i, 0),
+          ( 0, i, 0, 0),
+          (-i, 0, 0, 0))
+
+gammaz = (( 0, 0, 1, 0),
+          ( 0, 0, 0,-1),
+          (-1, 0, 0, 0),
+          ( 0, 1, 0, 0))
+
+gammat = (( 1, 0, 0, 0),
+          ( 0, 1, 0, 0),
+          ( 0, 0,-1, 0),
+          ( 0, 0, 0,-1))
+
+# Define the gamma vector.
+#
+# The gamma vector has gamma matrices for its components. We express it here
+# as a rank 3 tensor. We set up the tensor so that the vector component index
+# is the last (rightmost) index. With this configuration we can left-multiply
+# with a Feynman slash matrix using the dot function.
+#
+# For example, in component notation, this is how we want to multiply with a
+# Feynman slash matrix:
+#
+#     aslash[a,b] gamma[b,c,d]
+#
+# (summation over the repeated index b)
+#
+# The summation over b is exactly what the dot function does so we can do the
+# above multiply with dot(aslash,gamma).
+#
+# In the following outer products, placing the basis vector operands on the
+# right-hand side results in the desired index ordering.
+
+gamma = outer(gammax,(1,0,0,0)) +
+        outer(gammay,(0,1,0,0)) +
+        outer(gammaz,(0,0,1,0)) +
+        outer(gammat,(0,0,0,1))
+
+# DOT is for multiplying gamma vectors. This is a special multiply because we
+# have to dot the individual vector components (the gamma matrices) then we
+# have to sum over all the results. In component notation, this is how we want
+# to do the multiply:
+#
+#     T[a,c] = A[a,b,d] * B[b,c,d]
+#
+# To do this, we start with an outer product which results in the following
+# rank 6 tensor:
+#
+#     T[a,b,d,b,c,d]
+#
+# Next we sum over b (indices 2 and 4) to get the following:
+#
+#     T[a,d,c,d]
+#
+# Then we sum over d (indices 2 and 4 again) to get
+#
+#     T[a,c]
+#
+# One final note, dot(B,metric) applies the spacetime metric to the rightmost
+# index of B, the vector index.
+
+DOT(A,B) = contract(contract(outer(A,dot(B,metric)),2,4),2,4)
+
+# Define arbitrary spacetime vectors a, b and c.
+
+a = (ax,ay,az,at)
+b = (bx,by,bz,bt)
+c = (cx,cy,cz,ct)
+
+# Define generic Feynman slash matrices.
+# Note: The order of dot operands here is different from the book. This is
+# because we defined gamma to have its vector index on the right. Therefore
+# we have to right-multiply with the spacetime vector so that dot contracts
+# over the correct indices. In component notation we have
+#
+#     aslash[u,v] = gamma[u,v,w] * a[w]
+#
+# where summation is over the repeated index w.
+
+aslash = dot(gamma,metric,a)
+bslash = dot(gamma,metric,b)
+cslash = dot(gamma,metric,c)
+
+# The Feynman slash matrices are 4x4 matrices. For example, aslash looks like
+# this:
+#
+#     at           0           -az       -ax + i ay
+#
+#     0            at       -ax - i ay       az
+#
+#     az       ax - i ay       -at           0
+#
+# ax + i ay       -az           0           -at
+
+# Now we are ready to try the exercises. We want to show that each of the
+# following identities is true.
+
+"Checking the following identities:"
+
+#------------------------------------------------------------------------------
+#
+#     aslash = at gammat - ax gammax - ay gammay - az gammaz
+#
+#------------------------------------------------------------------------------
+
+quote(aslash = at gammat - ax gammax - ay gammay - az gammaz)
+
+A = aslash
+
+B = at gammat - ax gammax - ay gammay - az gammaz
+
+check(A = B) # if A = B then continue, else stop
+
+#------------------------------------------------------------------------------
+#
+#     aslash bslash = -bslash aslash + 2 a b
+#
+#------------------------------------------------------------------------------
+
+quote(aslash bslash = -bslash aslash + 2 a b)
+
+A = dot(aslash,bslash)
+
+B = -dot(bslash,aslash) + 2 dot(a,metric,b) I
+
+check(A = B)
+
+#------------------------------------------------------------------------------
+#
+#     gamma gamma = 4
+#
+#------------------------------------------------------------------------------
+
+quote(gamma gamma = 4)
+
+A = DOT(gamma,gamma)
+
+B = 4 I
+
+check(A = B)
+
+#------------------------------------------------------------------------------
+#
+#     gamma aslash gamma = -2 aslash
+#
+#------------------------------------------------------------------------------
+
+quote(gamma aslash gamma = -2 aslash)
+
+A = DOT(gamma,dot(aslash,gamma))
+
+B = -2 aslash
+
+check(A = B)
+
+#------------------------------------------------------------------------------
+#
+#     gamma aslash bslash gamma = 4 a b
+#
+#------------------------------------------------------------------------------
+
+quote(gamma aslash bslash gamma = 4 a b)
+
+A = DOT(gamma,dot(aslash,bslash,gamma))
+
+B = 4 dot(a,metric,b) I
+
+check(A = B)
+
+#------------------------------------------------------------------------------
+#
+#     gamma aslash bslash cslash gamma = -2 cslash bslash aslash
+#
+#------------------------------------------------------------------------------
+
+quote(gamma aslash bslash cslash gamma = -2 cslash bslash aslash)
+
+A = DOT(gamma,dot(aslash,bslash,cslash,gamma))
+
+B = -2 dot(cslash,bslash,aslash)
+
+check(A = B)
+
+clear
+
+# Generate hydrogen wavefunctions and check that they solve the Schroedinger
+# equation for the hydrogen atom:
+#
+#     psi(n,L,m)      2              2 psi(n,L,m)
+#     ---------- = del  psi(n,L,m) + ------------
+#          2                              r
+#         n
+#
+# Use upper case L to avoid confusion with the numeral 1.
+
+# Define the Laplacian operator for spherical coordinates (del-squared).
+
+delsq(x) = 1/r^2 d(r^2 d(x,r),r) +
+  1/(r^2 sin(theta)) d(sin(theta) d(x,theta),theta) +
+  1/(r sin(theta))^2 d(d(x,phi),phi)
+
+# psi is the product of radial wavefunction R and spherical harmonic Y
+
+R(n,L) = r^L exp(-r/n) laguerre(2r/n,n-L-1,2L+1)
+
+Y(L,m) = legendre(cos(theta),L,abs(m)) exp(i m phi)
+
+psi(n,L,m) = R(n,L) Y(L,m)
+
+# Define the energy functions E, K and V (from the Schroedinger equation).
+
+E(n,L,m) = psi(n,L,m) / n^2
+
+K(n,L,m) = delsq(psi(n,L,m))
+
+V(n,L,m) = 2 psi(n,L,m) / r
+
+"Checking E = K + V for n = 1..5, L = 0..n-1, m = -L..L"
+
+F(n,L,m) = simplify(E(n,L,m) - K(n,L,m) - V(n,L,m))
+
+for(n,1,5,
+  for(L,0,n-1,
+    for(m,-L,L,
+      check(F(n,L,m) = 0)
+)))
+
+clear
+
+--Maxwell equations in tensor form.
+--See the book Gravitation p. 81.
+--
+--   F     + F     + F     = 0
+--    ab,c    bc,a    ca,b
+--
+--    ab           a
+--   F     = 4 pi J
+--      ,b
+--
+--For this demo, use circular polarized light.
+--
+EX = sin(t+z)
+EY = cos(t+z)
+EZ = 0
+BX = cos(t+z)
+BY = -sin(t+z)
+BZ = 0
+FDD = ((  0, -EX, -EY, -EZ),
+       ( EX,   0,  BZ, -BY),
+       ( EY, -BZ,   0,  BX),
+       ( EZ,  BY, -BX,   0))   --See p. 74. Here, DD means "down down" indices.
+X = (t,x,y,z)   --Coordinate system
+FDDD = d(FDD,X)   --Gradient of F
+T1 = transpose(transpose(FDDD,2,3),1,2)   --Transpose bca to abc
+T2 = transpose(transpose(FDDD,1,2),2,3)   --Transpose cab to abc
+check(FDDD + T1 + T2 = 0)
+guu = ((-1,0,0,0),(0,1,0,0),(0,0,1,0),(0,0,0,1))
+FDDU = contract(outer(FDDD,guu),3,4)   --Easier to make FDDU than FUUD.
+check(contract(FDDU,2,3) = 0)   --For light J is zero.
+
+clear
+
+# "Harmonic oscillator" is the generic term for a system that has potential
+# energy V proportional to x squared.
+#
+# For total energy E, kinetic energy K and potential energy V we have
+#
+#      E = K + V
+#
+# For QHO the equivalent Schroedinger equation is:
+#
+#                       2         2    2
+#      (2n + 1) psi = -d  psi / dx  + x  psi
+#
+# This differential equation can only be solved for integer values of n.
+# The fact that n must be an integer is in agreement with physical reality:
+# the total energy of a QHO system is quantized.
+#
+# The solution to the above equation is
+#
+#                           2
+#      psi(n,x) = exp(-1/2 x ) H (x)
+#                               n
+#
+# H (x) is the nth Hermite polynomial in x.
+#  n
+
+# Define the wave function.
+ 
+psi(n) = exp(-1/2 x^2) hermite(x,n)
+
+# We want to show that psi does indeed solve the Schroedinger equation.
+# We start by defining the energy functions E, K and V.
+
+E(n) = (2 n + 1) psi(n)
+
+K(n) = -d(d(psi(n),x),x)
+
+V(n) = x^2 psi(n)
+
+# Text strings are displayed when the script runs.
+
+"Checking E = K + V for n = 0 to 10"
+
+# The check function stops with an error message if its argument is false.
+
+for(n, 0, 10, check(E(n) = K(n) + V(n)))
+
+clear
+
+-- This script demonstrates some properties of a rotation matrix.
+
+-- These are the matrix components.
+
+R11 = expcos(phi2) expcos(phi1) - expcos(theta) expsin(phi1) expsin(phi2)
+R12 = -expcos(phi2) expsin(phi1) - expcos(theta) expcos(phi1) expsin(phi2)
+R13 = expsin(phi2) expsin(theta)
+
+R21 = expsin(phi2) expcos(phi1) + expcos(theta) expsin(phi1) expcos(phi2)
+R22 = -expsin(phi2) expsin(phi1) + expcos(theta) expcos(phi1) expcos(phi2)
+R23 = -expcos(phi2) expsin(theta)
+
+R31 = expsin(theta) expsin(phi1)
+R32 = expsin(theta) expcos(phi1)
+R33 = expcos(theta)
+
+-- R is a rotation matrix.
+
+R = ((R11,R12,R13),(R21,R22,R23),(R31,R32,R33))
+
+-- Inverse and transpose are equivalent.
+
+check(inv(R) = transpose(R))
+
+-- Determinant is 1.
+
+check(det(R) = 1)
+
+-- Does not change the length of a vector.
+
+U = (U1,U2,U3)
+
+check(U^2 = dot(R,U)^2)
+
+clear
+
+# This script calculates the Einstein tensor for a static spherically symmetric
+# metric.
+#
+# Cf. "A first course in general relativity," Bernard F. Schutz, p. 255.
+#
+# This is the line element for the metric (Equation 10.7)
+#
+#   2     2 Phi   2    2 Lambda   2    2        2
+# ds  = -e      dt  + e         dr  + r  d Omega
+#
+# where
+#
+#  2        2    2         2      2            2
+# r  d Omega  = r  (d theta  + sin  theta d phi )
+#
+# Note: Phi and Lambda are both functions of r.
+
+gdd = ((-exp(2 Phi(r)),                0,   0,                0),
+       (             0, exp(2 Lambda(r)),   0,                0),
+       (             0,                0, r^2,                0),
+       (             0,                0,   0, r^2 sin(theta)^2))
+
+# Note: "dd" stands for two "down" indices, "uu" stands for two "up" indices.
+
+# X is our coordinate system. We need this for computing gradients.
+
+X = (t,r,theta,phi)
+
+# Step 1: Calculate guu.
+
+guu = inv(gdd)
+
+# Step 2: Calculate the connection coefficients. Cf. Gravitation, p. 210.
+#
+# Gamma    = 1/2 (g     + g     - g    )
+#      abc         ab,c    ac,b    bc,a
+#
+# Note: The comma means gradient which increases the rank of gdd by 1.
+
+gddd = d(gdd,X)
+
+# Note: We transpose indices so they match up with Gamma, i.e., we put them in
+# alphabetical order.
+
+GAMDDD = 1/2 (gddd +                # indices are already in correct order
+transpose(gddd,2,3) -               # transpose c and b
+transpose(transpose(gddd,2,3),1,2)) # transpose c and a, then b and a
+
+# Raise first index.
+#
+#      a      au
+# Gamma    = g   Gamma
+#       bc            ubc
+#
+# Note: Sum over index u means contraction.
+
+GAMUDD = contract(outer(guu,GAMDDD),2,3)
+
+# Step 3. Calculate the Riemann tensor. Cf. Gravitation, p. 219.
+#
+# a is alpha
+# b is beta
+# c is gamma
+# d is delta
+# u is mu
+#
+#  a           a            a            a        u          a        u
+# R     = Gamma      - Gamma      + Gamma    Gamma    - Gamma    Gamma
+#   bcd         bd,c         bc,d         uc       bd         ud       bc
+#
+# Do the gradient once and save in a temporary variable.
+
+tmp1 = d(GAMUDD,X)
+
+# The Gamma Gamma product is a rank 6 tensor with dim 4 per rank.
+# That works out to 4 to the 6th or 4,096 elements.
+# Of course, we'll do the outer product and contract over u just once and save
+# the result in a second temporary variable.
+
+tmp2 = contract(outer(GAMUDD,GAMUDD),2,4)
+
+# Now put it all together. Do the transpositions so the indices get matched up
+# with R on the left, i.e., put them in alphabetical order.
+
+RUDDD = transpose(tmp1,3,4) -             # transpose d and c
+  tmp1 +                                  # already in correct order
+  transpose(tmp2,2,3) -                   # transpose c and b
+  transpose(transpose(tmp2,2,3),3,4)      # transpose d and b, then d and c
+
+# Step 4: Calculate the Ricci tensor. Cf. Gravitation, p. 343.
+#
+#        a
+# R   = R
+#  uv     uav
+#
+# Contract over "a" (1st and 3rd indices).
+
+RDD = contract(RUDDD,1,3)
+
+# Step 5: Calculate the Ricci scalar. Cf. Gravitation, p. 343.
+#
+#      uv
+# R = g   R
+#          vu  ...the book has uv, does it give the same result?
+#              Yes because the metric tensor is symmetric so it's ok to
+#              transpose.
+
+R = contract(contract(outer(guu,RDD),2,3),1,2)
+
+# Step 6: Finally, calculate the Einstein tensor. Cf. Gravitation, p. 343.
+#
+# G   = R   - 1/2 g   R
+#  uv    uv        uv
+
+GDD = RDD - 1/2 gdd R
+
+# Next we compare this result with Schutz' book. Schutz p. 255 gives the
+# following Einstein tensor components (all other components are zero):
+#
+#        1                d
+# G   = ----  exp(2 Phi) ---- [r (1 - exp(-2 Lambda))]
+#  tt     2               dr
+#        r
+#
+#          1                                         2
+# G   = - ---- exp(2 Lambda) (1 - exp(-2 Lambda)) + --- Phi'
+#  rr       2                                        r
+#          r
+#
+#                 2                               2
+# G            = r  exp(-2 Lambda) [Phi'' + (Phi')  + Phi'/r
+#  theta theta
+#
+#                                                   - Phi' Lambda' - Lamda'/r]
+#
+#               2
+# G        = sin  theta G
+#  phi phi               theta theta
+
+Gtt = 1/r^2 exp(2 Phi(r)) d(r (1 - exp(-2 Lambda(r))),r)
+
+Grr = -1/r^2 exp(2 Lambda(r)) (1 - exp(-2 Lambda(r))) + 2/r d(Phi(r),r)
+
+Gthetatheta = r^2 exp(-2 Lambda(r)) (
+  d(d(Phi(r),r),r) +
+  d(Phi(r),r)^2 +
+  d(Phi(r),r) / r -
+  d(Phi(r),r) d(Lambda(r),r) -
+  d(Lambda(r),r) / r)
+
+Gphiphi = sin(theta)^2 Gthetatheta
+
+# Put together the expected tensor:
+
+expect = ((Gtt,   0,           0,       0),
+          (  0, Grr,           0,       0),
+          (  0,   0, Gthetatheta,       0),
+          (  0,   0,           0, Gphiphi))
+
+# Check that GDD is correct.
+
+check(GDD = expect)
+
+clear
+
+# This script tests 10 vector calculus identities.
+
+# Define the cross product, div, grad, curl and laplacian for
+# rectangular coordinates.
+
+cross(u,v) = (
+  u[2] v[3] - u[3] v[2],
+  u[3] v[1] - u[1] v[3],
+  u[1] v[2] - u[2] v[1]
+)
+
+div(v) = contract(d(v,(x,y,z)),1,2)
+
+grad(v) = d(v,(x,y,z))
+
+curl(f) = (
+  d(f[3],y) - d(f[2],z),
+  d(f[1],z) - d(f[3],x),
+  d(f[2],x) - d(f[1],y)
+)
+
+laplacian(f) = d(d(f,x),x) + d(d(f,y),y) + d(d(f,z),z)
+
+# Note: Functions can be left undefined, such as FX(), FY(), etc.
+# These "generic" functions, when evaluated by the derivative function d(),
+# are considered to be dependent on all variables.
+# Basically what this means is that d() does no evaluation at all.
+# For example, d(FX(),x) returns the expression d(FX(),x).
+
+# Define generic vector functions F and G.
+
+F = (FX(),FY(),FZ())
+G = (GX(),GY(),GZ())
+
+# Now check the 10 identities.
+
+"Checking the following identities:"
+
+"1. div(curl F) = 0"
+
+A = div(curl(F))
+
+check(A = 0)
+
+"2. curl(grad f) = 0"
+
+A = curl(grad(f())) # Note the use of generic scalar function f() here.
+
+check(A = 0)
+
+"3. div(grad f) = laplacian f"
+
+A = div(grad(f()))
+
+B = laplacian(f())
+
+check(A = B)
+
+"4. curl(curl F) = grad(div F) - laplacian F"
+
+A = curl(curl(F))
+
+B = grad(div(F)) - laplacian(F)
+
+check(A = B)
+
+"5. grad(fg) = f grad g + g grad(f)"
+
+A = grad(f() g())
+
+B = f() grad(g()) + g() grad(f())
+
+check(A = B)
+
+"6. grad(F . G) = (G . grad)F + (F . grad)G + G x curl F + F x curl G"
+
+A = grad(dot(F,G))
+
+B = dot(grad(F),G)+dot(grad(G),F)+cross(G,curl(F))+cross(F,curl(G))
+
+check(A = B)
+
+# Note: It turns out that (G . grad)F actually means (grad F) . G
+
+"7. div(fF) = f div F + grad f . F"
+
+A = div(f() F)
+
+B = f() div(F) + dot(grad(f()),F)
+
+check(A = B)
+
+"8. div(F x G) = G . curl F - F . curl G"
+
+A = div(cross(F,G))
+
+B = dot(G,curl(F)) - dot(F,curl(G))
+
+check(A = B)
+
+"9. curl(fF) = f curl F + grad f x F"
+
+A = curl(f() F)
+
+B = f() curl(F) + cross(grad(f()),F)
+
+check(A = B)
+
+"10. curl(F x G) = F div G - G div F + (G . grad)F - (F . grad)G"
+
+A = curl(cross(F,G))
+
+B = F div(G) - G div(F) + dot(grad(F),G) - dot(grad(G),F)
+
+check(A = B)
+
+clear
+
+"ALL TESTS PASSED"
