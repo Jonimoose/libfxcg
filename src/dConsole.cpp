@@ -293,6 +293,15 @@ int dGetLine (char * s,int max) // This function is depended on dConsole
                     append(s, (char*)"^", pos);
                     pos=pos+1; refresh = 1;
                   }
+                } else if (key==KEY_CHAR_SQUARE) {
+                  if ((int)strlen(s)+1>=max) continue;
+                  if(strlen(s)==0) {
+                    strcat(s, (char*)"last^2");
+                    pos=pos+6; refresh = 1; //start of line, append "last" as we're going to do a calculation on the previous value
+                  } else {
+                    append(s, (char*)"^2", pos);
+                    pos=pos+2; refresh = 1;
+                  }
                 } else if (key==KEY_CHAR_ROOT) {
                   if ((int)strlen(s)+4>=max) continue;
                   append(s, (char*)"sqrt(", pos);
@@ -305,10 +314,6 @@ int dGetLine (char * s,int max) // This function is depended on dConsole
                   if ((int)strlen(s)+3>=max) continue;
                   append(s, (char*)"^(1/", pos); // example: to get cubic root of 27, do 27^(1/3)
                   pos=pos+4; refresh = 1;
-                } else if (key==KEY_CHAR_SQUARE) {
-                  if ((int)strlen(s)+1>=max) continue;
-                  append(s, (char*)"^2", pos);
-                  pos=pos+2; refresh = 1;
                 } else if (key==KEY_CHAR_THETA) {
                   if ((int)strlen(s)+4>=max) continue;
                   append(s, (char*)"theta", pos);

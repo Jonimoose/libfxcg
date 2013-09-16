@@ -14,7 +14,8 @@
 
 #include "aboutGUI.hpp"
 #include "textGUI.hpp"
-#include "graphicsProvider.hpp" 
+#include "graphicsProvider.hpp"
+#include "versionProvider.hpp"
 
 void showAbout() {
  int key;
@@ -25,9 +26,13 @@ void showAbout() {
  int orange = drawRGB24toRGB565(210, 68, 19);
  int textX = 0;
  int textY = 5;
- PrintMini(&textX, &textY, (unsigned char*)"Version Beta 5", 0, 0xFFFFFFFF, 0, 0, COLOR_BLUE, COLOR_WHITE, 1, 0);
+ char verBuffer[100] = "";
+ getVersion(verBuffer);
+ PrintMini(&textX, &textY, (unsigned char*)"Version ", 0, 0xFFFFFFFF, 0, 0, COLOR_BLUE, COLOR_WHITE, 1, 0);
+ PrintMini(&textX, &textY, (unsigned char*)verBuffer, 0, 0xFFFFFFFF, 0, 0, COLOR_BLUE, COLOR_WHITE, 1, 0);
  textY = textY + 17; textX = 0;
- PrintMini(&textX, &textY, (unsigned char*)"Fri, 13 Sep 2013", 0, 0xFFFFFFFF, 0, 0, COLOR_GRAY, COLOR_WHITE, 1, 0);
+ getTimestamp(verBuffer);
+ PrintMini(&textX, &textY, (unsigned char*)verBuffer, 0, 0xFFFFFFFF, 0, 0, COLOR_GRAY, COLOR_WHITE, 1, 0);
  textY = 42;
  textX = 0;
  PrintMini(&textX, &textY, (unsigned char*)"Developed by gbl08ma at", 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
