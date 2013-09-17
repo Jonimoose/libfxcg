@@ -29,6 +29,8 @@ void run_startup_script();
 void check_execution_abort();
 void select_script_and_run();
 void custom_key_handler();
+void script_recorder();
+void input_eval_loop(int isRecording);
 
 int
 main()
@@ -40,6 +42,12 @@ main()
   run_startup_script(); 
   int aborttimer = Timer_Install(0, check_execution_abort, 100);
   if (aborttimer > 0) { Timer_Start(aborttimer); }
+  input_eval_loop(0);
+}
+
+void input_eval_loop(int isRecording) {
+  char** recHistory = NULL; int curRecHistEntry = 0;
+  if(isRecording) recHistory = (char**)alloca(200); // space for 200 pointers to history entries
   while (1) {
     strcpy(expr, (char*)"");
     printf(">");
@@ -65,23 +73,73 @@ main()
       print_mem_info();
     } else if(strcmp(expr, "memgc") == 0) {
       gc();
+    } else if(strcmp(expr, "record") == 0) {
+      if(!isRecording) script_recorder();
+      else {
+        // create and save a script. this must be done here, because we used alloca
+        // the "clean" way would be using malloc&free, but on the Prizm the heap is already being heavily used by the Eigenmath core.
+        if(curRecHistEntry == 0) {
+          printf("Nothing to record.\n");
+          return;
+        }
+        printf("Recording stopped.\n");
+        printf("Type a name for the script, or\n");
+        printf("leave empty to discard.\n");
+        printf(":");
+        char inputname[MAX_FILENAME_SIZE+1] = "";
+        gets(inputname,MAX_FILENAME_SIZE-50);
+        puts(inputname);
+        if(strcmp(inputname, (char*)"") == 0) {
+          // user aborted
+          printf("Recording discarded.\n");
+          return;
+        }
+        char filename[MAX_FILENAME_SIZE+1] = "";
+        strcpy(filename, "\\\\fls0\\");
+        strcat(filename, inputname);
+        strcat(filename, ".txt");
+        unsigned short pFile[MAX_FILENAME_SIZE+1];
+        Bfile_StrToName_ncpy(pFile, (unsigned char*)filename, strlen(filename)+1);
+        // calculate size
+        int size = 0;
+        int maxHistory = curRecHistEntry - 1; //because we ++'ed at the end of last addition
+        for(int i=0; i <= maxHistory; i++) {
+          size = size + strlen(recHistory[i]) + 1; // 1 byte for \n. we will use unix line termination
+        }
+        int BCEres = Bfile_CreateEntry_OS(pFile, CREATEMODE_FILE, &size);
+        if(BCEres >= 0) // Did it create?
+        {
+          BCEres = Bfile_OpenFile_OS(pFile, READWRITE, 0); // Get handle
+          for(int i=0; i <= maxHistory; i++) {
+            char* buf = (char*)alloca(strlen(recHistory[i])+5);
+            strcpy(buf, recHistory[i]);
+            strcat(buf, (char*)"\n");
+            Bfile_WriteFile_OS(BCEres, buf, strlen(recHistory[i])+1);
+          }
+          Bfile_CloseFile_OS(BCEres);
+          printf("Script created.\n");
+        } else {
+          printf("An error occurred when creating the script for recording.\n");
+        }
+        return;
+      }
     } else {
-      //printf("=");
-      //HourGlass();
       execution_in_progress = 1;
       run(expr);
       // run_startup_script cannot run from inside eval_clear because then it would be a run() inside a run()
       if(run_startup_script_again) { run_startup_script_again = 0; run_startup_script(); }
       execution_in_progress = 0;
+      
+      // if recording, add input to record
+      if(isRecording && curRecHistEntry <= 200) {
+        recHistory[curRecHistEntry] = (char*)alloca(strlen(expr)+2); // 2 bytes for security
+        strcpy(recHistory[curRecHistEntry], expr);
+        curRecHistEntry++;
+      }
     }
   }
-
-        /*for (;;) {
-                printf("> ");
-                fgets(buf, BUFLEN, stdin);
-                run(buf);
-        }*/
 }
+
 void run_script(char* filename) {
   unsigned short pFile[MAX_FILENAME_SIZE+1];
   Bfile_StrToName_ncpy(pFile, (unsigned char*)filename, strlen(filename)+1); 
@@ -120,6 +178,40 @@ void select_script_and_run() {
     run_script(filename);
   }
 }
+char curRecordingBuffer[MAX_TEXTVIEWER_FILESIZE+5];
+
+void script_recorder() {
+  printf("Recording started: every\n");
+  printf("command you enter from on now\n");
+  printf("will be recorded, so that you\n");
+  printf("can create a script.\n");
+  printf("When you're done recording,\n");
+  printf("call \"record\" again.\n");
+  input_eval_loop(1);
+}
+/*char inputname[MAX_FILENAME_SIZE+1] = "";
+    gets(inputname,MAX_FILENAME_SIZE-50);
+    puts(inputname);
+    if(strcmp(inputname, (char*)"") == 0) {
+      // user aborted
+      return;
+    }
+    char filename[MAX_FILENAME_SIZE+1] = "";
+    strcpy(filename, "\\\\fls0\\");
+    strcat(filename, inputname);
+    strcat(filename, ".txt");
+    unsigned short pFile[MAX_FILENAME_SIZE+1];
+    Bfile_StrToName_ncpy(pFile, (unsigned char*)filename, strlen(filename)+1);
+    int BCEres = Bfile_CreateEntry_OS(pFile, CREATEMODE_FILE, &size);
+    if(BCEres >= 0) // Did it create?
+    {
+      curOpenRecordScript = Bfile_OpenFile_OS(pFile, READWRITE, 0); // Get handle
+      printf("The commands you enter from on now will be added to the script.\n");
+      printf("To finish or abort recording, call \"record\" again.\n");
+    } else {
+      printf("An error occurred when creating the script for recording.\n");
+    }*/
+
 
 void check_execution_abort() {
   if(execution_in_progress) {
