@@ -246,6 +246,7 @@ void select_strip_script() {
         unsigned char* scontents = (unsigned char*)alloca(filesize);
         memset(scontents, filesize, 0);
         int rsize = Bfile_ReadFile_OS(hFile, scontents, filesize, 0);
+        scontents[rsize]='\0';
         // script is now in buffer scontents
         // write it to the "MCS"
         int createResult = MCS_CreateDirectory( DIRNAME );
