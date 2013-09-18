@@ -36,7 +36,7 @@ GIT_TIMESTAMP += "$(shell git log --pretty=format:'%aD' -1)"
 # options for code and add-in generation
 #---------------------------------------------------------------------------------
 
-MKG3AFLAGS := -s -n basic:Eigenmath -i uns:../unselected.bmp -i sel:../selected.bmp -i mon:../monoicon.bin
+MKG3AFLAGS := -s -n basic:Eigenmath -i uns:../unselected.bmp -i sel:../selected.bmp -i mon:../monoicon.eActIcon
 
 CFLAGS	= -std=c++11 -Os -Wall -Wno-write-strings $(MACHDEP) $(INCLUDE) -DPRIZM -D__GIT_VERSION=\"$(GIT_VERSION)\" -D__GIT_TIMESTAMP=\"$(GIT_TIMESTAMP)\"
 CXXFLAGS	=	$(CFLAGS)
