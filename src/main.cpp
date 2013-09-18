@@ -31,6 +31,7 @@ void select_script_and_run();
 void custom_key_handler();
 void script_recorder();
 void input_eval_loop(int isRecording);
+int is_running_in_strip();
 
 int
 main()
@@ -49,6 +50,7 @@ void input_eval_loop(int isRecording) {
   char** recHistory = NULL; int curRecHistEntry = 0;
   if(isRecording) recHistory = (char**)alloca(200); // space for 200 pointers to history entries
   while (1) {
+    DefineStatusMessage((char*)"", 1, 0, 0);
     strcpy(expr, (char*)"");
     printf(">");
     dConsoleRedraw();
@@ -226,6 +228,17 @@ int get_custom_fkey_label(int fkey) {
     }
   }
   return 0;
+}
+
+int is_running_in_strip() {
+  // uses a hack to detect if we're running from an eActivity strip:
+  // if the first pixel of the VRAM (first pixel of the status bar) is not white, then we are in a strip
+  // (eActivity turns the statusbar background into a checkerbox when in a strip,
+  // unless our code messes with the statusbar flags, which this add-in doesn't do.
+  // the first pixel of the checkerboard is not white)
+  DisplayStatusArea(); // otherwise, we don't know
+  if(Bdisp_GetPoint_VRAM( 0, 0 ) != COLOR_WHITE) return 1;
+  else return 0;
 }
 
 void
