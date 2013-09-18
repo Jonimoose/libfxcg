@@ -189,29 +189,6 @@ void script_recorder() {
   printf("call \"record\" again.\n");
   input_eval_loop(1);
 }
-/*char inputname[MAX_FILENAME_SIZE+1] = "";
-    gets(inputname,MAX_FILENAME_SIZE-50);
-    puts(inputname);
-    if(strcmp(inputname, (char*)"") == 0) {
-      // user aborted
-      return;
-    }
-    char filename[MAX_FILENAME_SIZE+1] = "";
-    strcpy(filename, "\\\\fls0\\");
-    strcat(filename, inputname);
-    strcat(filename, ".txt");
-    unsigned short pFile[MAX_FILENAME_SIZE+1];
-    Bfile_StrToName_ncpy(pFile, (unsigned char*)filename, strlen(filename)+1);
-    int BCEres = Bfile_CreateEntry_OS(pFile, CREATEMODE_FILE, &size);
-    if(BCEres >= 0) // Did it create?
-    {
-      curOpenRecordScript = Bfile_OpenFile_OS(pFile, READWRITE, 0); // Get handle
-      printf("The commands you enter from on now will be added to the script.\n");
-      printf("To finish or abort recording, call \"record\" again.\n");
-    } else {
-      printf("An error occurred when creating the script for recording.\n");
-    }*/
-
 
 void check_execution_abort() {
   if(execution_in_progress) {
