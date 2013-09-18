@@ -17,6 +17,7 @@ extern "C" {
 #include "dConsole.h"
 }
 #include "fileGUI.hpp"
+#include "textGUI.hpp"
 extern int esc_flag;
 extern int run_startup_script_again;
 int execution_in_progress = 0;
@@ -28,10 +29,13 @@ void run_script(char* filename);
 void run_startup_script();
 void check_execution_abort();
 void select_script_and_run();
+void select_strip_script();
 void custom_key_handler();
 void script_recorder();
 void input_eval_loop(int isRecording);
 int is_running_in_strip();
+#define DIRNAME (unsigned char*)"@EIGEN"
+#define SCRIPTFILE (unsigned char*)"Script"
 
 int
 main()
@@ -43,6 +47,19 @@ main()
   run_startup_script(); 
   int aborttimer = Timer_Install(0, check_execution_abort, 100);
   if (aborttimer > 0) { Timer_Start(aborttimer); }
+  //in case we're running in a strip, check if this strip has a script to run.
+  if(is_running_in_strip()) {
+    int MCSsize;
+    MCSGetDlen2(DIRNAME, SCRIPTFILE, &MCSsize);
+    if (MCSsize > 0) {
+      // there is a script to run...
+      unsigned char* asrc = (unsigned char*)alloca(MCSsize*sizeof(unsigned char)+5); // 5 more bytes to make sure it fits...
+      MCSGetData1(0, MCSsize, asrc); // read script from MCS
+      execution_in_progress = 1;
+      run((char*)asrc);
+      execution_in_progress = 0;
+    }
+  }
   input_eval_loop(0);
 }
 
@@ -58,6 +75,11 @@ void input_eval_loop(int isRecording) {
     if(res == 2) {
       dConsolePut("\n");
       select_script_and_run();
+      continue;
+    }
+    if(res == 4) {
+      dConsolePut("\n");
+      select_strip_script();
       continue;
     }
     if(res == 3) {
@@ -179,6 +201,69 @@ void select_script_and_run() {
   if(fileBrowser(filename, (unsigned char*)"*.txt", "Scripts")) {
     run_script(filename);
   }
+}
+
+void select_strip_script() {
+  if(!is_running_in_strip()) {
+    printf("This function is only available\n");
+    printf("when running as an eActivity\n");
+    printf("strip.\n");
+    return;
+  }
+  
+  textArea text;
+  strcpy(text.title, (char*)"aa");
+  text.showtitle=0;
+
+  textElement elem[10];
+  text.elements = elem;
+  
+  elem[0].text = (char*)"This function lets you run a script when this eActivity strip is opened.";
+  elem[1].newLine = 1;
+  elem[1].text = (char*)"When sharing the eActivity file, it will not be necessary to share any other files - the script is included in the eActivity.";
+  elem[2].newLine = 1;
+  elem[2].text = (char*)"You will be informed if the script is too big to fit inside the eActivity file.";
+  elem[3].newLine = 1;
+  elem[3].text = (char*)"Press EXIT now to continue and select a script.";
+  text.numelements = 4;
+  doTextArea(&text);
+  
+  char filename[MAX_FILENAME_SIZE+1] = "";
+  if(fileBrowser(filename, (unsigned char*)"*.txt", "Scripts")) {
+    // get the size of the selected script on SMEM.
+    // get free size on the "MCS" of the strip we're running on and see if the script fits
+    unsigned short pFile[MAX_FILENAME_SIZE+1];
+    Bfile_StrToName_ncpy(pFile, (unsigned char*)filename, strlen(filename)+1); 
+    int hFile = Bfile_OpenFile_OS(pFile, READWRITE, 0); // Get handle
+    if(hFile >= 0) // Check if it opened
+    { //opened
+      unsigned int filesize = Bfile_GetFileSize_OS(hFile);  
+      //get free size of MCS
+      int MCSmaxspace; int MCScurrentload; int MCSfreespace;  
+      MCS_GetState( &MCSmaxspace, &MCScurrentload, &MCSfreespace );
+      if((int)filesize < MCSfreespace - 50) { // 50 bytes for any headers and the like
+        // fits, copy selected script to MCS
+        unsigned char* scontents = (unsigned char*)alloca(filesize);
+        memset(scontents, filesize, 0);
+        int rsize = Bfile_ReadFile_OS(hFile, scontents, filesize, 0);
+        // script is now in buffer scontents
+        // write it to the "MCS"
+        int createResult = MCS_CreateDirectory( DIRNAME );
+        if(createResult != 0) // Check directory existence
+        { // directory already exists, so delete the exiting file that may be there
+          MCSDelVar2(DIRNAME, SCRIPTFILE);
+        }
+        MCSPutVar2(DIRNAME, SCRIPTFILE, rsize, scontents);
+        printf("Script set successfully.\n");
+      } else {
+        printf("The script is too big to be\n");
+        printf("included in the eActivity.\n");
+      }
+      Bfile_CloseFile_OS(hFile);
+      return; // don't get to the error message
+    }
+  }
+  printf("There was a problem setting the script for this strip.\n");
 }
 char curRecordingBuffer[MAX_TEXTVIEWER_FILESIZE+5];
 

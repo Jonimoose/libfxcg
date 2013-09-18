@@ -400,6 +400,9 @@ int dGetLine (char * s,int max) // This function is depended on dConsole
                 } else if (key==KEY_CTRL_F2) {
                   // select script and run
                   return 2;
+                } else if (key==KEY_CTRL_PRGM) {
+                  // set script to run on strip open (only when running inside eAct)
+                  return 4;
                 } else if (key==KEY_CTRL_SETUP) {
                   showAbout();
                   Bdisp_AllClr_VRAM();
