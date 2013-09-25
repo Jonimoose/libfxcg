@@ -34,6 +34,7 @@ void custom_key_handler();
 void script_recorder();
 void input_eval_loop(int isRecording);
 int is_running_in_strip();
+void updateRandomUserObject();
 #define DIRNAME (unsigned char*)"@EIGEN"
 #define SCRIPTFILE (unsigned char*)"Script"
 
@@ -67,6 +68,7 @@ void input_eval_loop(int isRecording) {
   char** recHistory = NULL; int curRecHistEntry = 0;
   if(isRecording) recHistory = (char**)alloca(200); // space for 200 pointers to history entries
   while (1) {
+    updateRandomUserObject();
     DefineStatusMessage((char*)"", 1, 0, 0);
     strcpy(expr, (char*)"");
     printf(">");
@@ -400,4 +402,24 @@ void
 update_curr_cmd(char *s)
 {
         strcpy(expr, s);
+}
+
+// Entropy related:
+
+static unsigned int lastrandom=0x12345678;
+
+unsigned int random( int seed = 0 ){
+    if (seed) lastrandom=seed;
+    lastrandom = ( 0x41C64E6D*lastrandom ) + 0x3039;
+    return ( lastrandom >> 16 );
+}
+
+void updateRandomUserObject() {
+  int rd = random( RTC_GetTicks() );
+  char b[50] = "";
+  char c[20] = "";
+  strcpy(b, "prizmRandomSeed=");
+  itoa(rd, (unsigned char*)c);
+  strcat(b, c);
+  run(b);
 }

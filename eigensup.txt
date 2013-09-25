@@ -17,6 +17,7 @@ arccsch(x)=arcsinh(1/x)
 npr(n,r)=(n!)/(n-r)!
 ncr(n,r)=n!/(r!(n-r)!)
 xor(x,y)=or(and(x,not(y)),and(not(x),y))
+rand()=float(prizmRandomSeed/65536)
 prizmUIhandleKeys=1
 prizmUIkeyHandler(k,s)=(test(
   k=30011,clear,
