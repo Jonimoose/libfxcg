@@ -420,13 +420,13 @@ int dGetLine (char * s,int max) // This function is depended on dConsole
                   refresh = 1;
                 } else if (key==KEY_CTRL_LEFT) {
                   // move cursor left
-                  if(pos<=0) continue;
-                  pos--;
+                  if(pos<=0) pos=strlen(s); //cycle
+                  else pos--;
                   refresh = 1;
                 } else if (key==KEY_CTRL_RIGHT) {
                   // move cursor right
-                  if(pos>=(int)strlen(s)) continue;
-                  pos++;
+                  if(pos>=(int)strlen(s)) pos=0; //cycle
+                  else pos++;
                   refresh = 1;
                 } else if ((c=dGetKeyChar(key))!=0) {
                         if ((int)strlen(s)>=max) continue;
