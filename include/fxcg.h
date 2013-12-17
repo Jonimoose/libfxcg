@@ -48,7 +48,7 @@ char *sys_strncpy(char *dest, const char *src, size_t n);
 #define free sys_free
 #define memcmp sys_memcmp
 #define memcmp3 sys_memcmp3
-#define memcpy sys_memcpy
+//#define memcpy sys_memcpy
 #define memset sys_memset
 #define memmove sys_memmove
 #define strlen sys_strlen

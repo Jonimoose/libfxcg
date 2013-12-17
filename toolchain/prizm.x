@@ -8,7 +8,7 @@ MEMORY
 {
         /* Loads code at 300000, skips g3a header */
         rom (rx) : o = 0x00300000, l = 1024k
-        ram (rwx) : o = 0x08100004, l = 64k  /* pretty safe guess */
+        ram (rwx) : o = 0x08100000, l = 512k  /* According to Simon docs */
         ilram (rwx) : o = 0xE5200000, l = 4k /* According to http://www.cemetech.net/forum/viewtopic.php?t=9334 */
 }
  
