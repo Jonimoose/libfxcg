@@ -136,7 +136,7 @@ static int serial_ensureopen() {
 }
 
 // TODO restrict ptr, stream
-static size_t fwrite_serial(const void *ptr, size_t size, size_t nitems,
+/*static size_t fwrite_serial(const void *ptr, size_t size, size_t nitems,
                             FILE *stream) {
     // tx buffer is 256 bytes, don't get stuck waiting
     if (size > 256 || serial_ensureopen()) {
@@ -156,54 +156,51 @@ static size_t fwrite_serial(const void *ptr, size_t size, size_t nitems,
         }
     }
     return nitems - remain;
-}
+}*/
 
-static size_t fwrite_term(const void *ptr, size_t size, size_t nitems,
-                          FILE *stream) {
-    char *buffer = sys_malloc(1 + nitems * size);
-    if (buffer == NULL) {
-        IOERR(stream, ENOMEM);
-        return 0;
-    }
+static size_t fwrite_term(const void *ptr, size_t size, size_t nitems,FILE *stream,char col){
+	char *buffer = alloca(1 + nitems * size);
+	if (buffer == NULL) {
+		IOERR(stream, ENOMEM);
+		return 0;
+	}
 
-    memcpy(buffer, ptr, nitems * size);
-    buffer[nitems * size] = '\0';
-    const char *outp = buffer;
-    char *eol;
+	memcpy(buffer, ptr, nitems * size);
+	buffer[nitems * size] = '\0';
+	const char *outp = buffer;
+	char *eol;
 
     // Loop over all lines in buffer, terminate once we've printed all lines.
-    do {
-        eol = strchr(outp, '\n');
-        if(eol) {
-          *eol = '\0';
-        }
+	do {
+		eol = strchr(outp, '\n');
+		if(eol)
+			*eol = '\0';
 
         // Cast to wider type for correct pointers
-        int termx = stream->termx, termy = stream->termy;
-        PrintMiniMini(&termx, &termy, outp, 0, TEXT_COLOR_BLACK, 0);
+		int termx = stream->termx, termy = stream->termy;
+		PrintMiniMini(&termx, &termy, outp, 0, col, 0);
 
         // CR/LF if applicable
-        if(eol)
-        {
-            stream->termx = 0;
+		if(eol){
+			stream->termx = 0;
             stream->termy += 10;
             outp = eol + 1;
-        }
-    } while (eol);
-
-    sys_free(buffer);
-    return nitems;
+        }else
+			stream->termx=termx;//Prevent characters on the same line from being over written
+	} while (eol);
+	return nitems;
 }
 // TODO make ptr, stream restrict for optimization
 size_t fwrite(const void *ptr, size_t size, size_t nitems,
               FILE *stream) {
     if (isstdstream(stream)) {
         if (stream->fileno == 2) {
-            // stderr: serial
-            return fwrite_serial(ptr, size, nitems, stream);
+            // stderr: display but red font
+            //return fwrite_serial(ptr, size, nitems, stream);
+            return fwrite_term(ptr, size, nitems, stream,TEXT_COLOR_RED);
         } else if (stream->fileno == 1) {
             // stdout: display
-            return fwrite_term(ptr, size, nitems, stream);
+            return fwrite_term(ptr, size, nitems, stream,TEXT_COLOR_BLACK);
         } else {
             // stdin..?
         }
@@ -312,32 +309,30 @@ int ungetc(int c, FILE *f) {
 }
 
 int fseek(FILE *f, long offset, int whence) {
-    if (isstdstream(f)) {
-        IOERR(f, ERANGE);
-        return -1;
-    }
+	if (isstdstream(f)) {
+		IOERR(f, ERANGE);
+		return -1;
+	}
+	int fileno = handle_tonative(f->fileno);
 
-    switch (whence) {
-        case SEEK_CUR:
-            offset = ftell(f) + offset;
-            break;
-        case SEEK_END:
-            // TODO this probably doesn't work. Wild guessing.
-            // Speculation says we have Bfile_GetFileSize_OS
-            offset = INT_MAX;
-            break;
-        case SEEK_SET:
-            break;
-        default:
-            return -1;
-    }
+	switch (whence) {
+		case SEEK_CUR:
+			offset = ftell(f) + offset;
+			break;
+		case SEEK_END:
+			offset = Bfile_GetFileSize_OS(fileno);
+			break;
+		case SEEK_SET:
+			break;
+		default:
+			return -1;
+	}
 
-    int fileno = handle_tonative(f->fileno);
     // TODO can this fail? Probably.
-    Bfile_SeekFile_OS(fileno, (int)offset);
+	Bfile_SeekFile_OS(fileno, (int)offset);
 
-    f->error = 0;
-    return 0;
+	f->error = 0;
+	return 0;
 }
 
 long ftell(FILE *f) {
