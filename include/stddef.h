@@ -17,10 +17,7 @@ typedef unsigned char wchar_t;
 
 #define offsetof(type, member) __builtin_offsetof(type, member)
 
-#ifndef size_t
-typedef unsigned size_t;
-#endif
-
+typedef unsigned int size_t;
 #ifdef __cplusplus
 }
 #endif

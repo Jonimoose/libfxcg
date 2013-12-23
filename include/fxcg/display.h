@@ -18,6 +18,11 @@ struct display_fill {
     int y2;
     unsigned char mode;
 };
+
+void drawTinyC(char c,int x,int y,int fg,int bg);
+void drawTinyStr(const char * s,int *x,int *y,int fg,int bg);
+void drawTinyStrn(const char * s,int *x,int *y,int fg,int bg,int n);
+
 void Bdisp_AreaClr( struct display_fill *area, unsigned char P2, unsigned short color );
 void Bdisp_EnableColor( int n );
 //Frame control:

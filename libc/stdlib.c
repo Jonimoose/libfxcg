@@ -1,4 +1,7 @@
 #include <fxcg/heap.h>
+#include <fxcg/display.h>
+#include <fxcg/misc.h>
+#include <fxcg/keyboard.h>
 #include <ctype.h>
 #include <limits.h>
 #include <stdio.h>
@@ -18,11 +21,15 @@ void free(void *ptr) {
     sys_free(ptr);
 }
 
-// TODO annotate this noreturn
-void exit(int status) {
-    fprintf(stderr, "TERMINATED (%i)", status);
+void  __attribute__((noreturn)) exit(int status){
+    fprintf(stderr, "TERMINATED (%i)\n", status);
+    puts("To exit press the menu key");
+    puts("Before running this program again please launch another program before running this one again");
     // We don't have a clean way to exit (right now), so just crash it.
-    ((void (*)())1)(); // Unaligned instruction
+    //((void (*)())1)(); // Unaligned instruction
+    int key;
+	while(1)
+		GetKey(&key);
 }
 
 static unsigned char strtol_consume(unsigned char c, int base) {
@@ -113,8 +120,18 @@ double strtod(const char *s, char **str_end) {
 }
 
 int abs(int i) {
-    if (i < 0)
-        return -i;
-    else
-        return i;
+    return i<0?-i:i;
+}
+int getenv(const char * name){
+	return 0;
+}
+void abort(void){
+	int x=0;
+	int y=0;
+	PrintMini(&x,&y,"Abort called press MENU",0,0xFFFFFFFF,0,0,0,0xFFFF,1,0);
+	while (1)
+		GetKey(&x);
+}
+int system (const char* command){
+	return -1;
 }

@@ -2,14 +2,15 @@
 #include <fxcg/file.h>
 #include <fxcg/heap.h>
 #include <fxcg/serial.h>
-
+#include <fxcg/keyboard.h>
 #include <alloca.h>
 #include <errno.h>
 #include <limits.h>
 #include <stdio.h>
 #include <stdint.h>
 #include <string.h>
-
+int termx=0;
+int termy=0;
 // Unspecified members initialized to zero.
 FILE _impl_stdin = {0};
 FILE _impl_stdout = {1};
@@ -22,6 +23,7 @@ enum {
 };
 
 #define IOERR(stream, err) errno = err; stream->error = 1
+
 
 static inline int isstdstream(FILE *f) {
     return f->fileno < 3;
@@ -135,72 +137,19 @@ static int serial_ensureopen() {
     return 0;
 }
 
-// TODO restrict ptr, stream
-/*static size_t fwrite_serial(const void *ptr, size_t size, size_t nitems,
-                            FILE *stream) {
-    // tx buffer is 256 bytes, don't get stuck waiting
-    if (size > 256 || serial_ensureopen()) {
-        IOERR(stream, EIO);
-        return 0;
-    }
 
-    // Transmit
-    size_t remain = nitems;
-    while (remain > 0) {
-        if (Serial_PollTX() > size) {
-            Serial_Write(ptr, size);
-            remain--;
-        } else {
-            // Wait for space in tx buffer
-            // TODO sleep for an interrupt or something
-        }
-    }
-    return nitems - remain;
-}*/
-
-static size_t fwrite_term(const void *ptr, size_t size, size_t nitems,FILE *stream,char col){
-	char *buffer = alloca(1 + nitems * size);
-	if (buffer == NULL) {
-		IOERR(stream, ENOMEM);
-		return 0;
-	}
-
-	memcpy(buffer, ptr, nitems * size);
-	buffer[nitems * size] = '\0';
-	const char *outp = buffer;
-	char *eol;
-
-    // Loop over all lines in buffer, terminate once we've printed all lines.
-	do {
-		eol = strchr(outp, '\n');
-		if(eol)
-			*eol = '\0';
-
-        // Cast to wider type for correct pointers
-		int termx = stream->termx, termy = stream->termy;
-		PrintMiniMini(&termx, &termy, outp, 0, col, 0);
-
-        // CR/LF if applicable
-		if(eol){
-			stream->termx = 0;
-            stream->termy += 10;
-            outp = eol + 1;
-        }else
-			stream->termx=termx;//Prevent characters on the same line from being over written
-	} while (eol);
-	return nitems;
-}
 // TODO make ptr, stream restrict for optimization
-size_t fwrite(const void *ptr, size_t size, size_t nitems,
-              FILE *stream) {
-    if (isstdstream(stream)) {
-        if (stream->fileno == 2) {
-            // stderr: display but red font
-            //return fwrite_serial(ptr, size, nitems, stream);
-            return fwrite_term(ptr, size, nitems, stream,TEXT_COLOR_RED);
+size_t fwrite(const void *ptr, size_t size, size_t nitems,FILE *stream) {
+	if (isstdstream(stream)) {
+		if (stream->fileno == 2) {
+			// stderr: display but red font
+			//return fwrite_serial(ptr, size, nitems, stream);
+			drawTinyStrn(ptr,&termx,&termy,0xF800,0xFFFF,size*nitems);
+			return strlen(ptr);
         } else if (stream->fileno == 1) {
             // stdout: display
-            return fwrite_term(ptr, size, nitems, stream,TEXT_COLOR_BLACK);
+            drawTinyStrn(ptr,&termx,&termy,0,0xFFFF,size*nitems);
+			return size*nitems;
         } else {
             // stdin..?
         }
@@ -209,31 +158,80 @@ size_t fwrite(const void *ptr, size_t size, size_t nitems,
     Bfile_WriteFile_OS(handle_tonative(stream->fileno), ptr, size * nitems);
     return nitems;
 }
-
-size_t fread_serial(void *buffer, size_t size, size_t count, FILE *stream) {
-    short bytes;
-    size_t read = 0;
-    // Don't get stuck waiting for a block to come in (buffer is 256 bytes)
-    if (size > 256 || serial_ensureopen()) {
-        IOERR(stream, EIO);
-        return 0;
-    }
-
-    while (count-- > 0) {
-        while (Serial_PollRX() < size);
-        Serial_Read(buffer, size, &bytes);
-        buffer += size;
-        read++;
-    }
-    return read;
+static size_t fread_term(unsigned char * str,size_t max){
+	memset(str,0,max);
+	int key;
+	int termxold=termx;
+	int termyold=termy;
+	int offset=0,pos=0,lower=0;
+	while(1){
+		GetKey(&key);
+		if(key==KEY_CTRL_EXE){
+			break;
+		}else if(key==KEY_CTRL_LEFT){
+			if(pos)
+				--pos;
+		}else if(key==KEY_CTRL_RIGHT){
+			if(pos<(max-2)) ++pos;
+		}else if (key==KEY_CTRL_F1){
+			lower^=1;
+		}else if((key>=KEY_CHAR_0)&&(key<=KEY_CHAR_9)){
+			str[pos]=key-KEY_CHAR_0+'0';
+			if(pos<(max-2)) ++pos;
+		}else if((key>=KEY_CHAR_A)&&(key<=KEY_CHAR_Z)){
+			if(lower)
+				str[pos]=key-KEY_CHAR_A+'a';
+			else
+				str[pos]=key-KEY_CHAR_A+'A';
+			if(pos<(max-2)) ++pos;
+		}else if (key==KEY_CHAR_COMMA){
+			str[pos]=',';
+			if(pos<(max-2)) ++pos;
+		}else if (key==KEY_CHAR_SPACE){
+			str[pos]=' ';
+			if(pos<(max-2)) ++pos;
+		}else if (key==KEY_CHAR_EQUAL){
+			str[pos]='=';
+			if(pos<(max-2)) ++pos;
+		}else if (key==KEY_CHAR_PLUS){
+			str[pos]='+';
+			if(pos<(max-2)) ++pos;
+		}else if ((key==KEY_CHAR_MINUS)||(key==KEY_CHAR_PMINUS)){
+			str[pos]='-';
+			if(pos<(max-2)) ++pos;
+		}else if (key==KEY_CHAR_MULT){
+			str[pos]='*';
+			if(pos<(max-2)) ++pos;
+		}else if (key==KEY_CHAR_DIV){
+			str[pos]='/';
+			if(pos<(max-2)) ++pos;
+		}else if (key==KEY_CTRL_DEL){
+			if(pos==0){
+				if(max>2){
+					memmove(str,str+1,max-2);
+				}else{
+					str[pos]=0;
+				}
+			}else if(pos<(max-2)){
+				memmove(str+pos,str+pos+1,max-pos-1);
+				drawTinyC(' ',termx-6,termy,0xFFFF,0);
+			}
+		}
+		termx=termxold;
+		termy=termyold;
+		drawTinyStr(str,&termx,&termy,0,0xFFFF);
+		drawTinyC(str[pos],termxold+((pos&63)*6),termyold+((pos/64)*8),0xFFFF,0);//draw cursor			
+	}
+	putchar('\n');
+	return strlen(str);
 }
 
 size_t fread(void *buffer, size_t size, size_t count, FILE *stream) {
-    size_t n = size * count;
-    if (isstdstream(stream)) {
-        if (stream->fileno == 0) {
+	size_t n = size * count;
+	if (isstdstream(stream)) {
+		if (stream->fileno == 0) {
             // stdin
-            return fread_serial(buffer, size, n, stream);
+            return fread_term(buffer, n);
         } else {
             // Reading stdout or stderr? No.
             return EOF;
@@ -241,7 +239,7 @@ size_t fread(void *buffer, size_t size, size_t count, FILE *stream) {
     }
 
     // TODO failure modes unknown
-    size_t ret = Bfile_ReadFile_OS(handle_tonative(stream->fileno), buffer, n, 0);
+    size_t ret = Bfile_ReadFile_OS(handle_tonative(stream->fileno), buffer, n, -1);
     if (ret < 0) {
         stream->error = 1;
     } else if (ret < n) {
@@ -251,10 +249,10 @@ size_t fread(void *buffer, size_t size, size_t count, FILE *stream) {
 }
 
 int fputc(int c, FILE *stream) {
-    unsigned char uc = (unsigned char)c;
-    if (fwrite(&uc, 1, 1, stream) != 1)
-        return EOF;
-    return uc;
+	unsigned char uc = (unsigned char)c;
+	if (fwrite(&uc, 1, 1, stream) != 1)
+		return EOF;
+	return uc;
 }
 
 int putchar(int c) {
@@ -275,29 +273,39 @@ int puts(const char *s) {
 }
 
 char *fgets(char *s, int n, FILE *stream) {
-    unsigned char c;
-    char *s_in = s;
-    int count = 0;
-    if (n < 1)
-        return NULL;
-
-    do {
-        if (fread(&c, 1, 1, stream) != 1)
-            return NULL;
-        *s++ = c;
-        count++;
-    } while (c != '\n' && count < n && c != EOF);
-
-    if (count < n) // Back up unless didn't consume a terminator
-        s--;
-    *s = 0;
-    return s_in;
+	if(isstdstream(stream)){
+		if (stream->fileno == 0){
+			if(n<3)
+				return 0;
+			fread_term(s,n);//reads max-1 characters
+		}
+	}else{
+		char *c=s;
+		while(n--){
+			Bfile_ReadFile_OS(handle_tonative(stream->fileno), *c, 1, -1);
+			if(*c=='\n')
+				break;
+			++c;
+		}
+		*(++c)=0;
+	}
+	return s;
 }
 
 int fgetc(FILE *f) {
-    unsigned char c;
-    fread(&c, 1, 1, f);
-    return c;
+	if (isstdstream(f)) {
+		if (f->fileno == 0) {
+            // stdin
+            return getchar();
+        } else {
+            // Reading stdout or stderr? No.
+            return EOF;
+        }
+    }else{
+		unsigned char c;
+		fread(&c, 1, 1, f);
+		return c;
+	}
 }
 
 int ungetc(int c, FILE *f) {
@@ -306,6 +314,11 @@ int ungetc(int c, FILE *f) {
     f->unput = (char)c;
     f->has_unput = 1;
     return f->unput;
+}
+int getchar(void){
+	char tmp[2];
+	fread_term(tmp,2);
+	return (tmp[0]!=0)?tmp[0]:-1;
 }
 
 int fseek(FILE *f, long offset, int whence) {
@@ -404,4 +417,11 @@ int mkdir(const char *path, unsigned mode) {
         return 1;
     }
 }
-
+int fflush(FILE * stream){
+	if (isstdstream(stream))
+		Bdisp_PutDisp_DD();
+	return 0;
+}
+int fileno(FILE *stream){
+	return stream->fileno;
+}

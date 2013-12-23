@@ -293,7 +293,9 @@ out:
 int vfprintf(FILE *stream, const char *fmt, va_list ap) {
     return _v_printf(fmt, ap, _writer_stream, stream);
 }
-
+int vprintf(const char * format, va_list arg){
+	return vfprintf(stdout,format,arg);
+}
 int fprintf(FILE *stream, const char *fmt, ...) {
     va_list ap;
     va_start(ap, fmt);

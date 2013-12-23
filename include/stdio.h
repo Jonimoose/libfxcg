@@ -6,8 +6,13 @@ extern "C" {
 #endif
 
 #include <stddef.h>
+#include <font6x8ext.h>
+#include <stdarg.h>
 
 #define EOF (-1)
+
+#define PATH_MAX 1024 //needed for python
+
 
 typedef struct {
     /* Usual values for stdin and friends, everything else is the handle
@@ -19,9 +24,8 @@ typedef struct {
     unsigned has_unput : 1;
     unsigned char unput;
     /* Used only for terminal output (on stdout) */
-    unsigned short termx, termy;
 } FILE;
-
+extern int termx,termy;
 extern FILE _impl_stdin, _impl_stdout, _impl_stderr;
 #define stdin (&_impl_stdin)
 #define stdout (&_impl_stdout)
@@ -45,14 +49,14 @@ size_t fread(void *buffer, size_t size, size_t count, FILE *stream);
 size_t fwrite(const void *buffer, size_t size, size_t count, FILE *stream);
 int fflush(FILE *stream);
 int ferror(FILE *stream);
+int fileno(FILE *stream);
 
 void clearerr(FILE *stream);
 int feof(FILE *stream);
 int fileno(FILE *stream);
-
+#define getc fgetc
 int fgetc(FILE *stream);
 char *fgets(char *s, int size, FILE *stream);
-int getc(FILE *stream);
 int getchar(void);
 char *gets(char *s);
 int ungetc(int c, FILE *stream);
@@ -68,6 +72,8 @@ long ftell(FILE *f);
 int printf(const char *fmt, ...);
 int sprintf(char *dest, const char *fmt, ...);
 int fprintf(FILE *stream, const char *fmt, ...);
+int vprintf(const char * format, va_list arg);
+int vfprintf(FILE *stream, const char *fmt, va_list ap);
 
 #ifdef __cplusplus
 }

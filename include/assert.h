@@ -4,7 +4,7 @@
 #ifdef NDEBUG
 #define assert(ignore) ((void)0)
 #else
-#error assert() not with DEBUG.
+//#error assert() not with DEBUG.
 #endif
 
 #endif

@@ -4,7 +4,7 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-
+typedef unsigned int size_t;
 #include <stddef.h>
 
 long abs(long n);
@@ -29,6 +29,12 @@ double strtod(const char *s, char **str_end);
 void qsort(void *base, size_t nel, size_t width, int (*compar)(const void *, const void *));
 
 void exit(int status);
+
+int getenv(const char * name);
+
+void abort(void);
+
+int system (const char* command);
 
 #ifdef __cplusplus
 }

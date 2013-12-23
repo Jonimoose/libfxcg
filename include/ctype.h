@@ -21,7 +21,6 @@ int isxdigit(int c);
 
 int toupper(int c);
 int tolower(int c);
-
 #ifdef __cplusplus
 }
 #endif
