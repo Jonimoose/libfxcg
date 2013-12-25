@@ -126,6 +126,9 @@ int abs(int i) {
 }
 int getenv(const char * name){
 	fprintf(stderr,"getenv not yet supported %s\n",name);
+	puts("Press any key to continue");
+	int key;
+	GetKey(&key);
 	return 0;
 }
 void abort(void){

@@ -13,19 +13,26 @@ handles. These functions handle that mapping.
 Use these when throwing around files, mostly.  See their usage in fopen and
 fclose.
 */
-
+static void waitKey(void){
+	puts("Press any key to continue");
+	int key;
+	GetKey(key);
+}
 int access(const char *path, int amode){
 	fprintf(stderr,"acess %s %d\n",path,amode);
+	waitKey();
 	return -1;
 }
 
 int execv(const char *file, char *const argv[]){
 	fprintf(stderr,"execv not supported %s\n",file);
+	waitKey();
 	return -1;
 }
 
 int execve(const char *filename,char *const argv[],char *const envp[]){
 	fprintf(stderr,"execve not supported %s\n",filename);
+	waitKey();
 	return -1;
 }
 
