@@ -13,13 +13,131 @@ handles. These functions handle that mapping.
 Use these when throwing around files, mostly.  See their usage in fopen and
 fclose.
 */
+
+int access(const char *path, int amode){
+	fprintf(stderr,"acess %s %d\n",path,amode);
+	return -1;
+}
+
+int execv(const char *file, char *const argv[]){
+	fprintf(stderr,"execv not supported %s\n",file);
+	return -1;
+}
+
+int execve(const char *filename,char *const argv[],char *const envp[]){
+	fprintf(stderr,"execve not supported %s\n",filename);
+	return -1;
+}
+
+int pipe(int fildes[2]){
+	fputs("pipe\n",stderr);
+	return -1;
+}
+
+gid_t getgid(void){
+	return 0;
+}
+
+uid_t geteuid(void){
+	return 0;
+}
+
+pid_t getppid(void){
+	return 0;
+}
+
+pid_t getpid(void){
+	return 0;
+}
+
+pid_t fork(void){
+	fputs("fork\n",stderr);
+	return -1;
+}
+
+extern int termx,termy;
+ssize_t write(int fildes, const void *buf, size_t nbyte){
+	if (fildes == 2) {
+			// stderr: display but red font
+			//return fwrite_serial(ptr, size, nitems, stream);
+			drawTinyStrn(buf,&termx,&termy,0xF800,0,nbyte);
+			return nbyte;
+        } else if (fildes == 1) {
+            // stdout: display
+            drawTinyStrn(buf,&termx,&termy,0xFFFF,0,nbyte);
+			return nbyte;
+		}else
+			return -1;
+}
+
+uid_t getuid(void){
+	return 0;
+}
+
+gid_t getegid(void){
+	return 0;
+}
+
+static const char * notYetS=" not supported paramater: ";
+const char * stdinNAME="stdin";
+const char * stdoutNAME="stdout";
+const char * stderrNAME="stderr";
+char *ttyname(int fildes){
+	switch(fildes){
+		case 0:
+			return stdinNAME;
+			break;
+		case 1:
+			return stdoutNAME;
+			break;
+		case 2:
+			return stderrNAME;
+			break;
+		default:
+			return 0;
+	}
+}
+
+int chdir(const char *path){
+	fprintf(stderr,"chdir%s%s\n",notYetS,path);
+	return -1;
+}
+int unlink(const char *path){
+	fprintf(stderr,"unlink%s%s\n",notYetS,path);
+	return -1;
+}
+int rmdir(const char *path){
+	fprintf(stderr,"rmdir%s%s\n",notYetS,path);
+	return -1;
+}
 extern unsigned char * LCDstatefd;
 int close(int fd){
 	if(fd>5)
 		Bfile_CloseFile_OS(toNativeFD(fd));
 	return 0;
 }
+off_t lseek(int fd, off_t offset, int whence){
+	if(fd>5){
+		int fileno = toNativeFD(toNativeFD(fd));
 
+	switch (whence) {
+		case SEEK_CUR:
+			offset = Bfile_TellFile_OS(fileno) + offset;
+			break;
+		case SEEK_END:
+			offset = Bfile_GetFileSize_OS(fileno);
+			break;
+		case SEEK_SET:
+			break;
+		default:
+			return -1;
+	}
+
+    // TODO can this fail? Probably.
+	Bfile_SeekFile_OS(fileno, (int)offset);
+	}else
+		return -1;
+}
 ssize_t pread(int fd, void * ptr, size_t num, off_t off){
 	if(fd>=5)
 		return Bfile_ReadFile_OS(toNativeFD(fd),ptr, num,off);
@@ -51,7 +169,7 @@ ssize_t read(int fd,void * buffer,size_t n){
 	}else if(fd==0){
 		//printf("Read %d bytes from stdin\n",n);
 		inputStrTiny(buffer,n,1);
-	}else if(fd>=5)
+	}else if(fd>5)
 		return Bfile_ReadFile_OS(toNativeFD(fd),buffer, n,-1);
 	else
 		return -1;

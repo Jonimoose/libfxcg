@@ -11,8 +11,11 @@
 #define O_WRONLY 64
 #define O_RDWR 128
 
-#define F_GETFL 1
-#define F_DUPFD 2
+#define        F_DUPFD                0                /* duplicate file descriptor */
+#define        F_GETFD                1                /* get file descriptor flags */
+#define        F_SETFD                2                /* set file descriptor flags */
+#define        F_GETFL                3                /* get file status flags */
+#define        F_SETFL                4                /* set file status flags */
 ssize_t read(int fd,void * buffer,size_t n);
 int fcntl(int descriptor,int command, ...);
 #endif

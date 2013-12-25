@@ -30,6 +30,9 @@ void  __attribute__((noreturn)) exit(int status){
 	while(1)
 		GetKey(&key);
 }
+void _exit(int stat){
+	exit(stat);
+}
 
 static unsigned char strtol_consume(unsigned char c, int base) {
     c = toupper(c);

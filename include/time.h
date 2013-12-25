@@ -23,7 +23,7 @@ struct tm
 typedef int clock_t;
 #define CLOCKS_PER_SEC 128
 clock_t clock(void);
-
+time_t mktime (struct tm * timeptr);
 #ifdef __cplusplus
 }
 #endif

@@ -1,11 +1,16 @@
 #ifndef _FXCG_STDLIB_H
 #define _FXCG_STDLIB_H
 
+
+#define        EXIT_FAILURE        1
+#define        EXIT_SUCCESS        0
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 typedef unsigned int size_t;
 #include <stddef.h>
+int rename(const char *old, const char *new);
 
 long abs(long n);
 

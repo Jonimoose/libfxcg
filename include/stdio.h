@@ -9,7 +9,21 @@ extern "C" {
 #include <font6x8ext.h>
 #include <stdarg.h>
 
-#define EOF (-1)
+
+/*Comment and 3 defines from https://github.com/freebsd/freebsd/blob/0680c1f5fe159bba69a242568af0db7d7dc15a79/include/stdio.h
+* The following three definitions are for ANSI C, which took them
+* from System V, which brilliantly took internal interface macros and
+* made them official arguments to setvbuf(), without renaming them.
+* Hence, these ugly _IOxxx names are *supposed* to appear in user code.
+*
+* Although numbered as their counterparts above, the implementation
+* does not rely on this.
+*/
+#define        _IOFBF        0                /* setvbuf should set fully buffered */
+#define        _IOLBF        1                /* setvbuf should set line buffered */
+#define        _IONBF        2                /* setvbuf should set unbuffered */
+
+#define        EOF        (-1)
 
 #define PATH_MAX 1024 //needed for python
 
@@ -39,6 +53,16 @@ extern FILE _impl_stdin, _impl_stdout, _impl_stderr;
 
 #define FILENAME_MAX 16
 #define FOPEN_MAX (1 << (sizeof(FILE) - 1))
+
+FILE *popen(const char *command, const char *type);
+
+void rewind ( FILE * stream );
+
+void setbuf ( FILE * stream, char * buffer );
+
+void clearerr ( FILE * stream );
+
+int pclose(FILE *stream);
 
 FILE *fopen(const char *path, const char *mode);
 FILE *fdopen(int fd, const char *mode);

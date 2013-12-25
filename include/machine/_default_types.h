@@ -12,14 +12,9 @@ extern "C" {
 /*
  * Guess on types by examining *_MIN / *_MAX defines.
  */
-#if __GNUC_PREREQ (3, 3)
 /* GCC >= 3.3.0 has __<val>__ implicitly defined. */
 #define __EXP(x) __##x##__
-#else
-/* Fall back to POSIX versions from <limits.h> */
-#define __EXP(x) x
-#include <limits.h>
-#endif
+
 
 #if __EXP(SCHAR_MAX) == 0x7f
 typedef signed char __int8_t;

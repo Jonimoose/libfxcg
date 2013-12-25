@@ -25,8 +25,28 @@ FILE _impl_stderr = {2};
 #define IOERR(stream, err) errno = err; stream->error = 1
 
 
+
+void setbuf ( FILE * stream, char * buffer ){
+	fprintf(stderr,"setbuf\n");
+}
+
+void clearerr ( FILE * stream ){
+	stream->error=0;
+	stream->eof=0;
+}
+
+FILE *popen(const char *command, const char *type){
+	fprintf(stderr,"popen %s %s\n",command,type);
+	return 0;
+}
+
+int pclose(FILE *stream){
+	fputs("pclose\n",stderr);
+	return -1;
+}
+
 static inline int isstdstream(FILE *f) {
-    return f->fileno < NATIVEOFFSET;
+    return f->fileno < 3;
 }
 
 static inline int handle_tonative(int fileno) {
@@ -144,7 +164,7 @@ size_t fwrite(const void *ptr, size_t size, size_t nitems,FILE *stream) {
 			// stderr: display but red font
 			//return fwrite_serial(ptr, size, nitems, stream);
 			drawTinyStrn(ptr,&termx,&termy,0xF800,0,size*nitems);
-			return strlen(ptr);
+			return size*nitems;
         } else if (stream->fileno == 1) {
             // stdout: display
             drawTinyStrn(ptr,&termx,&termy,0xFFFF,0,size*nitems);
@@ -278,6 +298,21 @@ int fseek(FILE *f, long offset, int whence) {
 	Bfile_SeekFile_OS(fileno, (int)offset);
 
 	f->error = 0;
+	f->eof = 0;
+	return 0;
+}
+
+void rewind ( FILE * stream ){
+	if (isstdstream(stream)) {
+		IOERR(stream, ERANGE);
+		return -1;
+	}
+
+    // TODO can this fail? Probably.
+	Bfile_SeekFile_OS(handle_tonative(stream->fileno), 0);
+
+	stream->error = 0;
+	stream->eof = 0;
 	return 0;
 }
 

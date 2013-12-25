@@ -1,5 +1,9 @@
 #include <stdlib.h>
 #include <string.h>
+const char * ironySTR="error strerror is not yet supported";
+char *strerror(int errnum){
+	return ironySTR;
+}
 
 void *memccpy(void *dest, const void *src, int c, size_t num) {
 	char* d = (char*)dest;

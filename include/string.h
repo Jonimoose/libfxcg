@@ -7,6 +7,8 @@ extern "C" {
 
 #include <stddef.h>
 
+char *strerror(int errnum);
+
 void *sys_memmove(void *dest, const void *src, size_t n);
 
 void *memsetZero(void *s, size_t n);
