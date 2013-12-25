@@ -5,7 +5,6 @@
 #include <ctype.h>
 #include <limits.h>
 #include <stdio.h>
-
 // External linkage
 int errno;
 
@@ -123,6 +122,7 @@ int abs(int i) {
     return i<0?-i:i;
 }
 int getenv(const char * name){
+	fprintf(stderr,"getenv not yet supported %s\n",name);
 	return 0;
 }
 void abort(void){
@@ -133,5 +133,6 @@ void abort(void){
 		GetKey(&x);
 }
 int system (const char* command){
+	fprintf(stderr,"system not yet supported %s\n",command);
 	return -1;
 }

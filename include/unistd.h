@@ -11,6 +11,7 @@ extern "C" {
 #include <sys/types.h>
 int open(const char * name,int flags,...);
 int isatty(int fd);
+int close(int fd);
 
 int dup(int fd);
 int dup2(int fd, int fd2);

@@ -1,5 +1,6 @@
 #include <sys/stat.h>
 #include <fxcg/file.h>
+#include <stdio.h>
 typedef struct{
 	unsigned short id, type;
 	unsigned long fsize, dsize;
@@ -7,7 +8,7 @@ typedef struct{
 	unsigned long address;
 }file_type_t;
 int stat(const char *path, struct stat *buf){
-	//TODO a full implentation right now it will only get filesize and if it is a folder or file
+	fprintf(stderr,"Stat not yet supported %s\n",path);
 	int Fh;
 	unsigned int flen=strlen(path);
 	unsigned short * strC=(unsigned short *)alloca(flen*2+2);

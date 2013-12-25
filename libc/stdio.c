@@ -16,21 +16,21 @@ FILE _impl_stdin = {0};
 FILE _impl_stdout = {1};
 FILE _impl_stderr = {2};
 
-enum {
-    SYSFILE_MODE_READ = 0,
-    SYSFILE_MODE_WRITE = 2,
-    SYSFILE_MODE_READWRITE = 3
-};
+#define SYSFILE_MODE_READ 0
+#define SYSFILE_MODE_WRITE 2
+#define SYSFILE_MODE_READWRITE 3
+
+#define NATIVEOFFSET 6
 
 #define IOERR(stream, err) errno = err; stream->error = 1
 
 
 static inline int isstdstream(FILE *f) {
-    return f->fileno < 3;
+    return f->fileno < NATIVEOFFSET;
 }
 
 static inline int handle_tonative(int fileno) {
-    return fileno - 3;
+    return fileno - NATIVEOFFSET;
 }
 
 int feof(FILE *stream) {
@@ -42,10 +42,10 @@ FILE *fopen(const char *path, const char *mode) {
     int sysmode = 0;
     if (mode[0] == 'r') {
         sysmode = SYSFILE_MODE_READ;
-    } else if (mode[0] == 'w' || mode[0] == 'a') { 
+    /*} else if (mode[0] == 'w' || mode[0] == 'a') { 
         sysmode = SYSFILE_MODE_WRITE;
     } else if (strchr(mode, '+')) {
-        sysmode = SYSFILE_MODE_READWRITE;
+        sysmode = SYSFILE_MODE_READWRITE;*/
     } else {
         errno = EINVAL;
         return NULL;
@@ -106,7 +106,7 @@ FILE *fopen(const char *path, const char *mode) {
         return NULL;
     }
     memset(f, 0, sizeof(FILE));
-    f->fileno = syshandle + 3;
+    f->fileno = syshandle + NATIVEOFFSET;
     return f;
 }
 
@@ -126,17 +126,16 @@ int fclose(FILE *fp) {
     }
     return 0;
 }
+static const unsigned char modeSerialOpen[6] = {0, 5, 0, 0, 0, 0};    // 9600 bps 8n1
 
 static int serial_ensureopen() {
     if (Serial_IsOpen() != 1) {
-        unsigned char mode[6] = {0, 5, 0, 0, 0, 0};    // 9600 bps 8n1
-        if (Serial_Open(mode) != 0) {
+        if (Serial_Open(modeSerialOpen) != 0) {
             return 1;
         }
     }
     return 0;
 }
-
 
 // TODO make ptr, stream restrict for optimization
 size_t fwrite(const void *ptr, size_t size, size_t nitems,FILE *stream) {
@@ -144,94 +143,27 @@ size_t fwrite(const void *ptr, size_t size, size_t nitems,FILE *stream) {
 		if (stream->fileno == 2) {
 			// stderr: display but red font
 			//return fwrite_serial(ptr, size, nitems, stream);
-			drawTinyStrn(ptr,&termx,&termy,0xF800,0xFFFF,size*nitems);
+			drawTinyStrn(ptr,&termx,&termy,0xF800,0,size*nitems);
 			return strlen(ptr);
         } else if (stream->fileno == 1) {
             // stdout: display
-            drawTinyStrn(ptr,&termx,&termy,0,0xFFFF,size*nitems);
+            drawTinyStrn(ptr,&termx,&termy,0xFFFF,0,size*nitems);
 			return size*nitems;
         } else {
             // stdin..?
+            return -1;
         }
     }
     // TODO this must be able to fail, but how?
     Bfile_WriteFile_OS(handle_tonative(stream->fileno), ptr, size * nitems);
     return nitems;
 }
-static size_t fread_term(unsigned char * str,size_t max){
-	memset(str,0,max);
-	int key;
-	int termxold=termx;
-	int termyold=termy;
-	int offset=0,pos=0,lower=0;
-	while(1){
-		GetKey(&key);
-		if(key==KEY_CTRL_EXE){
-			break;
-		}else if(key==KEY_CTRL_LEFT){
-			if(pos)
-				--pos;
-		}else if(key==KEY_CTRL_RIGHT){
-			if(pos<(max-2)) ++pos;
-		}else if (key==KEY_CTRL_F1){
-			lower^=1;
-		}else if((key>=KEY_CHAR_0)&&(key<=KEY_CHAR_9)){
-			str[pos]=key-KEY_CHAR_0+'0';
-			if(pos<(max-2)) ++pos;
-		}else if((key>=KEY_CHAR_A)&&(key<=KEY_CHAR_Z)){
-			if(lower)
-				str[pos]=key-KEY_CHAR_A+'a';
-			else
-				str[pos]=key-KEY_CHAR_A+'A';
-			if(pos<(max-2)) ++pos;
-		}else if (key==KEY_CHAR_COMMA){
-			str[pos]=',';
-			if(pos<(max-2)) ++pos;
-		}else if (key==KEY_CHAR_SPACE){
-			str[pos]=' ';
-			if(pos<(max-2)) ++pos;
-		}else if (key==KEY_CHAR_EQUAL){
-			str[pos]='=';
-			if(pos<(max-2)) ++pos;
-		}else if (key==KEY_CHAR_PLUS){
-			str[pos]='+';
-			if(pos<(max-2)) ++pos;
-		}else if ((key==KEY_CHAR_MINUS)||(key==KEY_CHAR_PMINUS)){
-			str[pos]='-';
-			if(pos<(max-2)) ++pos;
-		}else if (key==KEY_CHAR_MULT){
-			str[pos]='*';
-			if(pos<(max-2)) ++pos;
-		}else if (key==KEY_CHAR_DIV){
-			str[pos]='/';
-			if(pos<(max-2)) ++pos;
-		}else if (key==KEY_CTRL_DEL){
-			if(pos==0){
-				if(max>2){
-					memmove(str,str+1,max-2);
-				}else{
-					str[pos]=0;
-				}
-			}else if(pos<(max-2)){
-				memmove(str+pos,str+pos+1,max-pos-1);
-				drawTinyC(' ',termx-6,termy,0xFFFF,0);
-			}
-		}
-		termx=termxold;
-		termy=termyold;
-		drawTinyStr(str,&termx,&termy,0,0xFFFF);
-		drawTinyC(str[pos],termxold+((pos&63)*6),termyold+((pos/64)*8),0xFFFF,0);//draw cursor			
-	}
-	putchar('\n');
-	return strlen(str);
-}
-
 size_t fread(void *buffer, size_t size, size_t count, FILE *stream) {
 	size_t n = size * count;
 	if (isstdstream(stream)) {
 		if (stream->fileno == 0) {
             // stdin
-            return fread_term(buffer, n);
+            return inputStrTiny(buffer, n,0);
         } else {
             // Reading stdout or stderr? No.
             return EOF;
@@ -275,10 +207,11 @@ int puts(const char *s) {
 char *fgets(char *s, int n, FILE *stream) {
 	if(isstdstream(stream)){
 		if (stream->fileno == 0){
-			if(n<3)
+			if(n<1)
 				return 0;
-			fread_term(s,n);//reads max-1 characters
-		}
+			inputStrTiny(s,n-1,1);//reads max-1 characters
+		}else
+			return EOF;
 	}else{
 		char *c=s;
 		while(n--){
@@ -316,9 +249,9 @@ int ungetc(int c, FILE *f) {
     return f->unput;
 }
 int getchar(void){
-	char tmp[2];
-	fread_term(tmp,2);
-	return (tmp[0]!=0)?tmp[0]:-1;
+	char tmp;
+	inputStrTiny(&tmp,1,0);
+	return (tmp!=0)?tmp:-1;
 }
 
 int fseek(FILE *f, long offset, int whence) {

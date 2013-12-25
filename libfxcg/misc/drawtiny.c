@@ -1,5 +1,7 @@
 #include <fxcg/display.h>
+#include <fxcg/keyboard.h>
 #include <font6x8ext.h>
+#include <stdio.h>
 void drawTinyC(char c,int x,int y,int fg,int bg){
 	unsigned short * p=(unsigned short*)0xA8000000;
 	unsigned char * d=font6x8ext+(((unsigned char)c)*8);
@@ -138,4 +140,104 @@ void drawTinyStrn(const char * s,int *x,int *y,int fg,int bg,int n){
 	}
 	if(yd[0]>0)
 		Bdisp_PutDisp_DD_stripe(yd[0],yd[1]);
+}
+void drawTinyStrnn(const char * s,int *x,int *y,int fg,int bg,int n){
+	int yd[2];
+	yd[0]=-1;
+	checkDim(x,y,yd,bg);
+	while(n--){
+		insideLoop(s,x,y,fg,bg,yd);
+		++s;
+		if(!(*s))
+			break;
+	}
+	if(yd[0]>0)
+		Bdisp_PutDisp_DD_stripe(yd[0],yd[1]);
+}
+size_t inputStrTiny(unsigned char * str,size_t max,int newline){
+	memset(str,0,max);
+	int key;
+	int termxold=termx;
+	int termyold=termy;
+	int offset=0,pos=0,lower=0;
+	while(1){
+		GetKey(&key);
+		if(key==KEY_CTRL_EXE){
+			//See if possible to add newline
+			if((max>1)&&(newline!=0))
+				strcat(str,"\n");
+			break;
+		}else if(key==KEY_CTRL_EXIT){
+			break;
+		}else if(key==KEY_CTRL_LEFT){
+			if(pos)
+				--pos;
+		}else if(key==KEY_CTRL_RIGHT){
+			if(pos<(max-1)) ++pos;
+		}else if (key==KEY_CTRL_F1){
+			lower^=1;
+		}else if((key>=KEY_CHAR_0)&&(key<=KEY_CHAR_9)){
+			str[pos]=key-KEY_CHAR_0+'0';
+			if(pos<(max-1)) ++pos;
+		}else if((key>=KEY_CHAR_A)&&(key<=KEY_CHAR_Z)){
+			if(lower)
+				str[pos]=key-KEY_CHAR_A+'a';
+			else
+				str[pos]=key-KEY_CHAR_A+'A';
+			if(pos<(max-1)) ++pos;
+		}else if (key==KEY_CHAR_COMMA){
+			str[pos]=',';
+			if(pos<(max-1)) ++pos;
+		}else if (key==KEY_CHAR_SPACE){
+			str[pos]=' ';
+			if(pos<(max-1)) ++pos;
+		}else if (key==KEY_CHAR_EQUAL){
+			str[pos]='=';
+			if(pos<(max-1)) ++pos;
+		}else if (key==KEY_CHAR_PLUS){
+			str[pos]='+';
+			if(pos<(max-1)) ++pos;
+		}else if ((key==KEY_CHAR_MINUS)||(key==KEY_CHAR_PMINUS)){
+			str[pos]='-';
+			if(pos<(max-1)) ++pos;
+		}else if (key==KEY_CHAR_MULT){
+			str[pos]='*';
+			if(pos<(max-1)) ++pos;
+		}else if (key==KEY_CHAR_DIV){
+			str[pos]='/';
+			if(pos<(max-1)) ++pos;
+		}else if (key==KEY_CHAR_LBRCKT){
+			str[pos]='[';
+			if(pos<(max-1)) ++pos;
+		}else if (key==KEY_CHAR_RBRCKT){
+			str[pos]=']';
+			if(pos<(max-1)) ++pos;
+		}else if (key==KEY_CHAR_LPAR){
+			str[pos]='(';
+			if(pos<(max-1)) ++pos;
+		}else if (key==KEY_CHAR_RPAR){
+			str[pos]=')';
+			if(pos<(max-1)) ++pos;
+		}else if (key==KEY_CHAR_POW){
+			str[pos]='^';
+			if(pos<(max-1)) ++pos;
+		}else if (key==KEY_CTRL_DEL){
+			if(pos==0){
+				if(max>1){
+					memmove(str,str+1,max-1);
+				}else{
+					str[pos]=0;
+				}
+			}else if(pos<(max-1)){
+				memmove(str+pos,str+pos+1,max-pos-1);
+				drawTinyC(' ',termx-6,termy,0,0xFFFF);
+			}
+		}
+		termx=termxold;
+		termy=termyold;
+		drawTinyStrnn(str,&termx,&termy,0xFFFF,0,max);
+		drawTinyC(str[pos],termxold+((pos&63)*6),termyold+((pos/64)*8),0,0xFFFF);//draw cursor			
+	}
+	putchar('\n');
+	return strlen(str);
 }

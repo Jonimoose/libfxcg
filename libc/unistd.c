@@ -1,5 +1,8 @@
+#include <fxcg/fddefs.h>
 #include <stddef.h>
 #include <unistd.h>
+#include <stdio.h>
+#include <errno.h>
 
 /*
 This is a bogus implementation of UNIX descriptor tables, which describe to
@@ -10,28 +13,55 @@ handles. These functions handle that mapping.
 Use these when throwing around files, mostly.  See their usage in fopen and
 fclose.
 */
-#define urandom_FD 1
-int open(const char * name,int flags,...){
-	if(strcmp(name,"/dev/urandom")==0){
-		sys_srand(RTC_GetTicks());
-		return urandom_FD;
-	}else{
-		//Display message on screen informing user that file does not exists
-		int x,y;
-		x=y=0;
-		PrintMini(&x,&y,"Error not supported",0,0xFFFFFFFF,0,0,0,0xFFFF,1,0);
-		x=0;
-		y=16;
-		PrintMini(&x,&y,name,0,0xFFFFFFFF,0,0,0,0xFFFF,1,0);
-		x=0;
-		y=32;
-		PrintMini(&x,&y,"Press any key to continue",0,0xFFFFFFFF,0,0,0,0xFFFF,1,0);
-		GetKey(&x);
-		return -1;
-	}
+extern unsigned char * LCDstatefd;
+int close(int fd){
+	if(fd>5)
+		Bfile_CloseFile_OS(toNativeFD(fd));
+	return 0;
 }
-int isatty(int fd){
-	return 1;
+
+ssize_t pread(int fd, void * ptr, size_t num, off_t off){
+	if(fd>=5)
+		return Bfile_ReadFile_OS(toNativeFD(fd),ptr, num,off);
+	else if(fd==frameBuf_FD){
+		memcpy(ptr,(unsigned char *)0xA8000000+off,num);
+		return num;
+	}else if(fd==urandom_FD)
+		return read(fd,ptr,num);
+	else
+		return -1;
+}
+ssize_t read(int fd,void * buffer,size_t n){
+	if(fd==frameBuf_FD){
+		memcpy(buffer,LCDstatefd,n);
+		LCDstatefd+=n;
+		return n;
+	}else if(fd==urandom_FD){
+		size_t c=n;
+		unsigned int * d=(unsigned int *)buffer;
+		while (c>=4){
+			*d++=sys_rand();
+			c-=4;
+		}
+		unsigned char * r=(unsigned char *)d;//remaindor
+		while(c--){
+			*r++=sys_rand();
+		}
+		return n;
+	}else if(fd==0){
+		//printf("Read %d bytes from stdin\n",n);
+		inputStrTiny(buffer,n,1);
+	}else if(fd>=5)
+		return Bfile_ReadFile_OS(toNativeFD(fd),buffer, n,-1);
+	else
+		return -1;
+}
+
+int isatty(int fd){//Yes belive it or not this is most likely a full implentation
+	if(fd>=3){
+		return 0;
+	}else
+		return 1;
 }
 // Returns nonzero for failure
 int _dtable_register(int d) {

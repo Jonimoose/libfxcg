@@ -9,7 +9,7 @@
 #define O_APPEND 16
 #define O_RDONLY 32
 #define O_WRONLY 64
-#define O_RDWR (O_RDONLY|O_WRONLY)
+#define O_RDWR 128
 
 #define F_GETFL 1
 #define F_DUPFD 2

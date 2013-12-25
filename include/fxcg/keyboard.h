@@ -2,6 +2,9 @@
 #define __KEYBOARD_H__
 
 // Character codes
+#define KEY_CHAR_LPAR       0x28
+#define KEY_CHAR_RPAR       0x29
+#define KEY_CHAR_STORE      0x0e
 #define KEY_CHAR_0          0x30
 #define KEY_CHAR_1          0x31
 #define KEY_CHAR_2          0x32
@@ -20,10 +23,7 @@
 #define KEY_CHAR_MULT       0xa9
 #define KEY_CHAR_DIV        0xb9
 #define KEY_CHAR_FRAC       0xbb
-#define KEY_CHAR_LPAR       0x28
-#define KEY_CHAR_RPAR       0x29
 #define KEY_CHAR_COMMA      0x2c
-#define KEY_CHAR_STORE      0x0e
 #define KEY_CHAR_LOG        0x95
 #define KEY_CHAR_LN         0x85
 #define KEY_CHAR_SIN        0x81
