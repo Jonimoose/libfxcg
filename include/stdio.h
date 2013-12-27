@@ -25,7 +25,7 @@ extern "C" {
 
 #define        EOF        (-1)
 
-#define PATH_MAX 1024 //needed for python
+#define PATH_MAX 256 //needed for python
 
 
 typedef struct {

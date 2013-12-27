@@ -138,6 +138,8 @@ int abs(int i) {
 }
 const char * XtermConstStr="xterm";
 int getenv(const char * name){
+	if(strcmp(name,"TERMINFO")==0)
+		return XtermConstStr;
 	if(strcmp(name,"TERM")==0)
 		return XtermConstStr;
 	fprintf(stderr,"getenv %s\n",name);

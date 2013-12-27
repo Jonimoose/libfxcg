@@ -70,20 +70,29 @@ int feof(FILE *stream) {
 
 FILE *fopen(const char *path, const char *mode) {
     // Resolve mode
-    int sysmode = 0;
-    if (mode[0] == 'r') {
-        sysmode = SYSFILE_MODE_READ;
+	int sysmode = 0;
+	if (mode[0] == 'r') {
+		sysmode = SYSFILE_MODE_READ;
     /*} else if (mode[0] == 'w' || mode[0] == 'a') { 
         sysmode = SYSFILE_MODE_WRITE;
     } else if (strchr(mode, '+')) {
         sysmode = SYSFILE_MODE_READWRITE;*/
-    } else {
-        errno = EINVAL;
-        return NULL;
-    }
-
+	} else {
+		errno = EINVAL;
+		return NULL;
+	}
     // Convert string to system native
-    size_t plen = strlen(path);
+    //Emulate unix paths convert slashes to backslashes and add \\fls0\ to filename
+	size_t plen = strlen(path);
+	plen+=7;
+	char * fpath=alloca(plen+1);
+	strcpy(fpath,"\\\\fls0\\");
+	strcpy(fpath+7,path);
+	int i;
+	for(i=7;i<plen;++i){
+		if(fpath[i]=='/')
+			fpath[i]='\\';
+	}
     // We have several potential exits, so alloca simplifies ensuring this
     // gets freed (an early revision of the following logic had memory leaks).
     unsigned short *chars16 = alloca(2 * (plen + 1));
@@ -93,36 +102,15 @@ FILE *fopen(const char *path, const char *mode) {
     }
 
     // Get a handle from the system
-    Bfile_StrToName_ncpy(chars16, path, plen);
+    Bfile_StrToName_ncpy(chars16,fpath, plen+1);//+1 to include null terminator
     int syshandle = Bfile_OpenFile_OS(chars16, sysmode, 0);
 
-    if (syshandle < 0) {
-        if (sysmode == SYSFILE_MODE_WRITE ||
-            sysmode == SYSFILE_MODE_READWRITE) {
-            // Doesn't exist, want to write. Create.
-            // FIXME Size 0 doesn't work?
-            size_t size = 10;
-            switch (Bfile_CreateEntry_OS(chars16, CREATEMODE_FILE, &size)) {
-            case 0:
-                // Success. Open file.
-                syshandle = Bfile_OpenFile_OS(chars16, sysmode, 0);
-                break;
-            case -13:
-                errno = EEXIST;
-                return NULL;
-            case -3:
-                errno = ENOENT;
-                return NULL;
-            default:
-                errno = EIO;
-                return NULL;
-            }
-        } else {
-            // Doesn't exist for reading.
-            errno = ENOENT;
-            return NULL;
-        }
-    }
+	if (syshandle < 0) {
+		fprintf(stderr,"Cannot open %s\n",path);
+		// Doesn't exist for reading.
+		errno = ENOENT;
+		return NULL;
+	}
 
     if (mode[0] == 'a') {
         // TODO Need to seek to end and do some junk.
@@ -144,6 +132,7 @@ FILE *fopen(const char *path, const char *mode) {
 // TODO implement me.
 // Same use-case in Python as dup(), so not necessary.  Just fail.
 FILE *fdopen(int fd, const char *mode) {
+	fprintf(stderr,"fdopen %d\n",fd);
     return NULL;
 }
 
