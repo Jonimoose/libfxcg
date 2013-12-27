@@ -1,6 +1,6 @@
-typedef int off_t;
 #ifndef _FXCG_UNISTD_H
 #define _FXCG_UNISTD_H
+typedef int off_t;
 
 #ifdef __cplusplus
 extern "C" {
@@ -9,6 +9,12 @@ extern "C" {
 // This stuff doesn't belong since we're not a UNIX system, but python wants
 // it.  Implementations here are mostly wrappers for standard library functions
 #include <sys/types.h>
+
+unsigned sleep(unsigned seconds);
+
+char *getlogin(void);
+
+char * getwd(char * p);
 
 int access(const char *path, int amode);
 

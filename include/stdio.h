@@ -39,8 +39,17 @@ typedef struct {
     unsigned char unput;
     /* Used only for terminal output (on stdout) */
 } FILE;
+
+
+FILE * freopen (const char * filename, const char * mode, FILE * stream);
+
+char *tmpnam(char *s);
+
 extern int termx,termy;
 extern FILE _impl_stdin, _impl_stdout, _impl_stderr;
+
+#define STDOUT_FILENO 1
+
 #define stdin (&_impl_stdin)
 #define stdout (&_impl_stdout)
 #define stderr (&_impl_stderr)

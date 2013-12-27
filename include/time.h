@@ -1,6 +1,6 @@
 #ifndef _FXCG_TIME_H
-#define _FXCG_TIME_H
-
+#define _FXCG_TIME_H 1
+#include <sys/time.h>
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -24,6 +24,7 @@ typedef int clock_t;
 #define CLOCKS_PER_SEC 128
 clock_t clock(void);
 time_t mktime (struct tm * timeptr);
+time_t time (time_t* timer);
 #ifdef __cplusplus
 }
 #endif

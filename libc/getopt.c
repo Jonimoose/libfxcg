@@ -58,6 +58,10 @@ char	*optarg;		/* argument associated with option */
  * getopt --
  *	Parse argc/argv argument vector.
  */
+static const char * genericPrgN="Casio add-in";
+static char * _getprogname(void){
+	return genericPrgN;
+}
 int
 getopt(nargc, nargv, ostr)
 	int nargc;

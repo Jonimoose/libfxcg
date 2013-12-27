@@ -44,12 +44,12 @@ void drawTinyC(char c,int x,int y,int fg,int bg){
 	}
 }
 static void clrBg(int bg){
-	memmove((unsigned short*)0xA8000000+(24*LCD_WIDTH_PX),(unsigned short*)0xA8000000+(40*LCD_WIDTH_PX),2*(LCD_HEIGHT_PX-40)*LCD_WIDTH_PX);//Move everything up two "lines" (16 pixels)
+	memmove((unsigned short*)0xA8000000+(24*LCD_WIDTH_PX),(unsigned short*)0xA8000000+(32*LCD_WIDTH_PX),2*(LCD_HEIGHT_PX-32)*LCD_WIDTH_PX);//Move everything up one "line" (8 pixels)
 	if(bg>=0){
 		unsigned int c32=bg|(bg<<16);
 		unsigned int * V=(unsigned int*)0xA8000000;
-		V+=(LCD_HEIGHT_PX-16)*LCD_WIDTH_PX/2;
-		int l=16*LCD_WIDTH_PX/2;
+		V+=(LCD_HEIGHT_PX-8)*LCD_WIDTH_PX/2;
+		int l=8*LCD_WIDTH_PX/2;
 		while(l--)
 			*V++=c32;
 	}
@@ -63,10 +63,15 @@ static void checkDim(int *x,int *y,int *yd,int bg){
 		if(*y>=LCD_HEIGHT_PX){
 			yd[0]=24;
 			clrBg(bg);
-			*y-=16;
+			*y-=8;
 		}
 		yd[1]=*y+8;
 	}
+}
+static void drawIt(char * s,int *x,int *y,int fg,int bg,int *yd){
+	drawTinyC(*s,*x,*y,fg,bg);
+	*x+=6;
+	checkDim(x,y,yd,bg);
 }
 static void insideLoop(char * s,int *x,int *y,int fg,int bg,int *yd){
 	int a=*x,b=*y;//try keeping these in cpu registers
@@ -78,7 +83,7 @@ static void insideLoop(char * s,int *x,int *y,int fg,int bg,int *yd){
 		if(b>=LCD_HEIGHT_PX){
 			yd[0]=24;
 			clrBg(bg);
-			b-=16;
+			b-=8;
 		}
 		yd[1]=b+8;
 	}else if(*s=='\t'){
@@ -90,7 +95,7 @@ static void insideLoop(char * s,int *x,int *y,int fg,int bg,int *yd){
 			if(b>=LCD_HEIGHT_PX){
 				yd[0]=24;
 				clrBg(bg);
-				b-=16;
+				b-=8;
 			}
 			yd[1]=b+8;
 		}else{
@@ -103,16 +108,15 @@ static void insideLoop(char * s,int *x,int *y,int fg,int bg,int *yd){
 				a+=6;
 			}
 		}
-	}else if(*s=='\r')
+	}else if(*s=='\r'){
 		a=0;
-	else{
-		drawTinyC(*s,a,b,fg,bg);
-		a+=6;
-		*x=a;
-		*y=b;
-		checkDim(x,y,yd,bg);
-		a=*x;
-		b=*y;
+	}else if (*s==0x1B){
+		if(*(++s)=='['){
+			drawIt(--s,x,y,0x001F,bg,yd);
+		}else
+			drawIt(--s,x,y,fg,bg,yd);
+	}else{
+		drawIt(s,x,y,fg,bg,yd);
 	}
 	*x=a;
 	*y=b;

@@ -24,7 +24,18 @@ FILE _impl_stderr = {2};
 
 #define IOERR(stream, err) errno = err; stream->error = 1
 
+FILE * freopen (const char * filename, const char * mode, FILE * stream){
+	fprintf(stderr,"freopen not yet supported %s %d\n",filename,mode);
+	return 0;
+}
 
+
+char *tmpnam(char *s){
+	static unsigned int numf;
+	itoa(numf,(unsigned char *)s+strlen(s));
+	++numf;
+	return s;
+}
 
 void setbuf ( FILE * stream, char * buffer ){
 	fprintf(stderr,"setbuf\n");
@@ -352,11 +363,11 @@ int remove(const char *name) {
     }
 }
 
-int rename(const char *old, const char *new) {
+int rename(const char *old, const char *newName) {
     uint16_t *wideold = alloca(2 * strlen(old) + 1);
     Bfile_StrToName_ncpy(wideold, old, strlen(old));
-    uint16_t *widenew = alloca(2 * strlen(new) + 1);
-    Bfile_StrToName_ncpy(widenew, new, strlen(new));
+    uint16_t *widenew = alloca(2 * strlen(newName) + 1);
+    Bfile_StrToName_ncpy(widenew, newName, strlen(newName));
 
     int ret = Bfile_RenameEntry(wideold, widenew);
     if (ret >= 0) {

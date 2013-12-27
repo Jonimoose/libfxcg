@@ -8,8 +8,20 @@
 // External linkage
 int errno;
 
+int putenv(char *string){
+	fprintf(stderr,"putenv %s\n",string);
+	return -1;
+}
+
 void *malloc(size_t sz) {
     return sys_malloc(sz);
+}
+
+void* calloc (size_t num, size_t size){
+	void * ret=sys_malloc(num*size);
+	if(ret)
+		memset(ret,0,num*size);
+	return ret;
 }
 
 void *realloc(void *ptr, size_t sz) {
@@ -124,11 +136,11 @@ double strtod(const char *s, char **str_end) {
 int abs(int i) {
     return i<0?-i:i;
 }
+const char * XtermConstStr="xterm";
 int getenv(const char * name){
-	fprintf(stderr,"getenv not yet supported %s\n",name);
-	puts("Press any key to continue");
-	int key;
-	GetKey(&key);
+	if(strcmp(name,"TERM")==0)
+		return XtermConstStr;
+	fprintf(stderr,"getenv %s\n",name);
 	return 0;
 }
 void abort(void){

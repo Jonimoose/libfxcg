@@ -10,7 +10,12 @@ extern "C" {
 #endif
 typedef unsigned int size_t;
 #include <stddef.h>
-int rename(const char *old, const char *new);
+
+int putenv(char *string);
+
+void* calloc (size_t num, size_t size);
+
+int rename(const char *old, const char *newName);
 
 long abs(long n);
 

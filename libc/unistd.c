@@ -13,6 +13,21 @@ handles. These functions handle that mapping.
 Use these when throwing around files, mostly.  See their usage in fopen and
 fclose.
 */
+const char * userNamelogin="CasioNerd";
+char *getlogin(void){
+	return userNamelogin;
+}
+
+unsigned sleep(unsigned seconds){
+	//TODO put cpu in lower power mode
+	int a=RTC_GetTicks()+(seconds*128);// returns 1/128 seconds
+	while(a>RTC_GetTicks());
+	return 0;
+}
+
+char * getwd(char * p){
+	return 0;
+}
 static void waitKey(void){
 	puts("Press any key to continue");
 	int key;
