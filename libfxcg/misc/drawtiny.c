@@ -74,42 +74,41 @@ static void drawIt(char * s,int *x,int *y,int fg,int bg,int *yd){
 	checkDim(x,y,yd,bg);
 }
 static void insideLoop(char * s,int *x,int *y,int fg,int bg,int *yd){
-	int a=*x,b=*y;//try keeping these in cpu registers
 	if(*s=='\n'){
-		a=0;
+		*x=0;
 		if(yd[0]<0)
-			yd[0]=b;
-		b+=8;
-		if(b>=LCD_HEIGHT_PX){
+			yd[0]=*y;
+		*y+=8;
+		if(*y>=LCD_HEIGHT_PX){
 			yd[0]=24;
 			clrBg(bg);
-			b-=8;
+			*y-=8;
 		}
-		yd[1]=b+8;
+		yd[1]=*y+8;
 	}else if(*s=='\t'){
-		if(a>=(LCD_WIDTH_PX-30)){
-			a=0;
+		if(*x>=(LCD_WIDTH_PX-30)){
+			*x=0;
 			if(yd[0]<0)
-				yd[0]=b;
-			b+=8;
-			if(b>=LCD_HEIGHT_PX){
+				yd[0]=*y;
+			*y+=8;
+			if(*y>=LCD_HEIGHT_PX){
 				yd[0]=24;
 				clrBg(bg);
-				b-=8;
+				*y-=8;
 			}
-			yd[1]=b+8;
+			yd[1]=*y+8;
 		}else{
-			if(!(a%24)){
-				drawTinyC(' ',a,b,fg,bg);
-				a+=6;
+			if(!(*x%24)){
+				drawTinyC(' ',*x,*y,fg,bg);
+				*x+=6;
 			}
-			while(a%24){
-				drawTinyC(' ',a,b,fg,bg);
-				a+=6;
+			while(*x%24){
+				drawTinyC(' ',*x,*y,fg,bg);
+				*x+=6;
 			}
 		}
 	}else if(*s=='\r'){
-		a=0;
+		*x=0;
 	}else if (*s==0x1B){
 		if(*(++s)=='['){
 			drawIt(--s,x,y,0x001F,bg,yd);
@@ -118,8 +117,6 @@ static void insideLoop(char * s,int *x,int *y,int fg,int bg,int *yd){
 	}else{
 		drawIt(s,x,y,fg,bg,yd);
 	}
-	*x=a;
-	*y=b;
 }
 void drawTinyStr(const char * s,int *x,int *y,int fg,int bg){
 	//Draws a string on screen handles word-wrapping and newlines
