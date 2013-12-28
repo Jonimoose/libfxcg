@@ -2,9 +2,10 @@
 #include <fxcg/keyboard.h>
 #include <font6x8ext.h>
 #include <stdio.h>
+#include <string.h>
 void drawTinyC(char c,int x,int y,int fg,int bg){
 	unsigned short * p=(unsigned short*)0xA8000000;
-	unsigned char * d=font6x8ext+(((unsigned char)c)*8);
+	unsigned char * d=(unsigned char *)font6x8ext+(((unsigned char)c)*8);
 	p+=y*LCD_WIDTH_PX+x;
 	int b;
 	if((fg>=0)&&(bg>=0)){
@@ -73,82 +74,158 @@ static void drawIt(char * s,int *x,int *y,int fg,int bg,int *yd){
 	*x+=6;
 	checkDim(x,y,yd,bg);
 }
-static void insideLoop(char * s,int *x,int *y,int fg,int bg,int *yd){
-	if(*s=='\n'){
-		*x=0;
-		if(yd[0]<0)
-			yd[0]=*y;
-		*y+=8;
-		if(*y>=LCD_HEIGHT_PX){
-			yd[0]=24;
-			clrBg(bg);
-			*y-=8;
+static void clearScr(int *yd){
+	memset((unsigned short *)0xA8000000,0,216*LCD_WIDTH_PX*2);
+	yd[0]=-1;
+	Bdisp_PutDisp_DD();
+}
+static void scrollUP(int l,int bg,int *yd){
+	//Move stuff down
+	if(l>24){
+		clearScr(yd);
+	}else{
+		yd[0]=24;
+		yd[1]=216;
+		memmove((unsigned short *)0xA8000000+(24*LCD_WIDTH_PX),(unsigned short *)0xA8000000+((24+(l*8))*LCD_WIDTH_PX),(216-24-(l*8))*LCD_WIDTH_PX*2);
+		if(bg>0){
+			int a=l*8,c=bg|(bg<<16),*v=(int *)0xA8000000+((24+(l*8))*LCD_WIDTH_PX/2);
+			while(a--)
+				*v++=c;
 		}
-		yd[1]=*y+8;
-	}else if(*s=='\t'){
-		if(*x>=(LCD_WIDTH_PX-30)){
+	}
+}
+static char * handleCSI(char * s,int *x,int *y,int *fg,int *bg,int *yd){
+	//s points to character after CSI character(s)
+	int num=1;
+	if((*s>='0')&&(*s<='9')){
+		char *so=s;
+		num=strtol((const char *)s,&so,10);
+		s=so;
+	}
+	switch(*s){
+		case '@':
+			while(num--){
+				drawTinyC(' ',*x,*y,*fg,*bg);
+				*x+=6;
+				checkDim(x,y,yd,*bg);
+			}
+		break;
+	}
+	return s;
+}
+static int savedX,savedY;
+static char * insideLoop(char * s,int *x,int *y,int *fg,int *bg,int *yd){
+	switch((unsigned char)*s){
+		case '\v':
+		case '\n':
 			*x=0;
 			if(yd[0]<0)
 				yd[0]=*y;
 			*y+=8;
 			if(*y>=LCD_HEIGHT_PX){
 				yd[0]=24;
-				clrBg(bg);
+				clrBg(*bg);
 				*y-=8;
 			}
 			yd[1]=*y+8;
-		}else{
-			if(!(*x%24)){
-				drawTinyC(' ',*x,*y,fg,bg);
-				*x+=6;
+		break;
+		case '\t':
+			if(*x>=(LCD_WIDTH_PX-30)){
+				*x=0;
+				if(yd[0]<0)
+					yd[0]=*y;
+				*y+=8;
+				if(*y>=LCD_HEIGHT_PX){
+					yd[0]=24;
+					clrBg(*bg);
+					*y-=8;
+				}
+				yd[1]=*y+8;
+			}else{
+				if(!(*x%24)){
+					drawTinyC(' ',*x,*y,*fg,*bg);
+					*x+=6;
+				}
+				while(*x%24){
+					drawTinyC(' ',*x,*y,*fg,*bg);
+					*x+=6;
+				}
 			}
-			while(*x%24){
-				drawTinyC(' ',*x,*y,fg,bg);
-				*x+=6;
+		break;
+		case '\r':
+			*x=0;
+		break;
+		case '\f':
+			//clear screen
+			*x=0;
+			*y=0;
+			clearScr(yd);
+		break;
+		case '\b':
+			drawTinyC(' ',*x,*y,*fg,*bg);
+			if(*x>=6){
+				*x-=6;
+			}else{
+				if(*y<24){
+					scrollUP(1,*bg,yd);
+				}else
+					*y-=8;
+				*x=63;
 			}
-		}
-	}else if(*s=='\r'){
-		*x=0;
-	}else if (*s==0x1B){
-		if(*(++s)=='['){
-			drawIt(--s,x,y,0x001F,bg,yd);
-		}else
-			drawIt(--s,x,y,fg,bg,yd);
-	}else{
-		drawIt(s,x,y,fg,bg,yd);
+		break;
+		case 0x1B://ESC
+			switch(*(++s)){
+				case '7':
+					savedX=*x;
+					savedY=*y;
+				break;
+				case '8':
+					*x=savedX;
+					*y=savedY;
+				break;
+				case '[':
+					s=handleCSI(++s,x,y,fg,bg,yd);
+				break;
+				default:
+					drawIt(--s,x,y,*fg,*bg,yd);
+			}
+		break;
+		case 0x9B:
+			s=handleCSI(++s,x,y,fg,bg,yd);
+		break;
+		default:
+			drawIt(s,x,y,*fg,*bg,yd);
 	}
+	return ++s;
 }
-void drawTinyStr(const char * s,int *x,int *y,int fg,int bg){
+void drawTinyStr(char * s,int *x,int *y,int * fg,int * bg){
 	//Draws a string on screen handles word-wrapping and newlines
 	//Use -1 on fg or bg to not put pixels with that color
 	int yd[2];
 	yd[0]=-1;
-	checkDim(x,y,yd,bg);
+	checkDim(x,y,yd,*bg);
 	while(*s){//Properly handle the unlikely case of the first character being null terminator
-		insideLoop(s,x,y,fg,bg,yd);
-		++s;
+		s=insideLoop(s,x,y,fg,bg,yd);
 	}
 	if(yd[0]>0)
 		Bdisp_PutDisp_DD_stripe(yd[0],yd[1]);
 }
-void drawTinyStrn(const char * s,int *x,int *y,int fg,int bg,int n){
+void drawTinyStrn(char * s,int *x,int *y,int *fg,int *bg,int n){
 	int yd[2];
 	yd[0]=-1;
-	checkDim(x,y,yd,bg);
+	checkDim(x,y,yd,*bg);
 	while(n--){//This function does not care about null terimnators
-		insideLoop(s,x,y,fg,bg,yd);
-		++s;
+		s=insideLoop(s,x,y,fg,bg,yd);
 	}
 	if(yd[0]>0)
 		Bdisp_PutDisp_DD_stripe(yd[0],yd[1]);
 }
-void drawTinyStrnn(const char * s,int *x,int *y,int fg,int bg,int n){
+void drawTinyStrnn(char * s,int *x,int *y,int *fg,int *bg,int n){
 	int yd[2];
 	yd[0]=-1;
-	checkDim(x,y,yd,bg);
+	checkDim(x,y,yd,*bg);
 	while(n--){
-		insideLoop(s,x,y,fg,bg,yd);
-		++s;
+		s=insideLoop(s,x,y,fg,bg,yd);
 		if(!(*s))
 			break;
 	}
@@ -158,8 +235,8 @@ void drawTinyStrnn(const char * s,int *x,int *y,int fg,int bg,int n){
 size_t inputStrTiny(unsigned char * str,size_t max,int newline){
 	memset(str,0,max);
 	int key;
-	int termxold=termx;
-	int termyold=termy;
+	int termxold=termxfxcg;
+	int termyold=termyfxcg;
 	int offset=0,pos=0,lower=0;
 	while(1){
 		GetKey(&key);
@@ -231,14 +308,17 @@ size_t inputStrTiny(unsigned char * str,size_t max,int newline){
 				}
 			}else if(pos<(max-1)){
 				memmove(str+pos,str+pos+1,max-pos-1);
-				drawTinyC(' ',termx-6,termy,0,0xFFFF);
+				drawTinyC(' ',termxfxcg-6,termyfxcg,0,0xFFFF);
 			}
 		}
-		termx=termxold;
-		termy=termyold;
-		drawTinyStrnn(str,&termx,&termy,0xFFFF,0,max);
+		termxfxcg=termxold;
+		termyfxcg=termyold;
+		int bg,fg;
+		bg=0xFFFF;
+		fg=0;
+		drawTinyStrnn(str,&termxfxcg,&termyfxcg,&bg,&fg,max);
 		drawTinyC(str[pos],termxold+((pos&63)*6),termyold+((pos/64)*8),0,0xFFFF);//draw cursor			
 	}
 	putchar('\n');
-	return strlen(str);
+	return strlen((const char *)str);
 }

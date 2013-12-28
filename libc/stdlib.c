@@ -12,9 +12,16 @@ int putenv(char *string){
 	fprintf(stderr,"putenv %s\n",string);
 	return -1;
 }
-
+const char * FatalErrorStr="alloc error press the menu key.";
 void *malloc(size_t sz) {
-    return sys_malloc(sz);
+	void *ret=sys_malloc(sz);
+    if(!ret){
+		fprintf(stderr,"m%s\n",FatalErrorStr);
+		int key;
+		while(1)
+			GetKey(&key);
+	}
+	return ret;
 }
 
 void* calloc (size_t num, size_t size){
@@ -25,7 +32,14 @@ void* calloc (size_t num, size_t size){
 }
 
 void *realloc(void *ptr, size_t sz) {
-    return sys_realloc(ptr, sz);
+	void * ret=sys_realloc(ptr, sz);
+	 if(!ret){
+		fprintf(stderr,"m%s\n",FatalErrorStr);
+		int key;
+		while(1)
+			GetKey(&key);
+	}
+    return ;
 }
 
 void free(void *ptr) {

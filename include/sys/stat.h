@@ -45,18 +45,13 @@ struct stat{
 #define S_IWOTH		00002	//others have write permission
 #define S_IXOTH		00001	//others have execute permission
 
-#define	__S_ISTYPE(mode, mask)	(((mode) & __S_IFMT) == (mask))
-
-#define	S_ISDIR(mode)	 __S_ISTYPE((mode), S_IFDIR)
-#define	S_ISCHR(mode)	 __S_ISTYPE((mode), S_IFCHR)
-#define	S_ISBLK(mode)	 __S_ISTYPE((mode), S_IFBLK)
-#define	S_ISREG(mode)	 __S_ISTYPE((mode), S_IFREG)
-#ifdef __S_IFIFO
-# define S_ISFIFO(mode)	 __S_ISTYPE((mode), S_IFIFO)
-#endif
-#ifdef __S_IFLNK
-# define S_ISLNK(mode)	 __S_ISTYPE((mode), S_IFLNK)
-#endif
+#define S_ISLNK(m)	(((m) & S_IFMT) == S_IFLNK)
+#define S_ISREG(m)	(((m) & S_IFMT) == S_IFREG)
+#define S_ISDIR(m)	(((m) & S_IFMT) == S_IFDIR)
+#define S_ISCHR(m)	(((m) & S_IFMT) == S_IFCHR)
+#define S_ISBLK(m)	(((m) & S_IFMT) == S_IFBLK)
+#define S_ISFIFO(m)	(((m) & S_IFMT) == S_IFIFO)
+#define S_ISSOCK(m)	(((m) & S_IFMT) == S_IFSOCK)
 
 int stat(const char *path, struct stat *buf);
 #endif

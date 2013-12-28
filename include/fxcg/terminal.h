@@ -1,7 +1,9 @@
 //These should only be called once
 #define FXCGinitTerminal Bdisp_EnableColor(1); \
-	termx=0; \
-	termy=24; \
+	termxfxcg=0; \
+	termyfxcg=24; \
+	termFGfxcg=0xFFFF; \
+	termBGfxcg=0; \
 	stdin->fileno=0; \
 	stdout->fileno=1; \
 	stderr->fileno=2; \

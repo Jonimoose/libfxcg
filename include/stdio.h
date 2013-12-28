@@ -9,6 +9,8 @@ extern "C" {
 #include <font6x8ext.h>
 #include <stdarg.h>
 
+extern int termxfxcg,termyfxcg,termFGfxcg,termBGfxcg;
+
 
 /*Comment and 3 defines from https://github.com/freebsd/freebsd/blob/0680c1f5fe159bba69a242568af0db7d7dc15a79/include/stdio.h
 * The following three definitions are for ANSI C, which took them
@@ -27,7 +29,6 @@ extern "C" {
 
 #define PATH_MAX 256 //needed for python
 
-
 typedef struct {
     /* Usual values for stdin and friends, everything else is the handle
      * from the system +3 */
@@ -40,12 +41,14 @@ typedef struct {
     /* Used only for terminal output (on stdout) */
 } FILE;
 
+void setbuffer(FILE *stream, char *buf, size_t size);
+
+void setbuf(FILE *stream, char *buf);
 
 FILE * freopen (const char * filename, const char * mode, FILE * stream);
 
 char *tmpnam(char *s);
 
-extern int termx,termy;
 extern FILE _impl_stdin, _impl_stdout, _impl_stderr;
 
 #define STDOUT_FILENO 1
@@ -66,8 +69,6 @@ extern FILE _impl_stdin, _impl_stdout, _impl_stderr;
 FILE *popen(const char *command, const char *type);
 
 void rewind ( FILE * stream );
-
-void setbuf ( FILE * stream, char * buffer );
 
 void clearerr ( FILE * stream );
 

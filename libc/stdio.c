@@ -9,8 +9,10 @@
 #include <stdio.h>
 #include <stdint.h>
 #include <string.h>
-int termx=0;
-int termy=0;
+int termxfxcg=0;
+int termyfxcg=0;
+int termFGfxcg=0xFFFF;
+int termBGfxcg=0;
 // Unspecified members initialized to zero.
 FILE _impl_stdin = {0};
 FILE _impl_stdout = {1};
@@ -23,6 +25,14 @@ FILE _impl_stderr = {2};
 #define NATIVEOFFSET 6
 
 #define IOERR(stream, err) errno = err; stream->error = 1
+
+void setbuffer(FILE *stream, char *buf, size_t size){
+	fprintf(stderr,"setbuffer %d\n",size);
+}
+
+void setbuf(FILE *stream, char *buf){
+	fputs("setbuf\n",stderr);
+}
 
 FILE * freopen (const char * filename, const char * mode, FILE * stream){
 	fprintf(stderr,"freopen not yet supported %s %d\n",filename,mode);
@@ -37,9 +47,6 @@ char *tmpnam(char *s){
 	return s;
 }
 
-void setbuf ( FILE * stream, char * buffer ){
-	fprintf(stderr,"setbuf\n");
-}
 
 void clearerr ( FILE * stream ){
 	stream->error=0;
@@ -163,11 +170,12 @@ size_t fwrite(const void *ptr, size_t size, size_t nitems,FILE *stream) {
 		if (stream->fileno == 2) {
 			// stderr: display but red font
 			//return fwrite_serial(ptr, size, nitems, stream);
-			drawTinyStrn(ptr,&termx,&termy,0xF800,0,size*nitems);
+			int errorC=0xF800,errorCB=0;
+			drawTinyStrn(ptr,&termxfxcg,&termyfxcg,&errorC,&errorCB,size*nitems);
 			return size*nitems;
         } else if (stream->fileno == 1) {
             // stdout: display
-            drawTinyStrn(ptr,&termx,&termy,0xFFFF,0,size*nitems);
+            drawTinyStrn(ptr,&termxfxcg,&termyfxcg,&termFGfxcg,&termBGfxcg,size*nitems);
 			return size*nitems;
         } else {
             // stdin..?

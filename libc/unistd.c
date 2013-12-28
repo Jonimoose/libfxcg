@@ -77,19 +77,16 @@ pid_t fork(void){
 	return -1;
 }
 
-extern int termx,termy;
 ssize_t write(int fildes, const void *buf, size_t nbyte){
-	if (fildes == 2) {
-			// stderr: display but red font
-			//return fwrite_serial(ptr, size, nitems, stream);
-			drawTinyStrn(buf,&termx,&termy,0xF800,0,nbyte);
-			return nbyte;
-        } else if (fildes == 1) {
-            // stdout: display
-            drawTinyStrn(buf,&termx,&termy,0xFFFF,0,nbyte);
-			return nbyte;
-		}else
-			return -1;
+	if(fildes==2){
+		// stderr: display but red font
+		//return fwrite_serial(ptr, size, nitems, stream);
+		return fwrite(buf,1,nbyte,stderr);
+	}else if (fildes == 1) {
+		// stdout: display
+		return fwrite(buf,1,nbyte,stdout);
+	}else
+		return -1;
 }
 
 uid_t getuid(void){

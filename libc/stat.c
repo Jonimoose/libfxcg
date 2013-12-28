@@ -29,6 +29,7 @@ int stat(const char *path, struct stat *buf){
 	int handle,ret;
 	ret = Bfile_FindFirst(strC, &handle, found, &info);
 	if(!ret){
+		printf("found %d %d %d %d %d %d\n",info.id,info.type,info.fsize,info.dsize,info.property,info.address);
 		memset(buf,0,sizeof(struct stat));
 		buf->st_size=info.fsize;
 		buf->st_blocks=info.fsize/512;
@@ -38,8 +39,10 @@ int stat(const char *path, struct stat *buf){
 			buf->st_mode=S_IFDIR;
 		return 0;
 	}else if(ret==-16){
+		fputs("not found",stderr);
 		errno=ENOENT;
 	}else{
+		fprintf(stderr,"error %d\n",ret);
 		errno=EIO;
 	}
 	Bfile_FindClose(handle);
