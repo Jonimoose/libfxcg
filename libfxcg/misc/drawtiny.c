@@ -94,6 +94,8 @@ static void scrollUP(int l,int bg,int *yd){
 		}
 	}
 }
+static int savedX,savedY;
+static int savedBG,savedFG;
 static char * handleCSI(char * s,int *x,int *y,int *fg,int *bg,int *yd){
 	//s points to character after CSI character(s)
 	int num=1;
@@ -110,10 +112,21 @@ static char * handleCSI(char * s,int *x,int *y,int *fg,int *bg,int *yd){
 				checkDim(x,y,yd,*bg);
 			}
 		break;
+		case 's':
+			savedX=*x;
+			savedY=*y;
+			savedBG=*bg;
+			savedFG=*fg;
+		break;
+		case 'u':
+			*x=savedX;
+			*y=savedY;
+			*bg=savedBG;
+			*fg=savedFG;
+		break;
 	}
 	return s;
 }
-static int savedX,savedY;
 static char * insideLoop(char * s,int *x,int *y,int *fg,int *bg,int *yd){
 	switch((unsigned char)*s){
 		case '\v':
