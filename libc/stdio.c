@@ -207,40 +207,11 @@ size_t fread(void *buffer, size_t size, size_t count, FILE *stream) {
     }
     return ret;
 }
-int holdStrTERM=0;
-static char stdioBuffer[24];
-static int isNum(char c){
-	return ((c>='0')&&(c<='9'));
-}
-static int isSep(char c){
-	return ((c==';')||(c==':'));
-}
+
 int fputc(int c, FILE *stream){
 	unsigned char cc = (unsigned char)c;
-	if(stream->fileno==1){
-		if(holdStrTERM){
-			if(holdStrTERM==24){
-				fwrite(stdioBuffer,1,24,stream);
-				holdStrTERM=1;
-				stdioBuffer[0]=cc;
-			}else if(!(isNum(cc)||isSep(cc))){
-				stdioBuffer[holdStrTERM++]=cc;
-				fwrite(stdioBuffer,1,holdStrTERM,stream);
-				holdStrTERM=0;
-			}else
-				stdioBuffer[holdStrTERM++]=cc;
-		}else if((cc==0x1B)||(cc==0x9B)){
-			holdStrTERM=1;
-			memset(stdioBuffer,0,24);
-			stdioBuffer[0]=cc;
-		}else{
-			if (fwrite(&cc, 1, 1, stream) != 1)
-				return EOF;
-		}
-	}else{
-		if (fwrite(&cc, 1, 1, stream) != 1)
-				return EOF;
-	}
+	if (fwrite(&cc, 1, 1, stream) != 1)
+			return EOF;
 	return cc;
 }
 

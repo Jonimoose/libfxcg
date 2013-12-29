@@ -2,15 +2,19 @@
 #include <fxcg/keyboard.h>
 #include <fxcg/terminal.h>
 #include <stdio.h>
-void setcol(int c){
+static void setcol(int c){
 	printf("\x9b%dm",c);
 }
-const char *ColorfulMessage="Colorful";
+static const char *ColorfulMessage="Colorful";
 void main(void){
 	FXCGinitTerminal
-	puts("\0337Saved cursor");
-	puts("Press any key to continue");
+	puts("This is a demonstration of the Fxcg termianl emulator");
+	puts("The goal is xterm compatibility");
+	puts("This demo shows off the color and cursor features that are currently implemented");
 	int key;
+	GetKey(&key);
+	puts("\f\0337Saved cursor");
+	puts("Press any key to continue");
 	GetKey(&key);
 	puts("\0338Cursor restored");
 	GetKey(&key);

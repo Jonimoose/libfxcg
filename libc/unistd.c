@@ -79,8 +79,6 @@ pid_t fork(void){
 
 ssize_t write(int fildes, const void *buf, size_t nbyte){
 	if(fildes==2){
-		// stderr: display but red font
-		//return fwrite_serial(ptr, size, nitems, stream);
 		return fwrite(buf,1,nbyte,stderr);
 	}else if (fildes == 1) {
 		// stdout: display

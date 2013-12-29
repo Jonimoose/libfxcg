@@ -143,10 +143,16 @@ int abs(int i) {
     return i<0?-i:i;
 }
 const char * XtermConstStr="xterm";
+const char * FxcgTermLines="64";
+const char * FxcgTermColums="24";
 int getenv(const char * name){
-	if(strcmp(name,"TERMINFO")==0)
+	if(strcmp(name,"LINES")==0)
+		return FxcgTermLines;
+	else if(strcmp(name,"COLUMNS")==0)
+		return FxcgTermColums;
+	else if(strcmp(name,"TERMINFO")==0)
 		return XtermConstStr;
-	if(strcmp(name,"TERM")==0)
+	else if(strcmp(name,"TERM")==0)
 		return XtermConstStr;
 	fprintf(stderr,"getenv %s\n",name);
 	return 0;

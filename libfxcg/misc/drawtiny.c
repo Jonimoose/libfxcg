@@ -243,8 +243,6 @@ static char * handleCSI(char * s,int *x,int *y,int *fg,int *bg,int *yd){
 							*bg=0;
 					break;
 				}
-				//int keyW;
-				//GetKey(&keyW);
 			}
 		break;
 		case 's':
@@ -262,8 +260,8 @@ static char * handleCSI(char * s,int *x,int *y,int *fg,int *bg,int *yd){
 	}
 	return s;
 }
-static char * insideLoop(char * s,int *x,int *y,int *fg,int *bg,int *yd){
-	switch((unsigned char)*s){
+static char * insideLoop(unsigned char * s,int *x,int *y,int *fg,int *bg,int *yd){
+	switch(*s){
 		case '\v':
 		case '\n':
 			*x=0;
@@ -346,6 +344,37 @@ static char * insideLoop(char * s,int *x,int *y,int *fg,int *bg,int *yd){
 	}
 	return ++s;
 }
+int holdStrTERM=0;
+static char stdioBuffer[24];
+static void drawHeld(char * s,int *x,int *y,int * fg,int * bg,int n){
+	int yd[2];
+	while(n>0){
+		char * ss=insideLoop(s,&termxfxcg,&termyfxcg,&termFGfxcg,&termBGfxcg,yd);
+		n-=ss-s;
+		s=ss;
+	}
+}
+static char * holdStr(char * c,int *x,int *y,int *fg,int *bg){//Returns 0 if not held
+	unsigned char cc = (unsigned char)*c;
+	if(holdStrTERM){
+		if(holdStrTERM==24){
+			drawHeld(stdioBuffer,x,y,fg,bg,24);
+			holdStrTERM=1;
+			stdioBuffer[0]=cc;
+		}else if(!(isNum(cc)||isSep(cc))){
+			stdioBuffer[holdStrTERM++]=cc;
+			drawHeld(stdioBuffer,x,y,fg,bg,holdStrTERM);
+			holdStrTERM=0;
+		}else
+			stdioBuffer[holdStrTERM++]=cc;
+	}else if((cc==0x1B)||(cc==0x9B)){
+		holdStrTERM=1;
+		memset(stdioBuffer,0,24);
+		stdioBuffer[0]=cc;
+	}else
+		return 0;
+	return ++c;
+}
 void drawTinyStr(char * s,int *x,int *y,int * fg,int * bg){
 	//Draws a string on screen handles word-wrapping and newlines
 	//Use -1 on fg or bg to not put pixels with that color
@@ -353,7 +382,11 @@ void drawTinyStr(char * s,int *x,int *y,int * fg,int * bg){
 	yd[0]=-1;
 	checkDim(x,y,yd,*bg);
 	while(*s){//Properly handle the unlikely case of the first character being null terminator
-		s=insideLoop(s,x,y,fg,bg,yd);
+		char * hs=holdStr(s,x,y,fg,bg);
+		if(hs)
+			s=hs;
+		else
+			s=insideLoop(s,x,y,fg,bg,yd);
 	}
 	if(yd[0]>0)
 		Bdisp_PutDisp_DD_stripe(yd[0],yd[1]);
@@ -363,9 +396,15 @@ void drawTinyStrn(char * s,int *x,int *y,int *fg,int *bg,int n){
 	yd[0]=-1;
 	checkDim(x,y,yd,*bg);
 	while(n>0){//This function does not care about null terimnators
-		char * ss=insideLoop(s,x,y,fg,bg,yd);
-		n-=ss-s;
-		s=ss;
+		char *hs=holdStr(s,x,y,fg,bg);
+		if(hs){
+			n-=hs-s;
+			s=hs;
+		}else{
+			char * ss=insideLoop(s,x,y,fg,bg,yd);
+			n-=ss-s;
+			s=ss;
+		}
 	}
 	if(yd[0]>0)
 		Bdisp_PutDisp_DD_stripe(yd[0],yd[1]);
@@ -375,11 +414,17 @@ void drawTinyStrnn(char * s,int *x,int *y,int *fg,int *bg,int n){
 	yd[0]=-1;
 	checkDim(x,y,yd,*bg);
 	while(n>0){
-		char * ss=insideLoop(s,x,y,fg,bg,yd);
-		n-=ss-s;
-		s=ss;
-		if(!(*s))
-			break;
+		char *hs=holdStr(s,x,y,fg,bg);
+		if(hs){
+			n-=hs-s;
+			s=hs;
+		}else{
+			char * ss=insideLoop(s,x,y,fg,bg,yd);
+			n-=ss-s;
+			s=ss;
+			if(!(*s))
+				break;
+		}
 	}
 	if(yd[0]>0)
 		Bdisp_PutDisp_DD_stripe(yd[0],yd[1]);
