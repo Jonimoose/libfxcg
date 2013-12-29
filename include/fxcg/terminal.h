@@ -1,5 +1,7 @@
 //These should only be called once
+extern int holdStrTERM;
 #define FXCGinitTerminal Bdisp_EnableColor(1); \
+	holdStrTERM=0; \
 	termxfxcg=0; \
 	termyfxcg=24; \
 	termFGfxcg=0xFFFF; \

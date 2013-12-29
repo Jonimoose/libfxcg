@@ -106,13 +106,13 @@ int _printf_weird(va_list *ap, writer_t writer, const void *dest, format_t fmt) 
 /* Character writers.  Pass a destination (void * interpreted as needed), eg
  * a buffer or stream. */
 void _writer_stream(const void *wdest, char c) {
-    fputc(c, (FILE *)wdest);
+	fputc(c, (FILE *)wdest);
 }
 void _writer_buffer(const void *wdest, char c) {
-    // Needs to track buffer location, so double pointer
-    char **dest = (char **)wdest;
-    **dest = c;
-    (*dest)++;
+	// Needs to track buffer location, so double pointer
+	char **dest = (char **)wdest;
+	**dest = c;
+	(*dest)++;
 }
 
 /* Main worker and such. */

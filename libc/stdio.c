@@ -163,7 +163,6 @@ static int serial_ensureopen() {
     }
     return 0;
 }
-
 // TODO make ptr, stream restrict for optimization
 size_t fwrite(const void *ptr, size_t size, size_t nitems,FILE *stream) {
 	if (isstdstream(stream)) {
@@ -172,11 +171,12 @@ size_t fwrite(const void *ptr, size_t size, size_t nitems,FILE *stream) {
 			//return fwrite_serial(ptr, size, nitems, stream);
 			int errorC=0xF800,errorCB=0;
 			drawTinyStrn(ptr,&termxfxcg,&termyfxcg,&errorC,&errorCB,size*nitems);
-			return size*nitems;
-        } else if (stream->fileno == 1) {
+			return nitems;
+		}else if (stream->fileno == 1) {
             // stdout: display
-            drawTinyStrn(ptr,&termxfxcg,&termyfxcg,&termFGfxcg,&termBGfxcg,size*nitems);
-			return size*nitems;
+
+			drawTinyStrn(ptr,&termxfxcg,&termyfxcg,&termFGfxcg,&termBGfxcg,size*nitems);
+			return nitems;
         } else {
             // stdin..?
             return -1;
@@ -207,12 +207,47 @@ size_t fread(void *buffer, size_t size, size_t count, FILE *stream) {
     }
     return ret;
 }
-
-int fputc(int c, FILE *stream) {
-	unsigned char uc = (unsigned char)c;
-	if (fwrite(&uc, 1, 1, stream) != 1)
-		return EOF;
-	return uc;
+int holdStrTERM=0;
+static char stdioBuffer[24];
+static int isNum(char c){
+	return ((c>='0')&&(c<='9'));
+}
+static int isSep(char c){
+	return ((c==';')||(c==':'));
+}
+int fputc(int c, FILE *stream){
+	unsigned char cc = (unsigned char)c;
+	if(stream->fileno==1){
+		if(holdStrTERM){
+			{char tmp[32];
+			sprintf(tmp,"%d, %s",holdStrTERM,stdioBuffer);
+			int xx=0,yy=16;
+			PrintMini(&xx,&yy,tmp,0,0xFFFFFFFF,0,0,0,0xFFFF,1,0);
+			int key;
+			GetKey(&key);}
+			if(holdStrTERM==24){
+				fwrite(stdioBuffer,1,24,stream);
+				holdStrTERM=1;
+				stdioBuffer[0]=cc;
+			}else if(!(isNum(cc)||isSep(cc))){
+				stdioBuffer[holdStrTERM++]=cc;
+				fwrite(stdioBuffer,1,holdStrTERM,stream);
+				holdStrTERM=0;
+			}else
+				stdioBuffer[holdStrTERM++]=cc;
+		}else if((cc==0x1B)||(cc==0x9B)){
+			holdStrTERM=1;
+			memset(stdioBuffer,0,24);
+			stdioBuffer[0]=cc;
+		}else{
+			if (fwrite(&cc, 1, 1, stream) != 1)
+				return EOF;
+		}
+	}else{
+		if (fwrite(&cc, 1, 1, stream) != 1)
+				return EOF;
+	}
+	return cc;
 }
 
 int putchar(int c) {
@@ -394,8 +429,7 @@ int mkdir(const char *path, unsigned mode) {
     }
 }
 int fflush(FILE * stream){
-	if (isstdstream(stream))
-		Bdisp_PutDisp_DD();
+	
 	return 0;
 }
 int fileno(FILE *stream){
