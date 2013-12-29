@@ -138,6 +138,12 @@ static char * handleCSI(char * s,int *x,int *y,int *fg,int *bg,int *yd){
 	int amt=cntParm(s);
 	int * p;
 	int al;
+	int leadingM;
+	if(*s=='?'){
+		leadingM=1;
+		++s;
+	}else
+		leadingM=0;
 	if(amt)
 		al=amt;
 	else
@@ -147,115 +153,136 @@ static char * handleCSI(char * s,int *x,int *y,int *fg,int *bg,int *yd){
 		s=getParm(s,p,amt);
 	else
 		p[0]=1;
-	switch(*s){//At this point *s should contain the "control character"
-		case '@':
-			while(p[0]--){
-				drawTinyC(' ',*x,*y,*fg,*bg);
-				*x+=6;
-				checkDim(x,y,yd,*bg);
+	switch(leadingM){
+		case 0:
+			switch(*s){//At this point *s should contain the "control character"
+				case '@':
+					while(p[0]--){
+						drawTinyC(' ',*x,*y,*fg,*bg);
+						*x+=6;
+						checkDim(x,y,yd,*bg);
+					}
+				break;
+				case 'm':
+					//set color
+					if(amt>0){//TODO bold and underline
+						switch(p[0]){
+							case 0:
+								//Reset to default
+								*bg=0;
+								*fg=0xFFFF;
+							break;
+							case 30://black
+								if(*fg>=0)
+									*fg=0;
+							break;
+							case 31://Red
+								if(*fg>=0)
+									*fg=rgb888to565(194,54,33);
+							break;
+							case 32://Green
+								if(*fg>=0)
+									*fg=rgb888to565(37,188,36);
+							break;
+							case 33://Yellow
+								if(*fg>=0)
+									*fg=rgb888to565(173, 173, 39);
+							break;
+							case 34://Blue
+								if(*fg>=0)
+									*fg=rgb888to565(73, 46, 225);
+							break;
+							case 35://Magenta
+								if(*fg>=0)
+									*fg=rgb888to565(211, 56, 211);
+							break;
+							case 36://Cyan
+								if(*fg>=0)
+									*fg=rgb888to565(51, 187, 200);
+							break;
+							case 37://White
+								if(*fg>=0)
+									*fg=0xFFFF;
+							break;
+							case 38://Extened
+								setColxtermext(bg,p);
+							break;
+							case 39://Default
+								if(*fg>=0)
+									*fg=0xFFFF;
+							break;
+							case 40://black
+								if(*bg>=0)
+									*bg=0;
+							break;
+							case 41://Red
+								if(*bg>=0)
+									*bg=rgb888to565(194,54,33);
+							break;
+							case 42://Green
+								if(*bg>=0)
+									*bg=rgb888to565(37,188,36);
+							break;
+							case 43://Yellow
+								if(*bg>=0)
+									*bg=rgb888to565(173, 173, 39);
+							break;
+							case 44://Blue
+								if(*bg>=0)
+									*bg=rgb888to565(73, 46, 225);
+							break;
+							case 45://Magenta
+								if(*bg>=0)
+									*bg=rgb888to565(211, 56, 211);
+							break;
+							case 46://Cyan
+								if(*bg>=0)
+									*bg=rgb888to565(51, 187, 200);
+							break;
+							case 47://White
+								if(*bg>=0)
+									*bg=0xFFFF;
+							break;
+							case 48://extension
+								setColxtermext(bg,p);
+							break;
+							case 49://default
+								if(bg>0)
+									*bg=0;
+							break;
+						}
+					}
+				break;
+				case 's':
+					savedX=*x;
+					savedY=*y;
+					savedBG=*bg;
+					savedFG=*fg;
+				break;
+				case 'u':
+					*x=savedX;
+					*y=savedY;
+					*bg=savedBG;
+					*fg=savedFG;
+				break;
 			}
 		break;
-		case 'm':
-			//set color
-			if(amt>0){//TODO bold and underline
-				switch(p[0]){
-					case 0:
-						//Reset to default
-						*bg=0;
-						*fg=0xFFFF;
-					break;
-					case 30://black
-						if(*fg>=0)
-							*fg=0;
-					break;
-					case 31://Red
-						if(*fg>=0)
-							*fg=rgb888to565(194,54,33);
-					break;
-					case 32://Green
-						if(*fg>=0)
-							*fg=rgb888to565(37,188,36);
-					break;
-					case 33://Yellow
-						if(*fg>=0)
-							*fg=rgb888to565(173, 173, 39);
-					break;
-					case 34://Blue
-						if(*fg>=0)
-							*fg=rgb888to565(73, 46, 225);
-					break;
-					case 35://Magenta
-						if(*fg>=0)
-							*fg=rgb888to565(211, 56, 211);
-					break;
-					case 36://Cyan
-						if(*fg>=0)
-							*fg=rgb888to565(51, 187, 200);
-					break;
-					case 37://White
-						if(*fg>=0)
-							*fg=0xFFFF;
-					break;
-					case 38://Extened
-						setColxtermext(bg,p);
-					break;
-					case 39://Default
-						if(*fg>=0)
-							*fg=0xFFFF;
-					break;
-					case 40://black
-						if(*bg>=0)
-							*bg=0;
-					break;
-					case 41://Red
-						if(*bg>=0)
-							*bg=rgb888to565(194,54,33);
-					break;
-					case 42://Green
-						if(*bg>=0)
-							*bg=rgb888to565(37,188,36);
-					break;
-					case 43://Yellow
-						if(*bg>=0)
-							*bg=rgb888to565(173, 173, 39);
-					break;
-					case 44://Blue
-						if(*bg>=0)
-							*bg=rgb888to565(73, 46, 225);
-					break;
-					case 45://Magenta
-						if(*bg>=0)
-							*bg=rgb888to565(211, 56, 211);
-					break;
-					case 46://Cyan
-						if(*bg>=0)
-							*bg=rgb888to565(51, 187, 200);
-					break;
-					case 47://White
-						if(*bg>=0)
-							*bg=0xFFFF;
-					break;
-					case 48://extension
-						setColxtermext(bg,p);
-					break;
-					case 49://default
-						if(bg>0)
-							*bg=0;
-					break;
-				}
+		case 1:
+			switch(*s){
+				case 'h':
+					switch(p[0]){
+						case 1048:
+							savedX=*x;
+							savedY=*y;
+						break;
+						case 1049:
+							savedX=*x;
+							savedY=*y;
+							clrBg(*bg);
+						break;
+					}
+				break;
 			}
-		break;
-		case 's':
-			savedX=*x;
-			savedY=*y;
-			savedBG=*bg;
-			savedFG=*fg;
-		break;
-		case 'u':
-			*x=savedX;
-			*y=savedY;
-			*bg=savedBG;
-			*fg=savedFG;
 		break;
 	}
 	return s;
@@ -354,6 +381,9 @@ static void drawHeld(char * s,int *x,int *y,int * fg,int * bg,int n){
 		s=ss;
 	}
 }
+static int isTermC(char c){
+	return ((c=='?'));
+}
 static char * holdStr(char * c,int *x,int *y,int *fg,int *bg){//Returns 0 if not held
 	unsigned char cc = (unsigned char)*c;
 	if(holdStrTERM){
@@ -361,7 +391,7 @@ static char * holdStr(char * c,int *x,int *y,int *fg,int *bg){//Returns 0 if not
 			drawHeld(stdioBuffer,x,y,fg,bg,24);
 			holdStrTERM=1;
 			stdioBuffer[0]=cc;
-		}else if(!(isNum(cc)||isSep(cc))){
+		}else if(!(isNum(cc)||isSep(cc)||isTermC(cc))){
 			stdioBuffer[holdStrTERM++]=cc;
 			drawHeld(stdioBuffer,x,y,fg,bg,holdStrTERM);
 			holdStrTERM=0;
