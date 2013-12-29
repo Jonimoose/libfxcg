@@ -128,7 +128,7 @@ static char * getParm(char * s,int * p,int amt){
 #define rgb888to565(r,g,b) (((r&248)<<8)|((g&252)<<3)|((b&248)>>3))
 static void setColxtermext(int * c,int * p){
 	if(p[1]==2){
-		
+		*c=rgb888to565(p[2],p[3],p[4]);
 	}else if(p[1]==5){
 		
 	}
@@ -159,6 +159,11 @@ static char * handleCSI(char * s,int *x,int *y,int *fg,int *bg,int *yd){
 			//set color
 			if(amt>0){//TODO bold and underline
 				switch(p[0]){
+					case 0:
+						//Reset to default
+						*bg=0;
+						*fg=0xFFFF;
+					break;
 					case 30://black
 						if(*fg>=0)
 							*fg=0;
@@ -238,6 +243,8 @@ static char * handleCSI(char * s,int *x,int *y,int *fg,int *bg,int *yd){
 							*bg=0;
 					break;
 				}
+				//int keyW;
+				//GetKey(&keyW);
 			}
 		break;
 		case 's':

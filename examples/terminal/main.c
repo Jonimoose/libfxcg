@@ -17,7 +17,7 @@ void main(void){
 	putchar('\f');
 	puts("Colors 30-37 and 40-47");
 	int i;
-	for(i=30;i<=37;++i){
+	for(i=40;i<=47;++i){
 		setcol(i);
 		putchar(' ');
 	}
@@ -30,6 +30,7 @@ void main(void){
 	putchar('\n');
 	GetKey(&key);
 	putchar('\f');
+	setcol(0);
 	puts("\x9b""34m Blue");
 	puts("Press the menu key to exit");
 	while(1)
