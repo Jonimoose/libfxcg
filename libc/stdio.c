@@ -219,12 +219,6 @@ int fputc(int c, FILE *stream){
 	unsigned char cc = (unsigned char)c;
 	if(stream->fileno==1){
 		if(holdStrTERM){
-			{char tmp[32];
-			sprintf(tmp,"%d, %s",holdStrTERM,stdioBuffer);
-			int xx=0,yy=16;
-			PrintMini(&xx,&yy,tmp,0,0xFFFFFFFF,0,0,0,0xFFFF,1,0);
-			int key;
-			GetKey(&key);}
 			if(holdStrTERM==24){
 				fwrite(stdioBuffer,1,24,stream);
 				holdStrTERM=1;

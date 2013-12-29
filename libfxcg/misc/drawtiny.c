@@ -121,12 +121,6 @@ static char * getParm(char * s,int * p,int amt){
 	int i=0;
 	while(amt--){
 		p[i++]=strtol(s,&s,10);
-		{char tmp[32];
-		sprintf(tmp,"%d %d %c",p[i-1],*s,*s);
-		int xx=0,yy=64;
-		PrintMini(&xx,&yy,tmp,0,0xFFFFFFFF,0,0,0,0xFFFF,1,0);
-		int key;
-		GetKey(&key);}
 		++s;
 	}
 	return --s;
@@ -141,17 +135,7 @@ static void setColxtermext(int * c,int * p){
 }
 static char * handleCSI(char * s,int *x,int *y,int *fg,int *bg,int *yd){
 	//s points to character after CSI character(s)
-	{int xx=0,yy=0;
-	PrintMini(&xx,&yy,s,0,0xFFFFFFFF,0,0,0xFFFF,0,1,0);
-	int key;
-	GetKey(&key);}
 	int amt=cntParm(s);
-	{char tmp[32];
-	itoa(amt,(unsigned char *)tmp);
-	int xx=0,yy=48;
-	PrintMini(&xx,&yy,tmp,0,0xFFFFFFFF,0,0,0,0xFFFF,1,0);
-	int key;
-	GetKey(&key);}
 	int * p;
 	int al;
 	if(amt)
@@ -163,12 +147,6 @@ static char * handleCSI(char * s,int *x,int *y,int *fg,int *bg,int *yd){
 		s=getParm(s,p,amt);
 	else
 		p[0]=1;
-	{char tmp[32];
-	sprintf(tmp,"%d %d, %c",amt,*s,*s);
-	int xx=0,yy=0;
-	PrintMini(&xx,&yy,tmp,0,0xFFFFFFFF,0,0,0,0xFFFF,1,0);
-	int key;
-	GetKey(&key);}
 	switch(*s){//At this point *s should contain the "control character"
 		case '@':
 			while(p[0]--){
@@ -182,74 +160,74 @@ static char * handleCSI(char * s,int *x,int *y,int *fg,int *bg,int *yd){
 			if(amt>0){//TODO bold and underline
 				switch(p[0]){
 					case 30://black
-						if(*fg>0)
+						if(*fg>=0)
 							*fg=0;
 					break;
 					case 31://Red
-						if(*fg>0)
+						if(*fg>=0)
 							*fg=rgb888to565(194,54,33);
 					break;
 					case 32://Green
-						if(*fg>0)
+						if(*fg>=0)
 							*fg=rgb888to565(37,188,36);
 					break;
 					case 33://Yellow
-						if(*fg>0)
+						if(*fg>=0)
 							*fg=rgb888to565(173, 173, 39);
 					break;
 					case 34://Blue
-						if(*fg>0)
-							*fg=rgb888to565(37,188,36);
+						if(*fg>=0)
+							*fg=rgb888to565(73, 46, 225);
 					break;
 					case 35://Magenta
-						if(*fg>0)
-							*fg=rgb888to565(37,188,36);
+						if(*fg>=0)
+							*fg=rgb888to565(211, 56, 211);
 					break;
 					case 36://Cyan
-						if(*fg>0)
-							*fg=rgb888to565(37,188,36);
+						if(*fg>=0)
+							*fg=rgb888to565(51, 187, 200);
 					break;
 					case 37://White
-						if(*fg>0)
+						if(*fg>=0)
 							*fg=0xFFFF;
 					break;
 					case 38://Extened
 						setColxtermext(bg,p);
 					break;
 					case 39://Default
-						if(*fg>0)
+						if(*fg>=0)
 							*fg=0xFFFF;
 					break;
 					case 40://black
-						if(*bg>0)
+						if(*bg>=0)
 							*bg=0;
 					break;
 					case 41://Red
-						if(*bg>0)
+						if(*bg>=0)
 							*bg=rgb888to565(194,54,33);
 					break;
 					case 42://Green
-						if(*bg>0)
+						if(*bg>=0)
 							*bg=rgb888to565(37,188,36);
 					break;
 					case 43://Yellow
-						if(*bg>0)
+						if(*bg>=0)
 							*bg=rgb888to565(173, 173, 39);
 					break;
 					case 44://Blue
-						if(*bg>0)
-							*bg=rgb888to565(37,188,36);
+						if(*bg>=0)
+							*bg=rgb888to565(73, 46, 225);
 					break;
 					case 45://Magenta
-						if(*bg>0)
-							*bg=rgb888to565(37,188,36);
+						if(*bg>=0)
+							*bg=rgb888to565(211, 56, 211);
 					break;
 					case 46://Cyan
-						if(*bg>0)
-							*bg=rgb888to565(37,188,36);
+						if(*bg>=0)
+							*bg=rgb888to565(51, 187, 200);
 					break;
 					case 47://White
-						if(*bg>0)
+						if(*bg>=0)
 							*bg=0xFFFF;
 					break;
 					case 48://extension
@@ -257,6 +235,7 @@ static char * handleCSI(char * s,int *x,int *y,int *fg,int *bg,int *yd){
 					break;
 					case 49://default
 						if(bg>0)
+							*bg=0;
 					break;
 				}
 			}
