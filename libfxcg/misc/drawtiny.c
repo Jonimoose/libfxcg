@@ -362,8 +362,10 @@ void drawTinyStrn(char * s,int *x,int *y,int *fg,int *bg,int n){
 	int yd[2];
 	yd[0]=-1;
 	checkDim(x,y,yd,*bg);
-	while(n--){//This function does not care about null terimnators
-		s=insideLoop(s,x,y,fg,bg,yd);
+	while(n>0){//This function does not care about null terimnators
+		char * ss=insideLoop(s,x,y,fg,bg,yd);
+		n-=ss-s;
+		s=ss;
 	}
 	if(yd[0]>0)
 		Bdisp_PutDisp_DD_stripe(yd[0],yd[1]);
@@ -372,8 +374,10 @@ void drawTinyStrnn(char * s,int *x,int *y,int *fg,int *bg,int n){
 	int yd[2];
 	yd[0]=-1;
 	checkDim(x,y,yd,*bg);
-	while(n--){
-		s=insideLoop(s,x,y,fg,bg,yd);
+	while(n>0){
+		char * ss=insideLoop(s,x,y,fg,bg,yd);
+		n-=ss-s;
+		s=ss;
 		if(!(*s))
 			break;
 	}

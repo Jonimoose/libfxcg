@@ -31,7 +31,7 @@ void main(void){
 	GetKey(&key);
 	putchar('\f');
 	setcol(0);
-	puts("\x9b""34m Blue");
+	puts("\x9b""34mBlue");
 	puts("Press the menu key to exit");
 	while(1)
 		GetKey(&key);
