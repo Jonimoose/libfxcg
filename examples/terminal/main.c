@@ -35,7 +35,15 @@ void main(void){
 	GetKey(&key);
 	putchar('\f');
 	setcol(0);
+	puts("\x9b""30m\x9b""47mBlack\x9b""0m");
+	puts("\x9b""31mRed");
+	puts("\x9b""32mGreen");
+	puts("\x9b""33mYellow");
 	puts("\x9b""34mBlue");
+	puts("\x9b""35mMagenta");
+	puts("\x9b""36mCyan");
+	puts("\x9b""37mWhite");
+	puts("\x9b""39mDefault");
 	puts("Press the menu key to exit");
 	while(1)
 		GetKey(&key);

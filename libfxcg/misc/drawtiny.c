@@ -133,6 +133,17 @@ static void setColxtermext(int * c,int * p){
 		
 	}
 }
+static void cursorBack(int *x,int *y,int *yd,int bg){
+	if(*x>=6){
+		*x-=6;
+	}else{
+		if(*y<24)
+			scrollUP(1,bg,yd);
+		else
+			*y-=8;
+		*x=63*6;
+	}
+}
 static char * handleCSI(char * s,int *x,int *y,int *fg,int *bg,int *yd){
 	//s points to character after CSI character(s)
 	int leadingM;
@@ -161,6 +172,14 @@ static char * handleCSI(char * s,int *x,int *y,int *fg,int *bg,int *yd){
 						drawTinyC(' ',*x,*y,*fg,*bg);
 						*x+=6;
 						checkDim(x,y,yd,*bg);
+					}
+				break;
+				case 'A':
+					scrollUP(p[0],*bg,yd);
+				break;
+				case 'D':
+					while(p[0]--){
+						cursorBack(x,y,yd,*bg);
 					}
 				break;
 				case 'H':
@@ -353,15 +372,7 @@ static char * insideLoop(unsigned char * s,int *x,int *y,int *fg,int *bg,int *yd
 		break;
 		case '\b':
 			drawTinyC(' ',*x,*y,*fg,*bg);
-			if(*x>=6){
-				*x-=6;
-			}else{
-				if(*y<24){
-					scrollUP(1,*bg,yd);
-				}else
-					*y-=8;
-				*x=63;
-			}
+			cursorBack(x,y,yd,*bg);
 		break;
 		case 0x1B://ESC
 			switch(*(++s)){
