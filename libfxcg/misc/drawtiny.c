@@ -74,15 +74,15 @@ static void drawIt(char * s,int *x,int *y,int fg,int bg,int *yd){
 	*x+=6;
 	checkDim(x,y,yd,bg);
 }
-static void clearScr(int *yd){
+static void clearScr(void){
 	memset((unsigned short *)0xA8000000,0,216*LCD_WIDTH_PX*2);
-	yd[0]=-1;
 	Bdisp_PutDisp_DD();
 }
 static void scrollUP(int l,int bg,int *yd){
 	//Move stuff down
 	if(l>24){
-		clearScr(yd);
+		clearScr();
+		yd[0]=-1;
 	}else{
 		yd[0]=24;
 		yd[1]=216;
@@ -109,7 +109,7 @@ static int cntParm(char * s){
 		while(1){
 			while(isNum(*s++));
 			--s;
-			if(isSep(*s))
+			if(isSep(*s++))
 				++amt;
 			else
 				break;
@@ -135,15 +135,15 @@ static void setColxtermext(int * c,int * p){
 }
 static char * handleCSI(char * s,int *x,int *y,int *fg,int *bg,int *yd){
 	//s points to character after CSI character(s)
-	int amt=cntParm(s);
-	int * p;
-	int al;
 	int leadingM;
 	if(*s=='?'){
 		leadingM=1;
 		++s;
 	}else
 		leadingM=0;
+	int amt=cntParm(s);
+	int * p;
+	int al;
 	if(amt)
 		al=amt;
 	else
@@ -161,6 +161,22 @@ static char * handleCSI(char * s,int *x,int *y,int *fg,int *bg,int *yd){
 						drawTinyC(' ',*x,*y,*fg,*bg);
 						*x+=6;
 						checkDim(x,y,yd,*bg);
+					}
+				break;
+				case 'H':
+					switch(amt){
+						case 0:
+							*x=6;
+							*y=8;
+						break;
+						case 1:
+							*x=p[0]*6;
+							*y=8;
+						break;
+						case 2:
+							*x=p[0]*6;
+							*y=p[1]*8;
+						break;
 					}
 				break;
 				case 'm':
@@ -278,7 +294,7 @@ static char * handleCSI(char * s,int *x,int *y,int *fg,int *bg,int *yd){
 						case 1049:
 							savedX=*x;
 							savedY=*y;
-							clrBg(*bg);
+							clearScr();
 						break;
 					}
 				break;
@@ -332,7 +348,8 @@ static char * insideLoop(unsigned char * s,int *x,int *y,int *fg,int *bg,int *yd
 			//clear screen
 			*x=0;
 			*y=24;
-			clearScr(yd);
+			clearScr();
+			yd[0]=-1;
 		break;
 		case '\b':
 			drawTinyC(' ',*x,*y,*fg,*bg);
@@ -382,7 +399,7 @@ static void drawHeld(char * s,int *x,int *y,int * fg,int * bg,int n){
 	}
 }
 static int isTermC(char c){
-	return ((c=='?'));
+	return ((c=='?'))||(c=='[');
 }
 static char * holdStr(char * c,int *x,int *y,int *fg,int *bg){//Returns 0 if not held
 	unsigned char cc = (unsigned char)*c;
