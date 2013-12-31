@@ -32,6 +32,8 @@ void TakeScreenshot2(void); //seems to be the same as the one above
 
 void DisplayMainMenu(void);
 
+int MB_ElementCount(char* buf); // like strlen but for the graphical length of multibyte strings
+
 //Hold program execution:
 void OS_InnerWait_ms(int);
 
