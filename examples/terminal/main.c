@@ -31,8 +31,10 @@ void main(void){
 		setcol(i+40);
 		putchar(ColorfulMessage[i]);
 	}
-	putchar('\n');
+	puts("\x9bm");
 	GetKey(&key);
+	for(i=0;i<16;++i)
+		fputs(stdout,"\x9b""A");
 	putchar('\f');
 	setcol(0);
 	puts("\x9b""30m\x9b""47mBlack\x9b""0m");

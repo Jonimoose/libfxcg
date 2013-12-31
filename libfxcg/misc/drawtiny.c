@@ -3,6 +3,8 @@
 #include <font6x8ext.h>
 #include <stdio.h>
 #include <string.h>
+#define DEBUGTERM 1
+//#define VERBOSEDEBUG 1
 void drawTinyC(char c,int x,int y,int fg,int bg){
 	unsigned short * p=(unsigned short*)0xA8000000;
 	unsigned char * d=(unsigned char *)font6x8ext+(((unsigned char)c)*8);
@@ -74,24 +76,27 @@ static void drawIt(char * s,int *x,int *y,int fg,int bg,int *yd){
 	*x+=6;
 	checkDim(x,y,yd,bg);
 }
-static void clearScr(void){
-	memset((unsigned short *)0xA8000000,0,216*LCD_WIDTH_PX*2);
+static void fillAreaWithColor(int y1,int y2,int bg){
+	if(bg>=0){
+		int a=(y2-y1)*LCD_WIDTH_PX/2,c=bg|(bg<<16),*v=(int *)0xA8000000+(y1*LCD_WIDTH_PX/2);
+			while(a--)
+				*v++=c;
+	}
+}
+static void clearScr(int bg){
+	fillAreaWithColor(0,216,bg);
 	Bdisp_PutDisp_DD();
 }
 static void scrollUP(int l,int bg,int *yd){
 	//Move stuff down
 	if(l>24){
-		clearScr();
+		clearScr(bg);
 		yd[0]=-1;
 	}else{
 		yd[0]=24;
 		yd[1]=216;
-		memmove((unsigned short *)0xA8000000+(24*LCD_WIDTH_PX),(unsigned short *)0xA8000000+((24+(l*8))*LCD_WIDTH_PX),(216-24-(l*8))*LCD_WIDTH_PX*2);
-		if(bg>0){
-			int a=l*8,c=bg|(bg<<16),*v=(int *)0xA8000000+((24+(l*8))*LCD_WIDTH_PX/2);
-			while(a--)
-				*v++=c;
-		}
+		memmove((unsigned short *)0xA8000000+((24+(l*8))*LCD_WIDTH_PX),(unsigned short *)0xA8000000+(24*LCD_WIDTH_PX),(216-24-(l*8))*LCD_WIDTH_PX*2);
+		fillAreaWithColor(24,24+(l*8),bg);
 	}
 }
 static int savedX,savedY;
@@ -144,8 +149,49 @@ static void cursorBack(int *x,int *y,int *yd,int bg){
 		*x=63*6;
 	}
 }
+#ifdef DEBUGTERM
+static void clrDebugLn(void){
+	memset((unsigned short *)0xA8000000+(24*384),0,10*384*2);
+}
+static void notSupportedCSI(char s,int *p,int amt,int leadingM){
+	char *tmp=alloca(amt*16+32);
+	sprintf(tmp,"%d %d %d %c ",leadingM,amt,s,s);
+	int i;
+	for(i=0;i<amt;++i)
+		sprintf(tmp+strlen(tmp),"p[%d]=%d ",i,p[i]);
+	int xx=0,yy=0;
+	PrintMiniMini(&xx, &yy, tmp, 0, 0, 0);
+	GetKey(&xx);
+	clrDebugLn();
+}
+static void cursorExceed(char w,int x){
+	char tmp[128];
+	sprintf(tmp,"cursor %c exceeded %d",w,x);
+	int xx=0,yy=0;
+	PrintMiniMini(&xx, &yy, tmp, 0, 0, 0);
+	GetKey(&xx);
+	clrDebugLn();
+}
+#endif
+static void eraseRight(int x,int y,int bg){
+	if(bg>=0){
+		int a=8,c=bg|(bg<<16),*v=(int *)0xA8000000+((y+24)*384/2);
+		while(a--){
+			int b=x;
+			while(b--)
+				*v++=c;
+			v+=(384-x)/2;
+		}
+	}
+}
 static char * handleCSI(char * s,int *x,int *y,int *fg,int *bg,int *yd){
 	//s points to character after CSI character(s)
+	#ifdef VERBOSEDEBUG
+		{int xx=0,yy=0;
+		PrintMiniMini(&xx, &yy, s, 0, 0, 0);
+		GetKey(&xx);
+		clrDebugLn();}
+	#endif
 	int leadingM;
 	if(*s=='?'){
 		leadingM=1;
@@ -176,27 +222,91 @@ static char * handleCSI(char * s,int *x,int *y,int *fg,int *bg,int *yd){
 				break;
 				case 'A':
 					scrollUP(p[0],*bg,yd);
+					if(yd[0]>=0)
+						Bdisp_PutDisp_DD_stripe(yd[0],yd[1]);
+					yd[0]=-1;
 				break;
 				case 'D':
 					while(p[0]--){
 						cursorBack(x,y,yd,*bg);
 					}
 				break;
+				case 'G'://Cursor position Absolute column
+					*y=p[0]*8+24;
+				break;
 				case 'H':
 					switch(amt){
 						case 0:
 							*x=6;
-							*y=8;
+							*y=8+24;
 						break;
 						case 1:
 							*x=p[0]*6;
-							*y=8;
+							if((*x>378)||(*x<0)){
+								#ifdef DEBUGTERM
+									cursorExceed('x',*x);
+								#endif
+								*x=378;
+							}
+							*y=8+24;
 						break;
 						case 2:
 							*x=p[0]*6;
-							*y=p[1]*8;
+							if((*x>378)||(*x<0)){
+								#ifdef DEBUGTERM
+									cursorExceed('x',*x);
+								#endif
+								*x=378;
+							}
+							*y=p[1]*8+24;
+							if(*y>=208){
+								#ifdef DEBUGTERM
+									cursorExceed('y',*y);
+								#endif
+								*y=208;
+							}
 						break;
 					}
+				break;
+				case 'J'://Erase in display
+					if(amt){
+						switch(p[0]){
+							case 0://Below (default)
+								fillAreaWithColor(*y,216,*bg);
+							break;
+							case 1://Above
+								fillAreaWithColor(0,*y,*bg);
+							break;
+							case 2://All
+								fillAreaWithColor(0,216,*bg);
+							break;
+						}
+					}else{
+						fillAreaWithColor(*y,216,*bg);
+					}
+				break;
+				case 'K'://Erase in lines
+					if(amt){
+						switch(p[0]){
+							case 0://Right (default)
+								//eraseRight(*x,*y,*bg);
+							break;
+							case 1://Left
+								
+							break;
+							case 2://All
+								fillAreaWithColor(*y,*y+8,*bg);
+							break;
+						}
+					}else{
+						//eraseRight(*x,*y,*bg);
+					}
+				break;
+				case 'P'://erase characters
+				
+				break;
+				case 'd'://Line position absolute
+					
 				break;
 				case 'm':
 					//set color
@@ -286,6 +396,9 @@ static char * handleCSI(char * s,int *x,int *y,int *fg,int *bg,int *yd){
 									*bg=0;
 							break;
 						}
+					}else{//default
+						*bg=0;
+						*fg=0xFFFF;
 					}
 				break;
 				case 's':
@@ -300,6 +413,11 @@ static char * handleCSI(char * s,int *x,int *y,int *fg,int *bg,int *yd){
 					*bg=savedBG;
 					*fg=savedFG;
 				break;
+				default:
+					#ifdef DEBUGTERM
+						notSupportedCSI(*s,p,amt,leadingM);
+					#endif
+				break;
 			}
 		break;
 		case 1:
@@ -313,11 +431,22 @@ static char * handleCSI(char * s,int *x,int *y,int *fg,int *bg,int *yd){
 						case 1049:
 							savedX=*x;
 							savedY=*y;
-							clearScr();
+							clearScr(*bg);
+							yd[0]=-1;
 						break;
 					}
 				break;
+				default:
+					#ifdef DEBUGTERM
+						notSupportedCSI(*s,p,amt,leadingM);
+					#endif
+				break;
 			}
+		break;
+		default:
+			#ifdef DEBUGTERM
+				notSupportedCSI(*s,p,amt,leadingM);
+			#endif
 		break;
 	}
 	return s;
@@ -367,7 +496,7 @@ static char * insideLoop(unsigned char * s,int *x,int *y,int *fg,int *bg,int *yd
 			//clear screen
 			*x=0;
 			*y=24;
-			clearScr();
+			clearScr(*bg);
 			yd[0]=-1;
 		break;
 		case '\b':
@@ -446,7 +575,7 @@ void drawTinyStr(char * s,int *x,int *y,int * fg,int * bg){
 		else
 			s=insideLoop(s,x,y,fg,bg,yd);
 	}
-	if(yd[0]>0)
+	if(yd[0]>=0)
 		Bdisp_PutDisp_DD_stripe(yd[0],yd[1]);
 }
 void drawTinyStrn(char * s,int *x,int *y,int *fg,int *bg,int n){
@@ -464,7 +593,7 @@ void drawTinyStrn(char * s,int *x,int *y,int *fg,int *bg,int n){
 			s=ss;
 		}
 	}
-	if(yd[0]>0)
+	if(yd[0]>=0)
 		Bdisp_PutDisp_DD_stripe(yd[0],yd[1]);
 }
 void drawTinyStrnn(char * s,int *x,int *y,int *fg,int *bg,int n){
@@ -484,7 +613,7 @@ void drawTinyStrnn(char * s,int *x,int *y,int *fg,int *bg,int n){
 				break;
 		}
 	}
-	if(yd[0]>0)
+	if(yd[0]>=0)
 		Bdisp_PutDisp_DD_stripe(yd[0],yd[1]);
 }
 size_t inputStrTiny(unsigned char * str,size_t max,int newline){

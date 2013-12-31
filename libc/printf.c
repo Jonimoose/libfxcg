@@ -112,6 +112,7 @@ void _writer_buffer(const void *wdest, char c) {
 	// Needs to track buffer location, so double pointer
 	char **dest = (char **)wdest;
 	**dest = c;
+	dest[0][1]=0;//Ensure sprintf output is null terminated
 	(*dest)++;
 }
 
