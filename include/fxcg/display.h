@@ -82,6 +82,8 @@ void Cursor_SetFlashOff( void );
 int SetCursorFlashToggle( int );
 void Keyboard_CursorFlash( void );
 
+int LocalizeMessage1( int msgno, char*result );
+
 //Character printing syscalls:
 enum
 {
