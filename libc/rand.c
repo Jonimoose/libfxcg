@@ -136,7 +136,7 @@ u_int seed;
  * data from the kernel.
  */
 void
-sranddev()
+sranddev(void)
 {
 	int mib[2];
 	size_t len;

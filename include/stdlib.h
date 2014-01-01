@@ -26,6 +26,7 @@ void *realloc(void *p, size_t sz);
 
 int rand(void);
 void srand(unsigned seed);
+void sranddev(void);
 int sys_rand(void);
 void sys_srand(unsigned seed);
 
