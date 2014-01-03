@@ -56,20 +56,21 @@ int PrintMiniFix( int x, int y, const char*Msg, const int flags, const short col
 }
 
 //draws a point of color color at (x0, y0) 
-void plot(int x0, int y0, int color) { 
-   char* VRAM = (char*)0xA8000000; 
-   VRAM += 2*(y0*LCD_WIDTH_PX + x0); 
-   *(VRAM++) = (color&0x0000FF00)>>8; 
-   *(VRAM++) = (color&0x000000FF); 
-   return; 
+void plot(int x0, int y0,unsigned short color) {
+  unsigned short* VRAM = (unsigned short*)0xA8000000;
+  VRAM += (y0*LCD_WIDTH_PX + x0);
+  *VRAM=color;
 }
 
-void drawRectangle(int x, int y, int width, int height, unsigned short color) {
+void drawRectangle(int x, int y, int width, int height, unsigned short color){
   unsigned short*VRAM = (unsigned short*)0xA8000000;
-  for(int j = y; j < y+height; j++) {
-    for(int i = x; i < x+width; i++) {
-      *(j*LCD_WIDTH_PX+i+VRAM) = color;      
+  VRAM+=(y*384)+x;
+  while(height--){
+    int i=width;
+    while(i--){
+      *VRAM++ = color;
     }
+    VRAM+=384-width;
   }
 }
 //Uses the Bresenham line algorithm 
