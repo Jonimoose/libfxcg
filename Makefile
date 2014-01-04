@@ -38,7 +38,7 @@ GIT_TIMESTAMP += "$(shell git log --pretty=format:'%aD' -1)"
 
 MKG3AFLAGS := -s -n basic:Eigenmath -i uns:../unselected.bmp -i sel:../selected.bmp -i mon:../monoicon.eActIcon
 
-CFLAGS	= -std=c++11 -Os -Wall -Wno-write-strings $(MACHDEP) $(INCLUDE) -DPRIZM -D__GIT_VERSION=\"$(GIT_VERSION)\" -D__GIT_TIMESTAMP=\"$(GIT_TIMESTAMP)\"
+CFLAGS	= -std=c++11 -Os -fno-exceptions -Wall -Wno-write-strings $(MACHDEP) $(INCLUDE) -DPRIZM -D__GIT_VERSION=\"$(GIT_VERSION)\" -D__GIT_TIMESTAMP=\"$(GIT_TIMESTAMP)\"
 CXXFLAGS	=	$(CFLAGS)
 
 LDFLAGS	= $(MACHDEP) -T$(FXCGSDK)/common/prizm.ld -Wl,-static -Wl,-gc-sections
