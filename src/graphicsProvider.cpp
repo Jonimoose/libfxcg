@@ -24,8 +24,8 @@ int PrintMiniFix( int x, int y, const char*Msg, const int flags, const short col
   while ( Msg[ i ] )
   {
     if( Msg[i] == 9) {
-      drawLine(x, y+24+7, x+12, y+24+7, color);
-      drawLine(x, y+24+8, x+12, y+24+8, color);
+      drawLine(x, y+24+7, x+11, y+24+7, color);
+      drawLine(x, y+24+8, x+11, y+24+8, color);
       x+=12;
       i++;
       continue;
@@ -112,7 +112,7 @@ void drawLine(int x1, int y1, int x2, int y2, int color) {
     } 
 }
 //ReplaceColor By Kerm:
-void VRAMReplaceColorInRect(int x, int y, int width, int height, color_t color_old, color_t color_new) { 
+/*void VRAMReplaceColorInRect(int x, int y, int width, int height, color_t color_old, color_t color_new) { 
    //color_t* VRAM = GetVRAMAddress();
    color_t* VRAM = (color_t*)0xA8000000; 
    VRAM += (y*LCD_WIDTH_PX)+x; 
@@ -121,67 +121,8 @@ void VRAMReplaceColorInRect(int x, int y, int width, int height, color_t color_o
          if (*VRAM == color_old) *VRAM = color_new; 
       } 
    } 
-} 
-
-void darkenStatusbar() {  
-  VRAMReplaceColorInRect(0, 0, LCD_WIDTH_PX, 24, COLOR_BLACK, COLOR_CYAN);
-  VRAMReplaceColorInRect(0, 0, LCD_WIDTH_PX, 24, COLOR_WHITE, COLOR_BLACK);
-  VRAMReplaceColorInRect(0, 0, LCD_WIDTH_PX, 24, COLOR_CYAN, COLOR_GRAY);
-  VRAMReplaceColorInRect(0, 0, LCD_WIDTH_PX, 24, COLOR_BLUE, COLOR_ORANGE);
-}
-void darkenFkeys(int numkeys) {
-  VRAMReplaceColorInRect(0, LCD_HEIGHT_PX-24, LCD_WIDTH_PX-64*(6-numkeys), 24, COLOR_BLACK, COLOR_CYAN);
-  VRAMReplaceColorInRect(0, LCD_HEIGHT_PX-24, LCD_WIDTH_PX-64*(6-numkeys), 24, COLOR_WHITE, COLOR_BLACK);
-  VRAMReplaceColorInRect(0, LCD_HEIGHT_PX-24, LCD_WIDTH_PX-64*(6-numkeys), 24, COLOR_CYAN, COLOR_GRAY);  
-}
-void drawArrowDown(int bottomX, int bottomY, int color) {
-  drawLine(bottomX-7,bottomY-7,bottomX,bottomY,color);
-  drawLine(bottomX-8,bottomY-7,bottomX,bottomY+1,color); //double thickness of line
-  drawLine(bottomX+1,bottomY,bottomX+8,bottomY-7,color);
-  drawLine(bottomX+1,bottomY+1,bottomX+9,bottomY-7,color); //double thickness of line
-}
-void drawFkeyPopup(int Fkey, int darktheme, int showclosemessage) {
-//draws a big popup pointing to a Fkey (index zero based, F1 = 0, F6 = 5) with the selected color scheme.
-//showclosemessage - select to show a minimini message on the right left saying "...or press: [EXIT]"
-// PrintXY text inside the popup starts at X=2 and Y=2
-  int fgcolor = COLOR_BLACK;
-  int bgcolor = COLOR_WHITE;
-  if (darktheme) {
-    fgcolor = COLOR_WHITE;
-    bgcolor = COLOR_BLACK;
-  }
-  int c1x = 18; int c1y = 24*2;
-  int c2x = 18*20; int c2y = 24*2;
-  int c3x = 18*20; int c3y = 24*8-12;
-  int c4x = 18; int c4y = 24*8-12;
-  drawRectangle(c1x, c1y, c3x-c1x, c3y-c1x-24, bgcolor);
-  drawLine(c1x-1, c1y-1, c2x, c2y-1, fgcolor);
-  drawLine(c1x-1, c1y-1, c4x-1, c4y+1, fgcolor);
-  drawLine(c2x, c2y-1, c3x, c3y+1, fgcolor);
-  drawLine(c4x-1, c4y+1, c3x, c3y+1, fgcolor);
-
-  drawLine(c1x-2, c1y-2, c2x+1, c2y-2, fgcolor);
-  drawLine(c1x-2, c1y-2, c4x-2, c4y+2, fgcolor);
-  drawLine(c2x+1, c2y-2, c3x+1, c3y+2, fgcolor);
-  drawLine(c4x-2, c4y+2, c3x+1, c3y+2, fgcolor);
-
-  drawLine(c1x, c1y+23, c2x-1, c2y+23, COLOR_GRAY);
-  drawRectangle(c1x, c1y, c2x-c1x, 23, COLOR_LIGHTGRAY);
-
-  drawArrowDown(31+Fkey*64, 190, fgcolor);
-  drawLine(23+Fkey*64, 181, 40+Fkey*64, 181, bgcolor);
-  drawLine(24+Fkey*64, 182, 39+Fkey*64, 182, bgcolor);
-
-
-  if (showclosemessage) {
-    int textX = 0;
-    int textY = c3y-14-20;
-    PrintMiniMini( &textX, &textY, (unsigned char*)"...or press: [EXIT]", 0, TEXT_COLOR_BLACK, 1 ); //fake draw
-    textX = c3x-textX-4;
-    PrintMiniMini( &textX, &textY, (unsigned char*)"...or press: [EXIT]", 0, TEXT_COLOR_BLACK, 0 ); //draw
-  }
-}
-void CopySprite(const void* datar, int x, int y, int width, int height) { 
+} */
+/*void CopySprite(const void* datar, int x, int y, int width, int height) { 
    color_t*data = (color_t*) datar; 
    color_t* VRAM = (color_t*)0xA8000000; 
    VRAM += LCD_WIDTH_PX*y + x; 
@@ -191,7 +132,7 @@ void CopySprite(const void* datar, int x, int y, int width, int height) {
      } 
      VRAM += LCD_WIDTH_PX-width; 
    } 
-} 
+}*/
 void CopySpriteMasked(const unsigned char* data, int x, int y, int width, int height, int maskcolor) { 
    char* VRAM = (char*)0xA8000000; 
    VRAM += 2*(LCD_WIDTH_PX*y + x); 
@@ -205,7 +146,7 @@ void CopySpriteMasked(const unsigned char* data, int x, int y, int width, int he
       VRAM += 2*(LCD_WIDTH_PX-width); 
    } 
 }
-void CopySpriteNbit(const unsigned char* data, int x, int y, int width, int height, const color_t* palette, unsigned int bitwidth) {
+/*void CopySpriteNbit(const unsigned char* data, int x, int y, int width, int height, const color_t* palette, unsigned int bitwidth) {
    color_t* VRAM = (color_t*)0xA8000000;
    VRAM += (LCD_WIDTH_PX*y + x);
    int offset = 0;
@@ -225,54 +166,39 @@ void CopySpriteNbit(const unsigned char* data, int x, int y, int width, int heig
       }
       VRAM += (LCD_WIDTH_PX-width);
    }
-} 
-int drawRGB24toRGB565(int r, int g, int b)  
-{  
-  return ((r / 8) << 11) | ((g / 4) << 5) | (b / 8);  
-}
+}*/
 //the following does not update the screen automatically; it will draw the tny.im logo starting at screen coordinates x,y
 //the tny.im logo is great enough not to require any sprites! yay!
 //w:138
 //h:42
-int alphaBlend(int newcc, int oldcc, float alpha) {
-  return alpha*newcc+(1-alpha)*oldcc;
-}
-/* commented because isn't needed
-void alphaRGB(int r1, int g1, int b1, int r2, int g2, int b2, int* nr, int* ng, int* nb, float alpha) {
-  *nr = alphaBlend(r1, r2, alpha);
-  *ng = alphaBlend(g1, g2, alpha);
-  *nb = alphaBlend(b1, b2, alpha);
-}*/
-void drawtnyimLogo( int x, int y, float alpha) {
+void drawtnyimLogo( int x, int y) {
   //draw t
-  int black = drawRGB24toRGB565(alphaBlend(255, 0, alpha), alphaBlend(255, 0, alpha), alphaBlend(255, 0, alpha));
-  drawRectangle(x, y+6, 6, 24, black);
-  drawRectangle(x+6, y+12, 6, 6, black);
-  drawRectangle(x+6, y+30, 6, 6, black);
+  drawRectangle(x, y+6, 6, 24, COLOR_BLACK);
+  drawRectangle(x+6, y+12, 6, 6, COLOR_BLACK);
+  drawRectangle(x+6, y+30, 6, 6, COLOR_BLACK);
   //draw n
-  drawRectangle(x+18, y+12, 6, 24, black);
-  drawRectangle(x+24, y+12, 12, 6, black);
-  drawRectangle(x+36, y+18, 6, 18, black);
+  drawRectangle(x+18, y+12, 6, 24, COLOR_BLACK);
+  drawRectangle(x+24, y+12, 12, 6, COLOR_BLACK);
+  drawRectangle(x+36, y+18, 6, 18, COLOR_BLACK);
   //draw y
-  drawRectangle(x+48, y+12, 6, 18, black);
-  drawRectangle(x+60, y+12, 6, 18, black);
-  drawRectangle(x+54, y+30, 6, 6, black);
-  drawRectangle(x+48, y+36, 6, 6, black);
+  drawRectangle(x+48, y+12, 6, 18, COLOR_BLACK);
+  drawRectangle(x+60, y+12, 6, 18, COLOR_BLACK);
+  drawRectangle(x+54, y+30, 6, 6, COLOR_BLACK);
+  drawRectangle(x+48, y+36, 6, 6, COLOR_BLACK);
   //draw dot
-  drawRectangle(x+72, y+30, 6, 6, black);
-  int orange = drawRGB24toRGB565(alphaBlend(255, 210, alpha), alphaBlend(255, 68, alpha), alphaBlend(255, 19, alpha));
+  drawRectangle(x+72, y+30, 6, 6, COLOR_BLACK);
   //draw i (orange)
-  drawRectangle(x+84, y, 6, 6, orange);
-  drawRectangle(x+84, y+12, 6, 24, orange);
+  drawRectangle(x+84, y, 6, 6, TNYIM_ORANGE);
+  drawRectangle(x+84, y+12, 6, 24, TNYIM_ORANGE);
   //draw m (orange)
-  drawRectangle(x+96, y+12, 6, 24, orange);
-  drawRectangle(x+102, y+12, 12, 6, orange);
-  drawRectangle(x+114, y+18, 6, 18, orange);
-  drawRectangle(x+120, y+12, 12, 6, orange);
-  drawRectangle(x+132, y+18, 6, 18, orange);
+  drawRectangle(x+96, y+12, 6, 24, TNYIM_ORANGE);
+  drawRectangle(x+102, y+12, 12, 6, TNYIM_ORANGE);
+  drawRectangle(x+114, y+18, 6, 18, TNYIM_ORANGE);
+  drawRectangle(x+120, y+12, 12, 6, TNYIM_ORANGE);
+  drawRectangle(x+132, y+18, 6, 18, TNYIM_ORANGE);
 }
 
-int textColorToFullColor(int textcolor) {
+/*int textColorToFullColor(int textcolor) {
   switch(textcolor) {
     case TEXT_COLOR_BLACK: return COLOR_BLACK;
     case TEXT_COLOR_BLUE: return COLOR_BLUE;
@@ -301,7 +227,7 @@ void progressMessage(char* message, int cur, int total) {
   PrintXY(1,8,(char*)"                        ", TEXT_MODE_NORMAL, TEXT_COLOR_BLACK);
   PrintXY(1,8,(char*)buffer, TEXT_MODE_NORMAL, TEXT_COLOR_BLACK);
   Bdisp_PutDisp_DD();
-}
+}*/
 
 void printCentered(unsigned char* text, int y, int FGC, int BGC) {
   int len = strlen((char*)text);

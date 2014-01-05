@@ -23,7 +23,6 @@ void showAbout() {
  DefineStatusMessage((char*)"About Eigenmath", 1, 0, 0);
  DisplayStatusArea();
  //y increment between each line: 17; between paragraphs: 20
- int orange = drawRGB24toRGB565(210, 68, 19);
  int textX = 0;
  int textY = 5;
  char verBuffer[100] = "";
@@ -36,14 +35,14 @@ void showAbout() {
  textY = 42;
  textX = 0;
  PrintMini(&textX, &textY, (unsigned char*)"Developed by gbl08ma at", 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
- drawtnyimLogo(10, 59+24, 0); //24 pixels for the status bar
+ drawtnyimLogo(10, 59+24); //24 pixels for the status bar
  textY = 101;
  textX = 0;
  // PrintMini and its x,y pointers allow for awesome easy color formatting... let's try
  PrintMini(&textX, &textY, (unsigned char*)"tny. ", 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
- PrintMini(&textX, &textY, (unsigned char*)"i", 0, 0xFFFFFFFF, 0, 0, orange, COLOR_WHITE, 1, 0);
+ PrintMini(&textX, &textY, (unsigned char*)"i", 0, 0xFFFFFFFF, 0, 0, TNYIM_ORANGE, COLOR_WHITE, 1, 0);
  PrintMini(&textX, &textY, (unsigned char*)"nternet ", 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
- PrintMini(&textX, &textY, (unsigned char*)"m", 0, 0xFFFFFFFF, 0, 0, orange, COLOR_WHITE, 1, 0);
+ PrintMini(&textX, &textY, (unsigned char*)"m", 0, 0xFFFFFFFF, 0, 0, TNYIM_ORANGE, COLOR_WHITE, 1, 0);
  PrintMini(&textX, &textY, (unsigned char*)"edia", 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
  textY = 125;
  textX = 0;
