@@ -2,7 +2,7 @@
 CC=sh3eb-elf-gcc
 MKG3A=mkg3a
 RM=rm
-CFLAGS=-m4a-nofpu -mb -Os -mhitachi -Wall -I../../include -lgcc -L../../lib
+CFLAGS=-m4a-nofpu -mb -Os -mhitachi -Wall -I../../include -lgcc -L../../lib -flto
 LDFLAGS=$(CFLAGS) -nostartfiles -T../../toolchain/prizm.x -Wl,-static -Wl,-gc-sections
 OBJECTS=main.o
 BIN=terminal.bin

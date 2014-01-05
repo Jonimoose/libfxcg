@@ -15,6 +15,8 @@ extern "C" {
 typedef unsigned char wchar_t;
 #endif
 
+typedef int ptrdiff_t;
+
 #define offsetof(type, member) __builtin_offsetof(type, member)
 
 typedef unsigned int size_t;
