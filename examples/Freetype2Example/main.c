@@ -76,10 +76,10 @@ void main(void){
 	if (error) errorMessage(__LINE__,error);
 	/* The casio prizm has about a 2.8x1.6 inch display NOTE the ruler I used is not the greatest
 	So therefore the casio prizm has 384/2.8=137 (rounded to nearst integer) dpi width and 216/1.6=135 dpi height*/
-	error = FT_Set_Char_Size( face, /* handle to face object */ 0, /* char_width in 1/64th of points */ 24*64, /* char_height in 1/64th of points */ 137, /* horizontal device resolution */ 135 ); /* vertical device resolution */
+	error = FT_Set_Char_Size( face, /* handle to face object */ 0, /* char_width in 1/64th of points */ 26*64, /* char_height in 1/64th of points */ 137, /* horizontal device resolution */ 135 ); /* vertical device resolution */
 	if (error) errorMessage(__LINE__,error);
-	drawCstring("Casio Prizm",0,64);
-	//drawCstring("Freetype2",0,96);
+	drawCstring("Casio Prizm",0,80);
+	drawCstring("Freetype2",0,192);
 	FT_Done_FreeType(ft);
 	while(1) GetKey(&key);
 }
