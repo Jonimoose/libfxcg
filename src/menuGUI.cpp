@@ -59,7 +59,7 @@ int doMenu(Menu* menu) { // returns code telling what user did. selection is on 
           // deal with multiselect menus
           if(menu->type == MENUTYPE_MULTISELECT) {
             if (menu->items[curitem].isfolder == 1) {
-              if((curitem+itemsStartY-menu->scroll)>=itemsStartY&&(curitem+itemsStartY-menu->scroll)<=(itemsStartY+itemsHeight)) CopySpriteMasked((unsigned char*)folder_icon, menu->startX+18, (curitem+itemsStartY-menu->scroll)*24+4, 17, 15, 0xf81f  );
+              if((curitem+itemsStartY-menu->scroll)>=itemsStartY&&(curitem+itemsStartY-menu->scroll)<=(itemsStartY+itemsHeight)) CopySpriteMasked((unsigned short*)folder_icon, menu->startX+18, (curitem+itemsStartY-menu->scroll)*24+4, 17, 15, 0xf81f  );
             }
             if (menu->items[curitem].isselected) {
               if (menu->selection == curitem+1) {

@@ -133,18 +133,21 @@ void drawLine(int x1, int y1, int x2, int y2, int color) {
      VRAM += LCD_WIDTH_PX-width; 
    } 
 }*/
-void CopySpriteMasked(const unsigned char* data, int x, int y, int width, int height, int maskcolor) { 
-   char* VRAM = (char*)0xA8000000; 
-   VRAM += 2*(LCD_WIDTH_PX*y + x); 
-   for(int j=y; j<y+height; j++) { 
-      for(int i=x; i<x+width;  i++) { 
-         if ((((((int)(*data))&0x000000FF)<<8) | ((((int)(*(data+1))))&0x000000FF)) != maskcolor) { 
-            *(VRAM++) = *(data++); 
-            *(VRAM++) = *(data++); 
-         } else { VRAM += 2; data += 2; } 
-      } 
-      VRAM += 2*(LCD_WIDTH_PX-width); 
-   } 
+void CopySpriteMasked(unsigned short* data, int x, int y, int width, int height, unsigned short maskcolor) {
+  unsigned short* VRAM = (unsigned short*)0xA8000000; 
+  VRAM += (LCD_WIDTH_PX*y + x); 
+  while(height--) {
+    int i=width;
+    while(i--){
+      if(*data!=maskcolor) {
+        *(VRAM++) = *(data++);
+      } else {
+        ++VRAM;
+        ++data;
+      }
+    }
+    VRAM += (LCD_WIDTH_PX-width);
+  }
 }
 /*void CopySpriteNbit(const unsigned char* data, int x, int y, int width, int height, const color_t* palette, unsigned int bitwidth) {
    color_t* VRAM = (color_t*)0xA8000000;

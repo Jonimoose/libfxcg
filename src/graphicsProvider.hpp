@@ -21,7 +21,7 @@ void drawRectangle(int x, int y, int width, int height, unsigned short color);
 void drawLine(int x1, int y1, int x2, int y2, int color);
 //void VRAMReplaceColorInRect(int x, int y, int width, int height, color_t color_old, color_t color_new);
 //void CopySprite(const void* datar, int x, int y, int width, int height);
-void CopySpriteMasked(const unsigned char* data, int x, int y, int width, int height, int maskcolor);
+void CopySpriteMasked(unsigned short* data, int x, int y, int width, int height, unsigned short maskcolor);
 //void CopySpriteNbit(const unsigned char* data, int x, int y, int width, int height, const color_t* palette, unsigned int bitwidth);
 int drawRGB24toRGB565(int r, int g, int b);
 int alphaBlend(int newcc, int oldcc, float alpha);
