@@ -36,7 +36,7 @@ void input_eval_loop(int isRecording);
 int is_running_in_strip();
 #define DIRNAME (unsigned char*)"@EIGEN"
 #define SCRIPTFILE (unsigned char*)"Script"
-
+static int aborttimer = 0;
 int
 main()
 {
@@ -45,7 +45,7 @@ main()
   printf("Welcome to Eigenmath\n");
   printf("To see version information,\npress Shift then Menu.\n");
   run_startup_script(); 
-  int aborttimer = Timer_Install(0, check_execution_abort, 100);
+  aborttimer = Timer_Install(0, check_execution_abort, 100);
   if (aborttimer > 0) { Timer_Start(aborttimer); }
   //in case we're running in a strip, check if this strip has a script to run.
   if(is_running_in_strip()) {
@@ -118,6 +118,10 @@ void input_eval_loop(int isRecording) {
           printf("Recording discarded.\n");
           return;
         }
+        if (aborttimer > 0) {
+          Timer_Stop(aborttimer);
+          Timer_Deinstall(aborttimer);
+        }
         char filename[MAX_FILENAME_SIZE+1] = "";
         strcpy(filename, "\\\\fls0\\");
         strcat(filename, inputname);
@@ -145,6 +149,8 @@ void input_eval_loop(int isRecording) {
         } else {
           printf("An error occurred when creating the script for recording.\n");
         }
+        aborttimer = Timer_Install(0, check_execution_abort, 100);
+        if (aborttimer > 0) Timer_Start(aborttimer);
         return;
       }
     } else {
