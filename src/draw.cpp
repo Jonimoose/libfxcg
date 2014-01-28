@@ -524,7 +524,7 @@ emit_xaxis(void)
         x2 = XOFF + DIMX;
         y2 = YOFF + yzero;
 
-        drawLine(x, y, x2, y2, COLOR_BLACK);
+        drawLine(x, y, x2, y2, COLOR_BLUE);
 }
 
 static void
@@ -541,7 +541,7 @@ emit_yaxis(void)
         x2 = XOFF + xzero;
         y2 = YOFF + DIMY;
 
-        drawLine(x, y, x2, y2, COLOR_BLACK);
+        drawLine(x, y, x2, y2, COLOR_BLUE);
 }
 
 static void
