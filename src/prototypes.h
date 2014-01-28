@@ -602,7 +602,7 @@ void eval_display(void);
 void printstr(char *s);
 void printchar(int c);
 void printchar_nowrap(int c);
-void eval_draw(void);
+void set_has_drawn(int val);
 void eval_sample(void);
 
 // mcmp.cpp
@@ -991,7 +991,3 @@ char * get_tty_buf(void);
 // zero.cpp
 void eval_zero(void);
 void test_zero(void);
-
-// plot.cpp
-void eval_plot(void);
-void eplot(void);
