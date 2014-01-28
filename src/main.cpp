@@ -23,6 +23,7 @@ extern int run_startup_script_again;
 int execution_in_progress = 0;
 int custom_key_to_handle;
 int custom_key_to_handle_modifier;
+int graphic_mode = 0;
 static char expr[INPUTBUFLEN];
 
 void run_script(char* filename);
@@ -154,6 +155,7 @@ void input_eval_loop(int isRecording) {
         return;
       }
     } else {
+      if(graphic_mode) Bdisp_AllClr_VRAM();
       execution_in_progress = 1;
       run(expr);
       // run_startup_script cannot run from inside eval_clear because then it would be a run() inside a run()
@@ -165,6 +167,11 @@ void input_eval_loop(int isRecording) {
         recHistory[curRecHistEntry] = (char*)alloca(strlen(expr)+2); // 2 bytes for security
         strcpy(recHistory[curRecHistEntry], expr);
         curRecHistEntry++;
+      }
+      
+      if(graphic_mode) {
+        int key;
+        GetKey(&key);
       }
     }
   }
@@ -372,7 +379,8 @@ printchar_nowrap(int c)
 void
 eval_draw(void)
 {
-        push(symbol(NIL));
+  graphic_mode = !graphic_mode; // shameless plug: use the "draw" command to enable graphic_mode      
+  push(symbol(NIL));
 }
 
 void

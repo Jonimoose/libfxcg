@@ -155,6 +155,7 @@ eval_cons(void)
 	case OPERATOR:		eval_operator();	break;
 	case OR:		eval_or();		break;
 	case OUTER:		eval_outer();		break;
+        case PLOT:          eval_plot();        break; // by gbl08ma
 	case POLAR:		eval_polar();		break;
 	case POWER:		eval_power();		break;
 	case PRIME:		eval_prime();		break;

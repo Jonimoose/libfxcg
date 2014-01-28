@@ -991,3 +991,7 @@ char * get_tty_buf(void);
 // zero.cpp
 void eval_zero(void);
 void test_zero(void);
+
+// plot.cpp
+void eval_plot(void);
+void eplot(void);

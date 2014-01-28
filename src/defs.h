@@ -145,6 +145,7 @@ enum {
 	OPERATOR,
 	OR,
 	OUTER,
+       PLOT, //by gbl08ma
 	POLAR,
 	POWER,
 	PRIME,
