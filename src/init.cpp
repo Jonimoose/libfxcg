@@ -129,6 +129,7 @@ init(void)
 	std_symbol("product", PRODUCT);
 	std_symbol("quote", QUOTE);
 	std_symbol("quotient", QUOTIENT);
+        std_symbol("random", RANDOM);
 	std_symbol("rank", RANK);
 	std_symbol("rationalize", RATIONALIZE);
 	std_symbol("real", REAL);

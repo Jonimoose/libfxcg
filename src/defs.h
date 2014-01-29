@@ -152,6 +152,7 @@ enum {
 	PRODUCT,
 	QUOTE,
 	QUOTIENT,
+        RANDOM, // by gbl08ma
 	RANK,
 	RATIONALIZE,
 	REAL,

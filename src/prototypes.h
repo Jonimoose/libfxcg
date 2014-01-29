@@ -992,3 +992,7 @@ char * get_tty_buf(void);
 // zero.cpp
 void eval_zero(void);
 void test_zero(void);
+
+// random.cpp - by gbl08ma
+void eval_random(void);
+void randomnum(void);

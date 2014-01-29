@@ -162,6 +162,7 @@ eval_cons(void)
 	case PRODUCT:		eval_product();		break;
 	case QUOTE:		eval_quote();		break;
 	case QUOTIENT:		eval_quotient();	break;
+        case RANDOM:              eval_random();            break; // by gbl08ma
 	case RANK:		eval_rank();		break;
 	case RATIONALIZE:	eval_rationalize();	break;
 	case REAL:		eval_real();		break;
