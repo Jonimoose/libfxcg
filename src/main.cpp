@@ -26,12 +26,12 @@ int custom_key_to_handle_modifier;
 int has_drawn = 0;
 static char expr[INPUTBUFLEN];
 
+void check_do_graph();
 void run_script(char* filename);
 void run_startup_script();
 void check_execution_abort();
 void select_script_and_run();
 void select_strip_script();
-void custom_key_handler();
 void script_recorder();
 void input_eval_loop(int isRecording);
 int is_running_in_strip();
@@ -85,7 +85,11 @@ void input_eval_loop(int isRecording) {
     }
     if(res == 3) {
       dConsolePut("\n");
-      custom_key_handler();
+      char buf[100] = "";
+      sprintf(buf, "prizmUIkeyHandler(%d,%d)", custom_key_to_handle, custom_key_to_handle_modifier);
+      strcpy(expr, (char*)buf);
+      run(buf);
+      check_do_graph();
       if(run_startup_script_again) { run_startup_script_again = 0; run_startup_script(); }
       continue;
     }
@@ -167,117 +171,120 @@ void input_eval_loop(int isRecording) {
         strcpy(recHistory[curRecHistEntry], expr);
         curRecHistEntry++;
       }
-      
-      if(has_drawn) {
-        int key;
-        int fkeymenu = 0;
-        while(1) {
-          DisplayStatusArea();
-          if(fkeymenu == 1) {
-            int iresult;
-            GetFKeyPtr(0x005F, &iresult); // INITIAL
-            FKey_Display(0, (int*)iresult);
-            GetFKeyPtr(0x0060, &iresult); // TRIG
-            FKey_Display(1, (int*)iresult);
-            GetFKeyPtr(0x0061, &iresult); // STANDRD
-            FKey_Display(2, (int*)iresult);
+      check_do_graph();
+    }
+  }
+}
+
+void check_do_graph() {
+  if(has_drawn) {
+    int key;
+    int fkeymenu = 0;
+    while(1) {
+      DisplayStatusArea();
+      if(fkeymenu == 1) {
+        int iresult;
+        GetFKeyPtr(0x005F, &iresult); // INITIAL
+        FKey_Display(0, (int*)iresult);
+        GetFKeyPtr(0x0060, &iresult); // TRIG
+        FKey_Display(1, (int*)iresult);
+        GetFKeyPtr(0x0061, &iresult); // STANDRD
+        FKey_Display(2, (int*)iresult);
+      }
+      GetKey(&key);
+      double xmin, xmax, ymin, ymax, xrange, yrange;
+      get_xyminmax(&xmin, &xmax, &ymin, &ymax);
+      xrange = xmax - xmin;
+      yrange = ymax - ymin;
+      if(fkeymenu == 0) {
+        if(key == KEY_CTRL_LEFT || key == KEY_CTRL_RIGHT) {
+          if(key==KEY_CTRL_LEFT) {
+            xmin -= xrange * 0.15;
+            xmax -= xrange * 0.15;
+          } else {
+            xmin += xrange * 0.15;
+            xmax += xrange * 0.15;
           }
-          GetKey(&key);
-          double xmin, xmax, ymin, ymax, xrange, yrange;
-          get_xyminmax(&xmin, &xmax, &ymin, &ymax);
-          xrange = xmax - xmin;
-          yrange = ymax - ymin;
-          if(fkeymenu == 0) {
-            if(key == KEY_CTRL_LEFT || key == KEY_CTRL_RIGHT) {
-              if(key==KEY_CTRL_LEFT) {
-                xmin -= xrange * 0.15;
-                xmax -= xrange * 0.15;
-              } else {
-                xmin += xrange * 0.15;
-                xmax += xrange * 0.15;
-              }
-              // easier than having to set the symbols in the complicated eigenmath system:
-              static char command[100];
-              sprintf(command, "xrange=(%g,%g)", xmin, xmax);
-              execution_in_progress = 1;
-              run(command);
-              run(expr);
-              execution_in_progress = 0;
-            } else if(key == KEY_CTRL_DOWN || key == KEY_CTRL_UP) {
-              if(key==KEY_CTRL_DOWN) {
-                ymin -= yrange * 0.15;
-                ymax -= yrange * 0.15;
-              } else {
-                ymin += yrange * 0.15;
-                ymax += yrange * 0.15;
-              }
-              // easier than having to set the symbols in the complicated eigenmath system:
-              static char command[100];
-              sprintf(command, "yrange=(%g,%g)", ymin, ymax);
-              execution_in_progress = 1;
-              run(command);
-              run(expr);
-              execution_in_progress = 0;
-            } else if(key == KEY_CHAR_PLUS || key == KEY_CHAR_MINUS) {
-              if(key==KEY_CHAR_PLUS) {
-                // 0.75 is 3/4
-                xmin = xmin * 0.75;
-                xmax = xmax * 0.75;
-                ymin = ymin * 0.75;
-                ymax = ymax * 0.75;
-              } else {
-                // 1.(3), or 1/(3/4), or 4/3
-                xmin = xmin * 4.0/3.0;
-                xmax = xmax * 4.0/3.0;
-                ymin = ymin * 4.0/3.0;
-                ymax = ymax * 4.0/3.0;
-              }
-              // easier than having to set the symbols in the complicated eigenmath system:
-              static char command[100];
-              sprintf(command, "yrange=(%g,%g)", ymin, ymax);
-              execution_in_progress = 1;
-              run(command);
-              sprintf(command, "xrange=(%g,%g)", xmin, xmax);
-              run(command);
-              run(expr);
-              execution_in_progress = 0;
-            } else if(key == KEY_CTRL_F3) {
-              fkeymenu = 1;
-              key = 0;
-            } else if(key == KEY_CTRL_EXIT || key==KEY_CTRL_F6) break;
+          // easier than having to set the symbols in the complicated eigenmath system:
+          static char command[100];
+          sprintf(command, "xrange=(%g,%g)", xmin, xmax);
+          execution_in_progress = 1;
+          run(command);
+          run(expr);
+          execution_in_progress = 0;
+        } else if(key == KEY_CTRL_DOWN || key == KEY_CTRL_UP) {
+          if(key==KEY_CTRL_DOWN) {
+            ymin -= yrange * 0.15;
+            ymax -= yrange * 0.15;
+          } else {
+            ymin += yrange * 0.15;
+            ymax += yrange * 0.15;
           }
-          if(fkeymenu == 1) {
-            if(key == KEY_CTRL_F1) {
-              execution_in_progress = 1;
-              run("xrange=(-10,10)");
-              run("yrange=(-10,10)");
-              run(expr);
-              execution_in_progress = 0;
-            } else if(key == KEY_CTRL_F2) {
-              execution_in_progress = 1;
-              static char command[100];
-              sprintf(command, "xrange=(%g,%g)", -3.0*M_PI, 3.0*M_PI);
-              run(command);
-              run("yrange=(-1.6, 1.6)");
-              run(expr);
-              execution_in_progress = 0;
-            } else if(key == KEY_CTRL_F3) {
-              execution_in_progress = 1;
-              run("xrange=(-10,10)");
-              run("yrange=(-5,5)");
-              run(expr);
-              execution_in_progress = 0;
-            } else if(key == KEY_CTRL_EXIT) {
-              fkeymenu = 0;
-              execution_in_progress = 1;
-              run(expr);
-              execution_in_progress = 0;
-            }
+          // easier than having to set the symbols in the complicated eigenmath system:
+          static char command[100];
+          sprintf(command, "yrange=(%g,%g)", ymin, ymax);
+          execution_in_progress = 1;
+          run(command);
+          run(expr);
+          execution_in_progress = 0;
+        } else if(key == KEY_CHAR_PLUS || key == KEY_CHAR_MINUS) {
+          if(key==KEY_CHAR_PLUS) {
+            // 0.75 is 3/4
+            xmin = xmin * 0.75;
+            xmax = xmax * 0.75;
+            ymin = ymin * 0.75;
+            ymax = ymax * 0.75;
+          } else {
+            // 1.(3), or 1/(3/4), or 4/3
+            xmin = xmin * 4.0/3.0;
+            xmax = xmax * 4.0/3.0;
+            ymin = ymin * 4.0/3.0;
+            ymax = ymax * 4.0/3.0;
           }
+          // easier than having to set the symbols in the complicated eigenmath system:
+          static char command[100];
+          sprintf(command, "yrange=(%g,%g)", ymin, ymax);
+          execution_in_progress = 1;
+          run(command);
+          sprintf(command, "xrange=(%g,%g)", xmin, xmax);
+          run(command);
+          run(expr);
+          execution_in_progress = 0;
+        } else if(key == KEY_CTRL_F3) {
+          fkeymenu = 1;
+          key = 0;
+        } else if(key == KEY_CTRL_EXIT || key==KEY_CTRL_F6) break;
+      }
+      if(fkeymenu == 1) {
+        if(key == KEY_CTRL_F1) {
+          execution_in_progress = 1;
+          run("xrange=(-10,10)");
+          run("yrange=(-10,10)");
+          run(expr);
+          execution_in_progress = 0;
+        } else if(key == KEY_CTRL_F2) {
+          execution_in_progress = 1;
+          static char command[100];
+          sprintf(command, "xrange=(%g,%g)", -3.0*M_PI, 3.0*M_PI);
+          run(command);
+          run("yrange=(-1.6, 1.6)");
+          run(expr);
+          execution_in_progress = 0;
+        } else if(key == KEY_CTRL_F3) {
+          execution_in_progress = 1;
+          run("xrange=(-10,10)");
+          run("yrange=(-5,5)");
+          run(expr);
+          execution_in_progress = 0;
+        } else if(key == KEY_CTRL_EXIT) {
+          fkeymenu = 0;
+          execution_in_progress = 1;
+          run(expr);
+          execution_in_progress = 0;
         }
-        has_drawn = 0;
       }
     }
+    has_drawn = 0;
   }
 }
 
@@ -409,11 +416,6 @@ int get_custom_key_handler_state() {
   if(isnonnegativeinteger(tmp)) {
     return !iszero(tmp);
   } else return 0;
-}
-void custom_key_handler() {
-  char buf[100] = "";
-  sprintf(buf, "prizmUIkeyHandler(%d,%d)", custom_key_to_handle, custom_key_to_handle_modifier);
-  run(buf);
 }
 int get_custom_fkey_label(int fkey) {
   U* tmp;
