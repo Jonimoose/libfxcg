@@ -88,7 +88,9 @@ void input_eval_loop(int isRecording) {
       char buf[100] = "";
       sprintf(buf, "prizmUIkeyHandler(%d,%d)", custom_key_to_handle, custom_key_to_handle_modifier);
       strcpy(expr, (char*)buf);
+      execution_in_progress = 1;
       run(buf);
+      execution_in_progress = 0;
       check_do_graph();
       if(run_startup_script_again) { run_startup_script_again = 0; run_startup_script(); }
       continue;
