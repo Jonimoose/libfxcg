@@ -312,6 +312,7 @@ void setup_xrange_f(void);
 void setup_yrange(void);
 void setup_yrange_f(void);
 void emit_graph(void);
+void get_xyminmax(double* xminp, double* xmaxp, double* yminp, double* ymaxp);
 
 // dsolve.cpp
 void dsolve(void);

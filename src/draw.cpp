@@ -17,7 +17,7 @@
 #include "stdafx.h"
 #include "defs.h"
 
-#define DIMX 350
+#define DIMX 380
 #define DIMY 190
 
 #define F p3
@@ -478,11 +478,20 @@ setup_yrange_f(void)
 		stop("draw: yrange is zero");
 }
 
+void get_xyminmax(double* xminp, double* xmaxp, double* yminp, double* ymaxp) {
+  *xminp = xmin;
+  *xmaxp = xmax;
+  *yminp = ymin;
+  *ymaxp = ymax;
+}
+
 #define XOFF 0
 #define YOFF 24
 
 static void emit_xaxis(void);
 static void emit_yaxis(void);
+static void emit_xscale(void);
+static void emit_yscale(void);
 
 static void get_xzero(void);
 static void get_yzero(void);
@@ -498,6 +507,9 @@ emit_graph(void)
   get_yzero();
   emit_xaxis();
   emit_yaxis();
+  emit_xscale();
+  emit_yscale();
+        
   for (i = 0; i < draw_count; i++) {
           x = draw_buf[i].x;
           y = DIMY - draw_buf[i].y; // flip the y coordinate
@@ -505,7 +517,7 @@ emit_graph(void)
                   continue;
           if (y < 0 || y > DIMY)
                   continue;
-          plot(x+XOFF, y+YOFF, COLOR_BLACK);
+          plot(x+XOFF, y+YOFF, COLOR_BLUE);
   }
   set_has_drawn(1);
 }
@@ -524,7 +536,7 @@ emit_xaxis(void)
         x2 = XOFF + DIMX;
         y2 = YOFF + yzero;
 
-        drawLine(x, y, x2, y2, COLOR_BLUE);
+        drawLine(x, y, x2, y2, COLOR_BLACK);
 }
 
 static void
@@ -541,7 +553,7 @@ emit_yaxis(void)
         x2 = XOFF + xzero;
         y2 = YOFF + DIMY;
 
-        drawLine(x, y, x2, y2, COLOR_BLUE);
+        drawLine(x, y, x2, y2, COLOR_BLACK);
 }
 
 static void
@@ -566,6 +578,61 @@ get_yzero(void)
         if (y > 10000.0)
                 y = 10000.0;
         yzero = DIMY - (int) y; // flip the y coordinate
+}
+
+static void emit_xscale_f(int, char *);
+
+static void
+emit_xscale(void)
+{
+        static char s[100];
+        sprintf(s, "%g", xmin);
+        emit_xscale_f(0, s);
+        sprintf(s, "%g", xmax);
+        emit_xscale_f(DIMX, s);
+}
+
+static void
+emit_xscale_f(int xx, char *s)
+{
+        int w, x, y;
+        y = 0;
+        w = 0;
+        PrintMiniMini( &w, &y, (unsigned char*)s, 0, TEXT_COLOR_BLACK, 1 ); // get width
+
+        x = XOFF + xx;
+        if(x >= DIMX) x = x-w;
+        y = YOFF + yzero - 24+2;
+
+        PrintMiniMini( &x, &y, (unsigned char*)s, 0, TEXT_COLOR_BLACK, 0 );
+}
+
+static void emit_yscale_f(int, char *);
+
+static void
+emit_yscale(void)
+{
+        static char s[100];
+        sprintf(s, "%g", ymax);
+        emit_yscale_f(0, s);
+        sprintf(s, "%g", ymin);
+        emit_yscale_f(DIMY, s);
+}
+
+static void
+emit_yscale_f(int yy, char *s)
+{
+        int w, x, y;
+
+        y = 0;
+        w = 0;
+        PrintMiniMini( &w, &y, (unsigned char*)s, 0, TEXT_COLOR_BLACK, 1 ); // get width
+
+        x = xzero - w;
+        y = YOFF + yy;
+        if(y >= DIMY) y = y-9;
+        y -= 24;
+        PrintMiniMini( &x, &y, (unsigned char*)s, 0, TEXT_COLOR_BLACK, 0 );
 }
 /*
 #define XOFF 0
