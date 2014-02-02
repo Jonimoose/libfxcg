@@ -20,7 +20,10 @@ struct tm
   int	tm_yday;
   int	tm_isdst;
 };
+#ifndef __clock_t_defined
 typedef int clock_t;
+#define __clock_t_defined
+#endif
 #define CLOCKS_PER_SEC 128
 clock_t clock(void);
 time_t mktime (struct tm * timeptr);

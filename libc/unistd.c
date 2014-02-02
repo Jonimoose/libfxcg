@@ -13,11 +13,44 @@ handles. These functions handle that mapping.
 Use these when throwing around files, mostly.  See their usage in fopen and
 fclose.
 */
+
+int getgroups(int gidsetsize, gid_t grouplist[]){
+	fputs("getgroups\n",stderr);
+	return -1;
+}
+
+int tcsetpgrp(int fildes, pid_t pgid_id){
+	fputs("tcsetpgrp\n",stderr);
+	return -1;
+}
+
+pid_t tcgetpgrp(int fildes){
+	fputs("tcgetpgrp\n",stderr);
+	return -1;
+}
+
+pid_t getpgrp(void){
+	fputs("getpgrp\n",stderr);
+	return -1;
+}
+
+int setpgid(pid_t pid, pid_t pgid){
+	fputs("setpgid\n",stderr);
+	return -1;
+}
+
+char *getcwd(char *buf, size_t size){
+	fputs("getcwd\n",stderr);
+	return 0;
+}
+
 const char * userNamelogin="CasioNerd";
 char *getlogin(void){
 	return userNamelogin;
 }
-
+int dup2(int oldfd, int newfd){
+	return -1;
+}
 unsigned sleep(unsigned seconds){
 	//TODO put cpu in lower power mode
 	int a=RTC_GetTicks()+(seconds*128);// returns 1/128 seconds

@@ -52,6 +52,9 @@ int fstat(int fd, struct stat *buf){
 	fprintf(stderr,"fstat not yet supported %d\n",fd);
 	return -1;
 }
+int lstat(const char * path, struct stat * buf){
+	return stat(path,buf);
+}
 mode_t umask(mode_t cmask){
 	fprintf(stderr,"unmask %d\n",cmask);
 	return -1;

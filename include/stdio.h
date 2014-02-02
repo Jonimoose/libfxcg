@@ -109,6 +109,7 @@ int fprintf(FILE *stream, const char *fmt, ...);
 int vprintf(const char * format, va_list arg);
 int vfprintf(FILE *stream, const char *fmt, va_list ap);
 int vsprintf(char *str, const char *fmt, va_list ap);
+int vsnprintf (char * s, size_t n, const char * format, va_list arg);
 #ifdef __cplusplus
 }
 #endif

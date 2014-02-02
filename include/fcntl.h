@@ -10,6 +10,10 @@
 #define O_RDONLY 32
 #define O_WRONLY 64
 #define O_RDWR 128
+#define O_NONBLOCK 256
+
+/* XXX close on exec request; must match UF_EXCLOSE in user.h */
+#define	FD_CLOEXEC	1	/* posix */
 
 #define        F_DUPFD                0                /* duplicate file descriptor */
 #define        F_GETFD                1                /* get file descriptor flags */

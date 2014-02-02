@@ -35,7 +35,7 @@ long strtol(const char *str, char **str_end, int base);
 #define atol(s) strtol(s, NULL, 10)
 int sys_atoi(const char * s);
 
-double strtod(const char *s, char **str_end);
+double strtod (const char* str, char** endptr);
 #define atof(s) ((float)strtod(s, NULL))
 
 void qsort(void *base, size_t nel, size_t width, int (*compar)(const void *, const void *));

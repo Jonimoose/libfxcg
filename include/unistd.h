@@ -10,6 +10,18 @@ extern "C" {
 // it.  Implementations here are mostly wrappers for standard library functions
 #include <sys/types.h>
 
+int getgroups(int gidsetsize, gid_t grouplist[]);
+
+int tcsetpgrp(int fildes, pid_t pgid_id);
+
+pid_t tcgetpgrp(int fildes);
+
+pid_t getpgrp(void);
+
+int setpgid(pid_t pid, pid_t pgid);
+
+char *getcwd(char *buf, size_t size);
+
 unsigned sleep(unsigned seconds);
 
 char *getlogin(void);
@@ -54,6 +66,11 @@ int rmdir(const char *path);
 
 int dup(int fd);
 int dup2(int fd, int fd2);
+
+#define	F_OK	0
+#define	R_OK	4
+#define	W_OK	2
+#define	X_OK	1
 
 // Seek constants in stdio are canonical, these should be the same.
 #define SEEK_SET 0

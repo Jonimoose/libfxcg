@@ -108,8 +108,16 @@ int _printf_weird(va_list *ap, writer_t writer, const void *dest, format_t fmt) 
 void _writer_stream(const void *wdest, char c) {
 	fputc(c, (FILE *)wdest);
 }
+static int maxWrite;
+static int wroteW;
 void _writer_buffer(const void *wdest, char c) {
 	// Needs to track buffer location, so double pointer
+	if(maxWrite>0){
+		if(wroteW>=(maxWrite-1))
+			return;
+		else
+			++wroteW;
+	}
 	char **dest = (char **)wdest;
 	**dest = c;
 	dest[0][1]=0;//Ensure sprintf output is null terminated
@@ -291,7 +299,7 @@ out:
     return count;
 }
 
-int vfprintf(FILE *stream, const char *fmt, va_list ap) {
+int vfprintf(FILE *stream, const char *fmt, va_list ap){
     return _v_printf(fmt, ap, _writer_stream, stream);
 }
 int vprintf(const char * format, va_list arg){
@@ -313,10 +321,15 @@ int printf(const char *fmt, ...) {
     return ret;
 }
 
-int vsprintf(char *str, const char *fmt, va_list ap) {
+int vsprintf(char *str, const char *fmt, va_list ap){
+	maxWrite=-1;
     return _v_printf(fmt, ap, _writer_buffer, &str);
 }
-
+int vsnprintf (char * s, size_t n, const char * format, va_list arg){
+	maxWrite=n;
+	wroteW=0;
+	return _v_printf(format, arg, _writer_buffer, &s);
+}
 int sprintf(char *str, const char *fmt, ...) {
     va_list ap;
     va_start(ap, fmt);

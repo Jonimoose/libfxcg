@@ -38,6 +38,7 @@ __FBSDID("$FreeBSD$");
  */
 //#include "namespace.h"
 #include <signal.h>
+#include <stdio.h>
 //#include "un-namespace.h"
 //#include "libc_private.h"
 
@@ -59,4 +60,19 @@ signal(s, a)
 		return (SIG_ERR);
 	return (osa.sa_handler);*/
 	return 0;
+}
+
+int sigsuspend(const sigset_t *mask){
+	fputs("sigsuspend\n",stderr);
+	return -1;
+}
+
+int sigprocmask(int how, const sigset_t *set, sigset_t *oldset){
+	fputs("sigprocmask\n",stderr);
+	return -1;
+}
+
+int sigaction(int signum, const struct sigaction *act,struct sigaction *oldact){
+	fputs("sigaction\n",stderr);
+	return -1;
 }

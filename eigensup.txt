@@ -1,0 +1,32 @@
+logab(a,b)=log(b)/log(a)
+log10(x)=log(x)/log(10)
+ln(x)=log(x)
+cis(x)=cos(x)+i*sin(x)
+cot(x)=1/tan(x)
+coth(x)=cosh(x)/sinh(x)
+arccot(x)=arctan(1/x)
+arccoth(x)=arctanh(1/x)
+sec(x)=1/cos(x)
+sech(x)=1/cosh(x)
+arcsec(x)=arccos(1/x)
+arcsech(x)=arccosh(1/x)
+csc(x)=1/sin(x)
+csch(x)=1/sinh(x)
+arccsc(x)=arcsin(1/x)
+arccsch(x)=arcsinh(1/x)
+npr(n,r)=(n!)/(n-r)!
+ncr(n,r)=n!/(r!(n-r)!)
+xor(x,y)=or(and(x,not(y)),and(not(x),y))
+prizmUIhandleKeys=1
+prizmUIkeyHandler(k,s)=(test(
+  k=30011,clear,
+  k=149,log10(last),
+  k=181,10^last,
+  k=155,last^(-1),
+--print(k,s)))
+nil))
+prizmUIfkey3label=329
+-- for gbl08ma only:
+clr()=clear
+cls()=clear
+print("startup script ran")

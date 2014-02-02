@@ -151,7 +151,8 @@ int _EXFUN(_kill, (pid_t, int));
 #endif
 int _EXFUN(kill, (pid_t, int));
 int _EXFUN(killpg, (pid_t, int));
-int _EXFUN(sigaction, (int, const struct sigaction *, struct sigaction *));
+//int _EXFUN(sigaction, (int, const struct sigaction *, struct sigaction *));
+int sigaction(int signum, const struct sigaction *act,struct sigaction *oldact);
 int _EXFUN(sigaddset, (sigset_t *, const int));
 int _EXFUN(sigdelset, (sigset_t *, const int));
 int _EXFUN(sigismember, (const sigset_t *, int));
