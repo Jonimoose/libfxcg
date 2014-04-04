@@ -1,4 +1,3 @@
-OUTPUT_FORMAT(binary)
 OUTPUT_ARCH(sh3)
  
 /* Entry point.  Not really important here, since doing binary output */
