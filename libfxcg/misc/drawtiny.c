@@ -533,7 +533,7 @@ static char stdioBuffer[24];
 static void drawHeld(char * s,int *x,int *y,int * fg,int * bg,int n){
 	int yd[2];
 	while(n>0){
-		char * ss=insideLoop(s,&termxfxcg,&termyfxcg,&termFGfxcg,&termBGfxcg,yd);
+		char * ss=insideLoop(s,x,y,fg,bg,yd);
 		n-=ss-s;
 		s=ss;
 	}

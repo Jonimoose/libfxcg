@@ -2,7 +2,7 @@ Note this assumes my fork of libfxcg
 Step 0
 make sure that sh3eb-elf is in your path you should be able to run sh3eb-elf-gcc without ./ infront of the command
 Step 1 run
-./configure --host=sh3eb-elf CFLAGS="-m4a-nofpu -mb -Os -mhitachi -Wall -I$HOME/Documents/casio/libfxcg/include -flto -ffunction-sections -fdata-sections" CXXFLAGS="-m4a-nofpu -mb -Os -mhitachi -Wall -I$HOME/Documents/casio/libfxcg/include -lsupc++ -flto -ffunction-sections -fdata-sections" LDFLAGS="-L$HOME/Documents/casio/libfxcg/lib -nostartfiles -T$HOME/Documents/casio/libfxcg/toolchain/prizm.x -Wl,-static -Wl,--gc-sections -flto" --disable-mmap --without-zlib --without-bzip2 --without-png  --without-ats --without-quickdraw-carbon --without-quickdraw-toolbox --without-fsref --without-fsspec --without-old-mac-fonts --with-gnu-ld
+./configure --host=sh3eb-elf CFLAGS="-m4a-nofpu -mb -Os -mhitachi -Wall -I$HOME/Documents/casio/libfxcg/include -flto -ffunction-sections -fdata-sections" CXXFLAGS="-m4a-nofpu -mb -Os -mhitachi -Wall -I$HOME/Documents/casio/libfxcg/include -lsupc++ -flto -ffunction-sections -fdata-sections" LDFLAGS="-L$HOME/Documents/casio/libfxcg/lib -nostartfiles -T$HOME/Documents/casio/libfxcg/toolchain/prizm.x -Wl,-static -Wl,--gc-sections -Os -flto" --disable-mmap --without-zlib --without-bzip2 --without-png  --without-ats --without-quickdraw-carbon --without-quickdraw-toolbox --without-fsref --without-fsspec --without-old-mac-fonts --with-gnu-ld --with-harfbuzz=no
 Step 2 Customize modules.cfg
 Remove what you don't need this is important I saved over 100kb by doing this
 step 3 run
