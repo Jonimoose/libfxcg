@@ -3,7 +3,7 @@
 #include <fxcg/terminal.h>
 #include <stdio.h>
 #include <ft2build.h>
-#include "DroidSans.h"
+#include "Georgia.h"
 #include FT_FREETYPE_H
 #include FT_FREETYPE_H
 #include FT_GLYPH_H
@@ -72,7 +72,7 @@ void main(void){
 	int key;
 	int error = FT_Init_FreeType(&ft);
 	if (error) errorMessage(__LINE__,error);
-	error = FT_New_Memory_Face(ft, DroidSans, /* first byte in memory */ 190044, /* size in bytes */ 0, /* face_index */ &face );
+	error = FT_New_Memory_Face(ft, Georgia, /* first byte in memory */ 174299, /* size in bytes */ 0, /* face_index */ &face );
 	if (error) errorMessage(__LINE__,error);
 	/* The casio prizm has about a 2.8x1.6 inch display NOTE the ruler I used is not the greatest
 	So therefore the casio prizm has 384/2.8=137 (rounded to nearst integer) dpi width and 216/1.6=135 dpi height*/

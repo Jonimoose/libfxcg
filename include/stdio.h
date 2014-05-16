@@ -1,5 +1,5 @@
-#ifndef _FXCG_STDIO_H
-#define _FXCG_STDIO_H
+#ifndef _STDIO_H
+#define _STDIO_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -27,7 +27,7 @@ extern int termxfxcg,termyfxcg,termFGfxcg,termBGfxcg;
 
 #define        EOF        (-1)
 
-#define PATH_MAX 256 //needed for python
+#define PATH_MAX 256 /*needed for python*/
 
 typedef struct {
     /* Usual values for stdin and friends, everything else is the handle

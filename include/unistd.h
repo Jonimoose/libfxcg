@@ -6,8 +6,8 @@ typedef int off_t;
 extern "C" {
 #endif
 
-// This stuff doesn't belong since we're not a UNIX system, but python wants
-// it.  Implementations here are mostly wrappers for standard library functions
+/* This stuff doesn't belong since we're not a UNIX system, but python wants
+it.  Implementations here are mostly wrappers for standard library functions*/
 #include <sys/types.h>
 
 int getgroups(int gidsetsize, gid_t grouplist[]);

@@ -9,7 +9,10 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-typedef unsigned int size_t;
+#ifndef __SIZE_T_DEFINED
+#define __SIZE_T_DEFINED
+typedef unsigned size_t;
+#endif
 #include <stddef.h>
 
 int putenv(char *string);
