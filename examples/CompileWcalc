@@ -15,7 +15,9 @@ Now just run make again
 Again it will compile without error
 Now you can finally compile wcalc
 ./configure --host=sh3eb-elf --build=x86_64-unknown-linux-gnu  CFLAGS="-m4a-nofpu -mb -Os -mhitachi -Wall -I$HOME/Documents/casio/libfxcg/include -I$HOME/Documents/casio/libfxcg/examples/mpfr-3.1.2/src/ -I$HOME/Documents/casio/libfxcg/examples/gmp-6.0.0/ -flto" LDFLAGS="-L$HOME/Documents/casio/libfxcg/lib -L$HOME/Documents/casio/libfxcg/examples/gmp-6.0.0/.libs/ -L$HOME/Documents/casio/libfxcg/examples/mpfr-3.1.2/src/.libs -nostartfiles -T$HOME/Documents/casio/libfxcg/toolchain/prizm.x -Wl,-static -Wl,-gc-sections -m4a-nofpu -mb -Os -mhitachi -flto"
-Now before running make we need to modify the source code of wcalc to include the screen setup so after all the #include s add
+Now before running make we need to modify the source code of wcalc to include the screen setup.
+In the folder src/cli open main.c
+and after all the #include s add
 #include <fxcg/terminal.h>
 Then look for
 int main(int   argc,
