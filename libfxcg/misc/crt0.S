@@ -74,7 +74,7 @@ v_sdata:
     .long _sdata
    
 v_ram_bbss:
-    .long _bbss
+    .long __bss_start__
 v_ram_ebss:
-    .long _ebss
+    .long __bss_end__
  

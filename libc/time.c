@@ -75,4 +75,5 @@ time_t time (time_t* timer){
 int gettimeofday(struct timeval *tv, struct timezone *tz){
 	tv->tv_usec=0;//caiso prizm RTC does not have that much presison don't even bother
 	tv->tv_sec=getCurrentSecond()+(getCurrentMinute()*60)+(getCurrentHour()*60*60);
+	return 0;
 }
