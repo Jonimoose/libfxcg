@@ -16,7 +16,7 @@ typedef unsigned char wchar_t;
 #endif
 
 typedef int ptrdiff_t;
-
+typedef int wint_t;
 #define offsetof(type, member) __builtin_offsetof(type, member)
 #ifndef __SIZE_T_DEFINED
 #define __SIZE_T_DEFINED
