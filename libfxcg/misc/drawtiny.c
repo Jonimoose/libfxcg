@@ -703,6 +703,7 @@ size_t inputStrTiny(unsigned char * str,size_t max,int newline){
 		drawTinyStrnn(str,&termxfxcg,&termyfxcg,&bg,&fg,max);
 		drawTinyC(str[pos],termxold+((pos&63)*6),termyold+((pos/64)*8),0,0xFFFF);//draw cursor			
 	}
-	putchar('\n');
+	//putchar('\n');
+	
 	return strlen((const char *)str);
 }

@@ -279,7 +279,7 @@ int ungetc(int c, FILE *f) {
 int getchar(void){
 	char tmp;
 	inputStrTiny(&tmp,1,0);
-	return (tmp!=0)?tmp:-1;
+	return (tmp!=0)?tmp:EOF;
 }
 
 int fseek(FILE *f, long offset, int whence) {
