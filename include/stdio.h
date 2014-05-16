@@ -105,6 +105,7 @@ long ftell(FILE *f);
 
 int printf(const char *fmt, ...);
 int sprintf(char *dest, const char *fmt, ...);
+int snprintf ( char * s, size_t n, const char * format, ... );
 int fprintf(FILE *stream, const char *fmt, ...);
 int vprintf(const char * format, va_list arg);
 int vfprintf(FILE *stream, const char *fmt, va_list ap);

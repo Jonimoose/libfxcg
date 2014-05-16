@@ -11,7 +11,7 @@
 
 #include <machine/_types.h>
 #include <sys/lock.h>
-typedef unsigned int wint_t;//Added to fix compile error
+typedef int wint_t;//Added to fix compile error
 
 #ifndef __off_t_defined
 typedef long _off_t;

@@ -14,7 +14,7 @@ extern "C" {
 /* We don't do unicode of any sort.*/
 typedef unsigned char wchar_t;
 #endif
-
+typedef int ssize_t;
 typedef int ptrdiff_t;
 typedef int wint_t;
 #define offsetof(type, member) __builtin_offsetof(type, member)

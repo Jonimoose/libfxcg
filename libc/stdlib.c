@@ -46,19 +46,13 @@ void *realloc(void *ptr, size_t sz) {
 void free(void *ptr) {
     sys_free(ptr);
 }
-
-void  __attribute__((noreturn)) exit(int status){
-    fprintf(stderr, "TERMINATED (%i)\n", status);
+void _exit(int stat){
+	fprintf(stderr, "TERMINATED (%i)\n", stat);
     puts("To exit press the menu key");
     puts("Before running this program again please launch another program before running this one again");
-    // We don't have a clean way to exit (right now), so just crash it.
-    //((void (*)())1)(); // Unaligned instruction
     int key;
 	while(1)
 		GetKey(&key);
-}
-void _exit(int stat){
-	exit(stat);
 }
 
 #if __WORDSIZE == 64

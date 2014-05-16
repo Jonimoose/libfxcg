@@ -330,6 +330,13 @@ int vsnprintf (char * s, size_t n, const char * format, va_list arg){
 	wroteW=0;
 	return _v_printf(format, arg, _writer_buffer, &s);
 }
+int snprintf ( char * s, size_t n, const char * format, ... ){
+	va_list ap;
+    va_start(ap, format);
+    int ret = vsnprintf(s,n,format,ap);
+    va_end(ap);
+    return ret;
+}
 int sprintf(char *str, const char *fmt, ...) {
     va_list ap;
     va_start(ap, fmt);

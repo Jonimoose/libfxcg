@@ -1,0 +1,33 @@
+This guide assmues my fork of libfxcg. My fork contains many standard library imporvments which make porting console programs much easier
+Note before running ./configure please run export ac_cv_func_malloc_0_nonnull=yes;export ac_cv_func_realloc_0_nonnull=yes
+You can download my fork here: https://github.com/ComputerNerd/libfxcg
+Note Wcal needs MPFR so please download that in addition to wcalc Get it from here download the latest version.
+http://www.mpfr.org/mpfr-current/#download
+However before MPFR can be compiled you need GMP
+Get it from here https://gmplib.org/ again download the latest version do not use an old version just because I used it.
+First configure gmp with
+./configure --host=sh3eb-elf --build=x86_64-unknown-linux-gnu  CFLAGS="-m4a-nofpu -mb -Os -mhitachi -Wall -I$HOME/Documents/casio/libfxcg/include -flto" LDFLAGS="-L$HOME/Documents/casio/libfxcg/lib -nostartfiles -T$HOME/Documents/casio/libfxcg/toolchain/prizm.x -Wl,-static -Wl,-gc-sections -m4a-nofpu -mb -Os -mhitachi -flto" --with-gnu-ld --enable-alloca=alloca
+Then run make (simply type in make in terminal)
+It will compile without error.
+Now using what you just compiled you can now compile MPFR
+./configure --host=sh3eb-elf --build=x86_64-unknown-linux-gnu  CFLAGS="-m4a-nofpu -mb -Os -mhitachi -Wall -I$HOME/Documents/casio/libfxcg/include -flto" LDFLAGS="-L$HOME/Documents/casio/libfxcg/lib -nostartfiles -T$HOME/Documents/casio/libfxcg/toolchain/prizm.x -Wl,-static -Wl,-gc-sections -m4a-nofpu -mb -Os -mhitachi -flto" --with-gnu-ld --disable-thread-safe --with-gmp-include="$HOME/Documents/casio/libfxcg/examples/gmp-6.0.0/" --with-gmp-lib="$HOME/Documents/casio/libfxcg/examples/gmp-6.0.0/.libs"
+Now just run make again
+Again it will compile without error
+Now you can finally compile wcalc
+./configure --host=sh3eb-elf --build=x86_64-unknown-linux-gnu  CFLAGS="-m4a-nofpu -mb -Os -mhitachi -Wall -I$HOME/Documents/casio/libfxcg/include -I$HOME/Documents/casio/libfxcg/examples/mpfr-3.1.2/src/ -I$HOME/Documents/casio/libfxcg/examples/gmp-6.0.0/ -flto" LDFLAGS="-L$HOME/Documents/casio/libfxcg/lib -L$HOME/Documents/casio/libfxcg/examples/gmp-6.0.0/.libs/ -L$HOME/Documents/casio/libfxcg/examples/mpfr-3.1.2/src/.libs -nostartfiles -T$HOME/Documents/casio/libfxcg/toolchain/prizm.x -Wl,-static -Wl,-gc-sections -m4a-nofpu -mb -Os -mhitachi -flto"
+Now before running make we need to modify the source code of wcalc to include the screen setup so after all the #include s add
+#include <fxcg/terminal.h>
+Then look for
+int main(int   argc,
+         char *argv[])
+{
+Then change it to int main(void){
+And after the { add a new line and then add
+	FXCGinitTerminal
+	FXCGgetArgs
+NO semicolens needed
+
+Now you can run make
+It will build without error. You are almost done all you need to do is convert it to a g3a use this command to do such
+First cd src (make sure you are in the folder called src)
+sh3eb-elf-objcopy -O binary wcalc wcalc.bin;mkg3a -n:"wcalc" wcalc.bin
