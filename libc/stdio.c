@@ -278,7 +278,7 @@ int ungetc(int c, FILE *f) {
 }
 int getchar(void){
 	char tmp;
-	inputStrTiny(&tmp,1,0);
+	inputStrTiny(&tmp,1,1);
 	return (tmp!=0)?tmp:EOF;
 }
 

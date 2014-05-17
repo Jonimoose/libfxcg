@@ -616,18 +616,23 @@ void drawTinyStrnn(char * s,int *x,int *y,int *fg,int *bg,int n){
 	if(yd[0]>=0)
 		Bdisp_PutDisp_DD_stripe(yd[0],yd[1]);
 }
+static int lowerCaseGet;
 size_t inputStrTiny(unsigned char * str,size_t max,int newline){
 	memset(str,0,max);
 	int key;
 	int termxold=termxfxcg;
 	int termyold=termyfxcg;
-	int offset=0,pos=0,lower=0;
+	int offset=0,pos=0;
 	while(1){
 		GetKey(&key);
 		if(key==KEY_CTRL_EXE){
 			//See if possible to add newline
-			if((max>1)&&(newline!=0))
-				strcat(str,"\n");
+			if(newline){
+				if((max==1)&&(str[0]==0))
+					str[0]='\n';
+				else
+					strcat(str,"\n");
+			}
 			break;
 		}else if(key==KEY_CTRL_EXIT){
 			break;
@@ -637,12 +642,12 @@ size_t inputStrTiny(unsigned char * str,size_t max,int newline){
 		}else if(key==KEY_CTRL_RIGHT){
 			if(pos<(max-1)) ++pos;
 		}else if (key==KEY_CTRL_F1){
-			lower^=1;
+			lowerCaseGet^=1;
 		}else if((key>=KEY_CHAR_0)&&(key<=KEY_CHAR_9)){
 			str[pos]=key-KEY_CHAR_0+'0';
 			if(pos<(max-1)) ++pos;
 		}else if((key>=KEY_CHAR_A)&&(key<=KEY_CHAR_Z)){
-			if(lower)
+			if(lowerCaseGet)
 				str[pos]=key-KEY_CHAR_A+'a';
 			else
 				str[pos]=key-KEY_CHAR_A+'A';
@@ -695,15 +700,17 @@ size_t inputStrTiny(unsigned char * str,size_t max,int newline){
 				drawTinyC(' ',termxfxcg-6,termyfxcg,0,0xFFFF);
 			}
 		}
+drawItGet:
 		termxfxcg=termxold;
 		termyfxcg=termyold;
 		int bg,fg;
 		bg=0xFFFF;
 		fg=0;
 		drawTinyStrnn(str,&termxfxcg,&termyfxcg,&bg,&fg,max);
-		drawTinyC(str[pos],termxold+((pos&63)*6),termyold+((pos/64)*8),0,0xFFFF);//draw cursor			
+		drawTinyC(str[pos],termxold+((pos&63)*6),termyold+((pos/64)*8),0,0xFFFF);//draw cursor
+		if((max==1)&&(str[0]))//For one character inputs you don't want to press enter every character.
+			break;
 	}
 	//putchar('\n');
-	
 	return strlen((const char *)str);
 }
