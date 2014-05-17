@@ -11,6 +11,7 @@ extern "C" {
 
 extern int termxfxcg,termyfxcg,termFGfxcg,termBGfxcg;
 
+#define L_tmpnam 16
 
 /*Comment and 3 defines from https://github.com/freebsd/freebsd/blob/0680c1f5fe159bba69a242568af0db7d7dc15a79/include/stdio.h
 * The following three definitions are for ANSI C, which took them

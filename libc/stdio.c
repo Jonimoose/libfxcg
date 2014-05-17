@@ -44,6 +44,7 @@ char *tmpnam(char *s){
 	static unsigned int numf;
 	itoa(numf,(unsigned char *)s+strlen(s));
 	++numf;
+	strcat(s,".tmp");
 	return s;
 }
 
