@@ -93,6 +93,16 @@ int _printf_ptr(va_list *ap, writer_t writer, const void *dest, format_t fmt) {
     return 10;
 }
 
+static int _printf_double(va_list *ap, writer_t writer, const void *dest, format_t fmt) {
+	double d = va_arg(*ap, double);
+	char buf[64];
+	__dtostr(d,buf,sizeof(buf)-1,1,8,1);
+	int len=strlen(buf),x;
+	for(x=0;x<len;++x)
+		writer(dest,buf[x]);
+	return len;
+}
+
 int _printf_weird(va_list *ap, writer_t writer, const void *dest, format_t fmt) {
     // Format out a warning, not actually something
     // Does NOT consume any arguments because we have no way of knowing what
@@ -106,13 +116,22 @@ int _printf_weird(va_list *ap, writer_t writer, const void *dest, format_t fmt) 
 /* Character writers.  Pass a destination (void * interpreted as needed), eg
  * a buffer or stream. */
 void _writer_stream(const void *wdest, char c) {
-    fputc(c, (FILE *)wdest);
+	fputc(c, (FILE *)wdest);
 }
+static int maxWrite;
+static int wroteW;
 void _writer_buffer(const void *wdest, char c) {
-    // Needs to track buffer location, so double pointer
-    char **dest = (char **)wdest;
-    **dest = c;
-    (*dest)++;
+	// Needs to track buffer location, so double pointer
+	if(maxWrite>0){
+		if(wroteW>=(maxWrite-1))
+			return;
+		else
+			++wroteW;
+	}
+	char **dest = (char **)wdest;
+	**dest = c;
+	dest[0][1]=0;//Ensure sprintf output is null terminated
+	(*dest)++;
 }
 
 /* Main worker and such. */
@@ -270,10 +289,12 @@ static int _v_printf(const char *fmt, va_list ap_in, writer_t writer, const void
                 break;
             case 'f':   // All (currently) unsupported
             case 'F':
-            case 'e':
-            case 'E':
             case 'g':
             case 'G':
+				formatter=_printf_double;
+            break;
+            case 'e':
+            case 'E':
             case 'a':
             case 'A':
             case 'C':
@@ -290,10 +311,12 @@ out:
     return count;
 }
 
-int vfprintf(FILE *stream, const char *fmt, va_list ap) {
+int vfprintf(FILE *stream, const char *fmt, va_list ap){
     return _v_printf(fmt, ap, _writer_stream, stream);
 }
-
+int vprintf(const char * format, va_list arg){
+	return vfprintf(stdout,format,arg);
+}
 int fprintf(FILE *stream, const char *fmt, ...) {
     va_list ap;
     va_start(ap, fmt);
@@ -310,10 +333,22 @@ int printf(const char *fmt, ...) {
     return ret;
 }
 
-int vsprintf(char *str, const char *fmt, va_list ap) {
+int vsprintf(char *str, const char *fmt, va_list ap){
+	maxWrite=-1;
     return _v_printf(fmt, ap, _writer_buffer, &str);
 }
-
+int vsnprintf (char * s, size_t n, const char * format, va_list arg){
+	maxWrite=n;
+	wroteW=0;
+	return _v_printf(format, arg, _writer_buffer, &s);
+}
+int snprintf ( char * s, size_t n, const char * format, ... ){
+	va_list ap;
+    va_start(ap, format);
+    int ret = vsnprintf(s,n,format,ap);
+    va_end(ap);
+    return ret;
+}
 int sprintf(char *str, const char *fmt, ...) {
     va_list ap;
     va_start(ap, fmt);

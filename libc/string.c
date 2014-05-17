@@ -1,5 +1,9 @@
 #include <stdlib.h>
 #include <string.h>
+const char * ironySTR="error strerror is not yet supported";
+char *strerror(int errnum){
+	return ironySTR;
+}
 
 void *memccpy(void *dest, const void *src, int c, size_t num) {
 	char* d = (char*)dest;
@@ -36,27 +40,66 @@ int memcmp(const void *p1, const void *p2, unsigned int n) {
     return *s1 - *s2;
 }
 
-// GCC builtin
-/*
-void* memcpy(void* destination, const void* source, size_t num) {
-	char* d = (char*)destination;
-	char* s = (char*)source;
-	while (num-- > 0) {
-		*d = *s;
-		d++;
-		s++;
+//From dietlibc
+/* fast memcpy -- Copyright (C) 2003 Thomas M. Ogrisegg <tom@hi-tek.fnord.at> */
+#define UNALIGNED(x,y) (((unsigned long)x & (sizeof (unsigned long)-1)) ^ ((unsigned long)y & (sizeof (unsigned long)-1)))
+# define STRALIGN(x) (((unsigned long)x&3)?4-((unsigned long)x&3):0)
+void * memcpy (void *dst, const void *src, size_t n){
+    void           *res = dst;
+    unsigned char  *c1, *c2;
+
+    int             tmp;
+    unsigned long  *lx1 = NULL;
+    const unsigned long *lx2 = NULL;
+
+    if (!UNALIGNED(dst, src) && n > sizeof(unsigned long)) {
+
+	if ((tmp = STRALIGN(dst))) {
+	    c1 = (unsigned char *) dst;
+	    c2 = (unsigned char *) src;
+	    while (tmp-- && n--)
+		*c1++ = *c2++;
+	    if (n == (size_t) - 1)
+		return (res);
+	    dst = c1;
+	    src = c2;
 	}
 
-	return destination;
-}
-*/
+	lx1 = (unsigned long *) dst;
+	lx2 = (unsigned long *) src;
 
-void* memmove(void* destination, const void* source, size_t num) {
-	void* d = malloc(num);
-	memcpy(d, source, num);
-	memcpy(destination, d, num);
-	free(d);
-	return destination;
+	for (; n >= sizeof(unsigned long); n -= sizeof(unsigned long))
+	    *lx1++ = *lx2++;
+    }
+
+    if (n) {
+	c1 = (unsigned char *) (lx1?lx1:dst);
+	c2 = (unsigned char *) (lx1?lx2:src);
+	while (n--)
+	    *c1++ = *c2++;
+    }
+
+    return (res);
+}
+
+void *memmove(void *dst, const void *src, size_t count){
+	//From dietlibc
+  char *a = dst;
+  const char *b = src;
+  if (src!=dst)
+  {
+    if (src>dst)
+    {
+      while (count--) *a++ = *b++;
+    }
+    else
+    {
+      a+=count-1;
+      b+=count-1;
+      while (count--) *a-- = *b--;
+    }
+  }
+  return dst;
 }
 
 void *memset(void *dest, int c, unsigned int n) {

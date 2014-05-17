@@ -1,66 +1,81 @@
 #include <fxcg/heap.h>
+#include <fxcg/display.h>
+#include <fxcg/misc.h>
+#include <fxcg/keyboard.h>
 #include <ctype.h>
 #include <limits.h>
 #include <stdio.h>
-
+#include <errno.h>
 // External linkage
 int errno;
 
+int putenv(char *string){
+	fprintf(stderr,"putenv %s\n",string);
+	return -1;
+}
+const char * FatalErrorStr="alloc error\n";
 void *malloc(size_t sz) {
-    return sys_malloc(sz);
+	void *ret=sys_malloc(sz);
+    if(!ret){
+		fprintf(stderr,"m%s",FatalErrorStr);
+	}
+	return ret;
+}
+
+void* calloc (size_t num, size_t size){
+	void * ret=sys_malloc(num*size);
+	if(ret)
+		memset(ret,0,num*size);
+	return ret;
 }
 
 void *realloc(void *ptr, size_t sz) {
-    return sys_realloc(ptr, sz);
+	void * ret=sys_realloc(ptr, sz);
+	 if(!ret){
+		fprintf(stderr,"re%s",FatalErrorStr);
+	}
+    return ret;
 }
 
-void free(void *ptr) {
+void free(void *ptr){
     sys_free(ptr);
 }
-
-// TODO annotate this noreturn
-void exit(int status) {
-    fprintf(stderr, "TERMINATED (%i)", status);
-    // We don't have a clean way to exit (right now), so just crash it.
-    ((void (*)())1)(); // Unaligned instruction
+void _exit(int stat){
+	fprintf(stderr, "TERMINATED (%i)\n", stat);
+    puts("To exit press the menu key");
+    puts("Before running this program again please launch another program before running this one again");
+    int key;
+	while(1)
+		GetKey(&key);
 }
 
-static unsigned char strtol_consume(unsigned char c, int base) {
-    c = toupper(c);
-    if (!isalnum(c))
-        return -1;
+#if __WORDSIZE == 64
+#define ABS_LONG_MIN 9223372036854775808UL
+#else
+#define ABS_LONG_MIN 2147483648UL
+#endif
+long int strtol(const char *nptr, char **endptr, int base)//From dietlibc
+{
+  int neg=0;
+  unsigned long int v;
+  const char*orig=nptr;
 
-    if ((c - '0') < 10)
-        c = c - '0';
-    else
-        c = (c - 'A') + 10;
+  while(isspace(*nptr)) nptr++;
 
-    if (c >= base)
-        return -1;
-    else
-        return c;
-}
-
-long strtol(const char *str, char **str_end, int base) {
-    long v = 0;
-    unsigned short v_in;
-    // TODO handle {+,-} sign indicators, octal (0), hex (0[Xx]) prefixes
-    while (isspace(*str))
-        str++;
-
-    while (*str != 0 && (v_in = strtol_consume(*str++, base)) >= 0) {
-        long long vc = ((long long)v * base) + v_in;
-        if (vc > LONG_MAX)  // Handle overflow
-            return LONG_MAX;
-        else if (vc < LONG_MIN)
-            return LONG_MIN;
-
-        v = (v * base) + v_in;
+  if (*nptr == '-' && isalnum(nptr[1])) { neg=-1; ++nptr; }
+  v=strtoul(nptr,endptr,base);
+  if (endptr && *endptr==nptr) *endptr=(char *)orig;
+  if (v>=ABS_LONG_MIN) {
+    if (v==ABS_LONG_MIN && neg) {
+      errno=0;
+      return v;
     }
-    if (str_end != NULL)
-        *str_end = (char *)str;
-    return v;
+    errno=ERANGE;
+    return (neg?LONG_MIN:LONG_MAX);
+  }
+  return (neg?-v:v);
 }
+
 
 double strtod(const char *s, char **str_end) {
     // TODO handle exponential format, hex format, inf, nan
@@ -113,8 +128,31 @@ double strtod(const char *s, char **str_end) {
 }
 
 int abs(int i) {
-    if (i < 0)
-        return -i;
-    else
-        return i;
+    return i<0?-i:i;
+}
+const char * XtermConstStr="xterm";
+const char * FxcgTermLines="64";
+const char * FxcgTermColums="24";
+int getenv(const char * name){
+	if(strcmp(name,"LINES")==0)
+		return FxcgTermLines;
+	else if(strcmp(name,"COLUMNS")==0)
+		return FxcgTermColums;
+	else if(strcmp(name,"TERMINFO")==0)
+		return XtermConstStr;
+	else if(strcmp(name,"TERM")==0)
+		return XtermConstStr;
+	fprintf(stderr,"getenv %s\n",name);
+	return 0;
+}
+void abort(void){
+	int x=0;
+	int y=0;
+	PrintMini(&x,&y,"Abort called press MENU",0,0xFFFFFFFF,0,0,0,0xFFFF,1,0);
+	while (1)
+		GetKey(&x);
+}
+int system (const char* command){
+	fprintf(stderr,"system not yet supported %s\n",command);
+	return -1;
 }

@@ -28,7 +28,7 @@ void *memsetZero(void *s, size_t n);
 
 int sys_atoi(const char * s);
 
-void *sys_calloc(int elements, int elementSize);
+//void *sys_calloc(int elements, int elementSize);
 
 char *sys_strcat(char *dest, const char *src);
 char *sys_strchr(const char *s, int c);
@@ -39,7 +39,7 @@ char *sys_strncpy(char *dest, const char *src, size_t n);
 
 #ifdef USE_FXCG_STDLIB
 
-#define atoi sys_atoi
+//#define atoi sys_atoi
 #define rand sys_rand
 #define srand sys_rand
 #define malloc sys_malloc
@@ -48,7 +48,7 @@ char *sys_strncpy(char *dest, const char *src, size_t n);
 #define free sys_free
 #define memcmp sys_memcmp
 #define memcmp3 sys_memcmp3
-#define memcpy sys_memcpy
+//#define memcpy sys_memcpy
 #define memset sys_memset
 #define memmove sys_memmove
 #define strlen sys_strlen

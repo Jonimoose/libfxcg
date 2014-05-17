@@ -7,6 +7,8 @@ extern "C" {
 
 #include <stddef.h>
 
+char *strerror(int errnum);
+
 void *sys_memmove(void *dest, const void *src, size_t n);
 
 void *memsetZero(void *s, size_t n);
@@ -25,7 +27,7 @@ int strcoll(const char *s1, const char *s2);
 char *strcpy(char *s1, const char *s2);
 size_t strcspn(const char *s1, const char *s2);
 char *strdup(const char *s1);
-//char *strerror(int errnum);
+/*char *strerror(int errnum);*/
 size_t strlen(const char *s);
 char *strncat(char *s1, const char *s2, size_t n);
 int strncmp(const char *s1, const char *s2, size_t n);
@@ -35,7 +37,7 @@ char *strrchr(const char *s, int c);
 size_t strspn(const char *s1, const char *s2);
 char *strstr(const char *needle, const char *haystack);
 char *strtok(char *s, const char *sep);
-//char *strtok_r(char *s, const char *sep, char **lasts);
+/*char *strtok_r(char *s, const char *sep, char **lasts);*/
 size_t strxfrm(char *s1, const char *s2, size_t n);
 
 char *sys_strcat(char *dest, const char *src);
