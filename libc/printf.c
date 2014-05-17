@@ -93,6 +93,16 @@ int _printf_ptr(va_list *ap, writer_t writer, const void *dest, format_t fmt) {
     return 10;
 }
 
+static int _printf_double(va_list *ap, writer_t writer, const void *dest, format_t fmt) {
+	double d = va_arg(*ap, double);
+	char buf[64];
+	__dtostr(d,buf,sizeof(buf)-1,1,8,1);
+	int len=strlen(buf),x;
+	for(x=0;x<len;++x)
+		writer(dest,buf[x]);
+	return len;
+}
+
 int _printf_weird(va_list *ap, writer_t writer, const void *dest, format_t fmt) {
     // Format out a warning, not actually something
     // Does NOT consume any arguments because we have no way of knowing what
@@ -279,10 +289,12 @@ static int _v_printf(const char *fmt, va_list ap_in, writer_t writer, const void
                 break;
             case 'f':   // All (currently) unsupported
             case 'F':
-            case 'e':
-            case 'E':
             case 'g':
             case 'G':
+				formatter=_printf_double;
+            break;
+            case 'e':
+            case 'E':
             case 'a':
             case 'A':
             case 'C':
