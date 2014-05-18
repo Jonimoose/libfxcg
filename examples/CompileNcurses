@@ -1,0 +1,3 @@
+Ncurces is very easy to compile simply run (remembering to change folder paths)
+./configure --host=sh3eb-elf --build=x86_64-unknown-linux-gnu  CFLAGS="-m4a-nofpu -mb -Os -flto -mhitachi -Wall -I$HOME/Documents/casio/libfxcg/include" CXXFLAGS="-m4a-nofpu -mb -Os -flto -mhitachi -Wall -I$HOME/Documents/casio/libfxcg/include -lsupc++" LDFLAGS="-L$HOME/Documents/casio/libfxcg/lib -nostartfiles -Os -flto -T$HOME/Documents/casio/libfxcg/toolchain/prizm.x -Wl,-static -Wl,-gc-sections" --without-gpm --disable-database --disable-termcap --with-fallbacks=xterm --with-gnu-ld
+And then run make and you are done

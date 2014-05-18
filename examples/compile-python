@@ -2,7 +2,7 @@ Step 1 create a file called config.site and put in it
      ac_cv_file__dev_ptmx=no
      ac_cv_file__dev_ptc=no
 Step 2 run
-CONFIG_SITE=config.site ac_cv_func_getcwd=yes ./configure --host=sh3eb-elf --build=x86_64-unknown-linux-gnu  CFLAGS="-m4a-nofpu -mb -Os -flto -mhitachi -Wall -I$HOME/Documents/casio/libfxcg/include" LDFLAGS="-L$HOME/Documents/casio/libfxcg/lib -nostartfiles -T$HOME/Documents/casio/libfxcg/toolchain/prizm.x -Wl,-static -Wl,-gc-sections -Os -flto" --disable-ipv6 --without-threads --without-signal-module --disable-shared --disable-unicode --disable-toolbox-glue --disable-framework --disable-universalsdk
+CONFIG_SITE=config.site ac_cv_func_getcwd=yes ac_cv_func_kill=no ./configure --host=sh3eb-elf --build=x86_64-unknown-linux-gnu  CFLAGS="-m4a-nofpu -mb -Os -flto -mhitachi -Wall -I$HOME/Documents/casio/libfxcg/include" LDFLAGS="-L$HOME/Documents/casio/libfxcg/lib -nostartfiles -T$HOME/Documents/casio/libfxcg/toolchain/prizm.x -Wl,-static -Wl,-gc-sections -Os -flto" --disable-ipv6 --without-threads --without-signal-module --disable-shared --disable-unicode --disable-toolbox-glue --disable-framework --disable-universalsdk
 Replace directories with your's
 Step 3 edit pyconfig.h and add the following lines
 #define DONT_HAVE_STAT 1
