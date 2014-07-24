@@ -5,7 +5,7 @@ stdlib.o: ../stdlib.c
 	gcc -g -c -o stdlib.o ../stdlib.c -fno-builtin
 
 printf: printf.c printf.o
-	gcc -g -o printf printf.c printf.o -fno-builtin
+	gcc -m32 -std=gnu99 -g -o printf printf.c printf.o -fno-builtin
 
 printf.o: ../printf.c
-	gcc -g -c -o printf.o ../printf.c -fno-builtin
+	gcc -m32 -std=gnu99 -g -c -o printf.o ../printf.c -fno-builtin

@@ -4867,8 +4867,8 @@ else
 fi
 
 
-CC=sh3eb-elf-gcc
-CXX=sh3eb-elf-g++
+CC=sh4aeb-nofpu-elf-gcc
+CXX=sh4aeb-nofpu-elf-g++
 EXEEXT=.bin
 
 # Checks for libraries.

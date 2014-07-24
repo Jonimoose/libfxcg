@@ -1,6 +1,6 @@
-CC=sh3eb-elf-gcc
-AS=sh3eb-elf-as
-AR=sh3eb-elf-ar
+CC=sh4aeb-nofpu-elf-gcc
+AS=sh4aeb-nofpu-elf-as
+AR=sh4aeb-nofpu-elf-ar
 CFLAGS=-c -ffunction-sections -fdata-sections -m4a-nofpu -mb -Os -nostdlib -Lr -I../include -flto -std=c99 -Wall -Wextra
 ARFLAGS=rs
 VPATH=syscalls
