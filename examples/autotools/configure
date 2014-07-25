@@ -4867,8 +4867,8 @@ else
 fi
 
 
-CC=sh4aeb-nofpu-elf-gcc
-CXX=sh4aeb-nofpu-elf-g++
+CC=prizm-gcc
+CXX=prizm-g++
 EXEEXT=.bin
 
 # Checks for libraries.

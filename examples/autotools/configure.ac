@@ -11,8 +11,8 @@ AC_CONFIG_SRCDIR([src])
 # Checks for programs.
 AC_PROG_CXX
 AC_PROG_CC
-CC=sh4aeb-nofpu-elf-gcc
-CXX=sh4aeb-nofpu-elf-g++
+CC=prizm-gcc
+CXX=prizm-g++
 EXEEXT=.bin
 
 # Checks for libraries.

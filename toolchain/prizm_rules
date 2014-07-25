@@ -15,7 +15,7 @@ export PATH	:=	$(FXCGSDK)/bin:$(PATH)
 #---------------------------------------------------------------------------------
 # the prefix on the compiler executables
 #---------------------------------------------------------------------------------
-PREFIX	:=	sh4aeb-nofpu-elf-
+PREFIX	:=	prizm-
 
 export AS	:=	$(PREFIX)as
 export CC	:=	$(PREFIX)gcc

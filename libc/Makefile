@@ -1,6 +1,6 @@
-CC=sh4aeb-nofpu-elf-gcc
-AS=sh4aeb-nofpu-elf-as
-AR=sh4aeb-nofpu-elf-ar
+CC=prizm-gcc
+AS=prizm-as
+AR=prizm-ar
 CFLAGS=-c -ffunction-sections -fdata-sections -Os \
 	   -mhitachi -ffreestanding -Wall -Wsystem-headers -g
 LDFLAGS=-Wl,-static -lfxcg
