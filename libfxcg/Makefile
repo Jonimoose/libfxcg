@@ -1,7 +1,7 @@
 CC=sh4aeb-nofpu-elf-gcc
 AS=sh4aeb-nofpu-elf-as
 AR=sh4aeb-nofpu-elf-ar
-CFLAGS=-c -ffunction-sections -fdata-sections -m4a-nofpu -mb -Os -nostdlib -Lr -I../include -flto -std=c99 -Wall -Wextra
+CFLAGS=-c -ffunction-sections -fdata-sections -Os -Lr -I../include -flto -std=c99 -Wall -Wextra
 ARFLAGS=rs
 VPATH=syscalls
 SHSOURCES=$(wildcard syscalls/*.S) $(wildcard misc/*.S)

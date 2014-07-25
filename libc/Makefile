@@ -1,8 +1,8 @@
 CC=sh4aeb-nofpu-elf-gcc
 AS=sh4aeb-nofpu-elf-as
 AR=sh4aeb-nofpu-elf-ar
-CFLAGS=-c -ffunction-sections -fdata-sections -m4a-nofpu -mb -Os -nostdlib \
-	   -mhitachi -ffreestanding -Wall -L../lib -I../include -Wsystem-headers -g
+CFLAGS=-c -ffunction-sections -fdata-sections -Os \
+	   -mhitachi -ffreestanding -Wall -Wsystem-headers -g
 LDFLAGS=-Wl,-static -lfxcg
 ARFLAGS=rsv
 OBJECTS=printf.o setjmp.o stdio.o stdlib.o ctype.o string.o unistd.o time.o

@@ -5,7 +5,7 @@ endif
 export	LIBFXCG_INC	:=	$(FXCGSDK)/include
 export	LIBFXCG_LIB	:=	$(FXCGSDK)/lib
 
-MACHDEP = -mb -m4a-nofpu -mhitachi -nostdlib
+MACHDEP = -mb  -mhitachi -nostdlib
 
 #---------------------------------------------------------------------------------
 # path to tools 

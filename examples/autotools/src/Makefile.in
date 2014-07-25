@@ -169,9 +169,9 @@ example2_NAME = Example 2
 # ----------------------------------------------------
 # No big reason to edit anything below here
 # ----------------------------------------------------
-AM_CFLAGS = -Os -Wall -mb -m4a-nofpu -mhitachi -nostdlib  -ffunction-sections -fdata-sections -I@srcdir@/../../include
-AM_CXXFLAGS = -Os -Wall -mb -m4a-nofpu -mhitachi -nostdlib  -ffunction-sections -fdata-sections -I@srcdir@/../../include
-AM_LDFLAGS = -mb -m4a-nofpu -mhitachi -nostdlib -T@srcdir@/../../toolchain/prizm.x  -Wl,-static -Wl,-gc-sections -L@srcdir@/../../lib
+AM_CFLAGS = -Os -Wall -mb  -mhitachi -nostdlib  -ffunction-sections -fdata-sections -I@srcdir@/../../include
+AM_CXXFLAGS = -Os -Wall -mb  -mhitachi -nostdlib  -ffunction-sections -fdata-sections -I@srcdir@/../../include
+AM_LDFLAGS = -mb  -mhitachi -nostdlib -T@srcdir@/../../toolchain/prizm.x  -Wl,-static -Wl,-gc-sections -L@srcdir@/../../lib
 LDADD = -lc
 all: all-am
 
