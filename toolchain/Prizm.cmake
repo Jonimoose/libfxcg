@@ -2,8 +2,8 @@
 
 SET(CMAKE_MODULE_PATH ../)
 SET(CMAKE_SYSTEM_NAME Prizm)
-SET(CMAKE_C_COMPILER sh3eb-elf-gcc)
-SET(CMAKE_CXX_COMPILER sh3eb-elf-g++)
+SET(CMAKE_C_COMPILER prizm-gcc)
+SET(CMAKE_CXX_COMPILER prizm-g++)
 
 SET(CMAKE_FIND_ROOT_PATH ../)
 SET(CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER)
@@ -12,7 +12,7 @@ SET(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
 
 # LINK_LIBRARIES(c)
 
-# SET(CMAKE_C_FLAGS "-Os -Wall -mb -m4a-nofpu -mhitachi -nostdlib -ffunction-sections -fdata-sections")
+# SET(CMAKE_C_FLAGS "-Os -Wall -mb  -mhitachi -nostdlib -ffunction-sections -fdata-sections")
 # SET(CMAKE_CXX_FLAGS ${CMAKE_C_FLAGS})
 # SET(CMAKE_EXE_LINKER_FLAGS "-L../lib -T../toolchain/prizm.x -Wl,-static -Wl,-gc-sections -nostdlib")
 # SET(CMAKE_SHARED_LINKER_FLAGS "-L../lib -T../toolchain/prizm.x -Wl,-static -Wl,-gc-sections -nostdlib")

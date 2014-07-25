@@ -1,7 +1,7 @@
-CC=sh3eb-elf-gcc
-AS=sh3eb-elf-as
-AR=sh3eb-elf-ar
-CFLAGS=-c -ffunction-sections -fdata-sections -m4a-nofpu -mb -Os -nostdlib -Lr -I../include -flto -std=c99 -Wall -Wextra
+CC=prizm-gcc
+AS=prizm-as
+AR=prizm-ar
+CFLAGS=-c -ffunction-sections -fdata-sections -Os -Lr -I../include -flto -std=c99 -Wall -Wextra
 ARFLAGS=rs
 VPATH=syscalls
 SHSOURCES=$(wildcard syscalls/*.S) $(wildcard misc/*.S)

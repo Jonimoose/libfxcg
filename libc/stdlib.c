@@ -18,11 +18,14 @@ void free(void *ptr) {
     sys_free(ptr);
 }
 
-// TODO annotate this noreturn
 void exit(int status) {
     fprintf(stderr, "TERMINATED (%i)", status);
     // We don't have a clean way to exit (right now), so just crash it.
     ((void (*)())1)(); // Unaligned instruction
+}
+
+void abort() {
+    exit(-1);
 }
 
 static unsigned char strtol_consume(unsigned char c, int base) {
