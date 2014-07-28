@@ -214,6 +214,10 @@ void EditMBStringCtrl4( unsigned char*, int xposmax, void*, void*, void*, int, i
 int EditMBStringChar(unsigned char *MB_string, int posmax, int xpos, int char_to_insert);
 void Bkey_ClrAllFlags( void );
 void Bkey_SetFlag(short flagpattern);
+int Keyboard_PutKeycode( int X, int Y, int Keycode);
+int Keyboard_SpyMatrixCode(char*column, char*row);
+void Bkey_SetAllFlags(short flags);
+short Bkey_GetAllFlags( void );
 
 #ifdef __cplusplus
 }
