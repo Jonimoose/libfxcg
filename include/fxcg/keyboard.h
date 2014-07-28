@@ -219,6 +219,10 @@ int Keyboard_SpyMatrixCode(char*column, char*row);
 void Bkey_SetAllFlags(short flags);
 short Bkey_GetAllFlags( void );
 
+/* whether user can get into Main Menu with GetKey. 1=menu enabled, 0=menu locked.
+ * "Set" syscall doesn't exist, must be done through address trickery. */
+int GetGetkeyToMainFunctionReturnFlag( void );
+
 #ifdef __cplusplus
 }
 #endif
