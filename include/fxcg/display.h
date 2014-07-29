@@ -22,6 +22,7 @@ void Bdisp_AreaClr( struct display_fill *area, unsigned char P2, unsigned short 
 void Bdisp_EnableColor( int n );
 //Frame control:
 void DrawFrame( int color );
+unsigned short FrameColor( int mode, unsigned short color );
 void DrawFrameWorkbench( int, int, int, int, int );
 //VRAM general display manipulating syscalls:
 void *GetVRAMAddress(void); // Return a pointer to the system's video memory.
@@ -54,6 +55,7 @@ struct display_shape {
 void Bdisp_ShapeBase3XVRAM( void*shape );
 void Bdisp_ShapeBase( unsigned char*work, struct display_shape *shape, int color, int line_width, int zero1, int zero2 );
 void Bdisp_ShapeToVRAM16C( void*, int color );
+void Bdisp_ShapeToDD( void*shape, int color );
 //Background-related syscalls
 void SetBackGround( int );
 void WriteBackground( void*target, int width, int height, void*source, int, int, int );
@@ -69,6 +71,7 @@ void MsgBoxPop( void );
 void DisplayMessageBox( unsigned char*message );
 short CharacterSelectDialog( void );
 unsigned char ColorIndexDialog1( unsigned char initial_index, unsigned short disable_mask );
+void MsgBoxMoveWB( void*buffer, int x0, int y0, int x1, int y1, int direction ); //it's more general purpose, works not only for MsgBoxes but for any VRAM contents.
 
 //Cursor manipulating syscalls:
 void locate_OS( int X, int y );
@@ -108,6 +111,7 @@ void PrintMiniGlyph(int x, int y, void*glyph, int mode_flags, int glyph_width, i
 void PrintMini( int *x, int *y, const char *MB_string, int mode_flags, unsigned int xlimit, int P6, int P7, int color, int back_color, int writeflag, int P11 );
 void PrintMiniMini( int *x, int *y, const char *MB_string, int mode1, char color, int mode2 );
 void Print_OS( const char*msg, int mode, int zero2 );
+void Bdisp_WriteSystemMessage( int x, int y, int msgno, int mode, char color3 );
 
 //Progressbars and scrollbars:
 struct scrollbar
@@ -168,6 +172,8 @@ void RealIcon( unsigned int );
 void FKey_Display( int, void* );
 void GetFKeyPtr( int, void* );
 void DispInt( int, int ); //not sure what this does, doesn't seem to be documented anywhere. will test some day (gbl08ma)
+int LocalizeMessage1( int msgno, char*result );
+int SMEM_MapIconToExt( unsigned char*filename, unsigned short*foldername, unsigned int*msgno, unsigned short*iconbuffer ); // despite starting with SMEM, this is mostly a graphical function used to get icons for different file types.
 
 //Not syscalls (defined within libfxcg):
 void VRAM_CopySprite(const color_t* data, int x, int y, int width, int height);

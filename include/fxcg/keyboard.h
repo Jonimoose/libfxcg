@@ -137,6 +137,7 @@
 #define KEY_CTRL_F5         30013
 #define KEY_CTRL_F6         30014
 #define KEY_CTRL_CATALOG    30100
+#define KEY_CTRL_FORMAT     30101
 #define KEY_CTRL_CAPTURE    30055
 #define KEY_CTRL_CLIP       30050
 #define KEY_CTRL_PASTE      30036
@@ -214,6 +215,14 @@ void EditMBStringCtrl4( unsigned char*, int xposmax, void*, void*, void*, int, i
 int EditMBStringChar(unsigned char *MB_string, int posmax, int xpos, int char_to_insert);
 void Bkey_ClrAllFlags( void );
 void Bkey_SetFlag(short flagpattern);
+int Keyboard_PutKeycode( int X, int Y, int Keycode);
+int Keyboard_SpyMatrixCode(char*column, char*row);
+void Bkey_SetAllFlags(short flags);
+short Bkey_GetAllFlags( void );
+
+/* whether user can get into Main Menu with GetKey. 1=menu enabled, 0=menu locked.
+ * "Set" syscall doesn't exist, must be done through address trickery. */
+int GetGetkeyToMainFunctionReturnFlag( void );
 
 #ifdef __cplusplus
 }
