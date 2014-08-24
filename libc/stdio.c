@@ -48,7 +48,7 @@ FILE *fopen(const char *path, const char *mode) {
     }
 
     // Get a handle from the system
-    Bfile_StrToName_ncpy(chars16, (unsigned char *)path, plen);
+    Bfile_StrToName_ncpy(chars16, (unsigned char *)path, plen+1);
     int syshandle = Bfile_OpenFile_OS(chars16, sysmode);
     sys_free(chars16);  // No longer needed
     if (syshandle < 0) {
@@ -169,7 +169,7 @@ size_t fread(void *buffer, size_t size, size_t count, FILE *stream) {
     }
 
     // TODO failure modes unknown
-    Bfile_ReadFile_OS(handle_tonative(stream->fileno), buffer, n, 0);
+    Bfile_ReadFile_OS(handle_tonative(stream->fileno), buffer, n, -1);
     return n;
 }
 

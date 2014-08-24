@@ -45,9 +45,11 @@ SECTIONS
         } >ram AT>rom
        
         /* Uninitialized data (fill with 0), in RAM */
-        .bss : {
-                _bbss = . ;
-                *(.bss) *(COMMON);
-                _ebss = . ;
+        .bss : { 
+                _bbss = . ; 
+                *(.bss) 
+                *(.bss*) 
+                *(COMMON) 
+                _ebss = . ; 
         } >ram
 }

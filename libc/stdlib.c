@@ -1,4 +1,5 @@
 #include <fxcg/heap.h>
+#include <fxcg/keyboard.h>
 #include <ctype.h>
 #include <limits.h>
 #include <stdio.h>
@@ -18,12 +19,12 @@ void free(void *ptr) {
     sys_free(ptr);
 }
 
-// TODO annotate this noreturn
-void exit(int status) {
-    fprintf(stderr, "TERMINATED (%i)", status);
-    // We don't have a clean way to exit (right now), so just crash it.
-    ((void (*)())1)(); // Unaligned instruction
-}
+void exit(int status) { 
+   fprintf(stderr, "TERMINATED (%i)\nPress menu key to exit\n", status); 
+   int key; 
+   while(1) 
+      GetKey(&key); 
+} 
 
 static unsigned char strtol_consume(unsigned char c, int base) {
     c = toupper(c);

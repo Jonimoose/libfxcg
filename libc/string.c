@@ -51,12 +51,20 @@ void* memcpy(void* destination, const void* source, size_t num) {
 }
 */
 
-void* memmove(void* destination, const void* source, size_t num) {
-	void* d = malloc(num);
-	memcpy(d, source, num);
-	memcpy(destination, d, num);
-	free(d);
-	return destination;
+void *memmove(void *dst, const void *src, size_t count){ 
+  //From dietlibc 
+  char *a = dst; 
+  const char *b = src; 
+  if (src!=dst){ 
+    if (src>dst){ 
+        while (count--) *a++ = *b++; 
+    }else{ 
+        a+=count-1; 
+        b+=count-1; 
+        while (count--) *a-- = *b--; 
+    } 
+  } 
+  return dst;
 }
 
 void *memset(void *dest, int c, unsigned int n) {

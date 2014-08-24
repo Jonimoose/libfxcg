@@ -7,7 +7,7 @@ extern "C" {
 
 #include <stddef.h>
 
-long abs(long n);
+int abs(int x);
 
 void free(void *p);
 void *malloc(size_t sz);
@@ -25,7 +25,7 @@ double strtod(const char *s, char **str_end);
 
 void qsort(void *base, size_t nel, size_t width, int (*compar)(const void *, const void *));
 
-void exit(int status);
+void exit(int status) __attribute__ ((noreturn));
 
 #ifdef __cplusplus
 }
