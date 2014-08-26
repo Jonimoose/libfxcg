@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <ctype.h>
 #include <string.h>
 
 void *memccpy(void *dest, const void *src, int c, size_t num) {
@@ -93,6 +94,16 @@ int strcmp(const char *s1, const char *s2) {
 	return *s1 - *s2;
 }
 
+int strcasecmp(const char *s1, const char *s2) {
+	while (*s1 != 0 && *s2 != 0) {
+		if (tolower(*s1) != tolower(*s2))
+			break;
+		s1++;
+		s2++;
+	}
+	return tolower(*s1) - tolower(*s2);
+}
+
 int strcoll(const char *s1, const char *s2) {
 	return strcmp(s1, s2);
 }
@@ -131,6 +142,18 @@ int strncmp(const char *s1, const char *s2, size_t n) {
 	}
 
 	return *s1 - *s2;
+}
+
+int strncasecmp(const char *s1, const char *s2, size_t n) {
+	while (*s1 != 0 && *s2 != 0) {
+		n--;
+		if (tolower(*s1) != tolower(*s2) || n == 0)
+			break;
+		s1++;
+		s2++;
+	}
+
+	return tolower(*s1) - tolower(*s2);
 }
 
 char *strncpy(char *dest, const char *src, size_t num) {
