@@ -57,9 +57,9 @@ int isxdigit(int c) {
 
 
 int toupper(int c) {
-	return islower(c) ? c - 65 : c;
+	return islower(c) ? c - 32 : c;
 }
 
 int tolower(int c) {
-	return isupper(c) ? c + 65 : c;
+	return isupper(c) ? c + 32 : c;
 }
