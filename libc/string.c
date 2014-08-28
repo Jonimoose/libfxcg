@@ -216,6 +216,19 @@ char *strstr(const char *needle, const char *haystack) {
 	return NULL;
 }
 
+char *strcasestr(const char *needle, const char *haystack) {
+	int i;
+	int l1 = strlen(needle);
+	int l2 = strlen(haystack);
+	if (l2 > l1) { return NULL; }
+
+	for (i = 0; i < l1-l2; i++, needle++) {
+		if (!strncasecmp(needle, haystack, l2)) { return (char *)(needle); }
+	}
+
+	return NULL;
+}
+
 char* _strtoks_;
 
 char *strtok(char *s, const char *sep) {

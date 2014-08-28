@@ -32,6 +32,7 @@ char *strpbrk(const char *s1, const char *s2);
 char *strrchr(const char *s, int c);
 size_t strspn(const char *s1, const char *s2);
 char *strstr(const char *needle, const char *haystack);
+char *strcasestr(const char *needle, const char *haystack);
 char *strtok(char *s, const char *sep);
 //char *strtok_r(char *s, const char *sep, char **lasts);
 size_t strxfrm(char *s1, const char *s2, size_t n);
