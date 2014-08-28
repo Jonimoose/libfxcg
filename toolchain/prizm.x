@@ -47,7 +47,9 @@ SECTIONS
         /* Uninitialized data (fill with 0), in RAM */
         .bss : {
                 _bbss = . ;
-                *(.bss) *(COMMON);
+                *(.bss)
+                *(.bss*)
+                *(COMMON)
                 _ebss = . ;
-        } >ram
+        } >ram 
 }
