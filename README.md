@@ -10,4 +10,4 @@ Building
 2. make
 
 ### Examples
-In a similar way, to build the cmake example, you must edit `examples/cmake/CMakeLists.txt` to use the right toolchain prefix.
+In a similar way, to build the cmake example, you must change the cmake variable `TOOLCHAIN_PREFIX` either with ccmake or `cmake -DTOOLCHAIN_PREFIX:STRING=prefix-`.

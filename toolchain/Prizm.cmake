@@ -1,6 +1,6 @@
 INCLUDE(CMakeForceCompiler)
 
-SET(TOOLCHAIN_PREFIX "prizm-" CACHE FILEPATH "Prepended to the names of tools in the toolchain; a value of \"foobar\" causes gcc to be \"foobargcc\"")
+SET(TOOLCHAIN_PREFIX "prizm-" CACHE STRINGH "Prepended to the names of tools in the toolchain; a value of \"foobar\" causes gcc to be \"foobargcc\"")
 SET(BASE_DIR "${CMAKE_SOURCE_DIR}/../../")
 
 SET(CMAKE_MODULE_PATH ../)
