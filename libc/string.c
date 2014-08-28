@@ -209,7 +209,7 @@ char *strstr(const char *needle, const char *haystack) {
 	int l2 = strlen(haystack);
 	if (l2 > l1) { return NULL; }
 
-	for (i = 0; i < l1-l2; i++, needle++) {
+	for (i = 0; i <= l1-l2; i++, needle++) {
 		if (!strncmp(needle, haystack, l2)) { return (char *)(needle); }
 	}
 
@@ -222,7 +222,7 @@ char *strcasestr(const char *needle, const char *haystack) {
 	int l2 = strlen(haystack);
 	if (l2 > l1) { return NULL; }
 
-	for (i = 0; i < l1-l2; i++, needle++) {
+	for (i = 0; i <= l1-l2; i++, needle++) {
 		if (!strncasecmp(needle, haystack, l2)) { return (char *)(needle); }
 	}
 
