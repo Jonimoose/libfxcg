@@ -24,16 +24,14 @@ void *memchr(const void *ptr, int c, size_t n) {
 }
 
 // Syscall is broken. It's sys_memcmp if you prefer.
-int memcmp(const void *p1, const void *p2, unsigned int n) {
-    char* s1 = (char*)p1;
-    char* s2 = (char*)p2;
-
-    while (n-- != 0 && *s1 == *s2) {
-        s1++;
-        s2++;
-    }
-
-    return *s1 - *s2;
+int memcmp(const void* s1, const void* s2, unsigned int n) {
+	const unsigned char *p1 = s1, *p2 = s2;
+	while(n--)
+		if( *p1 != *p2 )
+			return *p1 - *p2;
+		else
+			p1++,p2++;
+	return 0;
 }
 
 // GCC builtin
@@ -51,12 +49,51 @@ void* memcpy(void* destination, const void* source, size_t num) {
 }
 */
 
-void* memmove(void* destination, const void* source, size_t num) {
-	void* d = malloc(num);
-	memcpy(d, source, num);
-	memcpy(destination, d, num);
-	free(d);
-	return destination;
+void*memmove(void*dst,const void*src,size_t n){
+	if(src<dst){
+		unsigned*d=dst;
+		const unsigned*s=src;
+		unsigned char*d8=d;
+		const unsigned char*s8=s;
+		while((unsigned)s8&3){
+			*d8++=*s8++;/*It is done like this due to SH's move instruction then postincrement address*/
+			--n;
+		}
+		d=d8;
+		s=s8;
+		while(n>=4){
+			*d++=*s++;
+			n-=4;
+		}
+		if(n){
+			d8=d;
+			s8=s;
+			while(n--)
+				*d8++=*s8++;
+		}
+	}else if(src>dst){
+		unsigned*d=dst+n;
+		const unsigned*s=src+n;
+		unsigned char*d8=d;
+		const unsigned char*s8=s;
+		while((unsigned)s8&3){
+			*(--d8)=*(--s8);/*It is done like this due to SH's preincrement address then move instruction*/
+			--n;
+		}
+		d=d8;
+		s=s8;
+		while(n>=4){
+			*(--d)=*(--s);
+			n-=4;
+		}
+		if(n){
+			d8=d;
+			s8=s;
+			while(n--)
+				*(--d8)=*(--s8);
+		}
+	}
+	return dst;
 }
 
 void *memset(void *dest, int c, unsigned int n) {

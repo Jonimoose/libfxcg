@@ -7,7 +7,7 @@ extern "C" {
 
 #include <stddef.h>
 
-long abs(long n);
+int abs(int n);
 
 void free(void *p);
 void *malloc(size_t sz);
