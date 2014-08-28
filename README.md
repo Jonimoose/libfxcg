@@ -8,5 +8,6 @@ Building
 --------
 1. Change `TOOLCHAIN_PREFIX` in `libfxcg/Makefile` and `libc/Makefile` to the prefix of your toolchain.  The default is `prizm-`.
 2. make
+
 ### Examples
 In a similar way, to build the cmake example, you must edit `examples/cmake/CMakeLists.txt` to use the right toolchain prefix.
