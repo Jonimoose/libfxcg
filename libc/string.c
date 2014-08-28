@@ -24,16 +24,14 @@ void *memchr(const void *ptr, int c, size_t n) {
 }
 
 // Syscall is broken. It's sys_memcmp if you prefer.
-int memcmp(const void *p1, const void *p2, unsigned int n) {
-    char* s1 = (char*)p1;
-    char* s2 = (char*)p2;
-
-    while (n-- != 0 && *s1 == *s2) {
-        s1++;
-        s2++;
-    }
-
-    return *s1 - *s2;
+int memcmp(const void* s1, const void* s2, unsigned int n) {
+	const unsigned char *p1 = s1, *p2 = s2;
+	while(n--)
+		if( *p1 != *p2 )
+			return *p1 - *p2;
+		else
+			p1++,p2++;
+	return 0;
 }
 
 // GCC builtin

@@ -51,5 +51,5 @@ SECTIONS
                 *(.bss*)
                 *(COMMON)
                 _ebss = . ;
-        } >ram 
+        } >ram
 }
