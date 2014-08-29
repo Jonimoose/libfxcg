@@ -43,6 +43,34 @@ unsigned short Bdisp_GetPoint_DD_Workbench( int x, int y );
 unsigned short Bdisp_GetPoint_DD( int x, int y );
 void DirectDrawRectangle( int x1, int y1, int x2, int y2, unsigned short color );
 void HourGlass( void );
+
+// Graphic writing:
+struct display_graph {
+    int x;
+    int y;
+    int xofs;
+    int yofs;
+    int width;
+    int height;
+    char colormode;
+    char zero4;
+    char P20_1;
+    char P20_2;
+    int bitmap;
+    char color_idx1;
+    char color_idx2;
+    char color_idx3;
+    char P20_3;
+    char writemodify;
+    char writekind;
+    char zero6;
+    char one1;
+    int transparency;
+};
+
+void Bdisp_WriteGraphVRAM(struct display_graph* gd);
+void Bdisp_WriteGraphDD_WB(struct display_graph* gd);
+
 //Shape drawing:
 struct display_shape {
 	int dx;
