@@ -23,6 +23,12 @@ void exit(int status) {
     /* TODO: if necessary, perform cleanup here, and call functions
      * registered to be run at exit with a future implementation of
      * atexit.
+     * Idea for future atexit development: syscall SetQuitHandler
+     * (0x1E6E) could be used to always call exit() when leaving the
+     * add-in, so that atexit-registered functions always run on exit.
+     * Add-ins that wished to disable this behavior could always call
+     * SetQuitHandler with a pointer to their own (possibly nop)
+     * function.
      */
     fprintf(stderr, "TERMINATED (%i)\nPress menu key to exit\n", status);
     int key;
