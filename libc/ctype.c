@@ -52,14 +52,14 @@ int isupper(int c) {
 }
 
 int isxdigit(int c) {
-	return isdigit(c) || ((c >= 'a' && c <= 'h') || (c >= 'A' && c <= 'H'));
+	return isdigit(c) || ((c >= 'a' && c <= 'f') || (c >= 'A' && c <= 'F'));
 }
 
 
 int toupper(int c) {
-	return islower(c) ? c - 65 : c;
+	return islower(c) ? c - 32 : c;
 }
 
 int tolower(int c) {
-	return isupper(c) ? c + 65 : c;
+	return isupper(c) ? c + 32 : c;
 }
