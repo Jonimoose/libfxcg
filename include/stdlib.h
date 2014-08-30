@@ -7,7 +7,7 @@ extern "C" {
 
 #include <stddef.h>
 
-long abs(long n);
+int abs(int n);
 
 void free(void *p);
 void *malloc(size_t sz);
@@ -15,10 +15,13 @@ void *realloc(void *p, size_t sz);
 
 int rand(void);
 void srand(unsigned seed);
+int sys_rand(void);
+void sys_srand(unsigned seed);
 
 long strtol(const char *str, char **str_end, int base);
 #define atoi(s) ((int)strtol(s, NULL, 10))
 #define atol(s) strtol(s, NULL, 10)
+int sys_atoi(const char * s);
 
 double strtod(const char *s, char **str_end);
 #define atof(s) ((float)strtod(s, NULL))
@@ -26,6 +29,7 @@ double strtod(const char *s, char **str_end);
 void qsort(void *base, size_t nel, size_t width, int (*compar)(const void *, const void *));
 
 void exit(int status);
+void abort();
 
 #ifdef __cplusplus
 }

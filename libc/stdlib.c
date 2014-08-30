@@ -18,11 +18,14 @@ void free(void *ptr) {
     sys_free(ptr);
 }
 
-// TODO annotate this noreturn
 void exit(int status) {
     fprintf(stderr, "TERMINATED (%i)", status);
     // We don't have a clean way to exit (right now), so just crash it.
     ((void (*)())1)(); // Unaligned instruction
+}
+
+void abort() {
+    exit(-1);
 }
 
 static unsigned char strtol_consume(unsigned char c, int base) {
@@ -112,9 +115,9 @@ double strtod(const char *s, char **str_end) {
     return raw.r;
 }
 
-/*
-void qsort(void *base, size_t nel, size_t width,
-           int (*compar)(const void *, const void *)) {
-#warning qsort unimplemented
+int abs(int i) {
+    if (i < 0)
+        return -i;
+    else
+        return i;
 }
-*/

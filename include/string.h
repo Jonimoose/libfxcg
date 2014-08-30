@@ -7,6 +7,10 @@ extern "C" {
 
 #include <stddef.h>
 
+void *sys_memmove(void *dest, const void *src, size_t n);
+
+void *memsetZero(void *s, size_t n);
+
 void *memccpy(void *s1, const void *s2, int c, size_t n);
 void *memchr(const void *s, int c, size_t n);
 int memcmp(const void *s1, const void *s2, unsigned int n);
@@ -36,6 +40,12 @@ char *strcasestr(const char *needle, const char *haystack);
 char *strtok(char *s, const char *sep);
 //char *strtok_r(char *s, const char *sep, char **lasts);
 size_t strxfrm(char *s1, const char *s2, size_t n);
+
+char *sys_strcat(char *dest, const char *src);
+char *sys_strchr(const char *s, int c);
+int sys_strcmp(const char *s1, const char *s2);
+char *sys_strcpy(char *dest, const char *src);
+char *sys_strncpy(char *dest, const char *src, size_t n);
 
 #ifdef __cplusplus
 }

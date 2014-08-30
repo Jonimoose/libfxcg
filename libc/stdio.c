@@ -1,15 +1,25 @@
+#include <fxcg/display.h>
 #include <fxcg/file.h>
 #include <fxcg/heap.h>
 #include <fxcg/serial.h>
 
+#include <alloca.h>
 #include <errno.h>
 #include <limits.h>
 #include <stdio.h>
+#include <stdint.h>
 #include <string.h>
 
-FILE _impl_stdin = {0, 0, 0};
-FILE _impl_stdout = {1, 0, 0};
-FILE _impl_stderr = {2, 0, 0};
+// Unspecified members initialized to zero.
+FILE _impl_stdin = {0};
+FILE _impl_stdout = {1};
+FILE _impl_stderr = {2};
+
+enum {
+    SYSFILE_MODE_READ = 0,
+    SYSFILE_MODE_WRITE = 2,
+    SYSFILE_MODE_READWRITE = 3
+};
 
 #define IOERR(stream, err) errno = err; stream->error = 1
 
@@ -29,11 +39,11 @@ FILE *fopen(const char *path, const char *mode) {
     // Resolve mode
     int sysmode = 0;
     if (mode[0] == 'r') {
-        sysmode = 0;   // READ
+        sysmode = SYSFILE_MODE_READ;
     } else if (mode[0] == 'w' || mode[0] == 'a') { 
-        sysmode = 2;   // WRITE
+        sysmode = SYSFILE_MODE_WRITE;
     } else if (strchr(mode, '+')) {
-        sysmode = 3;   // READWRITE
+        sysmode = SYSFILE_MODE_READWRITE;
     } else {
         errno = EINVAL;
         return NULL;
@@ -41,21 +51,44 @@ FILE *fopen(const char *path, const char *mode) {
 
     // Convert string to system native
     size_t plen = strlen(path);
-    unsigned short *chars16 = sys_malloc(2 * (plen + 1));
+    // We have several potential exits, so alloca simplifies ensuring this
+    // gets freed (an early revision of the following logic had memory leaks).
+    unsigned short *chars16 = alloca(2 * (plen + 1));
     if (chars16 == NULL) {
         errno = ENOMEM;
         return NULL;
     }
 
     // Get a handle from the system
-    Bfile_StrToName_ncpy(chars16, (unsigned char *)path, plen);
-    int syshandle = Bfile_OpenFile_OS(chars16, sysmode);
-    sys_free(chars16);  // No longer needed
+    Bfile_StrToName_ncpy(chars16, path, plen+1);
+    int syshandle = Bfile_OpenFile_OS(chars16, sysmode, 0);
+
     if (syshandle < 0) {
-        // Failure codes here aren't documented.  Let's just fail with
-        // errno = success, then.
-        errno = 0;
-        return NULL;
+        if (sysmode == SYSFILE_MODE_WRITE ||
+            sysmode == SYSFILE_MODE_READWRITE) {
+            // Doesn't exist, want to write. Create.
+            // FIXME Size 0 doesn't work?
+            size_t size = 10;
+            switch (Bfile_CreateEntry_OS(chars16, CREATEMODE_FILE, &size)) {
+            case 0:
+                // Success. Open file.
+                syshandle = Bfile_OpenFile_OS(chars16, sysmode, 0);
+                break;
+            case -13:
+                errno = EEXIST;
+                return NULL;
+            case -3:
+                errno = ENOENT;
+                return NULL;
+            default:
+                errno = EIO;
+                return NULL;
+            }
+        } else {
+            // Doesn't exist for reading.
+            errno = ENOENT;
+            return NULL;
+        }
     }
 
     if (mode[0] == 'a') {
@@ -70,14 +103,8 @@ FILE *fopen(const char *path, const char *mode) {
         errno = ENOMEM;
         return NULL;
     }
+    memset(f, 0, sizeof(FILE));
     f->fileno = syshandle + 3;
-    // TODO reenable when dup() works
-    /*if (_dtable_register(f->fileno)) {
-        errno = ENFILE;
-        return NULL;
-    }*/
-    f->error = 0;
-    f->has_unput = 0;
     return f;
 }
 
@@ -91,19 +118,17 @@ int fclose(FILE *fp) {
     if (!isstdstream(fp)) {
         // TODO Not sure what this can return.  Assuming never fails.
         Bfile_CloseFile_OS(handle_tonative(fp->fileno));
-        // TODO reenable when dup() does something
-        //_dtable_unregister(fp->fileno);
         sys_free(fp);
     } else {
-        // std streams are just serial I/O.  Do nothing.
+        // std streams can't actually be closed.
     }
     return 0;
 }
 
 static int serial_ensureopen() {
-    if (Serial_IsOpen() != 1) { // syscall 0x1bc6
+    if (Serial_IsOpen() != 1) {
         unsigned char mode[6] = {0, 5, 0, 0, 0, 0};    // 9600 bps 8n1
-        if (Serial_Open(mode) != 0) {   // syscall 0x1bb7
+        if (Serial_Open(mode) != 0) {
             return 1;
         }
     }
@@ -133,11 +158,55 @@ static size_t fwrite_serial(const void *ptr, size_t size, size_t nitems,
     return nitems - remain;
 }
 
+static size_t fwrite_term(const void *ptr, size_t size, size_t nitems,
+                          FILE *stream) {
+    char *buffer = sys_malloc(1 + nitems * size);
+    if (buffer == NULL) {
+        IOERR(stream, ENOMEM);
+        return 0;
+    }
+
+    memcpy(buffer, ptr, nitems * size);
+    buffer[nitems * size] = '\0';
+    const char *outp = buffer;
+    char *eol;
+
+    // Loop over all lines in buffer, terminate once we've printed all lines.
+    do {
+        eol = strchr(outp, '\n');
+        if(eol) {
+          *eol = '\0';
+        }
+
+        // Cast to wider type for correct pointers
+        int termx = stream->termx, termy = stream->termy;
+        PrintMiniMini(&termx, &termy, outp, 0, TEXT_COLOR_BLACK, 0);
+
+        // CR/LF if applicable
+        if(eol)
+        {
+            stream->termx = 0;
+            stream->termy += 10;
+            outp = eol + 1;
+        }
+    } while (eol);
+
+    sys_free(buffer);
+    return nitems;
+}
 // TODO make ptr, stream restrict for optimization
 size_t fwrite(const void *ptr, size_t size, size_t nitems,
               FILE *stream) {
     if (isstdstream(stream)) {
-        return fwrite_serial(ptr, size, nitems, stream);
+        if (stream->fileno == 2) {
+            // stderr: serial
+            return fwrite_serial(ptr, size, nitems, stream);
+        } else if (stream->fileno == 1) {
+            // stdout: display
+            return fwrite_term(ptr, size, nitems, stream);
+        } else {
+            // stdin..?
+        }
     }
     // TODO this must be able to fail, but how?
     Bfile_WriteFile_OS(handle_tonative(stream->fileno), ptr, size * nitems);
@@ -165,12 +234,23 @@ size_t fread_serial(void *buffer, size_t size, size_t count, FILE *stream) {
 size_t fread(void *buffer, size_t size, size_t count, FILE *stream) {
     size_t n = size * count;
     if (isstdstream(stream)) {
-        return fread_serial(buffer, size, n, stream);
+        if (stream->fileno == 0) {
+            // stdin
+            return fread_serial(buffer, size, n, stream);
+        } else {
+            // Reading stdout or stderr? No.
+            return EOF;
+        }
     }
 
     // TODO failure modes unknown
-    Bfile_ReadFile_OS(handle_tonative(stream->fileno), buffer, n, 0);
-    return n;
+    size_t ret = Bfile_ReadFile_OS(handle_tonative(stream->fileno), buffer, n, -1);
+    if (ret < 0) {
+        stream->error = 1;
+    } else if (ret < n) {
+        stream->eof = 1;
+    }
+    return ret;
 }
 
 int fputc(int c, FILE *stream) {
@@ -232,7 +312,11 @@ int ungetc(int c, FILE *f) {
 }
 
 int fseek(FILE *f, long offset, int whence) {
-    int fileno = handle_tonative(f->fileno);
+    if (isstdstream(f)) {
+        IOERR(f, ERANGE);
+        return -1;
+    }
+
     switch (whence) {
         case SEEK_CUR:
             offset = ftell(f) + offset;
@@ -247,8 +331,12 @@ int fseek(FILE *f, long offset, int whence) {
         default:
             return -1;
     }
+
+    int fileno = handle_tonative(f->fileno);
     // TODO can this fail? Probably.
-    Bfile_SeekFile_OS(handle_tonative(f->fileno), (int)offset);
+    Bfile_SeekFile_OS(fileno, (int)offset);
+
+    f->error = 0;
     return 0;
 }
 
@@ -266,3 +354,59 @@ void perror(const char *s) {
     }
     fprintf(stderr, "code %i (xref errno.h)\n", -errno);
 }
+
+int remove(const char *name) {
+    uint16_t *widepath = alloca(2 * strlen(name) + 1);
+    Bfile_StrToName_ncpy(widepath, name, strlen(name));
+
+    int ret = Bfile_DeleteEntry(widepath);
+    if (ret >= 0) {
+        return 0;
+    } else {
+        switch (ret) {
+        case -1:
+        case -3:
+        case -5:
+            errno = ENOENT;
+            break;
+        default:
+            errno = EIO;
+        }
+        return 1;
+    }
+}
+
+int rename(const char *old, const char *new) {
+    uint16_t *wideold = alloca(2 * strlen(old) + 1);
+    Bfile_StrToName_ncpy(wideold, old, strlen(old));
+    uint16_t *widenew = alloca(2 * strlen(new) + 1);
+    Bfile_StrToName_ncpy(widenew, new, strlen(new));
+
+    int ret = Bfile_RenameEntry(wideold, widenew);
+    if (ret >= 0) {
+        return 0;
+    } else {
+        // Unknown meanings. Fail with success.
+        errno = 0;
+        return 1;
+    }
+}
+
+int mkdir(const char *path, unsigned mode) {
+    uint16_t *widepath = alloca(2 * strlen(path) + 1);
+    Bfile_StrToName_ncpy(widepath, path, strlen(path));
+
+    int ret = Bfile_CreateEntry_OS(widepath, CREATEMODE_FOLDER, 0);
+    if (ret >= 0) {
+        return 0;
+    } else {
+        if (ret == -3) {
+            errno = EEXIST;
+        } else {
+            // Unknown meaning. Fail with success.
+            errno = 0;
+        }
+        return 1;
+    }
+}
+

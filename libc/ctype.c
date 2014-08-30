@@ -44,7 +44,7 @@ int ispunct(int c) {
 }
 
 int isspace(int c) {
-	return c == ' ';
+	return (c == ' ' || c == '\t' || c == '\n' || c == '\v' || c == '\f' || c == '\r');
 }
 
 int isupper(int c) {

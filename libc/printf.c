@@ -14,7 +14,7 @@ typedef struct {
 } format_t;
 
 typedef void (*writer_t)(const void *, char);
-typedef int (*formatter_t)(va_list, writer_t, const void *, format_t);
+typedef int (*formatter_t)(va_list *, writer_t, const void *, format_t);
 
 /* These are the workers for formatting.  The main printf wrapper gets a writer
  * and destination, and this does the formatting while feeding characters to
@@ -40,12 +40,12 @@ static int _printf_do_udecimal(int x, writer_t writer, const void *dest, format_
     return count;
 }
 
-static int _printf_udecimal(va_list ap, writer_t writer, const void *dest, format_t fmt) {
-    return _printf_do_udecimal(va_arg(ap, unsigned), writer, dest, fmt);
+static int _printf_udecimal(va_list *ap, writer_t writer, const void *dest, format_t fmt) {
+    return _printf_do_udecimal(va_arg(*ap, unsigned), writer, dest, fmt);
 }
 
-static int _printf_decimal(va_list ap, writer_t writer, const void *dest, format_t fmt) {
-    int x = va_arg(ap, int);
+static int _printf_decimal(va_list *ap, writer_t writer, const void *dest, format_t fmt) {
+    int x = va_arg(*ap, int);
 
     int count = 1;
     if (x < 0) {
@@ -62,14 +62,14 @@ static int _printf_decimal(va_list ap, writer_t writer, const void *dest, format
     return count + _printf_do_udecimal(x, writer, dest, fmt);
 }
 
-static int _printf_char(va_list ap, writer_t writer, const void *dest, format_t fmt) {
-    char c = va_arg(ap, int);
+static int _printf_char(va_list *ap, writer_t writer, const void *dest, format_t fmt) {
+    char c = va_arg(*ap, int);
     writer(dest, c);
     return 1;
 }
 
-static int _printf_string(va_list ap, writer_t writer, const void *dest, format_t fmt) {
-    const char *s = va_arg(ap, const char *);
+static int _printf_string(va_list *ap, writer_t writer, const void *dest, format_t fmt) {
+    const char *s = va_arg(*ap, const char *);
     int count = 0;
     char c;
     while ((c = *s++) != 0) {
@@ -79,10 +79,10 @@ static int _printf_string(va_list ap, writer_t writer, const void *dest, format_
     return count;
 }
 
-int _printf_ptr(va_list ap, writer_t writer, const void *dest, format_t fmt) {
+int _printf_ptr(va_list *ap, writer_t writer, const void *dest, format_t fmt) {
     writer(dest, '0');
     writer(dest, 'x');
-    unsigned x = (unsigned)va_arg(ap, void *);
+    unsigned x = (unsigned)va_arg(*ap, void *);
 
     // This will be wrong on non-32-bit platforms
     int i;
@@ -93,8 +93,10 @@ int _printf_ptr(va_list ap, writer_t writer, const void *dest, format_t fmt) {
     return 10;
 }
 
-int _printf_weird(va_list ap, writer_t writer, const void *dest, format_t fmt) {
+int _printf_weird(va_list *ap, writer_t writer, const void *dest, format_t fmt) {
     // Format out a warning, not actually something
+    // Does NOT consume any arguments because we have no way of knowing what
+    // size was expected.
     int i;
     for (i = 0; i < 3; i++)
         writer(dest, '!');
@@ -117,11 +119,19 @@ void _writer_buffer(const void *wdest, char c) {
 
 // Used for catching end-of-string while grabbing chars
 // Used within switch blocks, so can't break.
-#define _NEXT(fmt) if ((c = *fmt++) == 0) return count;
+#define _NEXT(fmt) if ((c = *fmt++) == 0) goto out;
 
-// TODO mostly incomplete.  Python parser only depends on %d and %s, so this
-// is mostly placeholder code.
-static int _v_printf(const char *fmt, va_list ap, writer_t writer, const void *warg) {
+// TODO mostly incomplete.  Python parser only depends on %d and %s, so this is
+// mostly placeholder code.
+static int _v_printf(const char *fmt, va_list ap_in, writer_t writer, const void
+        *warg) {
+    // The va_copy here is dumb, but necessary for things to work on x86_64.
+    // See GCC bug #14557, but the issue boils down to va_list being
+    // transparently passed by reference so &ap is wrong if ap is a function
+    // parameter.
+    va_list ap;
+    va_copy(ap, ap_in);
+
     // Bytes transmitted
     int count = 0;
     format_t f = {
@@ -273,8 +283,10 @@ static int _v_printf(const char *fmt, va_list ap, writer_t writer, const void *w
                 formatter = _printf_weird;
                 break;
         }
-        formatter(ap, writer, warg, f);
+        formatter(&ap, writer, warg, f);
     }
+out:
+    va_end(ap);
     return count;
 }
 
