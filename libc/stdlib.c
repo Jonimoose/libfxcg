@@ -1,6 +1,6 @@
 #include <fxcg/heap.h>
 #include <fxcg/keyboard.h>
-#ifndef FPRINTF_TO_VRAM
+#ifndef STDERR_TO_VRAM
 #include <fxcg/display.h>
 #endif
 #include <ctype.h>
@@ -34,7 +34,7 @@ void exit(int status) {
      * function.
      */
     fprintf(stderr, "TERMINATED (%i)\nPress menu key to exit\n", status);
-#ifndef FPRINTF_TO_VRAM
+#ifndef STDERR_TO_VRAM
     /* Initialize the status area so that it can display text
      * (the user code may have set the flags in some other way, or
      * disabled the status area entirely)
@@ -55,7 +55,7 @@ void exit(int status) {
 
 void abort() {
     fprintf(stderr, "ABORT CALLED\nPress menu key to exit\n");
-#ifndef FPRINTF_TO_VRAM
+#ifndef STDERR_TO_VRAM
     /* Initialize the status area so that it can display text
      * (the user code may have set the flags in some other way, or
      * disabled the status area entirely)
