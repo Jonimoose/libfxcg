@@ -59,6 +59,13 @@ void* memmove(void* destination, const void* source, size_t num) {
 	return destination;
 }
 
+void *memset(void *dest, int c, unsigned int n) {
+    char* d = (char*)dest;
+    while (n-- > 0) { *d++ = (char)c; }
+
+    return dest;
+}
+
 char *strcat(char *dest, const char *src) {
 	char* ret = dest;
 	dest += strlen(dest);
