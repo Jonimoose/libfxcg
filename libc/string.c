@@ -50,13 +50,19 @@ void* memcpy(void* destination, const void* source, size_t num) {
 }
 */
 
-// TODO extremely inefficient and generally bad.
-void* memmove(void* destination, const void* source, size_t num) {
-	void* d = malloc(num);
-	memcpy(d, source, num);
-	memcpy(destination, d, num);
-	free(d);
-	return destination;
+void*memmove(void*dst,const void*src,size_t n){
+	if(src>dst){
+		unsigned char*d8=(unsigned char*)dst;
+		const unsigned char*s8=(unsigned char*)src;
+		while(n--)
+			*d8++=*s8++;
+	}else if(src<dst){
+		unsigned char*d8=(unsigned char*)dst+n;
+		const unsigned char*s8=(unsigned char*)src+n;
+		while(n--)
+			*(--d8)=*(--s8);
+	}
+	return dst;
 }
 
 void *memset(void *dest, int c, unsigned int n) {
