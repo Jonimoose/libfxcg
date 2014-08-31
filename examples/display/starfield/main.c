@@ -37,8 +37,9 @@ static int keyPressed(int basic_keycode){
 	return (0 != (keyboard_register[word] & 1<<bit));
 }
 void main(void){
-	int starx[STARSAMT],stary[STARSAMT],starz[STARSAMT],starzv[STARSAMT];//Fixed point location and scale of starts Q15 format
+	int starx[STARSAMT],stary[STARSAMT],starz[STARSAMT],starzv[STARSAMT];//Fixed point location and scale of stars Q15 format
 	int screenx[STARSAMT],screeny[STARSAMT],screenxold[STARSAMT],screenyold[STARSAMT];//This is kept track of to simulate motion blur
+	Bdisp_EnableColor(1);
 	memset(screenx,0,64*sizeof(int));
 	memset(screeny,0,64*sizeof(int));
 	memset(screenxold,0,64*sizeof(int));
