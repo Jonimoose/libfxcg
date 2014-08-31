@@ -8,6 +8,8 @@
  * This example does not do any long calculations like a real program would.
  * Instead it just redraws the progress bar a lot to make it take awhile thus demonstrating my point about limiting how often to redraw the progress bar.
  * Also consider: "Why do I need a progress bar? Can my code be written to be faster removing the need for a progress bar?".
+ * Really the only reason you would need a progress bar is if the calcualtion takes lots of time.
+ * Two seconds as an example without a progress bar should be fine.
  */
 static int keyPressed(int basic_keycode){
 	const unsigned short* keyboard_register = (unsigned short*)0xA44B0000;
@@ -20,7 +22,7 @@ static int keyPressed(int basic_keycode){
 }
 void main(void){
 	Bdisp_EnableColor(0);//Use 3-bit mode. The progress bar looks the same in 16-bit mode.
-	memset((short*)0xA8000000,255,384*216*3/8);
+	Bdisp_AllClr_VRAM();
 	for(;;){
 		int i;
 		for(i=0;i<9001;++i){
