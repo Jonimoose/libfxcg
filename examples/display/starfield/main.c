@@ -39,7 +39,7 @@ static int keyPressed(int basic_keycode){
 void main(void){
 	int starx[STARSAMT],stary[STARSAMT],starz[STARSAMT],starzv[STARSAMT];//Fixed point location and scale of stars Q15 format
 	int screenx[STARSAMT],screeny[STARSAMT],screenxold[STARSAMT],screenyold[STARSAMT];//This is kept track of to simulate motion blur
-	Bdisp_EnableColor(1);
+	Bdisp_EnableColor(1);//Enable 16-bit mode
 	memset(screenx,0,64*sizeof(int));
 	memset(screeny,0,64*sizeof(int));
 	memset(screenxold,0,64*sizeof(int));
