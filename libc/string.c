@@ -50,60 +50,14 @@ void* memcpy(void* destination, const void* source, size_t num) {
 }
 */
 
-void*memmove(void*dst,const void*src,size_t n){
-	if(src<dst){
-		unsigned*d=dst;
-		const unsigned*s=src;
-		unsigned char*d8=d;
-		const unsigned char*s8=s;
-		while((unsigned)s8&3){
-			*d8++=*s8++;/*It is done like this due to SH's move instruction then postincrement address*/
-			--n;
-		}
-		d=d8;
-		s=s8;
-		while(n>=4){
-			*d++=*s++;
-			n-=4;
-		}
-		if(n){
-			d8=d;
-			s8=s;
-			while(n--)
-				*d8++=*s8++;
-		}
-	}else if(src>dst){
-		unsigned*d=dst+n;
-		const unsigned*s=src+n;
-		unsigned char*d8=d;
-		const unsigned char*s8=s;
-		while((unsigned)s8&3){
-			*(--d8)=*(--s8);/*It is done like this due to SH's preincrement address then move instruction*/
-			--n;
-		}
-		d=d8;
-		s=s8;
-		while(n>=4){
-			*(--d)=*(--s);
-			n-=4;
-		}
-		if(n){
-			d8=d;
-			s8=s;
-			while(n--)
-				*(--d8)=*(--s8);
-		}
-	}
-	return dst;
+// TODO extremely inefficient and generally bad.
+void* memmove(void* destination, const void* source, size_t num) {
+	void* d = malloc(num);
+	memcpy(d, source, num);
+	memcpy(destination, d, num);
+	free(d);
+	return destination;
 }
-
-void *memset(void *dest, int c, unsigned int n) {
-	char* d = (char*)dest;
-	while (n-- > 0) { *d++ = (char)c; }
-	
-	return dest;
-}
-
 
 char *strcat(char *dest, const char *src) {
 	char* ret = dest;
