@@ -1,5 +1,8 @@
 #include <fxcg/heap.h>
 #include <fxcg/keyboard.h>
+#ifndef FPRINTF_TO_VRAM
+#include <fxcg/display.h>
+#endif
 #include <ctype.h>
 #include <limits.h>
 #include <stdio.h>
@@ -31,6 +34,20 @@ void exit(int status) {
      * function.
      */
     fprintf(stderr, "TERMINATED (%i)\nPress menu key to exit\n", status);
+#ifndef FPRINTF_TO_VRAM
+    /* Initialize the status area so that it can display text
+     * (the user code may have set the flags in some other way, or
+     * disabled the status area entirely)
+     */
+    EnableStatusArea(0);
+    DefineStatusAreaFlags(3, SAF_BATTERY | SAF_TEXT | SAF_GLYPH | SAF_ALPHA_SHIFT, 0, 0);
+    char buffer[50];
+    sprintf(buffer, "Exited (%i), press [MENU].", status);
+    DefineStatusMessage(buffer, 1, 0, 0);
+    DisplayStatusArea(); /* not sure if necessary, I have the idea that,
+     * at least in some circumstances, GetKey calls DisplayStatusArea().
+     */
+#endif
     int key;
     while(1)
         GetKey(&key);
@@ -38,6 +55,18 @@ void exit(int status) {
 
 void abort() {
     fprintf(stderr, "ABORT CALLED\nPress menu key to exit\n");
+#ifndef FPRINTF_TO_VRAM
+    /* Initialize the status area so that it can display text
+     * (the user code may have set the flags in some other way, or
+     * disabled the status area entirely)
+     */
+    EnableStatusArea(0);
+    DefineStatusAreaFlags(3, SAF_BATTERY | SAF_TEXT | SAF_GLYPH | SAF_ALPHA_SHIFT, 0, 0);
+    DefineStatusMessage((char*)"Aborted, press [MENU].", 1, 0, 0);
+    DisplayStatusArea(); /* not sure if necessary, I have the idea that,
+     * at least in some circumstances, GetKey calls DisplayStatusArea().
+     */
+#endif
     int key;
     while(1)
         GetKey(&key);
