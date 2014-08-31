@@ -10,6 +10,11 @@
  * Also consider: "Why do I need a progress bar? Can my code be written to be faster removing the need for a progress bar?".
  * Really the only reason you would need a progress bar is if the calcualtion takes lots of time.
  * Two seconds as an example without a progress bar should be fine.
+ * 
+ * If the calculation takes long enough to make the program go unresponsive for a noticeable while (e.g. one or two seconds), but not enough to warrant
+ * showing a progress bar, or if you don't have a way to estimate when the calculation will be done, consider calling the syscall HourGlass periodically.
+ * It will show the OS busy indicator in the top-right corner of the screen, and will not affect the speed of the program as much, since it only
+ * redraws a small part of the screen. This way, it becomes apparent to the user that your program has not stopped working, and that the user should wait.
  */
 static int keyPressed(int basic_keycode){
 	const unsigned short* keyboard_register = (unsigned short*)0xA44B0000;
