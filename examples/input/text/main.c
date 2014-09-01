@@ -32,7 +32,7 @@ static void askQ(const char*msg,char*buf,int n){
 	fill.y2=168;
 	fill.mode=0;
 	Bdisp_AreaClr(&fill,1,0);
-	PrintXY(1,6,msg-2,0,0);
+	PrintXY(1,6,msg,0,0);
 	getStrn(1,7,n,buf);
 }
 void main(void){
@@ -41,7 +41,7 @@ void main(void){
 	Bdisp_EnableColor(0);
 	Bdisp_AllClr_VRAM();
 	//Print the "explanation"
-	PrintXY(1,1,"Stop!"-2,0,0);
+	PrintXY(1,1,"  Stop!",0,0);
 	x=0;
 	y=32;
 	PrintMini(&x,&y,"Who would cross the Bridge of Death",0,0xFFFFFFFF,0,0,0,0xFFFF,1,0);
@@ -51,10 +51,10 @@ void main(void){
 	x=0;
 	y=80;
 	PrintMini(&x,&y,"ere the other side he see.",0,0xFFFFFFFF,0,0,0,0xFFFF,1,0);
-	PrintXY(1,5,"What... is"-2,0,0);
+	PrintXY(1,5,"  What... is",0,0);
 	for(;;){
-		askQ("your name?",buf,1024);
-		askQ("your quest?",buf,1024);
-		askQ("your favorite color?",buf,1024);//The text fits by using American spelling. Yes I know Monty Python is a British show.
+		askQ("  your name?",buf,1024);
+		askQ("  your quest?",buf,1024);
+		askQ("  your favorite color?",buf,1024);//The text fits by using American spelling. Yes I know Monty Python is a British show.
 	}
 }
