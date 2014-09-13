@@ -43,6 +43,8 @@ unsigned short Bdisp_GetPoint_DD_Workbench( int x, int y );
 unsigned short Bdisp_GetPoint_DD( int x, int y );
 void DirectDrawRectangle( int x1, int y1, int x2, int y2, unsigned short color );
 void HourGlass( void );
+void Bdisp_DefineDMARange(int x1, int x2, int y1, int y2);
+unsigned short Bdisp_WriteDDRegister3_bit7(int value);
 
 // Graphic writing:
 struct display_graph {
