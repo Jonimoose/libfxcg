@@ -50,7 +50,7 @@ class TStringList{
     int IsEndOfList();
     int StringLength();
     int Assign( char*c );
-	void Sort( TStrListSortFunction sorter = 0 );
+    void Sort( TStrListSortFunction sorter = 0 );
     
     int Name( char*c );
     int Value( char*c );

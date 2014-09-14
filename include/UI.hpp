@@ -29,7 +29,7 @@ class TFKeyRegister {
     unsigned char*FKEY_Ptr( int fk_num );
 
   protected :
-	TInputFlags flags;
+    TInputFlags flags;
   private :
     TFKDef*FRegisteredFKeys;
     int FKeyDefCount;
