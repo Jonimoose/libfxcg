@@ -119,7 +119,7 @@
 #define KEY_CTRL_DEL        30025
 #define KEY_CTRL_AC         30015
 #define KEY_CTRL_FD         30046
-#define KEY_CTRL_UNDO	    30045	
+#define KEY_CTRL_UNDO       30045   
 #define KEY_CTRL_XTT        30001
 #define KEY_CTRL_EXIT       30002
 #define KEY_CTRL_SHIFT      30006
@@ -150,11 +150,11 @@
 #define KEY_CTRL_PAGEUP     30052
 #define KEY_CTRL_PAGEDOWN   30053
 #define KEY_CTRL_MENU       30003
-#define KEY_SHIFT_OPTN	    30059
-#define KEY_CTRL_RESERVE1	30060
-#define KEY_CTRL_RESERVE2	30061
-#define KEY_SHIFT_LEFT		30062
-#define KEY_SHIFT_RIGHT		30063
+#define KEY_SHIFT_OPTN      30059
+#define KEY_CTRL_RESERVE1   30060
+#define KEY_CTRL_RESERVE2   30061
+#define KEY_SHIFT_LEFT      30062
+#define KEY_SHIFT_RIGHT     30063
 
 #define KEY_PRGM_ACON 10
 #define KEY_PRGM_DOWN 37

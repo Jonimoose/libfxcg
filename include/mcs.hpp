@@ -31,62 +31,62 @@ typedef struct {
 
 ////////// TMCSView //////////
 class TMCSView : public TListView {
-	public:
-		TMCSView( int X1=1, int Y1=1, int X2=21, int Y2=9 )  : TListView( X1, Y1, X2, Y2 ) { 
-			FSource = (TMCSDirEntry*)0x880D36D0;
-			FSize = 0x93;
-			SetHeading( "Main Memory" );
-			FOnCreate();
-		}
-		virtual ~TMCSView();
-		    
-	protected:  
-		virtual int vBeforeBrowse();
-	    virtual int vPrevLine();
-		virtual int vNextLine();
-		virtual int vSourceGetCurrentItem( TListViewItem w );
-		virtual int vSourceBOL() const;
-		virtual int vSourceEOL() const;
-		virtual int vSourceJump( TListViewJump dir );
-		virtual int vProcessMessage();
-		virtual int vShowAll();
-	private:
-		int FSize;
-		TMCSDirEntry*FSource;
-		int FSubView() const;
-		int FDelete();
-		int FOnCreate();
-	
+    public:
+        TMCSView( int X1=1, int Y1=1, int X2=21, int Y2=9 )  : TListView( X1, Y1, X2, Y2 ) { 
+            FSource = (TMCSDirEntry*)0x880D36D0;
+            FSize = 0x93;
+            SetHeading( "Main Memory" );
+            FOnCreate();
+        }
+        virtual ~TMCSView();
+            
+    protected:  
+        virtual int vBeforeBrowse();
+        virtual int vPrevLine();
+        virtual int vNextLine();
+        virtual int vSourceGetCurrentItem( TListViewItem w );
+        virtual int vSourceBOL() const;
+        virtual int vSourceEOL() const;
+        virtual int vSourceJump( TListViewJump dir );
+        virtual int vProcessMessage();
+        virtual int vShowAll();
+    private:
+        int FSize;
+        TMCSDirEntry*FSource;
+        int FSubView() const;
+        int FDelete();
+        int FOnCreate();
+    
 };
 ////////// TMCSView //////////
 
 ////////// TMCSItemView //////////
 class TMCSItemView : public TListView {
-	public:
-		TMCSItemView( int X1 = 1, int Y1 = 1, int X2 = 21, int Y2 = 8 ) : TListView( X1, Y1, X2, Y2 ){
-			FOnCreate();
-		};
-		virtual ~TMCSItemView();
+    public:
+        TMCSItemView( int X1 = 1, int Y1 = 1, int X2 = 21, int Y2 = 8 ) : TListView( X1, Y1, X2, Y2 ){
+            FOnCreate();
+        };
+        virtual ~TMCSItemView();
 
-		TMCSDirEntry*parent;
-		int FOnCreate();
-		int InitArray( TMCSItem*pitem, int size );
-	
-	protected:  
-		virtual int vBeforeBrowse();
-	    virtual int vPrevLine();
-		virtual int vNextLine();
-		virtual int vSourceGetCurrentItem( TListViewItem w );
-		virtual int vSourceBOL() const;
-		virtual int vSourceEOL() const;
-		virtual int vSourceJump( TListViewJump dir );
-		virtual int vProcessMessage();
-	
-	private:
-		int FSize;
-		TMCSItem*FSource;
-		int FView();
-		int FDelete();
+        TMCSDirEntry*parent;
+        int FOnCreate();
+        int InitArray( TMCSItem*pitem, int size );
+    
+    protected:  
+        virtual int vBeforeBrowse();
+        virtual int vPrevLine();
+        virtual int vNextLine();
+        virtual int vSourceGetCurrentItem( TListViewItem w );
+        virtual int vSourceBOL() const;
+        virtual int vSourceEOL() const;
+        virtual int vSourceJump( TListViewJump dir );
+        virtual int vProcessMessage();
+    
+    private:
+        int FSize;
+        TMCSItem*FSource;
+        int FView();
+        int FDelete();
 };
 ////////// TMCSItemView //////////
 

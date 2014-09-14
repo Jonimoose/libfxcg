@@ -75,12 +75,12 @@ void Bdisp_WriteGraphDD_WB(struct display_graph* gd);
 
 //Shape drawing:
 struct display_shape {
-	int dx;
-	int dy;
-	int wx;
-	int wy;
-	int color;
-	struct display_fill saved;
+    int dx;
+    int dy;
+    int wx;
+    int wy;
+    int color;
+    struct display_fill saved;
 };
 void Bdisp_ShapeBase3XVRAM( void*shape );
 void Bdisp_ShapeBase( unsigned char*work, struct display_shape *shape, int color, int line_width, int zero1, int zero2 );

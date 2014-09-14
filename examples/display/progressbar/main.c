@@ -17,27 +17,27 @@
  * redraws a small part of the screen. This way, it becomes apparent to the user that your program has not stopped working, and that the user should wait.
  */
 static int keyPressed(int basic_keycode){
-	const unsigned short* keyboard_register = (unsigned short*)0xA44B0000;
-	int row, col, word, bit;
-	row = basic_keycode%10;
-	col = basic_keycode/10-1;
-	word = row>>1;
-	bit = col + ((row&1)<<3);
-	return (0 != (keyboard_register[word] & 1<<bit));
+    const unsigned short* keyboard_register = (unsigned short*)0xA44B0000;
+    int row, col, word, bit;
+    row = basic_keycode%10;
+    col = basic_keycode/10-1;
+    word = row>>1;
+    bit = col + ((row&1)<<3);
+    return (0 != (keyboard_register[word] & 1<<bit));
 }
 void main(void){
-	Bdisp_EnableColor(0);//Use 3-bit mode. The progress bar looks the same in 16-bit mode.
-	Bdisp_AllClr_VRAM();
-	for(;;){
-		int i;
-		for(i=0;i<9001;++i){
-			ProgressBar2("Acting busy",i,9001);
-			if(keyPressed(KEY_PRGM_MENU)){
-				int key;
-				GetKey(&key);
-				break;
-			}
-		}
-		MsgBoxPop();
-	}
+    Bdisp_EnableColor(0);//Use 3-bit mode. The progress bar looks the same in 16-bit mode.
+    Bdisp_AllClr_VRAM();
+    for(;;){
+        int i;
+        for(i=0;i<9001;++i){
+            ProgressBar2("Acting busy",i,9001);
+            if(keyPressed(KEY_PRGM_MENU)){
+                int key;
+                GetKey(&key);
+                break;
+            }
+        }
+        MsgBoxPop();
+    }
 }
