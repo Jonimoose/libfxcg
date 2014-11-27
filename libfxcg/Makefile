@@ -2,7 +2,7 @@ TOOLCHAIN_PREFIX=prizm-
 CC=$(TOOLCHAIN_PREFIX)gcc
 AS=$(TOOLCHAIN_PREFIX)as
 AR=$(TOOLCHAIN_PREFIX)ar
-CFLAGS=-c -ffunction-sections -fdata-sections -Os -Lr -I../include -flto -std=c99 -Wall -Wextra
+CFLAGS=-c -m4a-nofpu -mb -ffunction-sections -fdata-sections -Os -Lr -I../include -flto -std=c99 -Wall -Wextra
 ARFLAGS=rs
 VPATH=syscalls
 SHSOURCES=$(wildcard syscalls/*.S) $(wildcard misc/*.S)

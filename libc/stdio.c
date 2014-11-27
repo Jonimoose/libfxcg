@@ -34,7 +34,9 @@ static inline int handle_tonative(int fileno) {
 int feof(FILE *stream) {
     return stream->eof;
 }
-
+int fflush(FILE *stream){
+	return 0;
+}
 FILE *fopen(const char *path, const char *mode) {
     // Resolve mode
     int sysmode = 0;
@@ -93,7 +95,7 @@ FILE *fopen(const char *path, const char *mode) {
 
     if (mode[0] == 'a') {
         // TODO Need to seek to end and do some junk.
-        errno = ENOTIMPL;
+        errno = ENOSYS;
         return NULL;
     }
 
@@ -136,6 +138,7 @@ static int serial_ensureopen() {
 }
 
 // TODO restrict ptr, stream
+#ifndef STDERR_TO_VRAM
 static size_t fwrite_serial(const void *ptr, size_t size, size_t nitems,
                             FILE *stream) {
     // tx buffer is 256 bytes, don't get stuck waiting
@@ -157,10 +160,11 @@ static size_t fwrite_serial(const void *ptr, size_t size, size_t nitems,
     }
     return nitems - remain;
 }
+#endif
 
-static size_t fwrite_term(const void *ptr, size_t size, size_t nitems,
-                          FILE *stream) {
-    char *buffer = sys_malloc(1 + nitems * size);
+static size_t fwrite_term(const void *ptr, size_t size, size_t nitems,FILE *stream,int col){
+	static int termXfxcg,termYfxcg;
+    char *buffer = alloca(1 + nitems * size);
     if (buffer == NULL) {
         IOERR(stream, ENOMEM);
         return 0;
@@ -178,20 +182,19 @@ static size_t fwrite_term(const void *ptr, size_t size, size_t nitems,
           *eol = '\0';
         }
 
-        // Cast to wider type for correct pointers
-        int termx = stream->termx, termy = stream->termy;
-        PrintMiniMini(&termx, &termy, outp, 0, TEXT_COLOR_BLACK, 0);
+		// Cast to wider type for correct pointers
+		PrintMiniMini(&termXfxcg, &termYfxcg, outp, 0, col, 0);
 
-        // CR/LF if applicable
-        if(eol)
-        {
-            stream->termx = 0;
-            stream->termy += 10;
-            outp = eol + 1;
-        }
+		// CR/LF if applicable
+		if(eol){
+			termXfxcg = 0;
+			Bdisp_PutDisp_DD_stripe(termYfxcg,termYfxcg+10);
+			termYfxcg += 10;
+			outp = eol + 1;
+		}
+		if(termYfxcg>=200)
+			termYfxcg=0;
     } while (eol);
-
-    sys_free(buffer);
     return nitems;
 }
 // TODO make ptr, stream restrict for optimization
@@ -200,12 +203,17 @@ size_t fwrite(const void *ptr, size_t size, size_t nitems,
     if (isstdstream(stream)) {
         if (stream->fileno == 2) {
             // stderr: serial
-            return fwrite_serial(ptr, size, nitems, stream);
+	    #ifdef STDERR_TO_VRAM
+			return fwrite_term(ptr, size, nitems, stream,TEXT_COLOR_RED);
+	    #else
+            	return fwrite_serial(ptr, size, nitems, stream);
+	    #endif
         } else if (stream->fileno == 1) {
             // stdout: display
-            return fwrite_term(ptr, size, nitems, stream);
+			return fwrite_term(ptr, size, nitems, stream,TEXT_COLOR_BLACK);
         } else {
             // stdin..?
+	    return 0;
         }
     }
     // TODO this must be able to fail, but how?
