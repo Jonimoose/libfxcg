@@ -2,6 +2,7 @@
 #include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <xlocale.h>
 
 typedef struct {
     int width;
@@ -108,11 +109,17 @@ int _printf_weird(va_list *ap, writer_t writer, const void *dest, format_t fmt) 
 void _writer_stream(const void *wdest, char c) {
     fputc(c, (FILE *)wdest);
 }
+static int checkBounds,maxWrite;
 void _writer_buffer(const void *wdest, char c) {
     // Needs to track buffer location, so double pointer
+    if(checkBounds&&maxWrite--<=0)
+        return;
     char **dest = (char **)wdest;
     **dest = c;
     (*dest)++;
+    if(checkBounds&&maxWrite<=0)
+        return;
+    **dest = 0;//Ensure null termination
 }
 
 /* Main worker and such. */
@@ -293,6 +300,9 @@ out:
 int vfprintf(FILE *stream, const char *fmt, va_list ap) {
     return _v_printf(fmt, ap, _writer_stream, stream);
 }
+int vprintf(const char * format, va_list arg){
+	return vfprintf(stdout,format,arg);
+}
 
 int fprintf(FILE *stream, const char *fmt, ...) {
     va_list ap;
@@ -311,9 +321,14 @@ int printf(const char *fmt, ...) {
 }
 
 int vsprintf(char *str, const char *fmt, va_list ap) {
+    checkBounds=0;
     return _v_printf(fmt, ap, _writer_buffer, &str);
 }
-
+int vsnprintf (char * s, size_t n, const char * format, va_list arg){
+    checkBounds=1;
+    maxWrite=n;
+    return _v_printf(format, arg, _writer_buffer, &s);
+}
 int sprintf(char *str, const char *fmt, ...) {
     va_list ap;
     va_start(ap, fmt);
@@ -321,3 +336,11 @@ int sprintf(char *str, const char *fmt, ...) {
     va_end(ap);
     return ret;
 }
+int snprintf ( char * s, size_t n, const char * format, ... ){
+    va_list ap;
+    va_start(ap, format);
+    int ret = vsnprintf(s,n,format,ap);
+    va_end(ap);
+    return ret;
+}
+

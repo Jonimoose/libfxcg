@@ -6,16 +6,47 @@
 #include <ctype.h>
 #include <limits.h>
 #include <stdio.h>
+#include <string.h>
 
 // External linkage
 int errno;
 
+char *getenv(const char *name){
+	return 0;
+}
+#ifdef DEBUG
+static void*errAlloc(void*p,size_t sz,const char*prefix){
+	if(!p){
+		fprintf(stderr,"%salloc error %d\n",prefix,sz);
+		int key;
+		for(;;)
+			GetKey(&key);
+	}
+	printf("%salloc %d\n",prefix,sz);
+	return p;
+}
+#endif
 void *malloc(size_t sz) {
-    return sys_malloc(sz);
+    #ifdef DEBUG
+    	return errAlloc(sys_malloc(sz),sz,"m");
+    #else
+    	return sys_malloc(sz);
+    #endif
+}
+
+void* calloc (size_t num, size_t size){
+	void * ret=sys_malloc(num*size);
+	if(ret)
+		memset(ret,0,num*size);
+	return ret;
 }
 
 void *realloc(void *ptr, size_t sz) {
-    return sys_realloc(ptr, sz);
+    #ifdef DEBUG
+    	return errAlloc(sys_realloc(ptr,sz),sz,"re");
+    #else
+    	return sys_realloc(ptr, sz);
+    #endif
 }
 
 void free(void *ptr) {
@@ -165,3 +196,4 @@ int abs(int i) {
     else
         return i;
 }
+

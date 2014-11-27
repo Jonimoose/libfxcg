@@ -5,6 +5,11 @@
 extern "C" {
 #endif
 
+#define	EXIT_FAILURE	1
+#define	EXIT_SUCCESS	0
+
+#define	RAND_MAX	0x7ffffffd
+
 #include <stddef.h>
 
 int abs(int n);
@@ -19,8 +24,8 @@ int sys_rand(void);
 void sys_srand(unsigned seed);
 
 long strtol(const char *str, char **str_end, int base);
-#define atoi(s) ((int)strtol(s, NULL, 10))
-#define atol(s) strtol(s, NULL, 10)
+static inline int atoi(const char*s){return strtol(s,NULL,10);}
+static inline long atol(const char*s){return strtol(s,NULL,10);}
 int sys_atoi(const char * s);
 
 double strtod(const char *s, char **str_end);
