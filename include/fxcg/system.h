@@ -48,6 +48,8 @@ int CLIP_Store( unsigned char*buffer, int length ); // stores buffer of length l
 
 int MB_ElementCount(char* buf); // like strlen but for the graphical length of multibyte strings
 
+int GlibGetOSVersionInfo(char *major, char *minor, short int *c, short int *d); 
+
 #ifdef __cplusplus
 }
 #endif
