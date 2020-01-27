@@ -41,6 +41,16 @@ void Bfile_NameToStr_ncpy(char* dest, const unsigned short* source, size_t n);
 void Bfile_StrToName_ncpy(unsigned short *dest, const char *source, size_t n);
 int Bfile_Name_MatchMask( const short*mask, const short*filename  );
 int Bfile_GetMediaFree_OS( unsigned short*media_id, int*freespace );
+
+/*
+	Given a file handle and a 4 KB aligned block address within the file,
+	returns the direct memory access pointer for that file. 
+
+	!Warning! This address is no longer valid if any OS file operations are
+	performed.
+*/
+int Bfile_GetBlockAddress(int handle, int blockAddress, unsigned char** outPtr);
+
 int SMEM_FindFirst( const unsigned short*pattern, unsigned short*foundfile );
 
 int MCS_CreateDirectory( unsigned char*dir );
