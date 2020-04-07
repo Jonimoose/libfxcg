@@ -5,7 +5,7 @@ endif
 export	LIBFXCG_INC	:=	$(FXCGSDK)/include
 export	LIBFXCG_LIB	:=	$(FXCGSDK)/lib
 
-MACHDEP = -mb  -mhitachi -nostdlib
+MACHDEP = -mb -m4a-nofpu -mhitachi -nostdlib
 
 #---------------------------------------------------------------------------------
 # path to tools 
@@ -15,7 +15,7 @@ export PATH	:=	$(FXCGSDK)/bin:$(PATH)
 #---------------------------------------------------------------------------------
 # the prefix on the compiler executables
 #---------------------------------------------------------------------------------
-PREFIX	:=	prizm-
+PREFIX	:=	sh3eb-elf-
 
 export AS	:=	$(PREFIX)as
 export CC	:=	$(PREFIX)gcc

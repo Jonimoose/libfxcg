@@ -1,5 +1,5 @@
 
-CC=prizm-gcc
+CC=sh3eb-elf-gcc
 MKG3A=mkg3a
 RM=rm
 CFLAGS= -mb -Os -mhitachi -Wall -Wextra -I../../include -lgcc -L../../lib
