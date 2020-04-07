@@ -29,7 +29,7 @@ INCLUDES	:=
 # options for code and add-in generation
 #---------------------------------------------------------------------------------
 
-MKG3AFLAGS := -n basic:example -i uns:../selected.bmp -i sel:../unselected.bmp
+MKG3AFLAGS := -n basic:example -i uns:../unselected.bmp -i sel:../selected.bmp
 
 CFLAGS	= -Os -Wall $(MACHDEP) $(INCLUDE) -ffunction-sections -fdata-sections 
 CXXFLAGS	=	$(CFLAGS)
