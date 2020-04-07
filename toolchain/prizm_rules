@@ -24,6 +24,22 @@ export AR	:=	$(PREFIX)ar
 export OBJCOPY	:=	$(PREFIX)objcopy
 export MKG3A := mkg3a
 
+ifeq ($(OS),Windows_NT)
+define rm
+  if exist "$(subst /,\,$(1))" del "$(subst /,\,$(1))"
+endef
+define rmdir
+  if exist "$(subst /,\,$(1))" rmdir /S /Q "$(subst /,\,$(1))"
+endef
+else
+define rm
+  rm -f "$(1)"
+endef
+define rmdir
+  rm -rf "$(1)"
+endef
+endif
+
 #---------------------------------------------------------------------------------
 # This is from devkitpro's MSVC stuff for makings errors cleaner, requires sed
 #---------------------------------------------------------------------------------
@@ -36,7 +52,7 @@ export MKG3A := mkg3a
 #---------------------------------------------------------------------------------
 %.a:
 #---------------------------------------------------------------------------------
-	rm -f $@
+	$(call rm,$@)
 	$(AR) -rc $@ $^
 
 #---------------------------------------------------------------------------------
