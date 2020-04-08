@@ -6,7 +6,7 @@ Not much to see here except the syscalls, hopefully that will change in the futu
 
 Building
 --------
-1. Change `TOOLCHAIN_PREFIX` in `libfxcg/Makefile` and `libc/Makefile` to the prefix of your toolchain.  The default is `prizm-`.
+1. Change `TOOLCHAIN_PREFIX` in `libfxcg/Makefile` and `libc/Makefile` to the prefix of your toolchain.  The default is `sh3eb-elf-`.
 2. make
 
 ### Examples
