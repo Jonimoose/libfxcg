@@ -181,3 +181,21 @@ jobs:
         with:
           name: pkg-win
           path: pkg
+
+  test:
+    name: Verify package can build G3A
+    runs-on: windows-latest
+    needs: package
+    steps:
+      - uses: actions/download-artifact@v1
+        with:
+          name: pkg-win
+          path: prizmsdk
+      - name: Build example project
+        run: |
+          cd prizmsdk/projects/example
+          make
+      - uses: actions/upload-artifact@v1
+        with:
+          name: testproject-compiled
+          path: prizmsdk/projects/example
