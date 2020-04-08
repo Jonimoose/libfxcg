@@ -76,3 +76,20 @@ jobs:
         with:
           name: toolchain-bin-gcc9.3.0
           path: toolchain-bin
+
+  build_libfxcg:
+    name: Build libfxcg
+    runs-on: ubuntu-latest
+    container:
+      image: tari/libfxcg-toolchain
+    steps:
+      - uses: actions/checkout@v2
+      - name: Compile
+        run: |
+          make
+          mkdir dist
+          cp -r lib include dist
+      - uses: actions/upload-artifact@v1
+        with:
+          name: libfxcg
+          path: dist
