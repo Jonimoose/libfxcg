@@ -93,3 +93,21 @@ jobs:
         with:
           name: libfxcg
           path: dist
+
+  package:
+    name: Assemble package
+    runs-on: ubuntu-latest
+    needs: [build_libfxcg, build_toolchain]
+    steps:
+      - uses: actions/download-artifact@v1
+        with:
+          name: libfxcg
+          path: pkg
+      - uses: actions/download-artifact@v1
+        with:
+          name: toolchain-bin-gcc9.3.0
+          path: pkg
+      - uses: actions/upload-artifact@v1
+        with:
+          name: pkg-win
+          path: pkg
