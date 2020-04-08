@@ -161,7 +161,19 @@ jobs:
         with:
           name: toolchain-bin-gcc9.3.0
           path: pkg
-      - run: |
+      - name: Download make
+        # Slightly weird to manually download the chocolatey package, but
+        # the packager doesn't seem to have said how they build this so
+        # we're stuck with their binaries. This is just very convenient.
+        run: |
+          mkdir make-4.3
+          cd make-4.3
+          curl -L https://chocolatey.org/api/v2/package/make/4.3 -o make.4.3.nupkg
+          unzip make.4.3.nupkg
+          mkdir -p ../pkg/bin
+          cp tools/install/bin/make.exe ../pkg/bin/
+      - name: Copy project files
+        run: |
           cp -r toolchain pkg/toolchain
           mkdir pkg/projects
           cp -r examples/skeleton pkg/projects/example
