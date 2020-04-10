@@ -1,0 +1,201 @@
+name: Build Windows SDK package
+on: push
+
+jobs:
+  build_toolchain:
+    name: Build Windows toolchain
+    runs-on: ubuntu-latest
+    container:
+      image: tari/libfxcg-toolchain
+    steps:
+      - name: Install packages
+        run: |
+          apt-get -qqy update
+          apt-get -qq install build-essential curl mingw-w64 texinfo
+
+      - uses: actions/cache@v1
+        id: cache-binaries
+        name: Cache toolchain binaries
+        with:
+          path: toolchain-bin
+          key: toolchain-win-gcc9.3.0_binutils2.34
+      - uses: actions/cache@v1
+        id: cache-sources
+        if: steps.cache-binaries.outputs.cache-hit != 'true'
+        name: Cache toolchain sources
+        with:
+          path: toolchain-src
+          key: toolchain-src-gcc9.3.0
+
+      - name: Download toolchain sources
+        if: steps.cache-binaries.outputs.cache-hit != 'true' && steps.cache-sources.outputs.cache-hit != 'true'
+        run: |
+          mkdir toolchain-src && cd toolchain-src
+          curl -L http://ftpmirror.gnu.org/binutils/binutils-2.34.tar.bz2 | tar xj
+          curl -L http://ftpmirror.gnu.org/gcc/gcc-9.3.0/gcc-9.3.0.tar.xz | tar xJ
+          curl -L http://ftpmirror.gnu.org/mpfr/mpfr-4.0.2.tar.xz | tar xJ
+          ln -sr mpfr-4.0.2 ./gcc-9.3.0/mpfr
+          curl -L http://ftpmirror.gnu.org/gmp/gmp-6.2.0.tar.xz | tar xJ
+          ln -sr gmp-6.2.0 ./gcc-9.3.0/gmp
+          curl -L http://ftpmirror.gnu.org/mpc/mpc-1.1.0.tar.gz | tar xz
+          ln -sr mpc-1.1.0 ./gcc-9.3.0/mpc
+
+      - name: Build toolchain
+        if: steps.cache-binaries.outputs.cache-hit != 'true'
+        run: |
+          mkdir -p toolchain-build/binutils toolchain-build/gcc toolchain-bin
+
+          cd toolchain-build/binutils
+          ../../toolchain-src/binutils-2.34/configure \
+              --target=sh3eb-elf --host=i686-w64-mingw32 \
+              --disable-nls --prefix=
+          make -j$(nproc)
+          make DESTDIR=${GITHUB_WORKSPACE}/toolchain-bin install
+
+          cd ../gcc
+          ../../toolchain-src/gcc-9.3.0/configure \
+              --target=sh3eb-elf --with-endian=big \
+              --with-pkgversion=PrizmSDK \
+              --host=i686-w64-mingw32 \
+              --prefix= \
+              --without-headers --enable-languages=c,c++ \
+              --disable-tls --disable-nls --disable-threads --disable-shared \
+              --disable-libssp --disable-libvtv --disable-libada \
+              --disable-gcov --disable-libgomp
+
+          make -j$(nproc) inhibit_libc=true all-gcc
+          make DESTDIR=${GITHUB_WORKSPACE}/toolchain-bin install-gcc
+
+          make -j$(nproc) inhibit_libc=true all-target-libgcc
+          make DESTDIR=${GITHUB_WORKSPACE}/toolchain-bin install-target-libgcc
+
+          cd ${GITHUB_WORKSPACE}/toolchain-bin
+          find . -name '*.exe' -exec i686-w64-mingw32-strip {} \;
+
+      - uses: actions/upload-artifact@v1
+        with:
+          name: toolchain-bin-gcc9.3.0
+          path: toolchain-bin
+
+  build_libfxcg:
+    name: Build libfxcg
+    runs-on: ubuntu-latest
+    container:
+      image: tari/libfxcg-toolchain
+    steps:
+      - uses: actions/checkout@v2
+      - name: Compile
+        run: |
+          make
+          mkdir dist
+          cp -r lib include dist
+      - uses: actions/upload-artifact@v1
+        with:
+          name: libfxcg
+          path: dist
+
+  build_mkg3a:
+    name: Build mkg3a
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install packages
+        run: |
+          sudo apt-get -qqy update
+          sudo apt-get -qqy install cmake curl mingw-w64 xz-utils
+      - name: Download sources
+        run: |
+          curl -L https://downloads.sourceforge.net/project/libpng/zlib/1.2.11/zlib-1.2.11.tar.xz | tar xJ
+          curl -L https://downloads.sourceforge.net/project/libpng/libpng16/1.6.37/libpng-1.6.37.tar.xz | tar xJ
+          curl -L https://gitlab.com/taricorp/mkg3a/-/archive/master/mkg3a-master.tar.bz2 | tar xj
+      - name: Compile
+        env:
+          INSTALL_DIR: ${{ github.workspace }}/libs-bin
+        run: |
+          cd zlib-1.2.11
+          make -f win32/Makefile.gcc \
+               BINARY_PATH=${INSTALL_DIR}/bin \
+               INCLUDE_PATH=${INSTALL_DIR}/include \
+               LIBRARY_PATH=${INSTALL_DIR}/lib \
+               SHARED_MODE=0 \
+               PREFIX=i686-w64-mingw32- \
+               install -j$(nproc)
+
+          cd ../libpng-1.6.37
+          cmake -DCMAKE_SYSTEM_NAME=Windows \
+                -DCMAKE_C_COMPILER=i686-w64-mingw32-gcc \
+                -DCMAKE_CXX_COMPILER=i686-w64-mingw32-g++ \
+                -DCMAKE_PREFIX_PATH=${INSTALL_DIR} \
+                -DCMAKE_INSTALL_PREFIX=${INSTALL_DIR} \
+                -DPNG_SHARED=OFF -DPNG_TESTS=OFF \
+                .
+          make install -j$(nproc)
+
+          cd ../mkg3a-master
+          cmake -DCMAKE_SYSTEM_NAME=Windows \
+                -DCMAKE_C_COMPILER=i686-w64-mingw32-gcc \
+                -DCMAKE_CXX_COMPILER=i686-w64-mingw32-g++ \
+                -DCMAKE_PREFIX_PATH=${INSTALL_DIR} \
+                -DCMAKE_INSTALL_PREFIX=${GITHUB_WORKSPACE}/mkg3a-bin \
+                .
+          make install -j$(nproc)
+      - uses: actions/upload-artifact@v1
+        with:
+          name: mkg3a
+          path: mkg3a-bin
+
+  package:
+    name: Assemble package
+    runs-on: ubuntu-latest
+    needs: [build_libfxcg, build_mkg3a, build_toolchain]
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/download-artifact@v1
+        with:
+          name: libfxcg
+          path: pkg
+      - uses: actions/download-artifact@v1
+        with:
+          name: mkg3a
+          path: pkg
+      - uses: actions/download-artifact@v1
+        with:
+          name: toolchain-bin-gcc9.3.0
+          path: pkg
+      - name: Download make
+        # Slightly weird to manually download the chocolatey package, but
+        # the packager doesn't seem to have said how they build this so
+        # we're stuck with their binaries. This is just very convenient.
+        run: |
+          mkdir make-4.3
+          cd make-4.3
+          curl -L https://chocolatey.org/api/v2/package/make/4.3 -o make.4.3.nupkg
+          unzip make.4.3.nupkg
+          mkdir -p ../pkg/bin
+          cp tools/install/bin/make.exe ../pkg/bin/
+      - name: Copy project files
+        run: |
+          cp -r toolchain pkg/toolchain
+          mkdir pkg/projects
+          cp -r examples/skeleton pkg/projects/example
+      - uses: actions/upload-artifact@v1
+        with:
+          name: pkg-win
+          path: pkg
+
+  test:
+    name: Verify package can build G3A
+    runs-on: windows-latest
+    needs: package
+    steps:
+      - uses: actions/download-artifact@v1
+        with:
+          name: pkg-win
+          path: prizmsdk
+      - name: Build example project
+        run: |
+          cd prizmsdk/projects/example
+          make
+      - uses: actions/upload-artifact@v1
+        with:
+          name: testproject-compiled
+          path: prizmsdk/projects/example
