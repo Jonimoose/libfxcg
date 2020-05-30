@@ -101,12 +101,12 @@ jobs:
       - name: Install packages
         run: |
           sudo apt-get -qqy update
-          sudo apt-get -qqy install cmake curl mingw-w64 xz-utils
+          sudo apt-get -qqy install cmake curl mingw-w64 xz-utils git
       - name: Download sources
         run: |
           curl -L https://downloads.sourceforge.net/project/libpng/zlib/1.2.11/zlib-1.2.11.tar.xz | tar xJ
           curl -L https://downloads.sourceforge.net/project/libpng/libpng16/1.6.37/libpng-1.6.37.tar.xz | tar xJ
-          curl -L https://gitlab.com/taricorp/mkg3a/-/archive/master/mkg3a-master.tar.bz2 | tar xj
+          git clone https://gitlab.com/taricorp/mkg3a.git mkg3a-master
       - name: Compile
         env:
           INSTALL_DIR: ${{ github.workspace }}/libs-bin
