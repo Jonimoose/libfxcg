@@ -17,10 +17,10 @@ RUN make install
 
 FROM binutils AS gcc
 WORKDIR /
-RUN curl -L http://ftpmirror.gnu.org/gcc/gcc-9.3.0/gcc-9.3.0.tar.xz | tar xJ
+RUN curl -L http://ftpmirror.gnu.org/gcc/gcc-10.1.0/gcc-10.1.0.tar.xz | tar xJ
 RUN mkdir build-gcc
 WORKDIR /build-gcc
-RUN ../gcc-9.3.0/configure --target=sh3eb-elf --with-pkgversion=PrizmSDK \
+RUN ../gcc-10.1.0/configure --target=sh3eb-elf --with-pkgversion=PrizmSDK \
         --without-headers --enable-languages=c,c++ \
         --disable-tls --disable-nls --disable-threads --disable-shared \
         --disable-libssp --disable-libvtv --disable-libada \
