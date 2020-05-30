@@ -10,7 +10,7 @@ SHSOURCES=$(wildcard syscalls/*.S) $(wildcard misc/*.S)
 CSOURCES=$(wildcard misc/*.c)
 #CXXSOURCES=$(wildcard misc/*.cpp)
 OBJECTS=$(SHSOURCES:.S=.o) $(CSOURCES:.c=.o) $(CXXSOURCES:.cpp=.o)
-LIBRARY=../lib/libfxcg.a
+LIBRARY=libfxcg.a
 
 all: $(SOURCES) $(LIBRARY)
 	
