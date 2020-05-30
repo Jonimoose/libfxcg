@@ -18,27 +18,27 @@ jobs:
         name: Cache toolchain binaries
         with:
           path: toolchain-bin
-          key: toolchain-win-gcc9.3.0_binutils2.34
+          key: toolchain-win-gcc10.1.0_binutils2.34
       - uses: actions/cache@v1
         id: cache-sources
         if: steps.cache-binaries.outputs.cache-hit != 'true'
         name: Cache toolchain sources
         with:
           path: toolchain-src
-          key: toolchain-src-gcc9.3.0
+          key: toolchain-src-gcc10.1.0
 
       - name: Download toolchain sources
         if: steps.cache-binaries.outputs.cache-hit != 'true' && steps.cache-sources.outputs.cache-hit != 'true'
         run: |
           mkdir toolchain-src && cd toolchain-src
           curl -L http://ftpmirror.gnu.org/binutils/binutils-2.34.tar.bz2 | tar xj
-          curl -L http://ftpmirror.gnu.org/gcc/gcc-9.3.0/gcc-9.3.0.tar.xz | tar xJ
+          curl -L http://ftpmirror.gnu.org/gcc/gcc-10.1.0/gcc-10.1.0.tar.xz | tar xJ
           curl -L http://ftpmirror.gnu.org/mpfr/mpfr-4.0.2.tar.xz | tar xJ
-          ln -sr mpfr-4.0.2 ./gcc-9.3.0/mpfr
+          ln -sr mpfr-4.0.2 ./gcc-10.1.0/mpfr
           curl -L http://ftpmirror.gnu.org/gmp/gmp-6.2.0.tar.xz | tar xJ
-          ln -sr gmp-6.2.0 ./gcc-9.3.0/gmp
+          ln -sr gmp-6.2.0 ./gcc-10.1.0/gmp
           curl -L http://ftpmirror.gnu.org/mpc/mpc-1.1.0.tar.gz | tar xz
-          ln -sr mpc-1.1.0 ./gcc-9.3.0/mpc
+          ln -sr mpc-1.1.0 ./gcc-10.1.0/mpc
 
       - name: Build toolchain
         if: steps.cache-binaries.outputs.cache-hit != 'true'
@@ -53,7 +53,7 @@ jobs:
           make DESTDIR=${GITHUB_WORKSPACE}/toolchain-bin install
 
           cd ../gcc
-          ../../toolchain-src/gcc-9.3.0/configure \
+          ../../toolchain-src/gcc-10.1.0/configure \
               --target=sh3eb-elf --with-endian=big \
               --with-pkgversion=PrizmSDK \
               --host=i686-w64-mingw32 \
@@ -74,7 +74,7 @@ jobs:
 
       - uses: actions/upload-artifact@v1
         with:
-          name: toolchain-bin-gcc9.3.0
+          name: toolchain-bin-gcc10.1.0
           path: toolchain-bin
 
   build_libfxcg:
@@ -159,7 +159,7 @@ jobs:
           path: pkg
       - uses: actions/download-artifact@v1
         with:
-          name: toolchain-bin-gcc9.3.0
+          name: toolchain-bin-gcc10.1.0
           path: pkg
       - name: Download make
         # Slightly weird to manually download the chocolatey package, but
