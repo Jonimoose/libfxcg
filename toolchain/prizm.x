@@ -36,7 +36,7 @@ SECTIONS
         } > rom
        
         /* RW initialized data, VMA in RAM but LMA in ROM */
-        .data : {
+        .data : ALIGN(4) {
                 _datald = LOADADDR(.data) ;
                 _sdata = . ;
                 *(.data)
@@ -45,7 +45,7 @@ SECTIONS
         } >ram AT>rom
        
         /* Uninitialized data (fill with 0), in RAM */
-        .bss : {
+        .bss : ALIGN(4) {
                 _bbss = . ;
                 *(.bss)
                 *(.bss*)
