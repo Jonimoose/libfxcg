@@ -81,7 +81,7 @@ jobs:
     name: Build libfxcg
     runs-on: ubuntu-latest
     container:
-      image: tari/libfxcg-toolchain
+      image: jonimoose/libfxcg-toolchain
     steps:
       - uses: actions/checkout@v2
       - name: Compile
