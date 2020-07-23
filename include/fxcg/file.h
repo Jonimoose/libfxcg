@@ -37,7 +37,7 @@ int Bfile_ReadFile_OS( int HANDLE, void *buf, int size, int readpos );
 int Bfile_SeekFile_OS( int handle, int pos );
 int Bfile_TellFile_OS( int handle );
 int Bfile_WriteFile_OS( int HANDLE, const void *buf, int size );
-void Bfile_NameToStr_ncpy(char*source, const unsigned short*dest, size_t n);
+void Bfile_NameToStr_ncpy(char* dest, const unsigned short* source, size_t n);
 void Bfile_StrToName_ncpy(unsigned short *dest, const char *source, size_t n);
 int Bfile_Name_MatchMask( const short*mask, const short*filename  );
 int Bfile_GetMediaFree_OS( unsigned short*media_id, int*freespace );
