@@ -1,7 +1,7 @@
 #include <fxcg/display.h>
 
 void VRAM_XORSprite(const color_t* data, int x, int y, int width, int height) {
-    color_t* VRAM = (color_t*)0xA8000000;
+    color_t* VRAM = (color_t*)GetVRAMAddress();
     VRAM += (LCD_WIDTH_PX * y) + x;
 
     for(int j = y; j < y + height; j++) {
@@ -13,7 +13,7 @@ void VRAM_XORSprite(const color_t* data, int x, int y, int width, int height) {
 }
 
 void VRAM_CopySprite(const color_t* data, int x, int y, int width, int height) {
-    color_t *VRAM = (color_t*)0xA8000000;
+    color_t *VRAM = (color_t*)GetVRAMAddress();
     VRAM += (LCD_WIDTH_PX * y) + x;
 
     for(int j = y; j < y + height; j++) {
