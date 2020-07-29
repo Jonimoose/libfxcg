@@ -35,21 +35,6 @@ int memcmp(const void* s1, const void* s2, unsigned int n) {
     return 0;
 }
 
-// GCC builtin
-/*
-void* memcpy(void* destination, const void* source, size_t num) {
-    char* d = (char*)destination;
-    char* s = (char*)source;
-    while (num-- > 0) {
-        *d = *s;
-        d++;
-        s++;
-    }
-
-    return destination;
-}
-*/
-
 void*memmove(void*dst,const void*src,size_t n){
     if(src>dst){
         unsigned char*d8=(unsigned char*)dst;
