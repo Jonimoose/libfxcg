@@ -31,7 +31,11 @@ INCLUDES	:=
 
 MKG3AFLAGS := -n basic:example -i uns:../unselected.bmp -i sel:../selected.bmp
 
-CFLAGS	= -Os -Wall $(MACHDEP) $(INCLUDE) -ffunction-sections -fdata-sections 
+# Optional: add -flto to CFLAGS and LDFLAGS to enable link-time optimization
+# (LTO). Doing so will usually allow the compiler to generate much better code
+# (smaller and/or faster), but may expose bugs in your code that don't cause
+# any trouble without LTO enabled.
+CFLAGS	= -Os -Wall $(MACHDEP) $(INCLUDE) -ffunction-sections -fdata-sections
 CXXFLAGS	=	$(CFLAGS) -fno-exceptions
 
 LDFLAGS	= $(MACHDEP) -T$(FXCGSDK)/toolchain/prizm.x -Wl,-static -Wl,-gc-sections
