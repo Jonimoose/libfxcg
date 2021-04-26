@@ -47,6 +47,9 @@ void Alpha_GetData( char VarName, void* Dest );
 int CLIP_Store( unsigned char*buffer, int length ); // stores buffer of length length in the system clipboard.
 
 int MB_ElementCount(char* buf); // like strlen but for the graphical length of multibyte strings
+int MB_IsLead(char c); // returns 1 if the character is the first byte of a multibyte char
+
+int GlibGetOSVersionInfo(char *major, char *minor, short int *c, short int *d); 
 
 #ifdef __cplusplus
 }
