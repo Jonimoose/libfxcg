@@ -205,7 +205,7 @@ void Set_FKeys1( unsigned int p1, unsigned int*P2 );
 void PRGM_GetKey_OS( unsigned char*p );
 int GetKey(int*key);
 int GetKeyWait_OS(int*column, int*row, int type_of_waiting, int timeout_period, int menu, unsigned short*keycode );
-int PRGM_GetKey();
+int PRGM_GetKey(void);
 void DisplayMBString(unsigned char *MB_string, int start, int xpos, int x, int y);
 void DisplayMBString2( int P1, unsigned char*MB_string, int start, int xpos, int x, int y, int pos_to_clear, int P8, int P9 );
 void EditMBStringCtrl(unsigned char *MB_string, int posmax, int *start, int *xpos, int *key, int x, int y);

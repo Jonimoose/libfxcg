@@ -14,7 +14,7 @@ extern "C" {
 #include "fxcg_syscalls.h"
 #include "fxcg_registers.h"
 
-int PRGM_GetKey();
+int PRGM_GetKey(void);
 
 void VRAM_CopySprite(const color_t* data, int x, int y, int width, int height);
 void VRAM_XORSprite(const color_t* data, int x, int y, int width, int height);

@@ -53,7 +53,7 @@ void exit(int status) {
         GetKey(&key);
 }
 
-void abort() {
+void abort(void) {
     fprintf(stderr, "ABORT CALLED\nPress menu key to exit\n");
 #ifndef STDERR_TO_VRAM
     /* Initialize the status area so that it can display text

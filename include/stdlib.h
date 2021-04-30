@@ -29,7 +29,7 @@ double strtod(const char *s, char **str_end);
 void qsort(void *base, size_t nel, size_t width, int (*compar)(const void *, const void *));
 
 void exit(int status) __attribute__ ((noreturn));
-void abort();
+void abort(void);
 
 #ifdef __cplusplus
 }
