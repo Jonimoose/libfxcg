@@ -20,7 +20,7 @@ PREFIX	:=	sh3eb-elf-
 export AS	:=	$(PREFIX)as
 export CC	:=	$(PREFIX)gcc
 export CXX	:=	$(PREFIX)g++
-export AR	:=	$(PREFIX)ar
+export AR	:=	$(PREFIX)gcc-ar
 export OBJCOPY	:=	$(PREFIX)objcopy
 export MKG3A := mkg3a
 
