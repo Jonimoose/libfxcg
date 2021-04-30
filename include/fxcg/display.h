@@ -26,6 +26,7 @@ unsigned short FrameColor( int mode, unsigned short color );
 void DrawFrameWorkbench( int, int, int, int, int );
 //VRAM general display manipulating syscalls:
 void *GetVRAMAddress(void); // Return a pointer to the system's video memory.
+void* GetSecondaryVRAMAddress(void); // Return a pointer to the memory used by SaveVRAM_1 and LoadVRAM_1.
 void Bdisp_AllClr_VRAM( void );
 void Bdisp_SetPoint_VRAM( int x, int y, int color );
 void Bdisp_SetPointWB_VRAM( int x, int y, int color );
