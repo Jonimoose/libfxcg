@@ -6,7 +6,7 @@ jobs:
     name: Build Windows toolchain
     runs-on: ubuntu-latest
     container:
-      image: jonimoose/libfxcg-toolchain
+      image: ghcr.io/tari/libfxcg:toolchain
     steps:
       - name: Install packages
         run: |
