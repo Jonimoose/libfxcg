@@ -1,7 +1,7 @@
 FROM scratch
 MAINTAINER Peter Marheine <peter@taricorp.net>
 
-FROM debian:buster-slim AS prereqs
+FROM debian:bullseye-slim AS prereqs
 RUN apt-get -qq update
 RUN apt-get -y install build-essential libmpfr-dev libmpc-dev libgmp-dev libpng-dev ppl-dev curl git cmake texinfo
 
@@ -31,6 +31,6 @@ RUN make install-gcc
 RUN make -j$(nproc) inhibit_libc=true all-target-libgcc
 RUN make install-target-libgcc
 
-FROM debian:buster-slim
+FROM debian:bullseye-slim
 COPY --from=gcc /usr/local /usr/local
 RUN apt-get -qq update && apt-get -qqy install make libmpc3 && apt-get -qqy clean

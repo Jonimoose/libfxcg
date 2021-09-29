@@ -44,7 +44,7 @@ void main(void){
     memset(screeny,0,64*sizeof(int));
     memset(screenxold,0,64*sizeof(int));
     memset(screenyold,0,64*sizeof(int));
-    memset((short*)0xA8000000,0,384*216*2);
+    memset(GetVRAMAddress(),0,384*216*2);
     unsigned seed=RTC_GetTicks(),i;
     for(i=0;i<STARSAMT;++i)
         seed=newStar(starx+i,stary+i,starz+i,starzv+i,seed);
@@ -84,12 +84,12 @@ void main(void){
     }
 }
 static void DrawPixelGray(int x,int y,int col){
-    unsigned short*v=(unsigned short*)0xA8000000;
+    unsigned short*v= GetVRAMAddress();
     v+=y*384+x;
     *v=col*2113;//Convert from gray 0-31 to rgb565
 }
 static void DrawPixelSet(int x,int y,unsigned short col){
-    unsigned short*v=(unsigned short*)0xA8000000;
+    unsigned short*v= GetVRAMAddress();
     v+=y*384+x;
     *v=col;
 }
