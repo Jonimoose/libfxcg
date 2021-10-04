@@ -72,22 +72,6 @@ int App_LINK_TransmitInit( struct TTransmitBuffer*ttb );
 int App_LINK_Transmit( struct TTransmitBuffer*ttb );
 
 
-#ifdef _FXCG_MINICOMPAT
-
-#define Serial_ReadNBytes Serial_Read
-#define Serial_ReadOneByte Serial_ReadSingle
-#define Serial_SpyNthByte Serial_Peek
-#define Serial_GetReceivedBytesAvailable Serial_PollRX
-#define Serial_ClearReceiveBuffer Serial_ClearRX
-
-#define Serial_BufferedTransmitNBytes Serial_Write
-#define Serial_BufferedTransmitOneByte Serial_WriteSingle
-#define Serial_DirectTransmitOneByte Serial_WriteUnbuffered
-#define Serial_GetFreeTransmitSpace Serial_PollTX
-#define Serial_ClearTransmitBuffer Serial_ClearTX
-
-#endif
-
 #ifdef __cplusplus
 }
 #endif
