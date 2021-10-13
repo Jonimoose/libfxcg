@@ -15,3 +15,11 @@ lib/libc.a: lib libc/libc.a
 
 libc/libc.a:
 	make -C libc
+
+clean:
+	rm lib/*.a
+	rm libc/*.o
+	rm libc/*.a
+	rm libfxcg/*.a
+	rm libfxcg/misc/*.o
+	rm libfxcg/syscalls/*.o
