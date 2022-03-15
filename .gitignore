@@ -3,3 +3,8 @@
 *.a
 *.bin
 *.g3a
+
+# Excluded files in utils/
+*.vs
+*.user
+*.pdb

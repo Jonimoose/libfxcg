@@ -1,0 +1,55 @@
+# AngelCode Bitmap Font Generator configuration file
+fileVersion=1
+
+# font settings
+fontName=Commodore 64 Angled
+fontFile=
+charSet=0
+fontSize=36
+aa=2
+scaleH=100
+useSmoothing=1
+isBold=1
+isItalic=0
+useUnicode=1
+disableBoxChars=1
+outputInvalidCharGlyph=0
+dontIncludeKerningPairs=1
+useHinting=1
+renderFromOutline=0
+useClearType=0
+
+# character alignment
+paddingDown=3
+paddingUp=3
+paddingRight=3
+paddingLeft=3
+spacingHoriz=3
+spacingVert=3
+useFixedHeight=1
+forceZero=0
+
+# output file
+outWidth=1024
+outHeight=1024
+outBitDepth=32
+fontDescFormat=0
+fourChnlPacked=0
+textureFormat=png
+textureCompression=0
+alphaChnl=4
+redChnl=0
+greenChnl=0
+blueChnl=0
+invA=0
+invR=0
+invG=0
+invB=0
+
+# outline
+outlineThickness=0
+
+# selected chars
+chars=32-126,161-163,165,168-169,171,174,176,180,183,187,191-220,223-239,241-252,255
+
+# imported icon images

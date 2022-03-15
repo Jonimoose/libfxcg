@@ -21,6 +21,10 @@ typedef unsigned char wchar_t;
 typedef unsigned size_t;
 #endif
 
+#ifndef ptrdiff_t
+typedef int ptrdiff_t;
+#endif
+
 #ifdef __cplusplus
 }
 #endif

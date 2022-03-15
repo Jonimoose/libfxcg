@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="WindowsSim|Win32">
+      <Configuration>WindowsSim</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\calctype\src\calctype.c" />
+    <ClCompile Include="..\..\calctype\src\calctype_prizm.c" />
+    <ClCompile Include="..\..\ptune2_simple\src\Ptune2_direct.c" />
+    <ClCompile Include="..\..\scope_timer\src\scope_timer.cpp" />
+    <ClCompile Include="..\..\snd\src\snd_main.cpp" />
+    <ClCompile Include="..\..\snd\src\snd_prizm.cpp" />
+    <ClCompile Include="..\..\snd\src\snd_sim.cpp" />
+    <ClCompile Include="..\..\zx7\src\compress.c" />
+    <ClCompile Include="..\..\zx7\src\dzx7.c" />
+    <ClCompile Include="..\..\zx7\src\optimize.c" />
+    <ClCompile Include="..\..\zx7\src\zx7.c" />
+    <ClCompile Include="..\sim_file.cpp" />
+    <ClCompile Include="..\sim_misc.cpp" />
+    <ClCompile Include="..\winmain.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\calctype\calctype.h" />
+    <ClInclude Include="..\..\ptune2_simple\Ptune2_direct.h" />
+    <ClInclude Include="..\..\ptune2_simple\src\SH7305_CPG_BSC.h" />
+    <ClInclude Include="..\..\scope_timer\scope_timer.h" />
+    <ClInclude Include="..\..\scope_timer\src\tmu.h" />
+    <ClInclude Include="..\..\snd\snd.h" />
+    <ClInclude Include="..\..\snd\src\snd_private.h" />
+    <ClInclude Include="..\..\zx7\zx7.h" />
+    <ClInclude Include="..\fxcg\app.h" />
+    <ClInclude Include="..\fxcg\display.h" />
+    <ClInclude Include="..\fxcg\file.h" />
+    <ClInclude Include="..\fxcg\heap.h" />
+    <ClInclude Include="..\fxcg\keyboard.h" />
+    <ClInclude Include="..\fxcg\misc.h" />
+    <ClInclude Include="..\fxcg\registers.h" />
+    <ClInclude Include="..\fxcg\rtc.h" />
+    <ClInclude Include="..\fxcg\serial.h" />
+    <ClInclude Include="..\fxcg\system.h" />
+    <ClInclude Include="..\prizmfont.h" />
+    <ClInclude Include="..\prizmsim.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\README.md" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>15.0</VCProjectVersion>
+    <ProjectGuid>{CDCB62B5-A258-4B9A-AC63-732B0C7B4574}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>winsim</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='WindowsSim|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='WindowsSim|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='WindowsSim|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='WindowsSim|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;_CRT_SECURE_NO_WARNINGS;TARGET_WINSIM=1;DEBUG=1</PreprocessorDefinitions>
+      <ConformanceMode>false</ConformanceMode>
+      <AdditionalIncludeDirectories>$(ProjectDir)\..\..\zx7;$(ProjectDir)\..\..\calctype;$(ProjectDir)\..\..\ptune2_simple;$(ProjectDir)\..\..\scope_timer;$(ProjectDir)\..\..\snd;$(ProjectDir)\..\..\;$(ProjectDir)\..\</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <SupportJustMyCode>false</SupportJustMyCode>
+      <ExceptionHandling>false</ExceptionHandling>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+    <Lib>
+      <OutputFile>$(ProjectDir)..\..\lib\$(TargetName)$(TargetExt)</OutputFile>
+      <SubSystem>Console</SubSystem>
+      <IgnoreAllDefaultLibraries>true</IgnoreAllDefaultLibraries>
+    </Lib>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

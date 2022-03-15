@@ -1,0 +1,389 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\include\alloca.h" />
+    <ClInclude Include="..\..\include\app.h" />
+    <ClInclude Include="..\..\include\APP_syscalls.h" />
+    <ClInclude Include="..\..\include\asm.h" />
+    <ClInclude Include="..\..\include\assert.h" />
+    <ClInclude Include="..\..\include\color.h" />
+    <ClInclude Include="..\..\include\CONVERT_syscalls.h" />
+    <ClInclude Include="..\..\include\ctype.h" />
+    <ClInclude Include="..\..\include\display.h" />
+    <ClInclude Include="..\..\include\display_syscalls.h" />
+    <ClInclude Include="..\..\include\disp_tools.hpp" />
+    <ClInclude Include="..\..\include\errno.h" />
+    <ClInclude Include="..\..\include\fxcg.h" />
+    <ClInclude Include="..\..\include\fxcg\app.h" />
+    <ClInclude Include="..\..\include\fxcg\display.h" />
+    <ClInclude Include="..\..\include\fxcg\file.h" />
+    <ClInclude Include="..\..\include\fxcg\heap.h" />
+    <ClInclude Include="..\..\include\fxcg\keyboard.h" />
+    <ClInclude Include="..\..\include\fxcg\misc.h" />
+    <ClInclude Include="..\..\include\fxcg\registers.h" />
+    <ClInclude Include="..\..\include\fxcg\rtc.h" />
+    <ClInclude Include="..\..\include\fxcg\serial.h" />
+    <ClInclude Include="..\..\include\fxcg\system.h" />
+    <ClInclude Include="..\..\include\fxcg\tmu.h" />
+    <ClInclude Include="..\..\include\fxCG_Display.h" />
+    <ClInclude Include="..\..\include\fxcg_keyboard.h" />
+    <ClInclude Include="..\..\include\fxcg_registers.h" />
+    <ClInclude Include="..\..\include\fxcg_stdlib_syscalls.h" />
+    <ClInclude Include="..\..\include\keyboard.h" />
+    <ClInclude Include="..\..\include\keyboard.hpp" />
+    <ClInclude Include="..\..\include\keyboard_syscalls.h" />
+    <ClInclude Include="..\..\include\LineEditors.hpp" />
+    <ClInclude Include="..\..\include\ListView.hpp" />
+    <ClInclude Include="..\..\include\locale.h" />
+    <ClInclude Include="..\..\include\math.h" />
+    <ClInclude Include="..\..\include\mcs.hpp" />
+    <ClInclude Include="..\..\include\MCS_syscalls.h" />
+    <ClInclude Include="..\..\include\rtc.h" />
+    <ClInclude Include="..\..\include\RTC_syscalls.h" />
+    <ClInclude Include="..\..\include\setjmp.h" />
+    <ClInclude Include="..\..\include\sprite.h" />
+    <ClInclude Include="..\..\include\STATUS_ICONS.hpp" />
+    <ClInclude Include="..\..\include\stddef.h" />
+    <ClInclude Include="..\..\include\stdio.h" />
+    <ClInclude Include="..\..\include\stdlib.h" />
+    <ClInclude Include="..\..\include\string.h" />
+    <ClInclude Include="..\..\include\StrList.hpp" />
+    <ClInclude Include="..\..\include\system.h" />
+    <ClInclude Include="..\..\include\SYSTEM_syscalls.h" />
+    <ClInclude Include="..\..\include\sys\types.h" />
+    <ClInclude Include="..\..\include\time.h" />
+    <ClInclude Include="..\..\include\UI.hpp" />
+    <ClInclude Include="..\..\include\unistd.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\libc\ctype.c" />
+    <ClCompile Include="..\..\libc\printf.c" />
+    <ClCompile Include="..\..\libc\stdio.c" />
+    <ClCompile Include="..\..\libc\stdlib.c" />
+    <ClCompile Include="..\..\libc\string.c" />
+    <ClCompile Include="..\..\libc\time.c" />
+    <ClCompile Include="..\..\libc\unistd.c" />
+    <ClCompile Include="..\misc\atoi.c" />
+    <ClCompile Include="..\misc\calloc.c" />
+    <ClCompile Include="..\misc\callocr.c" />
+    <ClCompile Include="..\misc\freer.c" />
+    <ClCompile Include="..\misc\keyboard.c" />
+    <ClCompile Include="..\misc\mallocr.c" />
+    <ClCompile Include="..\misc\random.c" />
+    <ClCompile Include="..\misc\reallocr.c" />
+    <ClCompile Include="..\misc\sprite.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\libc\clean.bat" />
+    <None Include="..\..\libc\make.bat" />
+    <None Include="..\..\libc\Makefile" />
+    <None Include="..\..\libc\setjmp.S" />
+    <None Include="..\..\toolchain\base_rules" />
+    <None Include="..\clean.bat" />
+    <None Include="..\make.bat" />
+    <None Include="..\Makefile" />
+    <None Include="..\misc\crt0.S" />
+    <None Include="..\misc\memcpy.S" />
+    <None Include="..\misc\memmove.S" />
+    <None Include="..\misc\memset.S" />
+    <None Include="..\misc\memsetZero.S" />
+    <None Include="..\misc\strcat.S" />
+    <None Include="..\misc\strchr.S" />
+    <None Include="..\misc\strcmp.S" />
+    <None Include="..\misc\strcpy.S" />
+    <None Include="..\misc\strncpy.S" />
+    <None Include="..\syscalls\Alpha_GetData.S" />
+    <None Include="..\syscalls\Alpha_SetData.S" />
+    <None Include="..\syscalls\APP_EACT_StatusIcon.S" />
+    <None Include="..\syscalls\APP_FINANCE.S" />
+    <None Include="..\syscalls\App_InitDlgDescriptor.S" />
+    <None Include="..\syscalls\App_LINK_GetDeviceInfo.S" />
+    <None Include="..\syscalls\App_LINK_GetReceiveTimeout_ms.S" />
+    <None Include="..\syscalls\App_LINK_Send_ST9_Packet.S" />
+    <None Include="..\syscalls\App_LINK_SetReceiveTimeout_ms.S" />
+    <None Include="..\syscalls\App_LINK_SetRemoteBaud.S" />
+    <None Include="..\syscalls\App_LINK_Transmit.S" />
+    <None Include="..\syscalls\App_LINK_TransmitInit.S" />
+    <None Include="..\syscalls\APP_LINK_transmit_select_dialog.S" />
+    <None Include="..\syscalls\APP_MEMORY.S" />
+    <None Include="..\syscalls\App_Optimize.S" />
+    <None Include="..\syscalls\APP_Program.S" />
+    <None Include="..\syscalls\APP_RUNMAT.S" />
+    <None Include="..\syscalls\APP_SYSTEM.S" />
+    <None Include="..\syscalls\APP_SYSTEM_BATTERY.S" />
+    <None Include="..\syscalls\APP_SYSTEM_DISPLAY.S" />
+    <None Include="..\syscalls\APP_SYSTEM_LANGUAGE.S" />
+    <None Include="..\syscalls\APP_SYSTEM_POWER.S" />
+    <None Include="..\syscalls\APP_SYSTEM_RESET.S" />
+    <None Include="..\syscalls\APP_SYSTEM_VERSION.S" />
+    <None Include="..\syscalls\AUX_DisplayErrorMessage.S" />
+    <None Include="..\syscalls\BatteryIcon.S" />
+    <None Include="..\syscalls\BCDtoInternal.S" />
+    <None Include="..\syscalls\Bdisp_AllClr_VRAM.S" />
+    <None Include="..\syscalls\Bdisp_AllCr_VRAM.S" />
+    <None Include="..\syscalls\Bdisp_AreaClr.S" />
+    <None Include="..\syscalls\Bdisp_AreaClr_DD_x3.S" />
+    <None Include="..\syscalls\Bdisp_DDRegisterSelect.S" />
+    <None Include="..\syscalls\Bdisp_DefineDMARange.S" />
+    <None Include="..\syscalls\Bdisp_EnableColor.S" />
+    <None Include="..\syscalls\Bdisp_Fill_VRAM.S" />
+    <None Include="..\syscalls\Bdisp_GetPoint_DD.S" />
+    <None Include="..\syscalls\Bdisp_GetPoint_DD_Workbench.S" />
+    <None Include="..\syscalls\Bdisp_GetPoint_VRAM.S" />
+    <None Include="..\syscalls\Bdisp_HeaderFill.S" />
+    <None Include="..\syscalls\Bdisp_HeaderFill2.S" />
+    <None Include="..\syscalls\Bdisp_HeaderText.S" />
+    <None Include="..\syscalls\Bdisp_HeaderText2.S" />
+    <None Include="..\syscalls\Bdisp_PutDisp_DD.S" />
+    <None Include="..\syscalls\Bdisp_PutDisp_DD_stripe.S" />
+    <None Include="..\syscalls\Bdisp_SetPointWB_VRAM.S" />
+    <None Include="..\syscalls\Bdisp_SetPoint_DD.S" />
+    <None Include="..\syscalls\Bdisp_SetPoint_VRAM.S" />
+    <None Include="..\syscalls\Bdisp_ShapeBase.S" />
+    <None Include="..\syscalls\Bdisp_ShapeBase3XVRAM.S" />
+    <None Include="..\syscalls\Bdisp_ShapeToDD.S" />
+    <None Include="..\syscalls\Bdisp_ShapeToVRAM16C.S" />
+    <None Include="..\syscalls\Bdisp_WriteDDRegister3_bit7.S" />
+    <None Include="..\syscalls\Bdisp_WriteGraphDD_WB.S" />
+    <None Include="..\syscalls\Bdisp_WriteGraphVRAM.S" />
+    <None Include="..\syscalls\Bdisp_WriteGraphVRAM_WB.S" />
+    <None Include="..\syscalls\Bdisp_WriteSystemMessage.S" />
+    <None Include="..\syscalls\Bfile_CloseFile_OS.S" />
+    <None Include="..\syscalls\Bfile_CreateEntry_OS.S" />
+    <None Include="..\syscalls\Bfile_DeleteEntry.S" />
+    <None Include="..\syscalls\Bfile_FindClose.S" />
+    <None Include="..\syscalls\Bfile_FindFirst.S" />
+    <None Include="..\syscalls\Bfile_FindFirst_NON_SMEM.S" />
+    <None Include="..\syscalls\Bfile_FindNext.S" />
+    <None Include="..\syscalls\Bfile_FindNext_NON_SMEM.S" />
+    <None Include="..\syscalls\Bfile_GetBlockAddress.S" />
+    <None Include="..\syscalls\Bfile_GetFileSize_OS.S" />
+    <None Include="..\syscalls\Bfile_GetMediaFree_OS.S" />
+    <None Include="..\syscalls\Bfile_NameToStr_ncpy.S" />
+    <None Include="..\syscalls\Bfile_Name_MatchMask.S" />
+    <None Include="..\syscalls\Bfile_OpenFile_OS.S" />
+    <None Include="..\syscalls\Bfile_ReadFile_OS.S" />
+    <None Include="..\syscalls\Bfile_RenameEntry.S" />
+    <None Include="..\syscalls\Bfile_SeekFile_OS.S" />
+    <None Include="..\syscalls\Bfile_StrToName_ncpy.S" />
+    <None Include="..\syscalls\Bfile_TellFile_OS.S" />
+    <None Include="..\syscalls\Bfile_WriteFile_OS.S" />
+    <None Include="..\syscalls\Bkey_ClrAllFlags.S" />
+    <None Include="..\syscalls\Bkey_GetAllFlags.S" />
+    <None Include="..\syscalls\Bkey_SetAllFlags.S" />
+    <None Include="..\syscalls\Bkey_SetFlag.S" />
+    <None Include="..\syscalls\Box.S" />
+    <None Include="..\syscalls\Box2.S" />
+    <None Include="..\syscalls\BoxInnerClear.S" />
+    <None Include="..\syscalls\BoxYLimits.S" />
+    <None Include="..\syscalls\ByteToHex.S" />
+    <None Include="..\syscalls\CharacterSelectDialog.S" />
+    <None Include="..\syscalls\CLIP_Store.S" />
+    <None Include="..\syscalls\CMT_Delay_100micros.S" />
+    <None Include="..\syscalls\CMT_Delay_micros.S" />
+    <None Include="..\syscalls\ColorIndexDialog1.S" />
+    <None Include="..\syscalls\Comm_Close.S" />
+    <None Include="..\syscalls\Comm_Open.S" />
+    <None Include="..\syscalls\Comm_Terminate.S" />
+    <None Include="..\syscalls\Comm_TryCheckPacket.S" />
+    <None Include="..\syscalls\ConfirmFileOverwriteDialog.S" />
+    <None Include="..\syscalls\Cursor_SetFlashOff.S" />
+    <None Include="..\syscalls\Cursor_SetFlashOn.S" />
+    <None Include="..\syscalls\DefineStatusAreaFlags.S" />
+    <None Include="..\syscalls\DefineStatusGlyph.S" />
+    <None Include="..\syscalls\DefineStatusMessage.S" />
+    <None Include="..\syscalls\DirectDrawRectangle.S" />
+    <None Include="..\syscalls\DispInt.S" />
+    <None Include="..\syscalls\DisplayHeader.S" />
+    <None Include="..\syscalls\DisplayMainMenu.S" />
+    <None Include="..\syscalls\DisplayMBString.S" />
+    <None Include="..\syscalls\DisplayMBString2.S" />
+    <None Include="..\syscalls\DisplayMessageBox.S" />
+    <None Include="..\syscalls\DisplayStatusArea.S" />
+    <None Include="..\syscalls\DrawFrame.S" />
+    <None Include="..\syscalls\DrawFrameWorkbench.S" />
+    <None Include="..\syscalls\DrawHeaderLine.S" />
+    <None Include="..\syscalls\d_c_Icon.S" />
+    <None Include="..\syscalls\EditMBStringChar.S" />
+    <None Include="..\syscalls\EditMBStringCtrl.S" />
+    <None Include="..\syscalls\EditMBStringCtrl2.S" />
+    <None Include="..\syscalls\EditMBStringCtrl3.S" />
+    <None Include="..\syscalls\EditMBStringCtrl4.S" />
+    <None Include="..\syscalls\EnableColor.S" />
+    <None Include="..\syscalls\EnableDisplayHeader.S" />
+    <None Include="..\syscalls\EnableStatusArea.S" />
+    <None Include="..\syscalls\EnableStatusLine.S" />
+    <None Include="..\syscalls\EnableStatusLine2.S" />
+    <None Include="..\syscalls\FKey_Display.S" />
+    <None Include="..\syscalls\FrameColor.S" />
+    <None Include="..\syscalls\GetAppName.S" />
+    <None Include="..\syscalls\GetAutoPowerOffTime.S" />
+    <None Include="..\syscalls\GetBacklightDuration.S" />
+    <None Include="..\syscalls\GetBatteryType.S" />
+    <None Include="..\syscalls\GetFKeyPtr.S" />
+    <None Include="..\syscalls\GetGetkeyToMainFunctionReturnFlag.S" />
+    <None Include="..\syscalls\GetKey.S" />
+    <None Include="..\syscalls\GetKeyWait_OS.S" />
+    <None Include="..\syscalls\GetMainBatteryVoltage.S" />
+    <None Include="..\syscalls\GetMiniGlyphPtr.S" />
+    <None Include="..\syscalls\GetSetupSetting.S" />
+    <None Include="..\syscalls\GetStackPtr.S" />
+    <None Include="..\syscalls\GetVRAMAddress.S" />
+    <None Include="..\syscalls\HexToByte.S" />
+    <None Include="..\syscalls\HexToNibble.S" />
+    <None Include="..\syscalls\HexToWord.S" />
+    <None Include="..\syscalls\HourGlass.S" />
+    <None Include="..\syscalls\itoa.S" />
+    <None Include="..\syscalls\ItoA_10digit.S" />
+    <None Include="..\syscalls\KeyboardIcon.S" />
+    <None Include="..\syscalls\Keyboard_CursorFlash.S" />
+    <None Include="..\syscalls\Keyboard_PutKeycode.S" />
+    <None Include="..\syscalls\Keyboard_SpyMatrixCode.S" />
+    <None Include="..\syscalls\LineIcon.S" />
+    <None Include="..\syscalls\LoadVRAM_1.S" />
+    <None Include="..\syscalls\LocalizeMessage1.S" />
+    <None Include="..\syscalls\locate_OS.S" />
+    <None Include="..\syscalls\LongToAscHex.S" />
+    <None Include="..\syscalls\MB_ElementCount.S" />
+    <None Include="..\syscalls\MCSDelVar2.S" />
+    <None Include="..\syscalls\MCSGetData1.S" />
+    <None Include="..\syscalls\MCSGetDlen2.S" />
+    <None Include="..\syscalls\MCSGetOpenItem.S" />
+    <None Include="..\syscalls\MCSOvwDat2.S" />
+    <None Include="..\syscalls\MCSPutVar2.S" />
+    <None Include="..\syscalls\MCS_CreateDirectory.S" />
+    <None Include="..\syscalls\MCS_DeleteDirectory.S" />
+    <None Include="..\syscalls\MCS_GetCapa.S" />
+    <None Include="..\syscalls\MCS_GetMainMemoryStart.S" />
+    <None Include="..\syscalls\MCS_GetState.S" />
+    <None Include="..\syscalls\MCS_WriteItem.S" />
+    <None Include="..\syscalls\memcmp.S" />
+    <None Include="..\syscalls\memcmp3.S" />
+    <None Include="..\syscalls\MsgBoxMoveWB.S" />
+    <None Include="..\syscalls\MsgBoxPop.S" />
+    <None Include="..\syscalls\MsgBoxPush.S" />
+    <None Include="..\syscalls\NibbleToHex.S" />
+    <None Include="..\syscalls\NormIcon.S" />
+    <None Include="..\syscalls\OpenFileDialog.S" />
+    <None Include="..\syscalls\OS_InnerWait_ms.S" />
+    <None Include="..\syscalls\OverwriteConfirmation.S" />
+    <None Include="..\syscalls\PowerOff.S" />
+    <None Include="..\syscalls\PRGM_GetKey_OS.S" />
+    <None Include="..\syscalls\PrintCXY.S" />
+    <None Include="..\syscalls\PrintGlyph.S" />
+    <None Include="..\syscalls\PrintLine.S" />
+    <None Include="..\syscalls\PrintLine2.S" />
+    <None Include="..\syscalls\PrintMini.S" />
+    <None Include="..\syscalls\PrintMiniGlyph.S" />
+    <None Include="..\syscalls\PrintMiniMini.S" />
+    <None Include="..\syscalls\PrintXY.S" />
+    <None Include="..\syscalls\PrintXY_2.S" />
+    <None Include="..\syscalls\Print_OS.S" />
+    <None Include="..\syscalls\ProgressBar.S" />
+    <None Include="..\syscalls\ProgressBar0.S" />
+    <None Include="..\syscalls\ProgressBar2.S" />
+    <None Include="..\syscalls\RadIcon.S" />
+    <None Include="..\syscalls\RealIcon.S" />
+    <None Include="..\syscalls\ResetAllDialog.S" />
+    <None Include="..\syscalls\Restart.S" />
+    <None Include="..\syscalls\RTC_Elapsed_ms.S" />
+    <None Include="..\syscalls\RTC_GetTicks.S" />
+    <None Include="..\syscalls\RTC_GetTime.S" />
+    <None Include="..\syscalls\RTC_Reset.S" />
+    <None Include="..\syscalls\RTC_SetDateTime.S" />
+    <None Include="..\syscalls\SaveFileDialog.S" />
+    <None Include="..\syscalls\SaveVRAM_1.S" />
+    <None Include="..\syscalls\Scrollbar.S" />
+    <None Include="..\syscalls\Serial_ClearRX.S" />
+    <None Include="..\syscalls\Serial_ClearTX.S" />
+    <None Include="..\syscalls\Serial_Close.S" />
+    <None Include="..\syscalls\Serial_IsOpen.S" />
+    <None Include="..\syscalls\Serial_Open.S" />
+    <None Include="..\syscalls\Serial_Peek.S" />
+    <None Include="..\syscalls\Serial_PollRX.S" />
+    <None Include="..\syscalls\Serial_PollTX.S" />
+    <None Include="..\syscalls\Serial_Read.S" />
+    <None Include="..\syscalls\Serial_ReadSingle.S" />
+    <None Include="..\syscalls\Serial_Write.S" />
+    <None Include="..\syscalls\Serial_WriteSingle.S" />
+    <None Include="..\syscalls\Serial_WriteUnbuffered.S" />
+    <None Include="..\syscalls\SetAutoPowerOffTime.S" />
+    <None Include="..\syscalls\SetBackGround.S" />
+    <None Include="..\syscalls\SetBacklightDuration.S" />
+    <None Include="..\syscalls\SetBatteryType.S" />
+    <None Include="..\syscalls\SetCursorFlashToggle.S" />
+    <None Include="..\syscalls\SetQuitHandler.S" />
+    <None Include="..\syscalls\SetSetupSetting.S" />
+    <None Include="..\syscalls\SetupMode_StatusIcon.S" />
+    <None Include="..\syscalls\Set_FKeys1.S" />
+    <None Include="..\syscalls\Set_FKeys2.S" />
+    <None Include="..\syscalls\SMEM_FindFirst.S" />
+    <None Include="..\syscalls\SMEM_maint.S" />
+    <None Include="..\syscalls\SMEM_MapIconToExt.S" />
+    <None Include="..\syscalls\SpecialMatrixcodeProcessing.S" />
+    <None Include="..\syscalls\StandardScrollbar.S" />
+    <None Include="..\syscalls\strcmp_ignore_case.S" />
+    <None Include="..\syscalls\strlen.S" />
+    <None Include="..\syscalls\Syscall02A4.S" />
+    <None Include="..\syscalls\Syscall02A7.S" />
+    <None Include="..\syscalls\Syscall02A9.S" />
+    <None Include="..\syscalls\Syscall1816.S" />
+    <None Include="..\syscalls\sys_free.S" />
+    <None Include="..\syscalls\sys_malloc.S" />
+    <None Include="..\syscalls\sys_realloc.S" />
+    <None Include="..\syscalls\TakeScreenshot.S" />
+    <None Include="..\syscalls\TakeScreenshot2.S" />
+    <None Include="..\syscalls\Test01A8.S" />
+    <None Include="..\syscalls\Test127E.S" />
+    <None Include="..\syscalls\Test17BC.S" />
+    <None Include="..\syscalls\Test1B0E.S" />
+    <None Include="..\syscalls\Test1E44.S" />
+    <None Include="..\syscalls\TestMode.S" />
+    <None Include="..\syscalls\Timer_Deinstall.S" />
+    <None Include="..\syscalls\Timer_Install.S" />
+    <None Include="..\syscalls\Timer_Start.S" />
+    <None Include="..\syscalls\Timer_Stop.S" />
+    <None Include="..\syscalls\WordToHex.S" />
+    <None Include="..\syscalls\WriteBackground.S" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>15.0</VCProjectVersion>
+    <ProjectGuid>{24B1F57D-AF36-4F3D-A1F2-F1DF0554739B}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Makefile</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <NMakeBuildCommandLine>..\make.bat</NMakeBuildCommandLine>
+    <NMakeOutput>..\..\lib\libfxcg.a</NMakeOutput>
+    <NMakeCleanCommandLine>..\clean.bat</NMakeCleanCommandLine>
+    <NMakePreprocessorDefinitions>_FXCG_MINICOMPAT;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
+    <NMakeIncludeSearchPath>..\..\include;$(NMakeIncludeSearchPath)</NMakeIncludeSearchPath>
+    <NMakeReBuildCommandLine>..\clean.bat
+make.bat</NMakeReBuildCommandLine>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

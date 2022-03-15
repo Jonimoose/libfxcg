@@ -2,43 +2,14 @@ ifeq ($(strip $(FXCGSDK)),)
 $(error "Please set FXCGSDK in your environment. export FXCGSDK=<path to sdk location>)
 endif
 
-export	LIBFXCG_INC	:=	$(FXCGSDK)/include
-export	LIBFXCG_LIB	:=	$(FXCGSDK)/lib
-
-MACHDEP = -mb -m4a-nofpu -mhitachi -nostdlib
+include $(FXCGSDK)/toolchain/base_rules
 
 #---------------------------------------------------------------------------------
 # path to tools 
 #---------------------------------------------------------------------------------
 export PATH	:=	$(FXCGSDK)/bin:$(PATH)
 
-#---------------------------------------------------------------------------------
-# the prefix on the compiler executables
-#---------------------------------------------------------------------------------
-PREFIX	:=	sh3eb-elf-
-
-export AS	:=	$(PREFIX)as
-export CC	:=	$(PREFIX)gcc
-export CXX	:=	$(PREFIX)g++
-export AR	:=	$(PREFIX)gcc-ar
-export OBJCOPY	:=	$(PREFIX)objcopy
 export MKG3A := mkg3a
-
-ifeq ($(OS),Windows_NT)
-define rm
-  del /S /Q $(foreach deleteFile,$(1),$(subst /,\,$(deleteFile)))
-endef
-define rmdir
-  rmdir /S /Q $(foreach deleteDir,$(1),$(subst /,\,$(deleteDir)))
-endef
-else
-define rm
-  rm -f "$(1)"
-endef
-define rmdir
-  rm -rf "$(1)"
-endef
-endif
 
 #---------------------------------------------------------------------------------
 # This is from devkitpro's MSVC stuff for makings errors cleaner, requires sed

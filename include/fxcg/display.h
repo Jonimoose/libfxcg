@@ -355,6 +355,22 @@ void VRAM_XORSprite(const color_t* data, int x, int y, int width, int height);
 #define COLOR_WHITESMOKE (color_t)0xF7BE
 #define COLOR_YELLOW (color_t)0xFFE0
 #define COLOR_YELLOWGREEN (color_t)0x9E66
+//
+// TW : So far this appears to be the most reliable way to determine model
+typedef enum {
+	DT_CG20,			// or CG10
+	DT_CG50,
+	DT_Winsim
+} DeviceType;
+
+inline DeviceType getDeviceType() {
+#if TARGET_PRIZM
+	return (unsigned int)GetVRAMAddress() == 0xAC000000 ? DT_CG50 : DT_CG20;
+#else
+	return DT_Winsim;
+#endif
+}
+
 
 #ifdef __cplusplus
 }

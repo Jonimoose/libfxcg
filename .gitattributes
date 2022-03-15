@@ -1,0 +1,4 @@
+# Forcing github to ignore man pages
+share/* linguist-vendored
+share/man/man1/* linguist-vendored
+share/man/man7/* linguist-vendored

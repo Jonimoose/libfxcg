@@ -1,0 +1,1044 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="include">
+      <UniqueIdentifier>{c3b63a6e-082b-4fb8-af15-093e86e73748}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\fxcg">
+      <UniqueIdentifier>{9540b2c0-77d9-46d2-b204-e0fa73bd681f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\sys">
+      <UniqueIdentifier>{81ce7c28-c9cf-402a-a59a-8fc7e340531c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{35dfebc9-69d1-46b8-bf19-ebc540bc33fb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\misc">
+      <UniqueIdentifier>{b79a58b8-8e88-427d-a1c0-5c4934bead1e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\syscalls">
+      <UniqueIdentifier>{fbbbdc2c-34ca-4674-83c6-1b108a0a424e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="libc">
+      <UniqueIdentifier>{617cb9d4-ddb3-4b46-ac7f-a75defae81dd}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\include\stddef.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\stdio.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\stdlib.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\string.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\StrList.hpp">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\system.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\SYSTEM_syscalls.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\time.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\UI.hpp">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\unistd.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\alloca.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\app.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\APP_syscalls.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\asm.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\assert.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\color.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\CONVERT_syscalls.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\ctype.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\disp_tools.hpp">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\display.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\display_syscalls.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\errno.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\fxcg.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\fxCG_Display.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\fxcg_keyboard.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\fxcg_registers.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\fxcg_stdlib_syscalls.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\keyboard.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\keyboard.hpp">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\keyboard_syscalls.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\LineEditors.hpp">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\ListView.hpp">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\locale.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\math.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\mcs.hpp">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\MCS_syscalls.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\rtc.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\RTC_syscalls.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\setjmp.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\sprite.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\STATUS_ICONS.hpp">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\fxcg\tmu.h">
+      <Filter>include\fxcg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\fxcg\app.h">
+      <Filter>include\fxcg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\fxcg\display.h">
+      <Filter>include\fxcg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\fxcg\file.h">
+      <Filter>include\fxcg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\fxcg\heap.h">
+      <Filter>include\fxcg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\fxcg\keyboard.h">
+      <Filter>include\fxcg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\fxcg\misc.h">
+      <Filter>include\fxcg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\fxcg\registers.h">
+      <Filter>include\fxcg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\fxcg\rtc.h">
+      <Filter>include\fxcg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\fxcg\serial.h">
+      <Filter>include\fxcg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\fxcg\system.h">
+      <Filter>include\fxcg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\sys\types.h">
+      <Filter>include\sys</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\misc\callocr.c">
+      <Filter>src\misc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\misc\freer.c">
+      <Filter>src\misc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\misc\keyboard.c">
+      <Filter>src\misc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\misc\mallocr.c">
+      <Filter>src\misc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\misc\random.c">
+      <Filter>src\misc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\misc\reallocr.c">
+      <Filter>src\misc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\misc\sprite.c">
+      <Filter>src\misc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\misc\atoi.c">
+      <Filter>src\misc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\misc\calloc.c">
+      <Filter>src\misc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libc\time.c">
+      <Filter>libc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libc\unistd.c">
+      <Filter>libc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libc\ctype.c">
+      <Filter>libc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libc\printf.c">
+      <Filter>libc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libc\stdio.c">
+      <Filter>libc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libc\stdlib.c">
+      <Filter>libc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libc\string.c">
+      <Filter>libc</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\misc\crt0.S">
+      <Filter>src\misc</Filter>
+    </None>
+    <None Include="..\misc\memmove.S">
+      <Filter>src\misc</Filter>
+    </None>
+    <None Include="..\misc\memsetZero.S">
+      <Filter>src\misc</Filter>
+    </None>
+    <None Include="..\misc\strcat.S">
+      <Filter>src\misc</Filter>
+    </None>
+    <None Include="..\misc\strchr.S">
+      <Filter>src\misc</Filter>
+    </None>
+    <None Include="..\misc\strcmp.S">
+      <Filter>src\misc</Filter>
+    </None>
+    <None Include="..\misc\strcpy.S">
+      <Filter>src\misc</Filter>
+    </None>
+    <None Include="..\misc\strncpy.S">
+      <Filter>src\misc</Filter>
+    </None>
+    <None Include="..\syscalls\Timer_Install.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\Timer_Start.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\Timer_Stop.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\WordToHex.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\WriteBackground.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\Alpha_GetData.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\Alpha_SetData.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\APP_EACT_StatusIcon.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\APP_FINANCE.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\App_InitDlgDescriptor.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\App_LINK_GetDeviceInfo.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\App_LINK_GetReceiveTimeout_ms.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\App_LINK_Send_ST9_Packet.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\App_LINK_SetReceiveTimeout_ms.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\App_LINK_SetRemoteBaud.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\App_LINK_Transmit.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\APP_LINK_transmit_select_dialog.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\App_LINK_TransmitInit.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\APP_MEMORY.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\App_Optimize.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\APP_Program.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\APP_RUNMAT.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\APP_SYSTEM.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\APP_SYSTEM_BATTERY.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\APP_SYSTEM_DISPLAY.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\APP_SYSTEM_LANGUAGE.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\APP_SYSTEM_POWER.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\APP_SYSTEM_RESET.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\APP_SYSTEM_VERSION.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\AUX_DisplayErrorMessage.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\BatteryIcon.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\BCDtoInternal.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\Bdisp_AllClr_VRAM.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\Bdisp_AllCr_VRAM.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\Bdisp_AreaClr.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\Bdisp_AreaClr_DD_x3.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\Bdisp_DDRegisterSelect.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\Bdisp_DefineDMARange.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\Bdisp_EnableColor.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\Bdisp_Fill_VRAM.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\Bdisp_GetPoint_DD.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\Bdisp_GetPoint_DD_Workbench.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\Bdisp_GetPoint_VRAM.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\Bdisp_HeaderFill.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\Bdisp_HeaderFill2.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\Bdisp_HeaderText.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\Bdisp_HeaderText2.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\Bdisp_PutDisp_DD.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\Bdisp_PutDisp_DD_stripe.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\Bdisp_SetPoint_DD.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\Bdisp_SetPoint_VRAM.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\Bdisp_SetPointWB_VRAM.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\Bdisp_ShapeBase.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\Bdisp_ShapeBase3XVRAM.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\Bdisp_ShapeToDD.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\Bdisp_ShapeToVRAM16C.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\Bdisp_WriteDDRegister3_bit7.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\Bdisp_WriteGraphDD_WB.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\Bdisp_WriteGraphVRAM.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\Bdisp_WriteGraphVRAM_WB.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\Bdisp_WriteSystemMessage.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\Bfile_CloseFile_OS.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\Bfile_CreateEntry_OS.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\Bfile_DeleteEntry.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\Bfile_FindClose.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\Bfile_FindFirst.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\Bfile_FindFirst_NON_SMEM.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\Bfile_FindNext.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\Bfile_FindNext_NON_SMEM.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\Bfile_GetBlockAddress.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\Bfile_GetFileSize_OS.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\Bfile_GetMediaFree_OS.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\Bfile_Name_MatchMask.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\Bfile_NameToStr_ncpy.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\Bfile_OpenFile_OS.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\Bfile_ReadFile_OS.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\Bfile_RenameEntry.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\Bfile_SeekFile_OS.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\Bfile_StrToName_ncpy.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\Bfile_TellFile_OS.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\Bfile_WriteFile_OS.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\Bkey_ClrAllFlags.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\Bkey_GetAllFlags.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\Bkey_SetAllFlags.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\Bkey_SetFlag.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\Box.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\Box2.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\BoxInnerClear.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\BoxYLimits.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\ByteToHex.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\CharacterSelectDialog.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\CLIP_Store.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\CMT_Delay_100micros.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\CMT_Delay_micros.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\ColorIndexDialog1.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\Comm_Close.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\Comm_Open.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\Comm_Terminate.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\Comm_TryCheckPacket.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\ConfirmFileOverwriteDialog.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\Cursor_SetFlashOff.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\Cursor_SetFlashOn.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\d_c_Icon.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\DefineStatusAreaFlags.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\DefineStatusGlyph.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\DefineStatusMessage.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\DirectDrawRectangle.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\DispInt.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\DisplayHeader.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\DisplayMainMenu.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\DisplayMBString.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\DisplayMBString2.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\DisplayMessageBox.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\DisplayStatusArea.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\DrawFrame.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\DrawFrameWorkbench.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\DrawHeaderLine.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\EditMBStringChar.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\EditMBStringCtrl.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\EditMBStringCtrl2.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\EditMBStringCtrl3.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\EditMBStringCtrl4.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\EnableColor.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\EnableDisplayHeader.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\EnableStatusArea.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\EnableStatusLine.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\EnableStatusLine2.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\FKey_Display.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\FrameColor.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\GetAppName.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\GetAutoPowerOffTime.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\GetBacklightDuration.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\GetBatteryType.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\GetFKeyPtr.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\GetGetkeyToMainFunctionReturnFlag.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\GetKey.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\GetKeyWait_OS.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\GetMainBatteryVoltage.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\GetMiniGlyphPtr.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\GetSetupSetting.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\GetStackPtr.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\GetVRAMAddress.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\HexToByte.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\HexToNibble.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\HexToWord.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\HourGlass.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\itoa.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\ItoA_10digit.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\Keyboard_CursorFlash.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\Keyboard_PutKeycode.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\Keyboard_SpyMatrixCode.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\KeyboardIcon.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\LineIcon.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\LoadVRAM_1.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\LocalizeMessage1.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\locate_OS.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\LongToAscHex.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\MB_ElementCount.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\MCS_CreateDirectory.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\MCS_DeleteDirectory.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\MCS_GetCapa.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\MCS_GetMainMemoryStart.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\MCS_GetState.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\MCS_WriteItem.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\MCSDelVar2.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\MCSGetData1.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\MCSGetDlen2.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\MCSGetOpenItem.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\MCSOvwDat2.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\MCSPutVar2.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\memcmp.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\memcmp3.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\MsgBoxMoveWB.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\MsgBoxPop.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\MsgBoxPush.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\NibbleToHex.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\NormIcon.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\OpenFileDialog.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\OS_InnerWait_ms.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\OverwriteConfirmation.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\PowerOff.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\PRGM_GetKey_OS.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\Print_OS.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\PrintCXY.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\PrintGlyph.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\PrintLine.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\PrintLine2.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\PrintMini.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\PrintMiniGlyph.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\PrintMiniMini.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\PrintXY.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\PrintXY_2.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\ProgressBar.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\ProgressBar0.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\ProgressBar2.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\RadIcon.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\RealIcon.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\ResetAllDialog.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\Restart.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\RTC_Elapsed_ms.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\RTC_GetTicks.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\RTC_GetTime.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\RTC_Reset.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\RTC_SetDateTime.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\SaveFileDialog.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\SaveVRAM_1.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\Scrollbar.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\Serial_ClearRX.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\Serial_ClearTX.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\Serial_Close.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\Serial_IsOpen.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\Serial_Open.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\Serial_Peek.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\Serial_PollRX.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\Serial_PollTX.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\Serial_Read.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\Serial_ReadSingle.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\Serial_Write.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\Serial_WriteSingle.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\Serial_WriteUnbuffered.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\Set_FKeys1.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\Set_FKeys2.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\SetAutoPowerOffTime.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\SetBackGround.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\SetBacklightDuration.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\SetBatteryType.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\SetCursorFlashToggle.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\SetQuitHandler.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\SetSetupSetting.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\SetupMode_StatusIcon.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\SMEM_FindFirst.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\SMEM_maint.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\SMEM_MapIconToExt.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\SpecialMatrixcodeProcessing.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\StandardScrollbar.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\strcmp_ignore_case.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\strlen.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\sys_free.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\sys_malloc.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\sys_realloc.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\Syscall02A4.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\Syscall02A7.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\Syscall02A9.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\Syscall1816.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\TakeScreenshot.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\TakeScreenshot2.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\Test01A8.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\Test1B0E.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\Test1E44.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\Test17BC.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\Test127E.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\TestMode.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\syscalls\Timer_Deinstall.S">
+      <Filter>src\syscalls</Filter>
+    </None>
+    <None Include="..\Makefile" />
+    <None Include="..\clean.bat" />
+    <None Include="..\make.bat" />
+    <None Include="..\..\libc\Makefile">
+      <Filter>libc</Filter>
+    </None>
+    <None Include="..\..\libc\setjmp.S">
+      <Filter>libc</Filter>
+    </None>
+    <None Include="..\..\libc\make.bat">
+      <Filter>libc</Filter>
+    </None>
+    <None Include="..\..\libc\clean.bat">
+      <Filter>libc</Filter>
+    </None>
+    <None Include="..\..\toolchain\base_rules" />
+    <None Include="..\misc\memcpy.S">
+      <Filter>src\misc</Filter>
+    </None>
+    <None Include="..\misc\memset.S">
+      <Filter>src\misc</Filter>
+    </None>
+  </ItemGroup>
+</Project>

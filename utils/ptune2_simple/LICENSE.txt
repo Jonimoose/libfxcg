@@ -1,0 +1,6 @@
+I couldn't find license info, other than Sentaro's copyright:
+
+Copyright(C)2014,2015,2016,2017,2018,2019,2020 by sentaro21
+
+Sentaro is the best! Check out all of his clocking tools for a number of Casio calculators here:
+http://pm.matrix.jp/ftune2e.html
