@@ -88,13 +88,13 @@ void Bdisp_ShapeBase( unsigned char*work, struct display_shape *shape, int color
 void Bdisp_ShapeToVRAM16C( void*, int color );
 void Bdisp_ShapeToDD( void*shape, int color );
 
-// Rectangle drawing, x between 0 and 383 (inclusive), y between 0 and 191 (inclusive).
+// Draws rectangle to VRAM, x between 0 and 383 (inclusive), y between 0 and 191 (inclusive).
 // These avoid the status bar:
-// Direct Draws a rectangle using a TEXT_COLOR.
+// Draws a rectangle to VRAM using a TEXT_COLOR.
 void Bdisp_Rectangle( int x1, int y1, int x2, int y2, char color );
-// Direct Draws a filled rectangle using a TEXT_COLOR
+// Draws a filled rectangle to VRAM using a TEXT_COLOR
 void Bdisp_FilledRectangle( int x1, int y1, int x2, int y2, char color );
-// Direct Draws a filled rectangle using a color_t
+// Draws a filled rectangle to VRAM using a color_t
 void Bdisp_FilledRectangleFullColor( int x1, int y1, int x2, int y2, unsigned short color );
 
 //Background-related syscalls
