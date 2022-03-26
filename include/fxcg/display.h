@@ -87,6 +87,11 @@ void Bdisp_ShapeBase3XVRAM( void*shape );
 void Bdisp_ShapeBase( unsigned char*work, struct display_shape *shape, int color, int line_width, int zero1, int zero2 );
 void Bdisp_ShapeToVRAM16C( void*, int color );
 void Bdisp_ShapeToDD( void*shape, int color );
+
+void Bdisp_Rectangle( int x1, int y1, int x2, int y2, char color );
+void Bdisp_FilledRectangle( int x1, int y1, int x2, int y2, char color );
+void Bdisp_FilledRectangle16C( int x1, int y1, int x2, int y2, unsigned short color );
+
 //Background-related syscalls
 void SetBackGround( int );
 void WriteBackground( void*target, int width, int height, void*source, int, int, int );
