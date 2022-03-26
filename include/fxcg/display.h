@@ -90,7 +90,7 @@ void Bdisp_ShapeToDD( void*shape, int color );
 
 void Bdisp_Rectangle( int x1, int y1, int x2, int y2, char color );
 void Bdisp_FilledRectangle( int x1, int y1, int x2, int y2, char color );
-void Bdisp_FilledRectangle16C( int x1, int y1, int x2, int y2, unsigned short color );
+void Bdisp_FilledRectangleFullColor( int x1, int y1, int x2, int y2, unsigned short color );
 
 //Background-related syscalls
 void SetBackGround( int );
