@@ -10,17 +10,9 @@
 // External linkage
 int errno;
 
-void *malloc(size_t sz) {
-    return sys_malloc(sz);
-}
-
-void *realloc(void *ptr, size_t sz) {
-    return sys_realloc(ptr, sz);
-}
-
-void free(void *ptr) {
-    sys_free(ptr);
-}
+__attribute__((weak)) void free(void *p) { sys_free(p); }
+__attribute__((weak)) void *malloc(size_t sz) { return sys_malloc(sz); }
+__attribute__((weak)) void *realloc(void *p, size_t sz) { return sys_realloc(p, sz); }
 
 void exit(int status) {
     /* TODO: if necessary, perform cleanup here, and call functions
