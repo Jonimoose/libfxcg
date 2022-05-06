@@ -13,6 +13,7 @@ int errno;
 __attribute__((weak)) void free(void *p) { sys_free(p); }
 __attribute__((weak)) void *malloc(size_t sz) { return sys_malloc(sz); }
 __attribute__((weak)) void *realloc(void *p, size_t sz) { return sys_realloc(p, sz); }
+__attribute__((weak)) void *calloc(int elements, int elementsize) { return sys_calloc(elements, elementsize); }
 
 void exit(int status) {
     /* TODO: if necessary, perform cleanup here, and call functions
