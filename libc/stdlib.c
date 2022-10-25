@@ -6,6 +6,7 @@
 #include <ctype.h>
 #include <limits.h>
 #include <stdio.h>
+#include <stdint.h>
 
 // External linkage
 int errno;
@@ -65,41 +66,65 @@ void abort() {
         GetKey(&key);
 }
 
-static unsigned char strtol_consume(unsigned char c, int base) {
-    c = toupper(c);
-    if (!isalnum(c))
-        return -1;
-
-    if ((c - '0') < 10)
-        c = c - '0';
-    else
-        c = (c - 'A') + 10;
-
-    if (c >= base)
-        return -1;
-    else
-        return c;
-}
-
+// FreeBSD strtol
 long strtol(const char *str, char **str_end, int base) {
-    long v = 0;
-    unsigned short v_in;
-    // TODO handle {+,-} sign indicators, octal (0), hex (0[Xx]) prefixes
-    while (isspace(*str))
-        str++;
-
-    while (*str != 0 && (v_in = strtol_consume(*str++, base)) >= 0) {
-        long long vc = ((long long)v * base) + v_in;
-        if (vc > LONG_MAX)  // Handle overflow
-            return LONG_MAX;
-        else if (vc < LONG_MIN)
-            return LONG_MIN;
-
-        v = (v * base) + v_in;
-    }
-    if (str_end != NULL)
-        *str_end = (char *)str;
-    return v;
+        const char *s = str;
+        unsigned long acc;
+        unsigned char c;
+        unsigned long cutoff;
+        int neg = 0, any, cutlim;
+ 
+        /*
+         * Skip white space and pick up leading +/- sign if any.
+         * If base is 0, allow 0x for hex and 0 for octal, else
+         * assume decimal; if base is already 16, allow 0x.
+         */
+        do {
+                c = *s++;
+        } while (isspace(c));
+        if (c == '-') {
+                neg = 1;
+                c = *s++;
+        } else if (c == '+')
+                c = *s++;
+        if ((base == 0 || base == 16) &&
+            c == '0' && (*s == 'x' || *s == 'X')) {
+                c = s[1];
+                s += 2;
+                base = 16;
+        }
+        if (base == 0)
+                base = c == '0' ? 8 : 10;
+ 
+        cutoff = neg ? -(unsigned long)LONG_MIN : LONG_MAX;
+        cutlim = cutoff % (unsigned long)base;
+        cutoff /= (unsigned long)base;
+        for (acc = 0, any = 0;; c = *s++) {
+                if (!isascii(c))
+                        break;
+                if (isdigit(c))
+                        c -= '0';
+                else if (isalpha(c))
+                        c -= isupper(c) ? 'A' - 10 : 'a' - 10;
+                else
+                        break;
+                if (c >= base)
+                        break;
+                if (any < 0 || acc > cutoff || (acc == cutoff && c > cutlim))
+                        any = -1;
+                else {
+                        any = 1;
+                        acc *= base;
+                        acc += c;
+                }
+        }
+        if (any < 0) {
+                acc = neg ? LONG_MIN : LONG_MAX;
+        } else if (neg)
+                acc = -acc;
+        if (str_end != NULL)
+                *str_end = ((char *)(uintptr_t)(const void*)(any ? s - 1 : str));
+        return (acc);
 }
 
 double strtod(const char *s, char **str_end) {
