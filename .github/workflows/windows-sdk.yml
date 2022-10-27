@@ -13,13 +13,13 @@ jobs:
           apt-get -qqy update
           apt-get -qq install build-essential curl mingw-w64 texinfo
 
-      - uses: actions/cache@v1
+      - uses: actions/cache@v3
         id: cache-binaries
         name: Cache toolchain binaries
         with:
           path: toolchain-bin
           key: toolchain-win-gcc10.1.0_binutils2.34
-      - uses: actions/cache@v1
+      - uses: actions/cache@v3
         id: cache-sources
         if: steps.cache-binaries.outputs.cache-hit != 'true'
         name: Cache toolchain sources
@@ -83,7 +83,7 @@ jobs:
     container:
       image: jonimoose/libfxcg-toolchain
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Compile
         run: |
           make
@@ -148,7 +148,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: [build_libfxcg, build_mkg3a, build_toolchain]
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: actions/download-artifact@v1
         with:
           name: libfxcg
