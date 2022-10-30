@@ -72,7 +72,7 @@ jobs:
           cd ${GITHUB_WORKSPACE}/toolchain-bin
           find . -name '*.exe' -exec i686-w64-mingw32-strip {} \;
 
-      - uses: actions/upload-artifact@v1
+      - uses: actions/upload-artifact@v3
         with:
           name: toolchain-bin-gcc10.1.0
           path: toolchain-bin
@@ -89,7 +89,7 @@ jobs:
           make
           mkdir dist
           cp -r lib include dist
-      - uses: actions/upload-artifact@v1
+      - uses: actions/upload-artifact@v3
         with:
           name: libfxcg
           path: dist
@@ -138,7 +138,7 @@ jobs:
                 -DCMAKE_INSTALL_PREFIX=${GITHUB_WORKSPACE}/mkg3a-bin \
                 .
           make install -j$(nproc)
-      - uses: actions/upload-artifact@v1
+      - uses: actions/upload-artifact@v3
         with:
           name: mkg3a
           path: mkg3a-bin
@@ -149,15 +149,15 @@ jobs:
     needs: [build_libfxcg, build_mkg3a, build_toolchain]
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/download-artifact@v1
+      - uses: actions/download-artifact@v3
         with:
           name: libfxcg
           path: pkg
-      - uses: actions/download-artifact@v1
+      - uses: actions/download-artifact@v3
         with:
           name: mkg3a
           path: pkg
-      - uses: actions/download-artifact@v1
+      - uses: actions/download-artifact@v3
         with:
           name: toolchain-bin-gcc10.1.0
           path: pkg
@@ -177,7 +177,7 @@ jobs:
           cp -r toolchain pkg/toolchain
           mkdir pkg/projects
           cp -r examples/skeleton pkg/projects/example
-      - uses: actions/upload-artifact@v1
+      - uses: actions/upload-artifact@v3
         with:
           name: pkg-win
           path: pkg
@@ -187,7 +187,7 @@ jobs:
     runs-on: windows-latest
     needs: package
     steps:
-      - uses: actions/download-artifact@v1
+      - uses: actions/download-artifact@v3
         with:
           name: pkg-win
           path: prizmsdk
@@ -195,7 +195,7 @@ jobs:
         run: |
           cd prizmsdk/projects/example
           make
-      - uses: actions/upload-artifact@v1
+      - uses: actions/upload-artifact@v3
         with:
           name: testproject-compiled
           path: prizmsdk/projects/example
