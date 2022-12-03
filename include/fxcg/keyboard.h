@@ -155,6 +155,11 @@
 #define KEY_CTRL_RESERVE2   30061
 #define KEY_SHIFT_LEFT      30062
 #define KEY_SHIFT_RIGHT     30063
+#define KEY_ALPHA_MINUS     30070
+#define KEY_CLIP_UP         30041
+#define KEY_CLIP_DOWN       30044
+#define KEY_CLIP_LEFT       30042
+#define KEY_CLIP_RIGHT      30043
 
 #define KEY_PRGM_ACON 10
 #define KEY_PRGM_DOWN 37
