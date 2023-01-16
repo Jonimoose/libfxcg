@@ -7,7 +7,7 @@ extern "C" {
 
 int USB_Open(short param_1);
 int USB_IsOpen(void);
-int USB_Close(int mode);
+int USB_Close(void);
 
 int USB_Read(unsigned char *out, int sz, short *count);
 int USB_ReadSingle(unsigned char *out);
