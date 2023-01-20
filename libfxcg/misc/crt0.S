@@ -49,7 +49,7 @@ bssDone:
    
     mov.l main, r7
     extu.w r14, r5
-    mov.l @r15+, r5
+    mov.l @r15+, r4
     lds.l @r15+, pr
     jmp @r7
     mov.l @r15+, r14        ! Delay slot
