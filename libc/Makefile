@@ -6,7 +6,7 @@ CFLAGS=-c -ffunction-sections -fdata-sections -Os -flto -ffat-lto-objects \
 	   -m4a-nofpu -mhitachi -ffreestanding -Wall -Wsystem-headers -g -I../include
 LDFLAGS=-Wl,-static -lfxcg
 ARFLAGS=rsv
-OBJECTS=printf.o setjmp.o stdio.o stdlib.o ctype.o string.o unistd.o time.o
+OBJECTS=printf.o setjmp.o stdio.o stdlib.o ctype.o string.o unistd.o time.o math.o
 LIBRARY=libc.a
 
 all: $(LIBRARY)
