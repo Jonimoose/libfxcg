@@ -158,6 +158,26 @@ void Bdisp_WriteSystemMessage( int x, int y, int msgno, int mode, char color3 );
 void Bdisp_MMPrintRef(int*x, int*y, unsigned char*, int mode, int xmax, int, int, int color, int, int, int);
 void Bdisp_MMPrint(int x, int y, unsigned char*, int mode, int xmax, int, int, int color, int backcolor, int, int);
 
+enum
+{
+    PRINT_CHARSET_DEFAULT = 0,
+    PRINT_CHARSET_GB18030 = 0x03a8,
+};
+
+/**
+ * Set the character set used for following text output functions.
+ *
+ * Known values are provided as PRINT_CHARSET_* constants.
+ *
+ * Returns 1 if the provided charset code is recognized, 0 otherwise.
+ */
+int ProcessPrintChars(unsigned short charset);
+
+/** Set the character set to GB18030. */
+void EnableGB18030(void);
+/** Set the character set to latin. */
+void DisableGB18030(void);
+
 //Progressbars and scrollbars:
 struct scrollbar
 {
