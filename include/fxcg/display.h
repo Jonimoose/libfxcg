@@ -211,7 +211,8 @@ void ProgressBar2(unsigned char *heading, int current, int max);
 #define SAF_SETUP_DISPLAY                       0x0040
 #define SAF_TEXT                                0x0100
 #define SAF_GLYPH                               0x0200
-int DefineStatusAreaFlags( int, int, void*, void* );
+
+int DefineStatusAreaFlags( int mode, int flags, char *color1, char *color2 );
 void DefineStatusGlyph( int, void* );
 void DefineStatusMessage( char*msg, short P2, char P3, char P4 );
 void DisplayStatusArea( void );
