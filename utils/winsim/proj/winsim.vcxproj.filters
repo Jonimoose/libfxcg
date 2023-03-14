@@ -1,0 +1,144 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Header Files\fxcg">
+      <UniqueIdentifier>{81f25d03-206f-4091-94fb-385fc0d7b7dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="zx7">
+      <UniqueIdentifier>{7e9b126b-5292-48f8-9c3a-497521f2770e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="calctype">
+      <UniqueIdentifier>{92617692-7833-444c-9ec1-d812663cf106}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ptune2_simple">
+      <UniqueIdentifier>{75bf1e61-ecef-4ee8-92be-ca7c4aeb6b2a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="snd">
+      <UniqueIdentifier>{e5154569-96f2-4bc7-ac54-74f7152858c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="scope_timer">
+      <UniqueIdentifier>{59caa838-f3e8-45a4-8171-58574084dbac}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\winmain.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\calctype\src\calctype_prizm.c">
+      <Filter>calctype</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\calctype\src\calctype.c">
+      <Filter>calctype</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\zx7\src\optimize.c">
+      <Filter>zx7</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\zx7\src\zx7.c">
+      <Filter>zx7</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\zx7\src\compress.c">
+      <Filter>zx7</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\zx7\src\dzx7.c">
+      <Filter>zx7</Filter>
+    </ClCompile>
+    <ClCompile Include="..\sim_file.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\sim_misc.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ptune2_simple\src\Ptune2_direct.c">
+      <Filter>ptune2_simple</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\snd\src\snd_sim.cpp">
+      <Filter>snd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\snd\src\snd_prizm.cpp">
+      <Filter>snd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\snd\src\snd_main.cpp">
+      <Filter>snd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\scope_timer\src\scope_timer.cpp">
+      <Filter>scope_timer</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\prizmsim.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\prizmfont.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\fxcg\registers.h">
+      <Filter>Header Files\fxcg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\fxcg\rtc.h">
+      <Filter>Header Files\fxcg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\fxcg\serial.h">
+      <Filter>Header Files\fxcg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\fxcg\system.h">
+      <Filter>Header Files\fxcg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\fxcg\misc.h">
+      <Filter>Header Files\fxcg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\fxcg\app.h">
+      <Filter>Header Files\fxcg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\fxcg\display.h">
+      <Filter>Header Files\fxcg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\fxcg\file.h">
+      <Filter>Header Files\fxcg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\fxcg\heap.h">
+      <Filter>Header Files\fxcg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\fxcg\keyboard.h">
+      <Filter>Header Files\fxcg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\zx7\zx7.h">
+      <Filter>zx7</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\calctype\calctype.h">
+      <Filter>calctype</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\ptune2_simple\Ptune2_direct.h">
+      <Filter>ptune2_simple</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\ptune2_simple\src\SH7305_CPG_BSC.h">
+      <Filter>ptune2_simple</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\snd\snd.h">
+      <Filter>snd</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\snd\src\snd_private.h">
+      <Filter>snd</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\scope_timer\scope_timer.h">
+      <Filter>scope_timer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\scope_timer\src\tmu.h">
+      <Filter>scope_timer</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\README.md" />
+  </ItemGroup>
+</Project>

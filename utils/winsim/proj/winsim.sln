@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2003
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "winsim", "winsim.vcxproj", "{CDCB62B5-A258-4B9A-AC63-732B0C7B4574}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		WindowsSim|Win32 = WindowsSim|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CDCB62B5-A258-4B9A-AC63-732B0C7B4574}.WindowsSim|Win32.ActiveCfg = WindowsSim|Win32
+		{CDCB62B5-A258-4B9A-AC63-732B0C7B4574}.WindowsSim|Win32.Build.0 = WindowsSim|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0C93829C-A779-4E0F-892E-21EEE8345897}
+	EndGlobalSection
+EndGlobal
