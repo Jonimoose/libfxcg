@@ -8,17 +8,7 @@ include $(FXCGSDK)/toolchain/base_rules
 # path to tools 
 #---------------------------------------------------------------------------------
 export PATH	:=	$(FXCGSDK)/bin:$(PATH)
-
 export MKG3A := mkg3a
-
-#---------------------------------------------------------------------------------
-# This is from devkitpro's MSVC stuff for makings errors cleaner, requires sed
-#---------------------------------------------------------------------------------
-#ISVC=$(or $(VCBUILDHELPER_COMMAND),$(MSBUILDEXTENSIONSPATH32),$(MSBUILDEXTENSIONSPATH))
-#
-#ifneq (,$(ISVC))
-#	ERROR_FILTER	:=	2>&1 | sed -e 's/\(.[a-zA-Z]\+\):\([0-9]\+\):/\1(\2):/g'
-#endif
 
 #---------------------------------------------------------------------------------
 %.a:
