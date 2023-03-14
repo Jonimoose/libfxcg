@@ -1,0 +1,56 @@
+# AngelCode Bitmap Font Generator configuration file
+fileVersion=1
+
+# font settings
+fontName=Sabon LT Std
+fontFile=
+charSet=0
+fontSize=-145
+aa=1
+scaleH=100
+useSmoothing=1
+isBold=1
+isItalic=0
+useUnicode=1
+disableBoxChars=1
+outputInvalidCharGlyph=0
+dontIncludeKerningPairs=1
+useHinting=1
+renderFromOutline=0
+useClearType=1
+
+# character alignment
+paddingDown=0
+paddingUp=30
+paddingRight=24
+paddingLeft=0
+spacingHoriz=1
+spacingVert=1
+useFixedHeight=1
+forceZero=0
+
+# output file
+outWidth=2048
+outHeight=2048
+outBitDepth=32
+fontDescFormat=1
+fourChnlPacked=0
+textureFormat=png
+textureCompression=0
+alphaChnl=0
+redChnl=4
+greenChnl=4
+blueChnl=4
+invA=0
+invR=0
+invG=0
+invB=0
+
+# outline
+outlineThickness=0
+
+# selected chars
+chars=32-126,160-255,305,321-322,338-339,352-353,376,381-382,402,710-711,713,728-733,937,956,960,8364
+
+
+# imported icon images
