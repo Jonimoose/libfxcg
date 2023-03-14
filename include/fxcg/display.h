@@ -245,6 +245,21 @@ int SMEM_MapIconToExt( unsigned char*filename, unsigned short*foldername, unsign
 void VRAM_CopySprite(const color_t* data, int x, int y, int width, int height);
 void VRAM_XORSprite(const color_t* data, int x, int y, int width, int height);
 
+// tswilliamson : So far this appears to be the most reliable way to determine model
+typedef enum {
+    DT_CG20,    // or CG10
+    DT_CG50,
+    DT_Winsim
+} DeviceType;
+
+inline DeviceType getDeviceType() {
+  #if TARGET_PRIZM
+    return (unsigned int)GetVRAMAddress() == 0xAC000000 ? DT_CG50 : DT_CG20;
+  #else
+    return DT_Winsim;
+  #endif
+}
+
 // Original Author, Shaun McFall (Merthsoft)
 // Used with permission
 
