@@ -7,7 +7,7 @@ ifeq ($(strip $(FXCGSDK)),)
 export FXCGSDK := $(realpath ../../)
 endif
 
-include $(FXCGSDK)/toolchain/util_rules
+include $(FXCGSDK)/toolchain/prizm_rules
 
 
 #---------------------------------------------------------------------------------
