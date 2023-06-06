@@ -1,5 +1,5 @@
-#include "calctype.h"
-#include "fxcg\display.h"
+#include "../calctype.h"
+#include <fxcg/display.h>
 
 unsigned char* CalcType_DefaultVRAM() {
 	// direct to screen

@@ -1,4 +1,4 @@
-#include "calctype.h"
+#include "../calctype.h"
 
 extern unsigned char* CalcType_DefaultVRAM();
 extern unsigned int CalcType_DefaultPitch();
