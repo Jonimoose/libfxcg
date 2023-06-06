@@ -57,11 +57,11 @@ endif
 
 #---------------------------------------------------------------------------------
 %.o: %.cpp
-	$(CXX) -MMD -MP -MF $(DEPSDIR)/$*.d $(CXXFLAGS) -c $< -o $@ $(ERROR_FILTER)
+	$(CXX) -MMD -MP -MF $(DEPSDIR)/$*.d -DTARGET_PRIZM=1 $(CXXFLAGS) -c $< -o $@ $(ERROR_FILTER)
 	
 #---------------------------------------------------------------------------------
 %.o: %.c
-	$(CC) -MMD -MP -MF $(DEPSDIR)/$*.d $(CFLAGS) -c $< -o $@ $(ERROR_FILTER)
+	$(CC) -MMD -MP -MF $(DEPSDIR)/$*.d -DTARGET_PRIZM=1 $(CFLAGS) -c $< -o $@ $(ERROR_FILTER)
 
 #---------------------------------------------------------------------------------
 %.o: %.m
