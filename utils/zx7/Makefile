@@ -17,7 +17,7 @@ include $(FXCGSDK)/toolchain/prizm_rules
 # INCLUDES is a list of directories containing extra header files
 #---------------------------------------------------------------------------------
 TARGET		:=	$(notdir $(CURDIR))
-BUILD		:=	$(CONFIG)
+BUILD		:=	build
 SOURCES		:=	src
 INCLUDES	:=
 
@@ -52,7 +52,7 @@ LIBDIRS	:=
 
 ifneq ($(BUILD),$(notdir $(CURDIR)))
 
-export OUTPUT	:=	$(CURDIR)/../lib/lib$(TARGET)
+export OUTPUT	:=	$(CURDIR)/../../lib/lib$(TARGET)
 export DEPSDIR	:=	$(CURDIR)/$(BUILD)
 
 #---------------------------------------------------------------------------------
@@ -77,18 +77,20 @@ endif
 export INCLUDE	:=	$(foreach dir,$(INCLUDES), -iquote $(CURDIR)/$(dir)) \
 					$(foreach dir,$(LIBDIRS),-I$(dir)/include) \
 					-I$(CURDIR)/$(BUILD) -I$(LIBFXCG_INC) -I$(CURDIR)
-					
+
 export VPATH	:=	$(foreach dir,$(SOURCES),$(CURDIR)/$(dir))
-					
+
 export OFILES	:=	$(addsuffix .o,$(BINFILES)) \
 					$(CPPFILES:.cpp=.o) $(CFILES:.c=.o) \
 					$(SFILES:.S=.o)
 .PHONY: $(BUILD) clean
 
 #---------------------------------------------------------------------------------
+all: $(BUILD)
+	@make --no-print-directory -C $(BUILD) -f $(CURDIR)/Makefile
+
 $(BUILD):
 	@[ -d $@ ] || mkdir $@
-	@make --no-print-directory -C $(BUILD) -f $(CURDIR)/Makefile
 
 #---------------------------------------------------------------------------------
 export CYGWIN := nodosfilewarning
