@@ -18,7 +18,7 @@ include $(FXCGSDK)/toolchain/prizm_rules
 #---------------------------------------------------------------------------------
 TARGET		:=	$(notdir $(CURDIR))
 BUILD		:=	build
-SOURCES		:=	src
+SOURCES		:=	src $(foreach dir,fonts,$(wildcard $(dir)/*))
 INCLUDES	:=
 
 #---------------------------------------------------------------------------------
