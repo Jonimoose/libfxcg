@@ -3,6 +3,7 @@ $(error "Please set FXCGSDK in your environment. export FXCGSDK=<path to sdk loc
 endif
 
 export	LIBFXCG_INC	:=	$(FXCGSDK)/include
+export	UTILS_INC	:=	$(FXCGSDK)/utils
 export	LIBFXCG_LIB	:=	$(FXCGSDK)/lib
 
 MACHDEP = -mb -m4a-nofpu -mhitachi -nostdlib
