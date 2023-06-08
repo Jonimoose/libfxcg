@@ -9,7 +9,7 @@
 #include "zx7.h"
 
 void printHelp() {
-  std::cout << "Usage: compresszx7 [OPTION]... INPUT [OUTPUT]" << std::endl
+  std::cout << "Usage: zx7 [OPTION]... INPUT [OUTPUT]" << std::endl
             << "Compress INPUT with zx7 to OUTPUT." << std::endl
             << std::endl
             << "  -d, --decompress\tdecompress INPUT instead of compressing "
