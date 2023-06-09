@@ -11,9 +11,19 @@
 #include <string.h>
 
 // Unspecified members initialized to zero.
-FILE _impl_stdin = {0};
-FILE _impl_stdout = {1};
-FILE _impl_stderr = {2};
+FILE _impl_stdin = {
+    .fileno = 0
+};
+FILE _impl_stdout = {
+    .fileno = 1,
+    .out_screen = 1,
+    .out_serial = 1
+};
+FILE _impl_stderr = {
+    .fileno = 2,
+    .out_serial = 1,
+    .out_screen = 0
+};
 
 enum {
     SYSFILE_MODE_READ = 0,
@@ -198,15 +208,17 @@ static size_t fwrite_term(const void *ptr, size_t size, size_t nitems,
 size_t fwrite(const void *ptr, size_t size, size_t nitems,
               FILE *stream) {
     if (isstdstream(stream)) {
-        if (stream->fileno == 2) {
-            // stderr: serial
-            return fwrite_serial(ptr, size, nitems, stream);
-        } else if (stream->fileno == 1) {
-            // stdout: display
-            return fwrite_term(ptr, size, nitems, stream);
-        } else {
-            // stdin..?
-        }
+        size_t ret = nitems;
+
+        // serial output
+        if (stream->out_serial == 1)
+            ret = fwrite_serial(ptr, size, nitems, stream);
+
+        // display output
+        if (stream->out_screen == 1)
+            ret = fwrite_term(ptr, size, nitems, stream);
+
+        return ret;
     }
     // TODO this must be able to fail, but how?
     Bfile_WriteFile_OS(handle_tonative(stream->fileno), ptr, size * nitems);
