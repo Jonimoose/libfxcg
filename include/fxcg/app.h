@@ -14,8 +14,8 @@ void APP_SYSTEM_RESET( void );
 void APP_SYSTEM_VERSION( void );
 void APP_SYSTEM( void );
 void APP_RUNMAT(int, int);
-void APP_MEMORY();
-void App_Optimize();
+void APP_MEMORY( void );
+void App_Optimize( void );
 
 void ResetAllDialog( void );
 unsigned char*GetAppName( unsigned char*name );

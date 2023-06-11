@@ -5,17 +5,17 @@ extern "C" {
 // This adds in syscalls for interfacing with the OS and hardware.
 
 void SetAutoPowerOffTime(int durationInMinutes);
-int GetAutoPowerOffTime(); //returns duration in minutes
+int GetAutoPowerOffTime(void); //returns duration in minutes
 
 void SetBacklightDuration(char durationInHalfMinutes);
-char GetBacklightDuration(); //returns duration in half-minutes
+char GetBacklightDuration(void); //returns duration in half-minutes
 
 void SetBatteryType(int type);
 int GetBatteryType(void);
 
 int GetMainBatteryVoltage(int one); //parameter should be 1
 void PowerOff(int displayLogo);
-void Restart();
+void Restart(void);
 void SpecialMatrixcodeProcessing(int*col, int*row);
 void TestMode(int);
 void*GetStackPtr(void);
@@ -39,7 +39,7 @@ void OS_InnerWait_ms(int);
 void CMT_Delay_100micros(int); //does CMT stand for Composable Memory Transactions? Couldn't find documentation on this
 void CMT_Delay_micros(int); //   nor on this (gbl08ma)
 
-void SetQuitHandler(void (*)()); // sets callback to be run when user exits through the main menu from one app to another. eActivity uses this in the "Save file?" dialog
+void SetQuitHandler(void (*)(void)); // sets callback to be run when user exits through the main menu from one app to another. eActivity uses this in the "Save file?" dialog
 
 void Alpha_SetData( char VarName, void* Src );
 void Alpha_GetData( char VarName, void* Dest );
