@@ -252,7 +252,7 @@ typedef enum {
     DT_Winsim
 } DeviceType;
 
-inline DeviceType getDeviceType() {
+inline DeviceType getDeviceType(void) {
   #if TARGET_PRIZM
     return (unsigned int)GetVRAMAddress() == 0xAC000000 ? DT_CG50 : DT_CG20;
   #else
