@@ -184,17 +184,13 @@ static size_t fwrite_term(const void *ptr, size_t size, size_t nitems,
     // Loop over all lines in buffer, terminate once we've printed all lines.
     do {
         eol = strchr(outp, '\n');
-        if(eol) {
+        if (eol)
           *eol = '\0';
-        }
 
-        // Cast to wider type for correct pointers
-        int termx = stream->termx, termy = stream->termy;
-        PrintMiniMini(&termx, &termy, outp, 0, TEXT_COLOR_BLACK, 0);
+        PrintMiniMini(&stream->termx, &stream->termy, outp, 0, TEXT_COLOR_BLACK, 0);
 
         // CR/LF if applicable
-        if(eol)
-        {
+        if (eol) {
             stream->termx = 0;
             stream->termy += 10;
             outp = eol + 1;
