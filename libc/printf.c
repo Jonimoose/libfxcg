@@ -34,7 +34,6 @@ int printf(const char *fmt, ...) {
 }
 
 int vprintf(const char *fmt, va_list ap) {
-
   return (kvprintf(fmt, putchar_wrapper, NULL, 10, ap));
 }
 
@@ -198,13 +197,17 @@ static int kvprintf(char const *fmt, kvprintf_fn_t *func, void *arg, int radix,
 
   char nbuf[MAXNBUF];
   char *d;
-  const char *p, *percent, *q;
-  uint16_t *S;
-  unsigned char *up;
+  const char *p, *percent;
   int ch, n;
   uintmax_t num;
-  int base, lflag, qflag, tmp, width, ladjust, sharpflag, neg, sign, dot;
-  int cflag, hflag, jflag, tflag, zflag;
+  int base, lflag, tmp, width, ladjust, sharpflag, neg, sign, dot;
+  int cflag, hflag;
+#ifndef PRINTF_MINIMAL
+  int jflag, qflag, tflag, zflag;
+  uint16_t *S;
+  unsigned char *up;
+  const char *q;
+#endif
   int dwidth, upper;
   char padc;
   int stop = 0, retval = 0;
@@ -232,7 +235,6 @@ static int kvprintf(char const *fmt, kvprintf_fn_t *func, void *arg, int radix,
     }
 
     percent = fmt - 1;
-    qflag = 0;
     lflag = 0;
     ladjust = 0;
     sharpflag = 0;
@@ -243,12 +245,116 @@ static int kvprintf(char const *fmt, kvprintf_fn_t *func, void *arg, int radix,
     upper = 0;
     cflag = 0;
     hflag = 0;
+
+#ifndef PRINTF_MINIMAL
+    qflag = 0;
     jflag = 0;
     tflag = 0;
     zflag = 0;
+#endif
 
   reswitch:
     switch (ch = (unsigned char)*fmt++) {
+#ifndef PRINTF_MINIMAL
+    case 'b':
+      num = (unsigned int)va_arg(ap, int);
+      p = va_arg(ap, char *);
+      for (q = ksprintn(nbuf, num, *p++, NULL, 0); *q;)
+        PCHAR(*q--);
+
+      if (num == 0)
+        break;
+
+      for (tmp = 0; *p;) {
+        n = *p++;
+        if (num & (1 << (n - 1))) {
+          PCHAR(tmp ? ',' : '<');
+          for (; (n = *p) > ' '; ++p)
+            PCHAR(n);
+          tmp = 1;
+        } else
+          for (; *p > ' '; ++p)
+            continue;
+      }
+      if (tmp)
+        PCHAR('>');
+      break;
+    case 'D':
+      up = va_arg(ap, unsigned char *);
+      p = va_arg(ap, char *);
+      if (!width)
+        width = 16;
+      while (width--) {
+        PCHAR(hex2ascii[*up >> 4]);
+        PCHAR(hex2ascii[*up & 0x0f]);
+        up++;
+        if (width)
+          for (q = p; *q; q++)
+            PCHAR(*q);
+      }
+      break;
+    case 'j':
+      jflag = 1;
+      goto reswitch;
+    case 'n':
+      if (jflag)
+        *(va_arg(ap, intmax_t *)) = retval;
+      else if (qflag)
+        *(va_arg(ap, int64_t *)) = retval;
+      else if (lflag)
+        *(va_arg(ap, long *)) = retval;
+      else if (zflag)
+        *(va_arg(ap, size_t *)) = retval;
+      else if (hflag)
+        *(va_arg(ap, short *)) = retval;
+      else if (cflag)
+        *(va_arg(ap, char *)) = retval;
+      else
+        *(va_arg(ap, int *)) = retval;
+      break;
+    case 'q':
+      qflag = 1;
+      goto reswitch;
+    case 'r':
+      base = radix;
+      if (sign)
+        goto handle_sign;
+      goto handle_nosign;
+    case 'S': /* Assume console can cope with wide chars */
+      for (S = va_arg(ap, uint16_t *); *S != 0; S++)
+        PCHAR(*S);
+      break;
+    case 't':
+      tflag = 1;
+      goto reswitch;
+    case 'y':
+      base = 16;
+      sign = 1;
+      goto handle_sign;
+    case 'z':
+      zflag = 1;
+      goto reswitch;
+    case '1':
+    case '2':
+    case '3':
+    case '4':
+    case '5':
+    case '6':
+    case '7':
+    case '8':
+    case '9':
+      for (n = 0;; ++fmt) {
+        n = n * 10 + ch - '0';
+        ch = *fmt;
+        if (ch < '0' || ch > '9')
+          break;
+      }
+      if (dot)
+        dwidth = n;
+      else
+        width = n;
+      goto reswitch;
+#endif
     case '.':
       dot = 1;
       goto reswitch;
@@ -280,65 +386,8 @@ static int kvprintf(char const *fmt, kvprintf_fn_t *func, void *arg, int radix,
         padc = '0';
         goto reswitch;
       }
-    case '1':
-    case '2':
-    case '3':
-    case '4':
-    case '5':
-    case '6':
-    case '7':
-    case '8':
-    case '9':
-      for (n = 0;; ++fmt) {
-        n = n * 10 + ch - '0';
-        ch = *fmt;
-        if (ch < '0' || ch > '9')
-          break;
-      }
-      if (dot)
-        dwidth = n;
-      else
-        width = n;
-      goto reswitch;
-    case 'b':
-      num = (unsigned int)va_arg(ap, int);
-      p = va_arg(ap, char *);
-      for (q = ksprintn(nbuf, num, *p++, NULL, 0); *q;)
-        PCHAR(*q--);
-
-      if (num == 0)
-        break;
-
-      for (tmp = 0; *p;) {
-        n = *p++;
-        if (num & (1 << (n - 1))) {
-          PCHAR(tmp ? ',' : '<');
-          for (; (n = *p) > ' '; ++p)
-            PCHAR(n);
-          tmp = 1;
-        } else
-          for (; *p > ' '; ++p)
-            continue;
-      }
-      if (tmp)
-        PCHAR('>');
-      break;
     case 'c':
       PCHAR(va_arg(ap, int));
-      break;
-    case 'D':
-      up = va_arg(ap, unsigned char *);
-      p = va_arg(ap, char *);
-      if (!width)
-        width = 16;
-      while (width--) {
-        PCHAR(hex2ascii[*up >> 4]);
-        PCHAR(hex2ascii[*up & 0x0f]);
-        up++;
-        if (width)
-          for (q = p; *q; q++)
-            PCHAR(*q);
-      }
       break;
     case 'd':
     case 'i':
@@ -352,32 +401,15 @@ static int kvprintf(char const *fmt, kvprintf_fn_t *func, void *arg, int radix,
       } else
         hflag = 1;
       goto reswitch;
-    case 'j':
-      jflag = 1;
-      goto reswitch;
     case 'l':
       if (lflag) {
         lflag = 0;
+#ifndef PRINTF_MINIMAL
         qflag = 1;
+#endif
       } else
         lflag = 1;
       goto reswitch;
-    case 'n':
-      if (jflag)
-        *(va_arg(ap, intmax_t *)) = retval;
-      else if (qflag)
-        *(va_arg(ap, int64_t *)) = retval;
-      else if (lflag)
-        *(va_arg(ap, long *)) = retval;
-      else if (zflag)
-        *(va_arg(ap, size_t *)) = retval;
-      else if (hflag)
-        *(va_arg(ap, short *)) = retval;
-      else if (cflag)
-        *(va_arg(ap, char *)) = retval;
-      else
-        *(va_arg(ap, int *)) = retval;
-      break;
     case 'o':
       base = 8;
       goto handle_nosign;
@@ -387,14 +419,6 @@ static int kvprintf(char const *fmt, kvprintf_fn_t *func, void *arg, int radix,
       sign = 0;
       num = (uintptr_t)va_arg(ap, void *);
       goto number;
-    case 'q':
-      qflag = 1;
-      goto reswitch;
-    case 'r':
-      base = radix;
-      if (sign)
-        goto handle_sign;
-      goto handle_nosign;
     case 's':
       p = va_arg(ap, char *);
       if (p == NULL)
@@ -416,13 +440,6 @@ static int kvprintf(char const *fmt, kvprintf_fn_t *func, void *arg, int radix,
         while (width--)
           PCHAR(padc);
       break;
-    case 'S': /* Assume console can cope with wide chars */
-      for (S = va_arg(ap, uint16_t *); *S != 0; S++)
-        PCHAR(*S);
-      break;
-    case 't':
-      tflag = 1;
-      goto reswitch;
     case 'u':
       base = 10;
       goto handle_nosign;
@@ -431,47 +448,44 @@ static int kvprintf(char const *fmt, kvprintf_fn_t *func, void *arg, int radix,
     case 'x':
       base = 16;
       goto handle_nosign;
-    case 'y':
-      base = 16;
-      sign = 1;
-      goto handle_sign;
-    case 'z':
-      zflag = 1;
-      goto reswitch;
     handle_nosign:
       sign = 0;
-      if (jflag)
+      if (lflag)
+        num = va_arg(ap, unsigned long);
+      else if (hflag)
+        num = (unsigned short)va_arg(ap, int);
+      else if (cflag)
+        num = (unsigned char)va_arg(ap, int);
+#ifndef PRINTF_MINIMAL
+      else if (jflag)
         num = va_arg(ap, uintmax_t);
       else if (qflag)
         num = va_arg(ap, uint64_t);
       else if (tflag)
         num = va_arg(ap, ptrdiff_t);
-      else if (lflag)
-        num = va_arg(ap, unsigned long);
       else if (zflag)
         num = va_arg(ap, size_t);
-      else if (hflag)
-        num = (unsigned short)va_arg(ap, int);
-      else if (cflag)
-        num = (unsigned char)va_arg(ap, int);
+#endif
       else
         num = va_arg(ap, unsigned int);
       goto number;
     handle_sign:
-      if (jflag)
+      if (lflag)
+        num = va_arg(ap, long);
+      else if (hflag)
+        num = (short)va_arg(ap, int);
+      else if (cflag)
+        num = (char)va_arg(ap, int);
+#ifndef PRINTF_MINIMAL
+      else if (jflag)
         num = va_arg(ap, intmax_t);
       else if (qflag)
         num = va_arg(ap, int64_t);
       else if (tflag)
         num = va_arg(ap, ptrdiff_t);
-      else if (lflag)
-        num = va_arg(ap, long);
       else if (zflag)
         num = va_arg(ap, int);
-      else if (hflag)
-        num = (short)va_arg(ap, int);
-      else if (cflag)
-        num = (char)va_arg(ap, int);
+#endif
       else
         num = va_arg(ap, int);
     number:
