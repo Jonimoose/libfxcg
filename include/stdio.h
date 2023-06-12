@@ -20,6 +20,10 @@ typedef struct {
     unsigned char unput;
     /* Used only for terminal output (on stdout) */
     unsigned short termx, termy;
+    /* Whether to output to the serial (default for stderr and stdout) */
+    unsigned char out_serial : 1;
+    /* Whether to output to the screen (default for stdout) */
+    unsigned char out_screen : 1;
 } FILE;
 
 extern FILE _impl_stdin, _impl_stdout, _impl_stderr;
