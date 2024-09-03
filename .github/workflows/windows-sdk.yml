@@ -149,15 +149,15 @@ jobs:
     needs: [build_libfxcg, build_mkg3a, build_toolchain]
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/download-artifact@v3
+      - uses: actions/download-artifact@v4.1.7
         with:
           name: libfxcg
           path: pkg
-      - uses: actions/download-artifact@v3
+      - uses: actions/download-artifact@v4.1.7
         with:
           name: mkg3a
           path: pkg
-      - uses: actions/download-artifact@v3
+      - uses: actions/download-artifact@v4.1.7
         with:
           name: toolchain-bin-gcc10.1.0
           path: pkg
@@ -187,7 +187,7 @@ jobs:
     runs-on: windows-latest
     needs: package
     steps:
-      - uses: actions/download-artifact@v3
+      - uses: actions/download-artifact@v4.1.7
         with:
           name: pkg-win
           path: prizmsdk
