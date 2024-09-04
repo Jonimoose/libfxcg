@@ -13,13 +13,13 @@ jobs:
           apt-get -qqy update
           apt-get -qq install build-essential curl mingw-w64 texinfo
 
-      - uses: actions/cache@v3
+      - uses: actions/cache@v4
         id: cache-binaries
         name: Cache toolchain binaries
         with:
           path: toolchain-bin
           key: toolchain-win-gcc10.1.0_binutils2.34
-      - uses: actions/cache@v3
+      - uses: actions/cache@v4
         id: cache-sources
         if: steps.cache-binaries.outputs.cache-hit != 'true'
         name: Cache toolchain sources
@@ -72,7 +72,7 @@ jobs:
           cd ${GITHUB_WORKSPACE}/toolchain-bin
           find . -name '*.exe' -exec i686-w64-mingw32-strip {} \;
 
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: toolchain-bin-gcc10.1.0
           path: toolchain-bin
@@ -83,13 +83,13 @@ jobs:
     container:
       image: jonimoose/libfxcg-toolchain
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Compile
         run: |
           make
           mkdir dist
           cp -r lib include dist
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: libfxcg
           path: dist
@@ -138,7 +138,7 @@ jobs:
                 -DCMAKE_INSTALL_PREFIX=${GITHUB_WORKSPACE}/mkg3a-bin \
                 .
           make install -j$(nproc)
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: mkg3a
           path: mkg3a-bin
@@ -148,16 +148,16 @@ jobs:
     runs-on: ubuntu-latest
     needs: [build_libfxcg, build_mkg3a, build_toolchain]
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/download-artifact@v3
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
         with:
           name: libfxcg
           path: pkg
-      - uses: actions/download-artifact@v3
+      - uses: actions/download-artifact@v4
         with:
           name: mkg3a
           path: pkg
-      - uses: actions/download-artifact@v3
+      - uses: actions/download-artifact@v4
         with:
           name: toolchain-bin-gcc10.1.0
           path: pkg
@@ -177,7 +177,7 @@ jobs:
           cp -r toolchain pkg/toolchain
           mkdir pkg/projects
           cp -r examples/skeleton pkg/projects/example
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: pkg-win
           path: pkg
@@ -187,7 +187,7 @@ jobs:
     runs-on: windows-latest
     needs: package
     steps:
-      - uses: actions/download-artifact@v3
+      - uses: actions/download-artifact@v4
         with:
           name: pkg-win
           path: prizmsdk
@@ -195,7 +195,7 @@ jobs:
         run: |
           cd prizmsdk/projects/example
           make
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: testproject-compiled
           path: prizmsdk/projects/example
