@@ -11,4 +11,4 @@ void sys_srand(unsigned seed) {
 }
 
 __attribute__((weak)) int rand(void) { return sys_rand(); }
-__attribute__((weak)) void srand(unsigned seed) { srand(seed); }
+__attribute__((weak)) void srand(unsigned seed) { sys_srand(seed); }
