@@ -1,0 +1,10 @@
+#!/bin/bash
+DIR=$(dirname "$0")
+clear
+cd $DIR
+
+magick images/icon~uns.png -ordered-dither o4x4,32,64,32 icon~uns.bmp
+magick images/icon~sel.png -ordered-dither o4x4,32,64,32 icon~sel.bmp
+
+# Close the Terminal window
+osascript -e 'tell application "Terminal" to close window 1' & exit

@@ -1,0 +1,7 @@
+#!/bin/bash
+DIR=$(dirname "$0")
+clear
+cd $DIR
+
+
+make
