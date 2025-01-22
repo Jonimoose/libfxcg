@@ -22,7 +22,7 @@ SECTIONS
         } > rom
 
         .ilram : {
-                _ilramld = LOADADDR(.data) ;
+                _ilramld = LOADADDR(.ilram) ;
                 _silram = . ;
                 *(.ilram)
                 *(.ilram.*)
