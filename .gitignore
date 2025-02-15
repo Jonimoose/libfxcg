@@ -3,3 +3,4 @@
 *.a
 *.bin
 *.g3a
+.DS_Store
