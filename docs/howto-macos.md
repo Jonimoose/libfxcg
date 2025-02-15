@@ -15,6 +15,14 @@ Extract and drag & drop into your CASIO folder in Applications
 
 ![PrizmSDK directory](img/macos/sdk-dir.png)
 
+### For installing pre-compiled binary files.
+Open a Terminal window and navigate to the example directory.
+```
+grep -qxF 'export PATH=/Applications/CASIO/PrizmSDK:/Applications/CASIO/PrizmSDK/bin:/Applications/CASIO/PrizmSDK/sh3eb-elf/bin:$PATH' ~/.zshrc || echo 'export PATH=/Applications/CASIO/PrizmSDK:/Applications/CASIO/PrizmSDK/bin:/Applications/CASIO/PrizmSDK/sh3eb-elf/bin:$PATH' >> ~/.zshrc
+grep -qxF 'export FXCGSDK=/Applications/CASIO/PrizmSDK' ~/.zshrc || echo 'export FXCGSDK=/Applications/CASIO/PrizmSDK' >> ~/.zshrc
+source ~/.zshrc
+```
+
 
 ## Look at the example project
 
