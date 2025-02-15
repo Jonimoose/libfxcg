@@ -22,6 +22,7 @@ source ~/.zshrc
 ```
 >[!NOTE]
 You may require **gmp, mpfr, libmpc and isl** to be installed, also **imagemagick** is required by the icon script.
+
 `brew install gmp mpfr libmpc isl imagemagick`
 
 ## The Example Project
