@@ -22,7 +22,9 @@ grep -qxF 'export PATH=/Applications/CASIO/PrizmSDK:/Applications/CASIO/PrizmSDK
 grep -qxF 'export FXCGSDK=/Applications/CASIO/PrizmSDK' ~/.zshrc || echo 'export FXCGSDK=/Applications/CASIO/PrizmSDK' >> ~/.zshrc
 source ~/.zshrc
 ```
-
+>[!NOTE]
+You may require **gmp, mpfr, libmpc and isl** to be installed, also **imagemagick** is required by the icon script.
+`brew install gmp mpfr libmpc isl imagemagick`
 
 ## Look at the example project
 
