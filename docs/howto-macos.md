@@ -10,6 +10,8 @@ Download the PrizmSDK Installer from the [releases
 page](https://github.com/Insoft-UK/libfxcg/releases/)
 AppleSilicon
 
+![PrizmSDK directory](img/macos/sdk-dir.png)
+
 
 ## Look at the example project
 
