@@ -6,9 +6,12 @@ information in the [top-level README](../README.md).
 
 ## Download and install the PrizmSDK Installer
 
-Download the PrizmSDK Installer from the [releases
+Download the PrizmSDK Installer for AppleSilicon from the [releases
 page](https://github.com/Insoft-UK/libfxcg/releases/)
-AppleSilicon
+
+Download the PrizmSDK Binary for Intel from the [releases
+page](https://github.com/Insoft-UK/libfxcg/releases/tag/v0.5.2)
+Extract and drag & drop into your CASIO folder in Applications
 
 ![PrizmSDK directory](img/macos/sdk-dir.png)
 
