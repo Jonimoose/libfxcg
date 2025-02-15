@@ -13,7 +13,7 @@ AppleSilicon
 
 ## Look at the example project
 
-Navigate to `projects`, then `example`. This directory contains the example
+Navigate to `Projects`, then `Example`. This directory contains the example
 project to get you started with and looks like this:
 
 ![Projects directory layout](img/macos/projects-dir.png)
