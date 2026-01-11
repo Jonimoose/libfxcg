@@ -18,8 +18,8 @@ typedef struct {
     /* Just for rewinding the stream. */
     unsigned has_unput : 1;
     unsigned char unput;
-    /* Used only for terminal output (on stdout) */
-    unsigned short termx, termy;
+    /* Used only for terminal output (default for stdout) */
+    int termx, termy;
     /* Whether to output to the serial (default for stderr and stdout) */
     unsigned char out_serial : 1;
     /* Whether to output to the screen (default for stdout) */
